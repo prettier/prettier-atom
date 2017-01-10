@@ -8,7 +8,7 @@
     "formatter"
   ],
   "activationCommands": [],
-  "repository": "https://github.com/jlongster/prettier",
+  "repository": "https://github.com/jlongster/prettier-atom",
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
