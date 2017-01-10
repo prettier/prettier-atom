@@ -14,7 +14,7 @@ Automatically format your Javascript file on save by enabling the *Format On Sav
 
 #### Menu
 
-*Packages > standard-formatter > Format*
+*Packages > prettier > Format*
 
 ### Settings
 
