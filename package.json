@@ -1,7 +1,7 @@
 {
   "name": "prettier-atom",
   "main": "./lib/prettier.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Format file contents using prettier",
   "keywords": [
     "javascript",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "find-root": "^0.1.1",
-    "prettier": "0.0.2"
+    "prettier": "0.0.4"
   },
   "devDependencies": {}
 }
