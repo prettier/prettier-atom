@@ -1,0 +1,148 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'prettier' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData prettier@0.0.6
+8 silly fetchNamedPackageData prettier
+9 silly mapToRegistry name prettier
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'prettier',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'prettier',
+12 silly mapToRegistry   name: 'prettier',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/prettier
+14 verbose request uri https://registry.npmjs.org/prettier
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 12:24:48 PM
+17 verbose request id 692cefbe81fbb718
+18 verbose etag W/"5876636b-3d86"
+19 verbose lastModified Wed, 11 Jan 2017 16:55:07 GMT
+20 http request GET https://registry.npmjs.org/prettier
+21 http 304 https://registry.npmjs.org/prettier
+22 verbose headers { date: 'Wed, 11 Jan 2017 17:24:48 GMT',
+22 verbose headers   via: '1.1 varnish',
+22 verbose headers   'cache-control': 'max-age=300',
+22 verbose headers   etag: 'W/"5876636b-3d86"',
+22 verbose headers   age: '182',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'x-served-by': 'cache-iad2649-IAD',
+22 verbose headers   'x-cache': 'HIT',
+22 verbose headers   'x-cache-hits': '1',
+22 verbose headers   'x-timer': 'S1484155488.770062,VS0,VE0',
+22 verbose headers   vary: 'Accept-Encoding' }
+23 silly get cb [ 304,
+23 silly get   { date: 'Wed, 11 Jan 2017 17:24:48 GMT',
+23 silly get     via: '1.1 varnish',
+23 silly get     'cache-control': 'max-age=300',
+23 silly get     etag: 'W/"5876636b-3d86"',
+23 silly get     age: '182',
+23 silly get     connection: 'keep-alive',
+23 silly get     'x-served-by': 'cache-iad2649-IAD',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '1',
+23 silly get     'x-timer': 'S1484155488.770062,VS0,VE0',
+23 silly get     vary: 'Accept-Encoding' } ]
+24 verbose etag https://registry.npmjs.org/prettier from cache
+25 verbose get saving prettier to /Users/james/.npm/registry.npmjs.org/prettier/.cache.json
+26 verbose correctMkdir /Users/james/.npm correctMkdir not in flight; initializing
+27 silly fetchNamedPackageData No valid target from cache, forcing network
+28 verbose request uri https://registry.npmjs.org/prettier
+29 verbose request no auth needed
+30 info attempt registry request try #1 at 12:24:48 PM
+31 http request GET https://registry.npmjs.org/prettier
+32 http 200 https://registry.npmjs.org/prettier
+33 verbose headers { server: 'nginx/1.10.1',
+33 verbose headers   'content-type': 'application/json',
+33 verbose headers   'last-modified': 'Wed, 11 Jan 2017 16:55:07 GMT',
+33 verbose headers   etag: 'W/"5876636b-3d86"',
+33 verbose headers   'content-encoding': 'gzip',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '4928',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Wed, 11 Jan 2017 17:24:48 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   age: '182',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-iad2649-IAD',
+33 verbose headers   'x-cache': 'HIT',
+33 verbose headers   'x-cache-hits': '2',
+33 verbose headers   'x-timer': 'S1484155488.802933,VS0,VE0',
+33 verbose headers   vary: 'Accept-Encoding' }
+34 silly get cb [ 200,
+34 silly get   { server: 'nginx/1.10.1',
+34 silly get     'content-type': 'application/json',
+34 silly get     'last-modified': 'Wed, 11 Jan 2017 16:55:07 GMT',
+34 silly get     etag: 'W/"5876636b-3d86"',
+34 silly get     'content-encoding': 'gzip',
+34 silly get     'cache-control': 'max-age=300',
+34 silly get     'content-length': '4928',
+34 silly get     'accept-ranges': 'bytes',
+34 silly get     date: 'Wed, 11 Jan 2017 17:24:48 GMT',
+34 silly get     via: '1.1 varnish',
+34 silly get     age: '182',
+34 silly get     connection: 'keep-alive',
+34 silly get     'x-served-by': 'cache-iad2649-IAD',
+34 silly get     'x-cache': 'HIT',
+34 silly get     'x-cache-hits': '2',
+34 silly get     'x-timer': 'S1484155488.802933,VS0,VE0',
+34 silly get     vary: 'Accept-Encoding' } ]
+35 verbose get saving prettier to /Users/james/.npm/registry.npmjs.org/prettier/.cache.json
+36 verbose correctMkdir /Users/james/.npm correctMkdir not in flight; initializing
+37 silly fetchPackageMetaData Error: No compatible version found: prettier@0.0.6
+37 silly fetchPackageMetaData Valid install targets:
+37 silly fetchPackageMetaData 0.0.5, 0.0.4, 0.0.3, 0.0.2, 0.0.1
+37 silly fetchPackageMetaData
+37 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+37 silly fetchPackageMetaData     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+37 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15)
+37 silly fetchPackageMetaData  error for prettier@0.0.6 { Error: No compatible version found: prettier@0.0.6
+37 silly fetchPackageMetaData Valid install targets:
+37 silly fetchPackageMetaData 0.0.5, 0.0.4, 0.0.3, 0.0.2, 0.0.1
+37 silly fetchPackageMetaData
+37 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+37 silly fetchPackageMetaData     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+37 silly fetchPackageMetaData     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+37 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:123:15) code: 'ETARGET' }
+38 silly rollbackFailedOptional Starting
+39 silly rollbackFailedOptional Finishing
+40 silly runTopLevelLifecycles Finishing
+41 silly install printInstalled
+42 verbose stack Error: No compatible version found: prettier@0.0.6
+42 verbose stack Valid install targets:
+42 verbose stack 0.0.5, 0.0.4, 0.0.3, 0.0.2, 0.0.1
+42 verbose stack
+42 verbose stack     at pickVersionFromRegistryDocument (/usr/local/lib/node_modules/npm/lib/fetch-package-metadata.js:178:16)
+42 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/iferr/index.js:13:50
+42 verbose stack     at /usr/local/lib/node_modules/npm/lib/utils/pulse-till-done.js:20:8
+42 verbose stack     at saved (/usr/local/lib/node_modules/npm/lib/cache/caching-client.js:174:7)
+42 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/polyfills.js:241:18
+42 verbose stack     at FSReqWrap.oncomplete (fs.js:123:15)
+43 verbose cwd /Users/james/projects/prettier-atom
+44 error Darwin 16.1.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "prettier"
+46 error node v6.9.4
+47 error npm  v3.10.10
+48 error code ETARGET
+49 error notarget No compatible version found: prettier@0.0.6
+49 error notarget Valid install targets:
+49 error notarget 0.0.5, 0.0.4, 0.0.3, 0.0.2, 0.0.1
+50 error notarget This is most likely not a problem with npm itself.
+50 error notarget In most cases you or one of your dependencies are requesting
+50 error notarget a package version that doesn't exist.
+51 verbose exit [ 1, true ]
