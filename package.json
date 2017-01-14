@@ -17,5 +17,37 @@
     "find-root": "^0.1.1",
     "prettier": "0.0.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^3.6.0",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "eslintConfig": {
+    "rules": {
+      "array-bracket-spacing": [
+        2,
+        "always"
+      ],
+      "no-console": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "extends": "airbnb-base",
+    "globals": {
+      "atom": "true"
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    }
+  }
 }
