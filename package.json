@@ -11,7 +11,7 @@
   "repository": "https://github.com/jlongster/prettier-atom",
   "license": "MIT",
   "engines": {
-    "atom": ">=0.174.0 <2.0.0"
+    "atom": ">=0.183.0 <2.0.0"
   },
   "dependencies": {
     "find-root": "^0.1.1",
@@ -23,7 +23,8 @@
     "eslint-plugin-import": "^1.16.0"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "eslintConfig": {
     "rules": {
