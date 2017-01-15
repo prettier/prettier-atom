@@ -11,11 +11,94 @@
   "repository": "https://github.com/jlongster/prettier-atom",
   "license": "MIT",
   "engines": {
-    "atom": ">=0.174.0 <2.0.0"
+    "atom": ">=0.183.0 <2.0.0"
   },
   "dependencies": {
     "find-root": "^0.1.1",
     "prettier": "0.0.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^3.6.0",
+    "eslint-config-airbnb-base": "^8.0.0",
+    "eslint-plugin-import": "^1.16.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "eslintConfig": {
+    "rules": {
+      "array-bracket-spacing": [
+        2,
+        "always"
+      ],
+      "no-console": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "extends": "airbnb-base",
+    "globals": {
+      "atom": "true"
+    },
+    "env": {
+      "node": true
+    }
+  },
+  "configSchema": {
+    "formatOnSave": {
+      "title": "Format on Save",
+      "description": "Format Javascript files when saving",
+      "type": "boolean",
+      "default": false,
+      "order": 1
+    },
+    "printWidth": {
+      "title": "Print Width",
+      "description": "Fit code within this line limit",
+      "type": "integer",
+      "default": 80,
+      "order": 2
+    },
+    "tabWidth": {
+      "title": "Tab Width",
+      "description": "Number of spaces it should use per tab",
+      "type": "integer",
+      "default": 2,
+      "order": 3
+    },
+    "singleQuote": {
+      "title": "Single Quote",
+      "description": "If true, will use single instead of double quotes",
+      "type": "boolean",
+      "default": false,
+      "order": 4
+    },
+    "trailingComma": {
+      "title": "Trailing Comma",
+      "description": "Controls the printing of trailing commas wherever possible",
+      "type": "boolean",
+      "default": false,
+      "order": 5
+    },
+    "bracketSpacing": {
+      "title": "Bracket Spacing",
+      "description": "Controls the printing of spaces inside array and objects",
+      "type": "boolean",
+      "default": true,
+      "order": 6
+    },
+    "useFlowParser": {
+      "title": "Use Flow Parser",
+      "description": "Use the [flow](https://github.com/facebook/flow) parser instead of [babylon](https://github.com/babel/babylon).",
+      "type": "boolean",
+      "default": false,
+      "order": 7
+    }
+  }
 }
