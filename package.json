@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "find-root": "^0.1.1",
-    "prettier": "0.0.6"
+    "prettier": "0.0.7"
   },
   "devDependencies": {}
 }
