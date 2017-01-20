@@ -1,7 +1,7 @@
 {
   "name": "prettier-atom",
   "main": "./lib/prettier.js",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Format file contents using prettier",
   "keywords": [
     "javascript",
@@ -129,6 +129,22 @@
       "type": "boolean",
       "default": false,
       "order": 7
+    },
+    "formatOnSaveScopes": {
+      "title": "Format-on-Save Scopes",
+      "description": "List of scopes for which Pretter will automatically format on save. Note: 'Format on Save' must be enabled for this to have effect. Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+      "type": "array",
+      "default": [
+        "source.js",
+        "source.jsx",
+        "source.js.jsx",
+        "source.babel",
+        "source.js-semantic"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "order": 8
     }
   }
 }
