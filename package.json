@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "find-root": "^0.1.1",
-    "prettier": "0.0.9"
+    "prettier": "0.0.10"
   },
   "devDependencies": {
     "eslint": "^3.6.0",
