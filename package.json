@@ -109,7 +109,9 @@
         "source.jsx",
         "source.js.jsx",
         "source.babel",
-        "source.js-semantic"
+        "source.js-semantic",
+        "text.html.basic",
+        "text.html.vue"
       ],
       "items": {
         "type": "string"
