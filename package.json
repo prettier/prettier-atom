@@ -59,17 +59,47 @@
       "order": 1
     },
     "printWidth": {
-      "title": "Print Width",
-      "description": "Fit code within this line limit",
-      "type": "integer",
-      "default": 80,
+      "type": "object",
+      "title": "Print Width Settings",
+      "description": "Code fit settings",
+      "properties": {
+        "useDefault": {
+          "title": "Use Atom Default",
+          "type": "boolean",
+          "description": "Use Atom default default wrap setting",
+          "default": "false",
+          "order": 1
+        },
+        "value": {
+          "title": "Print Width",
+          "type": "integer",
+          "default": 80,
+          "order": 2,
+          "description": "Fit code within this line limit. Only works if `Use Atom Default` is not checked"
+        }
+      },
       "order": 2
     },
     "tabWidth": {
-      "title": "Tab Width",
-      "description": "Number of spaces it should use per tab",
-      "type": "integer",
-      "default": 2,
+      "title": "Tab Width Settings",
+      "description": "Tab Width Settings",
+      "type": "object",
+      "properties": {
+        "useDefault": {
+          "title": "Use Atom Default",
+          "type": "boolean",
+          "description": "Use Atom default default tab length setting",
+          "default": "false",
+          "order": 1
+        },
+        "value": {
+          "title": "Tab Width",
+          "type": "integer",
+          "default": 2,
+          "order": 2,
+          "description": "Number of spaces it should use per tab. Only works if `Use Atom Default` is not checked"
+        }
+      },
       "order": 3
     },
     "singleQuote": {
