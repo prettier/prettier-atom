@@ -102,7 +102,7 @@
     },
     "jsxBracketSameLine": {
       "title": "JSX Bracket Same Line",
-      "description": "Put > on the last line in JSX",
+      "description": "Put > on the same line in JSX",
       "type": "boolean",
       "default": false,
       "order": 8
