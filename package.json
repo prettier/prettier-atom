@@ -1,7 +1,7 @@
 {
   "name": "prettier-atom",
   "main": "./lib/prettier.js",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Format file contents using prettier",
   "keywords": [
     "javascript",
@@ -112,7 +112,10 @@
       "description": "Use either the [flow](https://github.com/facebook/flow) or [babylon](https://github.com/babel/babylon) parser.",
       "type": "string",
       "default": "babylon",
-      "enum": ["babylon", "flow"],
+      "enum": [
+        "babylon",
+        "flow"
+      ],
       "order": 9
     },
     "formatOnSaveScopes": {
