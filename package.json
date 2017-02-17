@@ -100,12 +100,20 @@
       "default": true,
       "order": 7
     },
-    "useFlowParser": {
-      "title": "Use Flow Parser",
-      "description": "Use the [flow](https://github.com/facebook/flow) parser instead of [babylon](https://github.com/babel/babylon).",
+    "jsxBracketSameLine": {
+      "title": "JSX Bracket Same Line",
+      "description": "Put > on the same line in JSX",
       "type": "boolean",
       "default": false,
       "order": 8
+    },
+    "parser": {
+      "title": "Parser",
+      "description": "Use either the [flow](https://github.com/facebook/flow) or [babylon](https://github.com/babel/babylon) parser.",
+      "type": "string",
+      "default": "babylon",
+      "enum": ["babylon", "flow"],
+      "order": 9
     },
     "formatOnSaveScopes": {
       "title": "Format-on-Save Scopes",
@@ -123,7 +131,7 @@
       "items": {
         "type": "string"
       },
-      "order": 9
+      "order": 10
     }
   }
 }
