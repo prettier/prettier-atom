@@ -1,6 +1,6 @@
 {
   "name": "prettier-atom",
-  "main": "./lib/prettier.js",
+  "main": "./lib/main.js",
   "version": "0.18.1",
   "description": "Format file contents using prettier",
   "keywords": [
@@ -40,7 +40,15 @@
             "atom"
           ]
         }
-      ]
+      ],
+      "no-confusing-arrow": 0,
+      "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }]
     },
     "extends": "airbnb-base",
     "globals": {
@@ -74,9 +82,9 @@
     },
     "tabWidth": {
       "title": "Tab Width",
-      "description": "Number of spaces it should use per tab",
-      "type": "integer",
-      "default": 2,
+      "description": "Number of spaces it should use per tab. Use 'auto' to use your editor's tab width setting.",
+      "type": "string",
+      "default": "auto",
       "order": 4
     },
     "singleQuote": {
