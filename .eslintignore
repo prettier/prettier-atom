@@ -1,6 +1,5 @@
 node_modules
-npm-debug.log
 .nyc_output
 coverage
-.opt-in
-.opt-out
+dist
+flow-typed/npm

@@ -1,0 +1,10 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '6'
+script:
+  - yarn start validate

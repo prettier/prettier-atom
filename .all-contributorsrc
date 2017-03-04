@@ -1,0 +1,135 @@
+{
+  "projectName": "prettier-atom",
+  "projectOwner": "robwise",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jlongster",
+      "name": "James Long",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17031?v=3",
+      "profile": "http://jlongster.com",
+      "contributions": [
+        "question",
+        "code",
+        "doc",
+        "plugin",
+        "review"
+      ]
+    },
+    {
+      "login": "robwise",
+      "name": "Rob Wise",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6173488?v=3",
+      "profile": "https://robwise.github.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "kentcdodds",
+      "name": "Kent C. Dodds",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1500684?v=3",
+      "profile": "https://kentcdodds.com",
+      "contributions": [
+        "code",
+        "doc",
+        "infra"
+      ]
+    },
+    {
+      "login": "cloud-walker",
+      "name": "Luca Barone",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1144075?v=3",
+      "profile": "https://github.com/cloud-walker",
+      "contributions": []
+    },
+    {
+      "login": "arnarthor",
+      "name": "Arnar Þór Sveinsson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4514159?v=3",
+      "profile": "https://github.com/arnarthor",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "skevy",
+      "name": "Adam Miskiewicz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/131916?v=3",
+      "profile": "http://www.adammiskiewicz.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "oriSomething",
+      "name": "Ori Livni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2685242?v=3",
+      "profile": "http://www.orilivni.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "transcranial",
+      "name": "Leon Chen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6182852?v=3",
+      "profile": "https://transcranial.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "vjeux",
+      "name": "Christopher Chedeau",
+      "avatar_url": "https://avatars.githubusercontent.com/u/197597?v=3",
+      "profile": "http://blog.vjeux.com/",
+      "contributions": [
+        "question",
+        "code",
+        "plugin"
+      ]
+    },
+    {
+      "login": "1st8",
+      "name": "Christoph Geschwind",
+      "avatar_url": "https://avatars.githubusercontent.com/u/646693?v=3",
+      "profile": "http://christoph-geschwind.de",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ahutchings",
+      "name": "Andrew Hutchings",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35026?v=3",
+      "profile": "https://andrewhutchings.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "schnerd",
+      "name": "David Schnurr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/875591?v=3",
+      "profile": "http://davidschnurr.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ryancole",
+      "name": "Ryan Cole",
+      "avatar_url": "https://avatars.githubusercontent.com/u/484801?v=3",
+      "profile": "http://rycole.com/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

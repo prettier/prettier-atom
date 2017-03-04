@@ -23,13 +23,12 @@ const lazyFormatOnSave = () => {
 const setEventHandlers = editor => editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor));
 
 // public API
-module.exports = {
-  activate() {
-    commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
-    editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
-  },
-  deactivate() {
-    if (commands) commands.dispose();
-    if (editorObserver) editorObserver.dispose();
-  },
+export const activate = () => {
+  commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
+  editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
+};
+
+export const deactivate = () => {
+  if (commands) commands.dispose();
+  if (editorObserver) editorObserver.dispose();
 };
