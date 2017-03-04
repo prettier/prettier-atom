@@ -1,8 +1,7 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var config = require('./config-schema.json');
+
 // local helpers
 var commands = null;
 var editorObserver = null;
@@ -32,12 +31,18 @@ var setEventHandlers = function setEventHandlers(editor) {
 };
 
 // public API
-var activate = exports.activate = function activate() {
+var activate = function activate() {
   commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
   editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
 };
 
-var deactivate = exports.deactivate = function deactivate() {
+var deactivate = function deactivate() {
   if (commands) commands.dispose();
   if (editorObserver) editorObserver.dispose();
+};
+
+module.exports = {
+  activate: activate,
+  deactivate: deactivate,
+  config: config
 };

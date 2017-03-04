@@ -1,3 +1,5 @@
+const config = require('./config-schema.json');
+
 // local helpers
 let commands = null;
 let editorObserver = null;
@@ -23,12 +25,18 @@ const lazyFormatOnSave = () => {
 const setEventHandlers = editor => editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor));
 
 // public API
-export const activate = () => {
+const activate = () => {
   commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
   editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
 };
 
-export const deactivate = () => {
+const deactivate = () => {
   if (commands) commands.dispose();
   if (editorObserver) editorObserver.dispose();
+};
+
+module.exports = {
+  activate,
+  deactivate,
+  config,
 };

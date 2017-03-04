@@ -1,0 +1,126 @@
+{
+  "silenceErrors": {
+    "title": "Silence Errors",
+    "description": "Don't show an error message if there is a problem formatting your code",
+    "type": "boolean",
+    "default": false,
+    "order": 1
+  },
+  "useEslint": {
+    "title": "ESlint Integration",
+    "description": "Use [prettier-eslint](https://github.com/prettier/prettier-eslint). If you enable *Format on Save*, we recommend disabling ESlint's auto-fix to prevent fixing your code twice.<br /><br />**Note:** This will override any options you choose in the *Prettier Options* section.",
+    "type": "boolean",
+    "default": false,
+    "order": 2
+  },
+  "formatOnSaveOptions": {
+    "title": "Format on Save",
+    "order": 3,
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "title": "Enabled",
+        "description": "Automatically format entire file when saving.",
+        "type": "boolean",
+        "default": false,
+        "order": 1
+      },
+      "respectEslintignore": {
+        "title": "Ignore Files in .eslintignore",
+        "description": "Works regardless of whether ESlint integration is enabled or not.",
+        "type": "boolean",
+        "default": true,
+        "order": 2
+      },
+      "scopes": {
+        "title": "Scopes",
+        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "type": "array",
+        "default": [
+          "source.js",
+          "source.jsx",
+          "source.js.jsx",
+          "source.babel",
+          "source.js-semantic",
+          "text.html.basic",
+          "text.html.vue"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "order": 3
+      },
+      "excludedGlobs": {
+        "title": "Exclude (list of globs)",
+        "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob",
+        "type": "array",
+        "default": [],
+        "order": 4
+      }
+    }
+  },
+  "prettierOptions": {
+    "type": "object",
+    "order": 4,
+    "properties": {
+      "singleQuote": {
+        "title": "Single Quotes",
+        "description": "Use single instead of double quotes.",
+        "type": "boolean",
+        "default": false,
+        "order": 1
+      },
+      "bracketSpacing": {
+        "title": "Bracket Spacing",
+        "description": "Print spaces inside of arrays and objects.",
+        "type": "boolean",
+        "default": true,
+        "order": 2
+      },
+      "jsxBracketSameLine": {
+        "title": "JSX Bracket Same Line",
+        "description": "Put > on the same line in JSX.",
+        "type": "boolean",
+        "default": false,
+        "order": 3
+      },
+      "printWidth": {
+        "title": "Print Width",
+        "description": "Fit code within this line limit",
+        "type": "integer",
+        "default": 80,
+        "order": 4
+      },
+      "tabWidth": {
+        "title": "Tab Width",
+        "description": "Number of spaces to use per tab. Use 'auto' to use your editor's tab width setting.",
+        "type": "string",
+        "default": "auto",
+        "order": 5
+      },
+      "trailingComma": {
+        "title": "Trailing Comma",
+        "description": "Controls the printing of trailing commas wherever possible",
+        "type": "string",
+        "default": "none",
+        "enum": [
+          "none",
+          "es5",
+          "all"
+        ],
+        "order": 6
+      },
+      "parser": {
+        "title": "Parser",
+        "description": "Use either the [flow](https://github.com/facebook/flow) or [babylon](https://github.com/babel/babylon) parser.",
+        "type": "string",
+        "default": "babylon",
+        "enum": [
+          "babylon",
+          "flow"
+        ],
+        "order": 7
+      }
+    }
+  }
+}
