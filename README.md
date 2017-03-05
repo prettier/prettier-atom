@@ -43,7 +43,7 @@ Please open a pull request or file an issue if you notice bugs or something does
 
 ## Inspiration
 
-This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent Dodds][kent-dodds] forked that project and created prettier-eslint and an accompanying atom plugin. Because it became clear that the projects were very similar and thus maintenance made easier by combining the two, prettier-eslint-atom was merged back into prettier-atom.
+This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original prettier-atom plugin to create the prettier-eslint-atom plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, prettier-eslint-atom was merged back into prettier-atom.
 
 ## Contributors
 
@@ -90,6 +90,6 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [all-contributors]: https://github.com/jlongster/all-contributors
 [prettier]: https://github.com/jlongster/prettier
 [prettier-eslint]: https://github.com/jlongster/prettier-atom
-[kent-dodds]: https://github.com/kentcdodds
+[kentcdodds]: https://github.com/kentcdodds
 [james-long]: https://github.com/jlongster
 [demo]: https://github.com/jlongster/prettier-atom/raw/master/plugin.gif
