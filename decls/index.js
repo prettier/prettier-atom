@@ -17,7 +17,7 @@ declare type TextEditor = {
   getTextInBufferRange: () => string,
   setCursorScreenPosition: (point: Point) => Point,
   setTextInBufferRange: (bufferRange: Range, text: string) => Range,
-  buffer: {file: {path: FilePath}},
+  buffer: {file: {path: ?FilePath}},
   backwardsScanInBufferRange: (
     regex: RegExp,
     Range: Range,
