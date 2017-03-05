@@ -86,8 +86,8 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [github-star]: https://github.com/jlongster/prettier-atom/stargazers
 [twitter]: https://twitter.com/intent/tweet?text=Check%20out%20prettier-atom!%20https://github.com/robwawise/prettier-atom%20%F0%9F%91%8D
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/jlongster/prettier-atom.svg?style=social
-[emojis]: https://github.com/jlongster/all-contributors#emoji-key
-[all-contributors]: https://github.com/jlongster/all-contributors
+[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
+[all-contributors]: https://github.com/kentcdodds/all-contributors
 [prettier]: https://github.com/jlongster/prettier
 [prettier-eslint]: https://github.com/jlongster/prettier-atom
 [kentcdodds]: https://github.com/kentcdodds
