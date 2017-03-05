@@ -68,6 +68,8 @@ const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled
 
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
+const isLinterEslintAutofixEnabled = () => atom.config.get('linter-eslint.fixOnSave');
+
 const getPrettierOptions = (editor: TextEditor) => ({
   printWidth: getPrettierOption('printWidth'),
   tabWidth: useAtomTabLengthIfAuto(editor, getPrettierOption('tabWidth')),
@@ -87,6 +89,7 @@ module.exports = {
   isCurrentScopeEmbeddedScope,
   isFilePathEslintignored,
   isFormatOnSaveEnabled,
+  isLinterEslintAutofixEnabled,
   shouldUseEslint,
   shouldRespectEslintignore,
   getPrettierOptions,
