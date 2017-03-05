@@ -10,6 +10,7 @@ const {
   isInScope,
   isFilePathEslintignored,
   isCurrentScopeEmbeddedScope,
+  isLinterEslintAutofixEnabled,
   shouldUseEslint,
   getPrettierOptions,
 } = require('./helpers');
@@ -90,6 +91,18 @@ describe('isInScope', () => {
 
     expect(mockGetGrammar).toHaveBeenCalled();
     expect(mockGet).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.scopes');
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('isLinterEslintAutofixEnabled', () => {
+  test('returns the value from the linter-eslint config', () => {
+    atom = { config: { get: jest.fn(() => true) } };
+
+    const actual = isLinterEslintAutofixEnabled();
+    const expected = true;
+
+    expect(atom.config.get).toHaveBeenCalledWith('linter-eslint.fixOnSave');
     expect(actual).toBe(expected);
   });
 });

@@ -105,6 +105,10 @@ var shouldRespectEslintignore = function shouldRespectEslintignore() {
   return getConfigOption('formatOnSaveOptions.respectEslintignore');
 };
 
+var isLinterEslintAutofixEnabled = function isLinterEslintAutofixEnabled() {
+  return atom.config.get('linter-eslint.fixOnSave');
+};
+
 var getPrettierOptions = function getPrettierOptions(editor) {
   return {
     printWidth: getPrettierOption('printWidth'),
@@ -126,6 +130,7 @@ module.exports = {
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
   isFilePathEslintignored: isFilePathEslintignored,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
+  isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   shouldUseEslint: shouldUseEslint,
   shouldRespectEslintignore: shouldRespectEslintignore,
   getPrettierOptions: getPrettierOptions
