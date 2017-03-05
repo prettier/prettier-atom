@@ -18,7 +18,7 @@ const flow = (func: Function, ...funcs: Array<Function>) =>
 
 const getDirFromFilePath = (filePath: FilePath): FilePath => path.parse(filePath).dir;
 
-const getNearestEslintignorePath = (filePath: FilePath): FilePath =>
+const getNearestEslintignorePath = (filePath: FilePath): ?FilePath =>
   findCached(getDirFromFilePath(filePath), '.eslintignore');
 
 const getFilePathRelativeToEslintignore = (filePath: FilePath): FilePath =>

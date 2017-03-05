@@ -13,11 +13,11 @@ var _require2 = require('./helpers'),
     isInScope = _require2.isInScope;
 
 var formatOnSaveIfAppropriate = function formatOnSaveIfAppropriate(editor) {
-  var filePath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : getCurrentFilePath(editor);
+  var filePath = getCurrentFilePath(editor);
 
   if (!isFormatOnSaveEnabled()) return;
   if (!isInScope(editor)) return;
-  if (shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
+  if (filePath && shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
 
   if (isCurrentScopeEmbeddedScope(editor)) {
     executePrettierOnEmbeddedScripts(editor);

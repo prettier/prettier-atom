@@ -9,10 +9,12 @@ const {
   isInScope,
 } = require('./helpers');
 
-const formatOnSaveIfAppropriate = (editor: TextEditor, filePath: FilePath = getCurrentFilePath(editor)) => {
+const formatOnSaveIfAppropriate = (editor: TextEditor) => {
+  const filePath = getCurrentFilePath(editor);
+
   if (!isFormatOnSaveEnabled()) return;
   if (!isInScope(editor)) return;
-  if (shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
+  if (filePath && shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
 
   if (isCurrentScopeEmbeddedScope(editor)) {
     executePrettierOnEmbeddedScripts(editor);

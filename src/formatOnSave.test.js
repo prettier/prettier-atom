@@ -67,14 +67,25 @@ test('it does nothing if not a valid scope according to config', () => {
 
 test('it does nothing if config says to respectEslintignore and file is matched by eslintignore', () => {
   // $FlowFixMe
+  helpers.getCurrentFilePath.mockImplementation(() => filePathFixture);
+  // $FlowFixMe
   helpers.shouldRespectEslintignore.mockImplementation(() => true);
   // $FlowFixMe
   helpers.isFilePathEslintignored.mockImplementation(() => true);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(helpers.shouldRespectEslintignore).toHaveBeenCalled();
   expect(helpers.isFilePathEslintignored).toHaveBeenCalledWith('foo.js');
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
+});
+
+test('does not attempt to check filePath matches .eslintignore if `currentFilePath` is null', () => {
+  // $FlowFixMe
+  helpers.getCurrentFilePath.mockImplementation(() => null);
+
+  formatOnSave(editor, filePathFixture);
+
+  expect(helpers.shouldRespectEslintignore).not.toHaveBeenCalled();
 });
