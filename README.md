@@ -18,7 +18,7 @@ Atom package to format your JavaScript using Prettier. Comes with powerful optio
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-![Demo](./plugin.gif)
+![Demo][demo]
 
 ## Installation
 
@@ -92,3 +92,4 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [prettier-eslint]: https://github.com/jlongster/prettier-atom
 [kent-dodds]: https://github.com/kentcdodds
 [james-long]: https://github.com/jlongster
+[demo]: https://github.com/jlongster/prettier-atom/raw/master/plugin.gif
