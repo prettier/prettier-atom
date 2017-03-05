@@ -1,156 +1,76 @@
 {
   "name": "prettier-atom",
-  "main": "./lib/main.js",
+  "main": "./dist/main.js",
   "version": "0.19.0",
-  "description": "Format file contents using prettier",
+  "description": "Atom plugin for formatting JavaScript using Prettier-ESlint",
   "keywords": [
+    "atom",
     "javascript",
+    "prettier",
+    "eslint",
     "formatter"
   ],
-  "activationCommands": [],
   "repository": "https://github.com/jlongster/prettier-atom",
+  "homepage": "https://github.com/jlongster/prettier-atom",
+  "bugs": {
+    "url": "https://github.com/jlongster/prettier-atom/issues"
+  },
   "license": "MIT",
   "engines": {
     "atom": ">=0.183.0 <2.0.0"
   },
   "dependencies": {
-    "find-root": "^0.1.1",
-    "prettier": "^0.19.0"
+    "atom-linter": "^9.0.0",
+    "loophole": "^1.1.0",
+    "minimatch": "^3.0.3",
+    "prettier": "^0.21.0",
+    "prettier-eslint": "^4.1.2"
   },
   "devDependencies": {
+    "all-contributors-cli": "^4.0.1",
+    "babel-cli": "^6.23.0",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-env": "^1.1.10",
+    "babel-preset-stage-2": "^6.22.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "^3.6.0",
-    "eslint-config-airbnb-base": "^8.0.0",
-    "eslint-plugin-import": "^1.16.0"
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-flowtype": "^2.30.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
+    "flow-bin": "^0.40.0",
+    "flow-typed": "^2.0.0",
+    "husky": "^0.13.1",
+    "jest-cli": "^19.0.2",
+    "nps": "^5.0.3",
+    "nps-utils": "^1.1.2",
+    "opt-cli": "^1.5.1",
+    "prettier-eslint-cli": "^3.0.0",
+    "rimraf": "^2.6.1"
   },
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "start": "nps",
+    "test": "nps test",
+    "precommit": "opt --in pre-commit --exec \"npm start validate\""
   },
-  "eslintConfig": {
-    "rules": {
-      "array-bracket-spacing": [
-        2,
-        "always"
-      ],
-      "no-console": 0,
-      "import/no-unresolved": [
-        2,
-        {
-          "ignore": [
-            "atom"
-          ]
-        }
-      ],
-      "no-confusing-arrow": 0,
-      "comma-dangle": [
-        "error",
-        {
-          "arrays": "always-multiline",
-          "objects": "always-multiline",
-          "imports": "always-multiline",
-          "exports": "always-multiline",
-          "functions": "never"
-        }
-      ]
-    },
-    "extends": "airbnb-base",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
     "globals": {
-      "atom": "true"
+      "atom": true
     },
-    "env": {
-      "node": true
-    }
-  },
-  "configSchema": {
-    "formatOnSave": {
-      "title": "Format on Save",
-      "description": "Format Javascript files when saving",
-      "type": "boolean",
-      "default": false,
-      "order": 1
-    },
-    "formatOnSaveSilentError": {
-      "title": "On format on Save, don't show error message",
-      "description": "Don't show error if occurred on format on save",
-      "type": "boolean",
-      "default": false,
-      "order": 2
-    },
-    "printWidth": {
-      "title": "Print Width",
-      "description": "Fit code within this line limit",
-      "type": "integer",
-      "default": 80,
-      "order": 3
-    },
-    "tabWidth": {
-      "title": "Tab Width",
-      "description": "Number of spaces it should use per tab. Use 'auto' to use your editor's tab width setting.",
-      "type": "string",
-      "default": "auto",
-      "order": 4
-    },
-    "singleQuote": {
-      "title": "Single Quote",
-      "description": "If true, will use single instead of double quotes",
-      "type": "boolean",
-      "default": false,
-      "order": 5
-    },
-    "trailingComma": {
-      "title": "Trailing Comma",
-      "description": "Controls the printing of trailing commas wherever possible",
-      "type": "string",
-      "default": "none",
-      "enum": [
-        "none",
-        "es5",
-        "all"
-      ],
-      "order": 6
-    },
-    "bracketSpacing": {
-      "title": "Bracket Spacing",
-      "description": "Controls the printing of spaces inside array and objects",
-      "type": "boolean",
-      "default": true,
-      "order": 7
-    },
-    "jsxBracketSameLine": {
-      "title": "JSX Bracket Same Line",
-      "description": "Put > on the same line in JSX",
-      "type": "boolean",
-      "default": false,
-      "order": 8
-    },
-    "parser": {
-      "title": "Parser",
-      "description": "Use either the [flow](https://github.com/facebook/flow) or [babylon](https://github.com/babel/babylon) parser.",
-      "type": "string",
-      "default": "babylon",
-      "enum": [
-        "babylon",
-        "flow"
-      ],
-      "order": 9
-    },
-    "formatOnSaveScopes": {
-      "title": "Format-on-Save Scopes",
-      "description": "List of scopes for which Pretter will automatically format on save. Note: 'Format on Save' must be enabled for this to have effect. Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-      "type": "array",
-      "default": [
-        "source.js",
-        "source.jsx",
-        "source.js.jsx",
-        "source.babel",
-        "source.js-semantic",
-        "text.html.basic",
-        "text.html.vue"
-      ],
-      "items": {
-        "type": "string"
-      },
-      "order": 10
-    }
+    "notify": true,
+    "resetMocks": true,
+    "resetModules": true,
+    "roots": [
+      "src"
+    ],
+    "testEnvironment": "node"
   }
 }

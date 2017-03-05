@@ -1,0 +1,61 @@
+scripts:
+
+  test:
+    default:
+      description: Run jest unit tests
+      script: jest
+    watch:
+      description: Run jest unit tests in watch mode
+      script: nps "test --watch"
+
+  up:
+    description: Wipe node_modules and install all dependencies
+    script: rimraf node_modules && yarn install
+
+  format:
+    description: Run prettier-eslint on the src code
+    script: prettier-eslint src/*.js *.js --write
+
+  flow:
+    default:
+      description: Run Facebook flow
+      script: flow
+    up:
+      description: Update Facebook Flow flow-typed definitions (run this after changing a dependency)
+      script: flow-typed update
+
+  eslint:
+    description: Run ESlint
+    script: eslint .
+
+  lint:
+    description: Lint the entire project
+    script: nps eslint && nps flow
+
+  build:
+    default:
+      description: Delete the dist directory and run babel to build the files
+      script: rimraf dist && babel src --copy-files --out-dir dist --ignore src/__snapshots__,**.test.js
+
+  validate:
+    default:
+      description: Run several scripts to make sure things look good before committing or on clean install
+      script: nps format && nps lint && nps test && nps build
+    extreme:
+      description: Run validate and also check node_modules for problems and generate contributors
+      script: nps test && nps format && nps lint && yarn check && nps build && nps generateContributors
+
+  commit:
+    description: Uses commitizen to help us generate well formatted commit messages
+    script: git-cz
+
+  addContributor:
+    description: When new people contribute to the project, run this
+    script: all-contributors add
+
+  generateContributors:
+    description: Update the badge and contributors table
+    script: all-contributors generate
+
+options:
+  silent: false

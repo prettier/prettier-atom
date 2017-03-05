@@ -1,0 +1,23 @@
+extends:
+  - airbnb-base
+  - plugin:flowtype/recommended
+  - plugin:jest/recommended
+
+parser: babel-eslint
+
+plugins:
+  - flowtype
+  - jest
+
+globals:
+  atom: true
+
+env:
+  node: true
+  jest: true
+
+rules:
+  no-confusing-arrow: 0 # not that confusing
+  max-len:
+    - 2
+    - 110
