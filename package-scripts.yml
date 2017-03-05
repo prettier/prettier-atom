@@ -56,6 +56,3 @@ scripts:
   generateContributors:
     description: Update the badge and contributors table
     script: all-contributors generate
-
-options:
-  silent: false
