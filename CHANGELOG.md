@@ -1,3 +1,14 @@
+<a name="0.21.3"></a>
+## [0.21.3](https://github.com/jlongster/prettier-atom/compare/v0.21.2...v0.21.3) (2017-03-06)
+
+
+### Bug Fixes
+
+* **$config:** Unset old config options causing errors ([5f221d5](https://github.com/jlongster/prettier-atom/commit/5f221d5)), closes [#72](https://github.com/jlongster/prettier-atom/issues/72)
+* **excludedGlobs:** Respect excluded globs when formatting on save ([a178813](https://github.com/jlongster/prettier-atom/commit/a178813)), closes [#73](https://github.com/jlongster/prettier-atom/issues/73)
+
+
+
 <a name="0.21.2"></a>
 ## [0.21.2](https://github.com/jlongster/prettier-atom/compare/v0.21.1...v0.21.2) (2017-03-06)
 
