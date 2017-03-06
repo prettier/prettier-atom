@@ -48,6 +48,11 @@ const activate = () => {
   subscriptions.add(
     atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
+
+  // HACK: an Atom bug seems to be causing old configuration settings to linger for some users
+  //       https://github.com/jlongster/prettier-atom/issues/72
+  atom.config.unset('prettier-atom.singleQuote');
+  atom.config.unset('prettier-atom.trailingComma');
 };
 
 const deactivate = () => {
