@@ -56,3 +56,7 @@ scripts:
   generateContributors:
     description: Update the badge and contributors table
     script: all-contributors generate
+
+  changelog:
+    description: Wipe and regenerate the changelog. Requires `conventional-changelog-cli`. Run after publishing using `apm publish <version>`.
+    script: conventional-changelog -p angular -i CHANGELOG.md -s -r 0
