@@ -21,9 +21,15 @@ const getDirFromFilePath = (filePath: FilePath): FilePath => path.parse(filePath
 const getNearestEslintignorePath = (filePath: FilePath): ?FilePath =>
   findCached(getDirFromFilePath(filePath), '.eslintignore');
 
-const getFilePathRelativeToEslintignore = (filePath: FilePath): FilePath =>
-  flow(getNearestEslintignorePath, getDirFromFilePath, eslintignoreDir =>
-    path.relative(eslintignoreDir, filePath))(filePath);
+const getFilePathRelativeToEslintignore = (filePath: FilePath): ?FilePath => {
+  const nearestEslintignorePath = getNearestEslintignorePath(filePath);
+
+  if (!nearestEslintignorePath) return undefined;
+
+  const eslintignoreDir = getDirFromFilePath(nearestEslintignorePath);
+
+  return path.relative(eslintignoreDir, filePath);
+};
 
 const getLinesFromFilePath = (filePath: FilePath) =>
   fs.readFileSync(filePath, 'utf8').split(LINE_SEPERATOR_REGEX);
@@ -58,11 +64,16 @@ const isCurrentScopeEmbeddedScope = (editor: TextEditor) => EMBEDDED_SCOPES.incl
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
-const isFilePathEslintignored = (filePath: FilePath) =>
-  someGlobsMatchFilePath(
+const isFilePathEslintignored = (filePath: FilePath) => {
+  const filePathRelativeToEslintignore = getFilePathRelativeToEslintignore(filePath);
+
+  if (!filePathRelativeToEslintignore) return false;
+
+  return someGlobsMatchFilePath(
     getIgnoredGlobsFromNearestEslintIgnore(filePath),
-    getFilePathRelativeToEslintignore(filePath),
+    filePathRelativeToEslintignore,
   );
+};
 
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
 
