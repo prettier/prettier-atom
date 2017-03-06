@@ -81,6 +81,9 @@ const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.res
 
 const isLinterEslintAutofixEnabled = () => atom.config.get('linter-eslint.fixOnSave');
 
+const isFilePathExcluded = (filePath: FilePath) =>
+  someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.excludedGlobs'), filePath);
+
 const getPrettierOptions = (editor: TextEditor) => ({
   printWidth: getPrettierOption('printWidth'),
   tabWidth: useAtomTabLengthIfAuto(editor, getPrettierOption('tabWidth')),
@@ -99,6 +102,7 @@ module.exports = {
   isInScope,
   isCurrentScopeEmbeddedScope,
   isFilePathEslintignored,
+  isFilePathExcluded,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
   shouldUseEslint,

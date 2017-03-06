@@ -117,6 +117,10 @@ var isLinterEslintAutofixEnabled = function isLinterEslintAutofixEnabled() {
   return atom.config.get('linter-eslint.fixOnSave');
 };
 
+var isFilePathExcluded = function isFilePathExcluded(filePath) {
+  return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.excludedGlobs'), filePath);
+};
+
 var getPrettierOptions = function getPrettierOptions(editor) {
   return {
     printWidth: getPrettierOption('printWidth'),
@@ -137,6 +141,7 @@ module.exports = {
   isInScope: isInScope,
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
   isFilePathEslintignored: isFilePathEslintignored,
+  isFilePathExcluded: isFilePathExcluded,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   shouldUseEslint: shouldUseEslint,

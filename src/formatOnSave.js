@@ -6,6 +6,7 @@ const {
   getCurrentFilePath,
   isCurrentScopeEmbeddedScope,
   isFilePathEslintignored,
+  isFilePathExcluded,
   isInScope,
 } = require('./helpers');
 
@@ -14,6 +15,7 @@ const formatOnSaveIfAppropriate = (editor: TextEditor) => {
 
   if (!isFormatOnSaveEnabled()) return;
   if (!isInScope(editor)) return;
+  if (filePath && isFilePathExcluded(filePath)) return;
   if (filePath && shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
 
   if (isCurrentScopeEmbeddedScope(editor)) {
