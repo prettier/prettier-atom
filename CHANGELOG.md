@@ -1,0 +1,120 @@
+<a name="0.21.2"></a>
+## [0.21.2](https://github.com/jlongster/prettier-atom/compare/v0.21.1...v0.21.2) (2017-03-06)
+
+
+### Bug Fixes
+
+* **$formatOnSave:** Fix error when no .eslintignore is found ([94d7750](https://github.com/jlongster/prettier-atom/commit/94d7750)), closes [#67](https://github.com/jlongster/prettier-atom/issues/67)
+
+
+
+<a name="0.21.1"></a>
+## [0.21.1](https://github.com/jlongster/prettier-atom/compare/v0.21.0...v0.21.1) (2017-03-05)
+
+
+### Bug Fixes
+
+* **$formatOnSave:** Handle null filePath ([2eb398c](https://github.com/jlongster/prettier-atom/commit/2eb398c)), closes [#67](https://github.com/jlongster/prettier-atom/issues/67)
+
+
+
+<a name="0.21.0"></a>
+# [0.21.0](https://github.com/jlongster/prettier-atom/compare/v0.20.0...v0.21.0) (2017-03-05)
+
+
+### Features
+
+* **$linter-eslint:** Warn about linter-eslint "Format on Save" ([ac9b1d0](https://github.com/jlongster/prettier-atom/commit/ac9b1d0))
+
+
+
+<a name="0.20.0"></a>
+# [0.20.0](https://github.com/jlongster/prettier-atom/compare/v0.19.1...v0.20.0) (2017-03-05)
+
+
+
+<a name="0.19.1"></a>
+## [0.19.1](https://github.com/jlongster/prettier-atom/compare/v0.19.0...v0.19.1) (2017-03-05)
+
+
+### Features
+
+* **$prettier-eslint:** Integrate prettier-eslint ([002c2a7](https://github.com/jlongster/prettier-atom/commit/002c2a7)), closes [#57](https://github.com/jlongster/prettier-atom/issues/57)
+
+
+
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/jlongster/prettier-atom/compare/v0.18.1...v0.19.0) (2017-02-24)
+
+
+
+<a name="0.18.1"></a>
+## [0.18.1](https://github.com/jlongster/prettier-atom/compare/v0.18.0...v0.18.1) (2017-02-21)
+
+
+
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/jlongster/prettier-atom/compare/v0.17.0...v0.18.0) (2017-02-17)
+
+
+
+<a name="0.17.0"></a>
+# [0.17.0](https://github.com/jlongster/prettier-atom/compare/v0.16.0...v0.17.0) (2017-02-14)
+
+
+
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/jlongster/prettier-atom/compare/v0.15.0...v0.16.0) (2017-02-06)
+
+
+
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/jlongster/prettier-atom/compare/v0.11.0...v0.15.0) (2017-02-03)
+
+
+
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/jlongster/prettier-atom/compare/v0.0.10...v0.11.0) (2017-01-24)
+
+
+
+<a name="0.0.10"></a>
+## [0.0.10](https://github.com/jlongster/prettier-atom/compare/v0.0.9...v0.0.10) (2017-01-20)
+
+
+
+<a name="0.0.9"></a>
+## [0.0.9](https://github.com/jlongster/prettier-atom/compare/v0.0.8...v0.0.9) (2017-01-19)
+
+
+
+<a name="0.0.8"></a>
+## [0.0.8](https://github.com/jlongster/prettier-atom/compare/v0.0.7...v0.0.8) (2017-01-17)
+
+
+
+<a name="0.0.7"></a>
+## [0.0.7](https://github.com/jlongster/prettier-atom/compare/v0.0.6...v0.0.7) (2017-01-15)
+
+
+
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/jlongster/prettier-atom/compare/v0.0.5...v0.0.6) (2017-01-13)
+
+
+
+<a name="0.0.5"></a>
+## [0.0.5](https://github.com/jlongster/prettier-atom/compare/v0.0.4...v0.0.5) (2017-01-11)
+
+
+
+<a name="0.0.4"></a>
+## [0.0.4](https://github.com/jlongster/prettier-atom/compare/v0.0.3...v0.0.4) (2017-01-11)
+
+
+
+<a name="0.0.3"></a>
+## 0.0.3 (2017-01-10)
+
+
+
