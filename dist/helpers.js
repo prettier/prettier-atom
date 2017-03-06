@@ -37,9 +37,13 @@ var getNearestEslintignorePath = function getNearestEslintignorePath(filePath) {
 };
 
 var getFilePathRelativeToEslintignore = function getFilePathRelativeToEslintignore(filePath) {
-  return flow(getNearestEslintignorePath, getDirFromFilePath, function (eslintignoreDir) {
-    return path.relative(eslintignoreDir, filePath);
-  })(filePath);
+  var nearestEslintignorePath = getNearestEslintignorePath(filePath);
+
+  if (!nearestEslintignorePath) return undefined;
+
+  var eslintignoreDir = getDirFromFilePath(nearestEslintignorePath);
+
+  return path.relative(eslintignoreDir, filePath);
 };
 
 var getLinesFromFilePath = function getLinesFromFilePath(filePath) {
@@ -94,7 +98,11 @@ var shouldUseEslint = function shouldUseEslint() {
 };
 
 var isFilePathEslintignored = function isFilePathEslintignored(filePath) {
-  return someGlobsMatchFilePath(getIgnoredGlobsFromNearestEslintIgnore(filePath), getFilePathRelativeToEslintignore(filePath));
+  var filePathRelativeToEslintignore = getFilePathRelativeToEslintignore(filePath);
+
+  if (!filePathRelativeToEslintignore) return false;
+
+  return someGlobsMatchFilePath(getIgnoredGlobsFromNearestEslintIgnore(filePath), filePathRelativeToEslintignore);
 };
 
 var isFormatOnSaveEnabled = function isFormatOnSaveEnabled() {

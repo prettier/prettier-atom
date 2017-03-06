@@ -1,5 +1,6 @@
 // @flow
 const path = require('path');
+const atomLinter = require('atom-linter');
 
 const textEditor = require('../tests/mocks/textEditor');
 const {
@@ -14,6 +15,8 @@ const {
   shouldUseEslint,
   getPrettierOptions,
 } = require('./helpers');
+
+jest.mock('atom-linter');
 
 describe('getConfigOption', () => {
   test('retrieves a config option from the prettier-atom config', () => {
@@ -132,8 +135,9 @@ describe('shouldUseEslint', () => {
 });
 
 describe('isFilePathEslintignored', () => {
-  test('is false if the filePath does not match a glob in the nearest eslintignore', () => {
-    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'doesNotMatchEslintignore.js');
+  test('is false if no .eslintignore file can be found', () => {
+    atomLinter.findCached.mockImplementation(() => null);
+    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'matchesEslintignore.js');
 
     const actual = isFilePathEslintignored(filePath);
     const expected = false;
@@ -141,12 +145,33 @@ describe('isFilePathEslintignored', () => {
     expect(actual).toBe(expected);
   });
 
+  test('is false if the filePath does not match a glob in the nearest eslintignore', () => {
+    atomLinter.findCached.mockImplementation(() =>
+      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'));
+    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'doesNotMatchEslintignore.js');
+
+    const actual = isFilePathEslintignored(filePath);
+    const expected = false;
+
+    expect(atomLinter.findCached).toHaveBeenCalledWith(
+      path.join(__dirname, '..', 'tests', 'fixtures'),
+      '.eslintignore',
+    );
+    expect(actual).toBe(expected);
+  });
+
   test('is true if the filePath does match a glob in the nearest eslintignore', () => {
+    atomLinter.findCached.mockImplementation(() =>
+      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'));
     const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'matchesEslintignore.js');
 
     const actual = isFilePathEslintignored(filePath);
     const expected = true;
 
+    expect(atomLinter.findCached).toHaveBeenCalledWith(
+      path.join(__dirname, '..', 'tests', 'fixtures'),
+      '.eslintignore',
+    );
     expect(actual).toBe(expected);
   });
 });
