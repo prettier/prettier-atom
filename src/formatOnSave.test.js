@@ -25,6 +25,8 @@ beforeEach(() => {
   helpers.isFilePathEslintignored.mockImplementation(() => false);
   // $FlowFixMe
   helpers.isCurrentScopeEmbeddedScope.mockImplementation(() => false);
+  // $FlowFixMe
+  helpers.getCurrentFilePath.mockImplementation(() => filePathFixture);
   editor.getBuffer.mockImplementation(() => ({ getRange: jest.fn(() => rangeFixture) }));
 });
 
@@ -61,6 +63,17 @@ test('it does nothing if not a valid scope according to config', () => {
   formatOnSave(editor, filePathFixture);
 
   expect(helpers.isInScope).toHaveBeenCalled();
+  expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
+  expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
+});
+
+test('it does nothing if filePath matches an excluded glob', () => {
+  // $FlowFixMe
+  helpers.isFilePathExcluded.mockImplementation(() => true);
+
+  formatOnSave(editor, filePathFixture);
+
+  expect(helpers.isFilePathExcluded).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
 });

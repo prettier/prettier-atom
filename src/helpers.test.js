@@ -10,6 +10,7 @@ const {
   getCurrentFilePath,
   isInScope,
   isFilePathEslintignored,
+  isFilePathExcluded,
   isCurrentScopeEmbeddedScope,
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
@@ -172,6 +173,28 @@ describe('isFilePathEslintignored', () => {
       path.join(__dirname, '..', 'tests', 'fixtures'),
       '.eslintignore',
     );
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('isFilePathExcluded', () => {
+  test('returns false if filePath is not listed in the globs', () => {
+    atom = { config: { get: jest.fn(() => []) } };
+
+    const actual = isFilePathExcluded('foo.js');
+    const expected = false;
+
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.excludedGlobs');
+    expect(actual).toBe(expected);
+  });
+
+  test('returns true if filePath is listed in the globs', () => {
+    atom = { config: { get: jest.fn(() => ['*.js']) } };
+
+    const actual = isFilePathExcluded('foo.js');
+    const expected = true;
+
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.excludedGlobs');
     expect(actual).toBe(expected);
   });
 });
