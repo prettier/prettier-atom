@@ -58,6 +58,8 @@ var activate = function activate() {
   subscriptions.add(atom.config.observe('prettier-atom.useEslint', function () {
     return lazyWarnAboutLinterEslintFixOnSave();
   }));
+  atom.config.unset('prettier-atom.singleQuote');
+  atom.config.unset('prettier-atom.trailingComma');
 };
 
 var deactivate = function deactivate() {
