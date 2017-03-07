@@ -82,7 +82,7 @@ var getPrettierOption = function getPrettierOption(key) {
 };
 
 var getCurrentFilePath = function getCurrentFilePath(editor) {
-  return editor.buffer.file.path;
+  return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
 
 var isInScope = function isInScope(editor) {
