@@ -27,7 +27,11 @@
       "profile": "https://robwise.github.io",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "question",
+        "example",
+        "review",
+        "test"
       ]
     },
     {
