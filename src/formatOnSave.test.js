@@ -36,6 +36,19 @@ test('it executes prettier on buffer range', () => {
   expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, rangeFixture);
 });
 
+test('it executes prettier on buffer range if file is whitelisted regardless of exclusions or scopes', () => {
+  // $FlowFixMe
+  helpers.isInScope.mockImplementation(() => false);
+  // $FlowFixMe
+  helpers.isFilePathExcluded.mockImplementation(() => true);
+  // $FlowFixMe
+  helpers.isFilePathWhitelisted.mockImplementation(() => true);
+
+  formatOnSave(editor, filePathFixture);
+
+  expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, rangeFixture);
+});
+
 test('it executes prettier on embedded scripts if scope is an embedded scope', () => {
   // $FlowFixMe
   helpers.isCurrentScopeEmbeddedScope.mockImplementation(() => true);

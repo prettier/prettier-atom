@@ -121,6 +121,10 @@ var isFilePathExcluded = function isFilePathExcluded(filePath) {
   return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.excludedGlobs'), filePath);
 };
 
+var isFilePathWhitelisted = function isFilePathWhitelisted(filePath) {
+  return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.whitelistedGlobs'), filePath);
+};
+
 var getPrettierOptions = function getPrettierOptions(editor) {
   return {
     printWidth: getPrettierOption('printWidth'),
@@ -142,6 +146,7 @@ module.exports = {
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
   isFilePathEslintignored: isFilePathEslintignored,
   isFilePathExcluded: isFilePathExcluded,
+  isFilePathWhitelisted: isFilePathWhitelisted,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   shouldUseEslint: shouldUseEslint,
