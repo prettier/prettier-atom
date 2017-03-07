@@ -18,7 +18,7 @@ Atom package to format your JavaScript using Prettier. Comes with powerful optio
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-![Demo][demo]
+![prettier demo][prettier-demo]
 
 ## Installation
 
@@ -36,6 +36,8 @@ Use two ways:
 - Automatically format on save (requires enabling in Package → `prettier-atom` → Format)
 
 If you use ESlint, check the "ESLint Integration" checkbox and poof, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood). We will recursively search up the file tree for your package.json and eslint settings and use them when formatting.
+
+![prettier-eslint demo][prettier-eslint-demo]
 
 More detailed descriptions of each option can be found in the Atom settings for this plugin.
 
@@ -92,4 +94,5 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [prettier-eslint]: https://github.com/jlongster/prettier-atom
 [kentcdodds]: https://github.com/kentcdodds
 [james-long]: https://github.com/jlongster
-[demo]: https://github.com/jlongster/prettier-atom/raw/master/plugin.gif
+[prettier-demo]: https://github.com/jlongster/prettier-atom/raw/master/prettier-demo.gif
+[prettier-eslint-demo]: https://github.com/jlongster/prettier-atom/raw/master/prettier-eslint-demo.gif
