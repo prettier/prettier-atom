@@ -52,10 +52,17 @@
       },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
-        "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob",
+        "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob.",
         "type": "array",
         "default": [],
         "order": 4
+      },
+      "whitelistedGlobs": {
+        "title": "Include (list of globs)",
+        "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob.",
+        "type": "array",
+        "default": [],
+        "order": 5
       }
     }
   },

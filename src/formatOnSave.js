@@ -8,14 +8,18 @@ const {
   isFilePathEslintignored,
   isFilePathExcluded,
   isInScope,
+  isFilePathWhitelisted,
 } = require('./helpers');
 
 const formatOnSaveIfAppropriate = (editor: TextEditor) => {
   const filePath = getCurrentFilePath(editor);
 
   if (!isFormatOnSaveEnabled()) return;
-  if (!isInScope(editor)) return;
-  if (filePath && isFilePathExcluded(filePath)) return;
+
+  if (filePath && !isFilePathWhitelisted(filePath)) {
+    if (!isInScope(editor)) return;
+    if (filePath && isFilePathExcluded(filePath)) return;
+  }
   if (filePath && shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
 
   if (isCurrentScopeEmbeddedScope(editor)) {

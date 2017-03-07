@@ -11,14 +11,18 @@ var _require2 = require('./helpers'),
     isCurrentScopeEmbeddedScope = _require2.isCurrentScopeEmbeddedScope,
     isFilePathEslintignored = _require2.isFilePathEslintignored,
     isFilePathExcluded = _require2.isFilePathExcluded,
-    isInScope = _require2.isInScope;
+    isInScope = _require2.isInScope,
+    isFilePathWhitelisted = _require2.isFilePathWhitelisted;
 
 var formatOnSaveIfAppropriate = function formatOnSaveIfAppropriate(editor) {
   var filePath = getCurrentFilePath(editor);
 
   if (!isFormatOnSaveEnabled()) return;
-  if (!isInScope(editor)) return;
-  if (filePath && isFilePathExcluded(filePath)) return;
+
+  if (filePath && !isFilePathWhitelisted(filePath)) {
+    if (!isInScope(editor)) return;
+    if (filePath && isFilePathExcluded(filePath)) return;
+  }
   if (filePath && shouldRespectEslintignore() && isFilePathEslintignored(filePath)) return;
 
   if (isCurrentScopeEmbeddedScope(editor)) {

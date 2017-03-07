@@ -11,6 +11,7 @@ const {
   isInScope,
   isFilePathEslintignored,
   isFilePathExcluded,
+  isFilePathWhitelisted,
   isCurrentScopeEmbeddedScope,
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
@@ -204,6 +205,28 @@ describe('isFilePathExcluded', () => {
     const expected = true;
 
     expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.excludedGlobs');
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('isFilePathWhitelisted', () => {
+  test('returns false if filePath is not listed in the globs', () => {
+    atom = { config: { get: jest.fn(() => []) } };
+
+    const actual = isFilePathWhitelisted('foo.js');
+    const expected = false;
+
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.whitelistedGlobs');
+    expect(actual).toBe(expected);
+  });
+
+  test('returns true if filePath is not listed in the globs', () => {
+    atom = { config: { get: jest.fn(() => ['*.js']) } };
+
+    const actual = isFilePathWhitelisted('foo.js');
+    const expected = true;
+
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.whitelistedGlobs');
     expect(actual).toBe(expected);
   });
 });
