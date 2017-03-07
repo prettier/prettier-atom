@@ -55,7 +55,7 @@ const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
 
 const getPrettierOption = (key: string) => getConfigOption(`prettierOptions.${key}`);
 
-const getCurrentFilePath = (editor: TextEditor) => editor.buffer.file.path;
+const getCurrentFilePath = (editor: TextEditor) => editor.buffer.file ? editor.buffer.file.path : undefined;
 
 const isInScope = (editor: TextEditor) =>
   getConfigOption('formatOnSaveOptions.scopes').includes(getCurrentScope(editor));

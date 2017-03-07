@@ -67,6 +67,15 @@ describe('getCurrentFilePath', () => {
 
     expect(actual).toBe(expected);
   });
+
+  test('returns undefined if there is no file', () => {
+    const editor = textEditor({ buffer: { file: null } });
+
+    const actual = getCurrentFilePath(editor);
+    const expected = undefined;
+
+    expect(actual).toBe(expected);
+  });
 });
 
 describe('isInScope', () => {
