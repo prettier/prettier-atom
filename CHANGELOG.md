@@ -1,3 +1,18 @@
+<a name="0.22.0"></a>
+# [0.22.0](https://github.com/jlongster/prettier-atom/compare/v0.21.3...v0.22.0) (2017-03-07)
+
+
+### Bug Fixes
+
+* **formatOnSave:** don't error when saving a new file ([19b4d04](https://github.com/jlongster/prettier-atom/commit/19b4d04)), closes [#79](https://github.com/jlongster/prettier-atom/issues/79)
+
+
+### Features
+
+* **whitelist-globs:** add ability to whitelist globs ([2369c44](https://github.com/jlongster/prettier-atom/commit/2369c44)), closes [#62](https://github.com/jlongster/prettier-atom/issues/62)
+
+
+
 <a name="0.21.3"></a>
 ## [0.21.3](https://github.com/jlongster/prettier-atom/compare/v0.21.2...v0.21.3) (2017-03-06)
 
