@@ -12,12 +12,17 @@ var _require2 = require('./helpers'),
     isFilePathEslintignored = _require2.isFilePathEslintignored,
     isFilePathExcluded = _require2.isFilePathExcluded,
     isInScope = _require2.isInScope,
-    isFilePathWhitelisted = _require2.isFilePathWhitelisted;
+    isFilePathWhitelisted = _require2.isFilePathWhitelisted,
+    isWhitelistProvided = _require2.isWhitelistProvided;
 
 var formatOnSaveIfAppropriate = function formatOnSaveIfAppropriate(editor) {
+  if (!isFormatOnSaveEnabled()) return;
+
   var filePath = getCurrentFilePath(editor);
 
-  if (!isFormatOnSaveEnabled()) return;
+  if (filePath && isWhitelistProvided() && !isFilePathWhitelisted(filePath)) {
+    return;
+  }
 
   if (filePath && !isFilePathWhitelisted(filePath)) {
     if (!isInScope(editor)) return;

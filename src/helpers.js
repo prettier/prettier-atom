@@ -87,6 +87,8 @@ const isFilePathExcluded = (filePath: FilePath) =>
 const isFilePathWhitelisted = (filePath: FilePath) =>
   someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.whitelistedGlobs'), filePath);
 
+const isWhitelistProvided = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs').length > 0;
+
 const getPrettierOptions = (editor: TextEditor) => ({
   printWidth: getPrettierOption('printWidth'),
   tabWidth: useAtomTabLengthIfAuto(editor, getPrettierOption('tabWidth')),
@@ -107,6 +109,7 @@ module.exports = {
   isFilePathEslintignored,
   isFilePathExcluded,
   isFilePathWhitelisted,
+  isWhitelistProvided,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
