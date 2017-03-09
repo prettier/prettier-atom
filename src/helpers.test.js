@@ -12,6 +12,7 @@ const {
   isFilePathEslintignored,
   isFilePathExcluded,
   isFilePathWhitelisted,
+  isWhitelistProvided,
   isCurrentScopeEmbeddedScope,
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
@@ -226,6 +227,24 @@ describe('isFilePathWhitelisted', () => {
     const actual = isFilePathWhitelisted('foo.js');
     const expected = true;
 
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.whitelistedGlobs');
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('isWhitelistProvided', () => {
+  test('returns true if there are whitelist items provided', () => {
+    atom = { config: { get: jest.fn(() => ['*.js']) } };
+    const actual = isWhitelistProvided();
+    const expected = true;
+    expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.whitelistedGlobs');
+    expect(actual).toBe(expected);
+  });
+
+  test('returns false if the whitelist is empty', () => {
+    atom = { config: { get: jest.fn(() => []) } };
+    const actual = isWhitelistProvided();
+    const expected = false;
     expect(atom.config.get).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.whitelistedGlobs');
     expect(actual).toBe(expected);
   });

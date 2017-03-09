@@ -59,7 +59,7 @@
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
-        "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob.",
+        "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob. NOTE: If there are globs in this list, files not matching the globs will not be formatted on save regardless of other options.",
         "type": "array",
         "default": [],
         "order": 5

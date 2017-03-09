@@ -125,6 +125,10 @@ var isFilePathWhitelisted = function isFilePathWhitelisted(filePath) {
   return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.whitelistedGlobs'), filePath);
 };
 
+var isWhitelistProvided = function isWhitelistProvided() {
+  return getConfigOption('formatOnSaveOptions.whitelistedGlobs').length > 0;
+};
+
 var getPrettierOptions = function getPrettierOptions(editor) {
   return {
     printWidth: getPrettierOption('printWidth'),
@@ -147,6 +151,7 @@ module.exports = {
   isFilePathEslintignored: isFilePathEslintignored,
   isFilePathExcluded: isFilePathExcluded,
   isFilePathWhitelisted: isFilePathWhitelisted,
+  isWhitelistProvided: isWhitelistProvided,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   shouldUseEslint: shouldUseEslint,

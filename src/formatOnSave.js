@@ -9,12 +9,17 @@ const {
   isFilePathExcluded,
   isInScope,
   isFilePathWhitelisted,
+  isWhitelistProvided,
 } = require('./helpers');
 
 const formatOnSaveIfAppropriate = (editor: TextEditor) => {
+  if (!isFormatOnSaveEnabled()) return;
+
   const filePath = getCurrentFilePath(editor);
 
-  if (!isFormatOnSaveEnabled()) return;
+  if (filePath && isWhitelistProvided() && !isFilePathWhitelisted(filePath)) {
+    return;
+  }
 
   if (filePath && !isFilePathWhitelisted(filePath)) {
     if (!isInScope(editor)) return;
