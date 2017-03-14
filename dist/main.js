@@ -9,11 +9,11 @@ var _require = require('atom'),
 // local helpers
 
 
-var commands = null;
-var editorObserver = null;
 var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
+var subscriptions = null;
+// let active = false; // HACK: disposing subscriptions doesn't work for obeserveTextEditors??
 
 // HACK: lazy load most of the code we need for performance
 var lazyFormat = function lazyFormat() {
@@ -40,18 +40,17 @@ var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOn
   warnAboutLinterEslintFixOnSave();
 };
 
-var setEventHandlers = function setEventHandlers(editor) {
-  return editor.getBuffer().onWillSave(function () {
-    return lazyFormatOnSave(editor);
-  });
-};
-
-var subscriptions = new CompositeDisposable();
-
 // public API
 var activate = function activate() {
-  commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
-  editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
+  // active = true;
+  subscriptions = new CompositeDisposable();
+
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
+  subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
+    return subscriptions.add(editor.getBuffer().onWillSave(function () {
+      return lazyFormatOnSave(editor);
+    }));
+  }));
   subscriptions.add(atom.config.observe('linter-eslint.fixOnSave', function () {
     return lazyWarnAboutLinterEslintFixOnSave();
   }));
@@ -66,8 +65,7 @@ var activate = function activate() {
 };
 
 var deactivate = function deactivate() {
-  if (commands) commands.dispose();
-  if (editorObserver) editorObserver.dispose();
+  // active = false;
   subscriptions.dispose();
 };
 

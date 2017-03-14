@@ -3,11 +3,10 @@ const config = require('./config-schema.json');
 const { CompositeDisposable } = require('atom');
 
 // local helpers
-let commands = null;
-let editorObserver = null;
 let format = null;
 let formatOnSave = null;
 let warnAboutLinterEslintFixOnSave = null;
+let subscriptions = null;
 
 // HACK: lazy load most of the code we need for performance
 const lazyFormat = () => {
@@ -34,14 +33,15 @@ const lazyWarnAboutLinterEslintFixOnSave = () => {
   warnAboutLinterEslintFixOnSave();
 };
 
-const setEventHandlers = editor => editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor));
-
-const subscriptions = new CompositeDisposable();
-
 // public API
 const activate = () => {
-  commands = atom.commands.add('atom-workspace', 'prettier:format', lazyFormat);
-  editorObserver = atom.workspace.observeTextEditors(setEventHandlers);
+  subscriptions = new CompositeDisposable();
+
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
+  subscriptions.add(
+    atom.workspace.observeTextEditors(editor =>
+      subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor)))),
+  );
   subscriptions.add(
     atom.config.observe('linter-eslint.fixOnSave', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
@@ -56,8 +56,6 @@ const activate = () => {
 };
 
 const deactivate = () => {
-  if (commands) commands.dispose();
-  if (editorObserver) editorObserver.dispose();
   subscriptions.dispose();
 };
 
