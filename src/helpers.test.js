@@ -270,15 +270,16 @@ describe('isCurrentScopeEmbeddedScope', () => {
 
 describe('getPrettierOptions', () => {
   test('returns all prettier options', () => {
-    const mockGet = option => ({
-      'prettier-atom.prettierOptions.printWidth': 80,
-      'prettier-atom.prettierOptions.tabWidth': 2,
-      'prettier-atom.prettierOptions.parser': 'flow',
-      'prettier-atom.prettierOptions.singleQuote': true,
-      'prettier-atom.prettierOptions.trailingComma': true,
-      'prettier-atom.prettierOptions.bracketSpacing': true,
-      'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-    })[option];
+    const mockGet = option =>
+      ({
+        'prettier-atom.prettierOptions.printWidth': 80,
+        'prettier-atom.prettierOptions.tabWidth': 2,
+        'prettier-atom.prettierOptions.parser': 'flow',
+        'prettier-atom.prettierOptions.singleQuote': true,
+        'prettier-atom.prettierOptions.trailingComma': true,
+        'prettier-atom.prettierOptions.bracketSpacing': true,
+        'prettier-atom.prettierOptions.jsxBracketSameLine': true,
+      }[option]);
     atom = { config: { get: mockGet } };
     const editor = textEditor();
 
@@ -288,17 +289,18 @@ describe('getPrettierOptions', () => {
   });
 
   test('uses the editor tab width if config is set to "auto"', () => {
-    const mockGet = option => option === 'editor.tabLength'
-      ? 8
-      : ({
-        'prettier-atom.prettierOptions.printWidth': 80,
-        'prettier-atom.prettierOptions.tabWidth': 'auto',
-        'prettier-atom.prettierOptions.parser': 'flow',
-        'prettier-atom.prettierOptions.singleQuote': true,
-        'prettier-atom.prettierOptions.trailingComma': true,
-        'prettier-atom.prettierOptions.bracketSpacing': true,
-        'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-      })[option];
+    const mockGet = option =>
+      option === 'editor.tabLength'
+        ? 8
+        : {
+          'prettier-atom.prettierOptions.printWidth': 80,
+          'prettier-atom.prettierOptions.tabWidth': 'auto',
+          'prettier-atom.prettierOptions.parser': 'flow',
+          'prettier-atom.prettierOptions.singleQuote': true,
+          'prettier-atom.prettierOptions.trailingComma': true,
+          'prettier-atom.prettierOptions.bracketSpacing': true,
+          'prettier-atom.prettierOptions.jsxBracketSameLine': true,
+        }[option];
     atom = { config: { get: mockGet } };
     const editor = textEditor({ getLastCursor: () => ({ getScopeDescriptor: () => 'source.js.jsx' }) });
 
