@@ -10,7 +10,8 @@ var _require2 = require('./helpers'),
     getPrettierOptions = _require2.getPrettierOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
     shouldDisplayErrors = _require2.shouldDisplayErrors,
-    shouldUseEslint = _require2.shouldUseEslint;
+    shouldUseEslint = _require2.shouldUseEslint,
+    runLinter = _require2.runLinter;
 
 var EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
@@ -48,6 +49,7 @@ var executePrettierOnBufferRange = function executePrettierOnBufferRange(editor,
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);
+  runLinter(editor);
 };
 
 var executePrettierOnEmbeddedScripts = function executePrettierOnEmbeddedScripts(editor) {

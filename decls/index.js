@@ -32,11 +32,22 @@ declare type TextEditor = {
     ) => void,
   ) => void,
 };
+declare type Atom$View = any;
+declare type Atom$Workspace = any;
+declare type Atom$Command = { name: string, displayName: string };
 declare var atom: {
+  commands: {
+    dispatch: (view: Atom$View, commandName: string) => void,
+    findCommands: ({ target: Atom$View }) => Array<Atom$Command>,
+  },
   config: {
     get: (key: string) => any,
   },
   notifications: {
     addError: (message: string, options?: { detail?: string, dismissable?: boolean }) => void,
   },
+  views: {
+    getView: (Atom$Workspace) => Atom$View,
+  },
+  workspace: Atom$Workspace,
 };

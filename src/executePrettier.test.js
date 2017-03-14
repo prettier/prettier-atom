@@ -43,6 +43,12 @@ describe('executePrettierOnBufferRange()', () => {
     expect(editor.setCursorScreenPosition).toHaveBeenCalledWith(startCursorScreenPosition);
   });
 
+  test('runs linter:lint if available to refresh linter highlighting', () => {
+    executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+    expect(helpers.runLinter).toHaveBeenCalled();
+  });
+
   test('transforms the given buffer range using prettier-eslint if config enables it', () => {
     // $FlowFixMe
     helpers.shouldUseEslint.mockImplementation(() => true);
