@@ -3,7 +3,13 @@ const prettierEslint = require('prettier-eslint');
 const prettier = require('prettier');
 const { allowUnsafeNewFunction } = require('loophole');
 
-const { getPrettierOptions, getCurrentFilePath, shouldDisplayErrors, shouldUseEslint } = require('./helpers');
+const {
+  getPrettierOptions,
+  getCurrentFilePath,
+  shouldDisplayErrors,
+  shouldUseEslint,
+  runLinter,
+} = require('./helpers');
 
 const EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
@@ -39,6 +45,7 @@ const executePrettierOnBufferRange = (editor: TextEditor, bufferRange: Range) =>
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);
+  runLinter(editor);
 };
 
 const executePrettierOnEmbeddedScripts = (editor: TextEditor) =>

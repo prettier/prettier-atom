@@ -7,6 +7,7 @@ const path = require('path');
 // constants
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
 const EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
+const LINTER_LINT_COMMAND = 'linter:lint';
 
 // local helpers
 const getCurrentScope = (editor: TextEditor) => editor.getGrammar().scopeName;
@@ -47,6 +48,11 @@ const getAtomTabLength = (editor: TextEditor) =>
 
 const useAtomTabLengthIfAuto = (editor, tabLength) =>
   tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
+
+const isLinterLintCommandDefined = (editor: TextEditor) =>
+  atom.commands
+    .findCommands({ target: atom.views.getView(editor) })
+    .some(command => command.name === LINTER_LINT_COMMAND);
 
 // public helpers
 const getConfigOption = (key: string) => atom.config.get(`prettier-atom.${key}`);
@@ -99,6 +105,11 @@ const getPrettierOptions = (editor: TextEditor) => ({
   jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
 });
 
+const runLinter = (editor: TextEditor) =>
+  isLinterLintCommandDefined(editor)
+    ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
+    : undefined;
+
 module.exports = {
   getConfigOption,
   shouldDisplayErrors,
@@ -115,4 +126,5 @@ module.exports = {
   shouldUseEslint,
   shouldRespectEslintignore,
   getPrettierOptions,
+  runLinter,
 };

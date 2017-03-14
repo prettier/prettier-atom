@@ -10,6 +10,7 @@ var path = require('path');
 // constants
 var LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
 var EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
+var LINTER_LINT_COMMAND = 'linter:lint';
 
 // local helpers
 var getCurrentScope = function getCurrentScope(editor) {
@@ -66,6 +67,12 @@ var getAtomTabLength = function getAtomTabLength(editor) {
 
 var useAtomTabLengthIfAuto = function useAtomTabLengthIfAuto(editor, tabLength) {
   return tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
+};
+
+var isLinterLintCommandDefined = function isLinterLintCommandDefined(editor) {
+  return atom.commands.findCommands({ target: atom.views.getView(editor) }).some(function (command) {
+    return command.name === LINTER_LINT_COMMAND;
+  });
 };
 
 // public helpers
@@ -141,6 +148,10 @@ var getPrettierOptions = function getPrettierOptions(editor) {
   };
 };
 
+var runLinter = function runLinter(editor) {
+  return isLinterLintCommandDefined(editor) ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND) : undefined;
+};
+
 module.exports = {
   getConfigOption: getConfigOption,
   shouldDisplayErrors: shouldDisplayErrors,
@@ -156,5 +167,6 @@ module.exports = {
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   shouldUseEslint: shouldUseEslint,
   shouldRespectEslintignore: shouldRespectEslintignore,
-  getPrettierOptions: getPrettierOptions
+  getPrettierOptions: getPrettierOptions,
+  runLinter: runLinter
 };

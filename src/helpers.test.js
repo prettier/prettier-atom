@@ -17,6 +17,7 @@ const {
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
   getPrettierOptions,
+  runLinter,
 } = require('./helpers');
 
 jest.mock('atom-linter');
@@ -308,5 +309,37 @@ describe('getPrettierOptions', () => {
     const expected = 8;
 
     expect(actual).toEqual(expected);
+  });
+});
+
+describe('runLinter()', () => {
+  test('runs `linter:lint` command', () => {
+    const editor = textEditor();
+    const viewMock = { isViewMock: true };
+    const commandsMock = [{ name: 'linter:lint', displayName: 'Linter: Lint' }];
+    atom = {
+      commands: { dispatch: jest.fn(), findCommands: jest.fn(() => commandsMock) },
+      views: { getView: jest.fn(() => viewMock) },
+    };
+
+    runLinter(editor);
+
+    expect(atom.views.getView).toHaveBeenCalledWith(editor);
+    expect(atom.commands.dispatch).toHaveBeenCalledWith(viewMock, 'linter:lint');
+  });
+
+  test('does nothing if `linter:lint` command does not exist', () => {
+    const editor = textEditor();
+    const viewMock = { isViewMock: true };
+    const commandsMock = [];
+    atom = {
+      commands: { dispatch: jest.fn(), findCommands: jest.fn(() => commandsMock) },
+      views: { getView: jest.fn(() => viewMock) },
+    };
+
+    runLinter(editor);
+
+    expect(atom.commands.findCommands).toHaveBeenCalledWith({ target: viewMock });
+    expect(atom.commands.dispatch).not.toHaveBeenCalled();
   });
 });
