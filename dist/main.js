@@ -13,7 +13,6 @@ var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
 var subscriptions = null;
-// let active = false; // HACK: disposing subscriptions doesn't work for obeserveTextEditors??
 
 // HACK: lazy load most of the code we need for performance
 var lazyFormat = function lazyFormat() {
@@ -42,7 +41,6 @@ var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOn
 
 // public API
 var activate = function activate() {
-  // active = true;
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
@@ -65,7 +63,6 @@ var activate = function activate() {
 };
 
 var deactivate = function deactivate() {
-  // active = false;
   subscriptions.dispose();
 };
 
