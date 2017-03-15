@@ -1,3 +1,14 @@
+<a name="0.23.1"></a>
+## [0.23.1](https://github.com/jlongster/prettier-atom/compare/v0.23.0...v0.23.1) (2017-03-15)
+
+
+### Bug Fixes
+
+* **formatOnSave:** do not format on save after plugin is disabled ([1c7cd9b](https://github.com/jlongster/prettier-atom/commit/1c7cd9b)), closes [#84](https://github.com/jlongster/prettier-atom/issues/84)
+* **linter:** refresh linter highlighting after format ([9a538e1](https://github.com/jlongster/prettier-atom/commit/9a538e1)), closes [#86](https://github.com/jlongster/prettier-atom/issues/86)
+
+
+
 <a name="0.23.0"></a>
 # [0.23.0](https://github.com/jlongster/prettier-atom/compare/v0.22.0...v0.23.0) (2017-03-09)
 
