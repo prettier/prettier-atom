@@ -7,6 +7,9 @@ scripts:
     watch:
       description: Run jest unit tests in watch mode
       script: nps "test --watch"
+    withCoverage:
+      description: Run jest with coverage collection.
+      script: nps "test --coverage"
 
   up:
     description: Wipe node_modules and install all dependencies
@@ -44,6 +47,10 @@ scripts:
     extreme:
       description: Run validate and also check node_modules for problems and generate contributors
       script: nps test && nps format && nps lint && yarn check && nps build && nps generateContributors
+
+  ci:
+    description: Run all CI checks
+    script: nps lint && nps test.withCoverage
 
   commit:
     description: Uses commitizen to help us generate well formatted commit messages

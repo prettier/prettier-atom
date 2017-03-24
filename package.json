@@ -62,6 +62,9 @@
     }
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**.js"
+    ],
     "globals": {
       "atom": true
     },

@@ -4,4 +4,4 @@ cache:
 notifications:
   email: false
 script:
-  - yarn start validate
+  - yarn start ci
