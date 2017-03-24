@@ -1,23 +1,19 @@
-# Prettier for Atom
+# Prettier for Atom [![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
+
+<!-- [![Code Coverage][coverage-badge]][coverage] TODO: Add coverage! -->
+<!-- [![Dependencies][dependencyci-badge]][dependencyci] TODO: Add dependency CI! -->
+<!-- [![Code of Conduct][coc-badge]][coc] -->
+
+[![Version][version-badge]][package]
+[![Build Status][build-badge]][build]
+[![Downloads][downloads-badge]][package]
+[![MIT License][license-badge]][LICENSE]
+[![All Contributors][all-contributors-badge]](#contributors)
+[![PRs Welcome][prs-badge]][prs]
 
 Atom package to format your JavaScript using Prettier. Comes with powerful optional ESlint integration.
 
-<!-- [![Code Coverage][coverage-badge]][coverage] TODO: Add coverage! -->
-<!-- [![Build Status][build-badge]][build] TODO: Add CI! -->
-<!-- [![Dependencies][dependencyci-badge]][dependencyci] TODO: Add dependency CI! -->
-
-[![Version][version-badge]][package]
-[![Downloads][downloads-badge]][package]
-[![MIT License][license-badge]][LICENSE]
-
-[![All Contributors][all-contributors-badge]](#contributors)
-[![PRs Welcome][prs-badge]][prs]
-[![Code of Conduct][coc-badge]][coc]
-
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
-
+## Demo
 ![prettier demo][prettier-demo]
 
 ## Installation
@@ -45,7 +41,10 @@ Please open a pull request or file an issue if you notice bugs or something does
 
 ## Inspiration
 
-This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original prettier-atom plugin to create the prettier-eslint-atom plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, prettier-eslint-atom was merged back into prettier-atom.
+This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original prettier-atom plugin to create the prettier-eslint-atom plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, prettier-eslint-atom, [Rob Wise][robwise] merged prettier-eslint back into prettier-atom.
+
+## Maintainers
+[Rob Wise][robwise]
 
 ## Contributors
 
@@ -95,5 +94,6 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [prettier-eslint]: https://github.com/prettier/prettier-atom
 [kentcdodds]: https://github.com/kentcdodds
 [james-long]: https://github.com/jlongster
+[robwise]: https://github.com/robwise
 [prettier-demo]: https://github.com/prettier/prettier-atom/raw/master/prettier-demo.gif
 [prettier-eslint-demo]: https://github.com/prettier/prettier-atom/raw/master/prettier-eslint-demo.gif
