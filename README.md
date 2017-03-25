@@ -24,7 +24,7 @@ apm install prettier-atom
 
 Or, Settings → Install → Search for `prettier-atom`
 
-In order to start using the package setting, the make sure you restart Atom after installation.
+Make sure to restart Atom app after package installation.
 
 ## Usage
 
