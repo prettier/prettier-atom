@@ -35,6 +35,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-env": "^1.2.2",
     "babel-preset-stage-2": "^6.22.0",
+    "codecov": "^2.1.0",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "^3.18.0",

@@ -5,3 +5,5 @@ notifications:
   email: false
 script:
   - yarn start ci
+after_success:
+  - yarn start reportCoverage

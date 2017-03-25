@@ -1,12 +1,12 @@
 # Prettier for Atom [![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
 
-<!-- [![Code Coverage][coverage-badge]][coverage] TODO: Add coverage! -->
 <!-- [![Dependencies][dependencyci-badge]][dependencyci] TODO: Add dependency CI! -->
 <!-- [![Code of Conduct][coc-badge]][coc] -->
 
 [![Version][version-badge]][package]
-[![Build Status][build-badge]][build]
 [![Downloads][downloads-badge]][package]
+[![Build Status][build-badge]][build]
+[![Code Coverage][coverage-badge]][coverage]
 [![MIT License][license-badge]][LICENSE]
 [![All Contributors][all-contributors-badge]](#contributors)
 [![PRs Welcome][prs-badge]][prs]

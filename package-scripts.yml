@@ -52,6 +52,10 @@ scripts:
     description: Run all CI checks
     script: nps lint && nps test.withCoverage
 
+  reportCoverage:
+    description: Report coverage stats to codecov. This should be run after the `test` script
+    script: codecov
+
   commit:
     description: Uses commitizen to help us generate well formatted commit messages
     script: git-cz
