@@ -1,3 +1,13 @@
+<a name="0.24.0"></a>
+# [0.24.0](https://github.com/jlongster/prettier-atom/compare/v0.23.1...v0.24.0) (2017-03-25)
+
+
+### Features
+
+* **prettier-eslint:** bump to 4.3.2 ([f5fbb5d](https://github.com/jlongster/prettier-atom/commit/f5fbb5d))
+
+
+
 <a name="0.23.1"></a>
 ## [0.23.1](https://github.com/jlongster/prettier-atom/compare/v0.23.0...v0.23.1) (2017-03-15)
 
