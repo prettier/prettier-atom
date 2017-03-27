@@ -37,6 +37,16 @@ var getNearestEslintignorePath = function getNearestEslintignorePath(filePath) {
   return findCached(getDirFromFilePath(filePath), '.eslintignore');
 };
 
+var getLocalPrettierPath = function getLocalPrettierPath(filePath) {
+  if (!filePath) return null;
+
+  var indexPath = path.join('node_modules', 'prettier', 'index.js');
+  var dirPath = getDirFromFilePath(filePath);
+  if (!dirPath) return null;
+
+  return findCached(dirPath, indexPath);
+};
+
 var getFilePathRelativeToEslintignore = function getFilePathRelativeToEslintignore(filePath) {
   var nearestEslintignorePath = getNearestEslintignorePath(filePath);
 
@@ -168,6 +178,7 @@ module.exports = {
   getPrettierOption: getPrettierOption,
   getPrettierEslintOption: getPrettierEslintOption,
   getCurrentFilePath: getCurrentFilePath,
+  getLocalPrettierPath: getLocalPrettierPath,
   isInScope: isInScope,
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
   isFilePathEslintignored: isFilePathEslintignored,

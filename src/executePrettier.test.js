@@ -1,4 +1,5 @@
 // @flow
+const path = require('path');
 const prettier = require('prettier');
 const prettierEslint = require('prettier-eslint');
 
@@ -92,6 +93,18 @@ describe('executePrettierOnBufferRange()', () => {
       executePrettierOnBufferRange(editor, bufferRangeFixture);
 
       expect(editor.setCursorScreenPosition).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when there is a local prettier', () => {
+    test('transforms using local prettier', () => {
+      const mockPrettierPath = path.join(__dirname, '..', 'tests', 'fixtures', 'prettier.js');
+      // $FlowFixMe
+      helpers.getLocalPrettierPath.mockImplementation(() => mockPrettierPath);
+
+      executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+      expect(editor.setTextInBufferRange).toHaveBeenCalledWith(bufferRangeFixture, 'mock formatted text');
     });
   });
 

@@ -9,6 +9,7 @@ const {
   getPrettierOption,
   getPrettierEslintOption,
   getCurrentFilePath,
+  getLocalPrettierPath,
   isInScope,
   isFilePathEslintignored,
   isFilePathExcluded,
@@ -93,6 +94,43 @@ describe('getCurrentFilePath', () => {
     const expected = undefined;
 
     expect(actual).toBe(expected);
+  });
+});
+
+describe('getLocalPrettierPath', () => {
+  test('is null if no prettier package can be found', () => {
+    atomLinter.findCached.mockImplementation(() => undefined);
+    const filePath = path.join(__dirname, 'sourceFile.js');
+
+    const actual = getLocalPrettierPath(filePath);
+    const expected = undefined;
+
+    expect(actual).toEqual(expected);
+  });
+
+  test('is prettier instance if one could be found', () => {
+    const prettierLib = path.join(__dirname, '..', 'node_modules', 'prettier', 'index.js');
+
+    atomLinter.findCached.mockImplementation(() => prettierLib);
+    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'sourceFile.js');
+
+    const actual = getLocalPrettierPath(filePath);
+    const expected = prettierLib;
+
+    expect(actual).toBe(expected);
+  });
+
+  test('looks for prettier entry file', () => {
+    const prettierLib = path.join(__dirname, '..', 'node_modules', 'prettier', 'index.js');
+
+    atomLinter.findCached.mockImplementation(() => prettierLib);
+    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'sourceFile.js');
+
+    getLocalPrettierPath(filePath);
+    const expectedDir = path.join(__dirname, '..', 'tests', 'fixtures');
+    const expectedLib = path.join('node_modules', 'prettier', 'index.js');
+
+    expect(atomLinter.findCached).toHaveBeenCalledWith(expectedDir, expectedLib);
   });
 });
 
