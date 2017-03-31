@@ -79,7 +79,7 @@
       },
       "bracketSpacing": {
         "title": "Bracket Spacing",
-        "description": "Print spaces inside of arrays and objects.",
+        "description": "Print spaces inside of object literals.",
         "type": "boolean",
         "default": true,
         "order": 2
