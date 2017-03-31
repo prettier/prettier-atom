@@ -54,14 +54,10 @@ pre-commit
 
 ## Help needed
 
-Please checkout the [ROADMAP.md][ROADMAP] and raise an issue to discuss
-any of the items in the want to do or might do list.
-
-Also, please watch the repo and respond to questions/bug reports/feature requests! Thanks!
+Please watch the repo and respond to questions/bug reports/feature requests! Thanks!
 
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
 [semantic-release]: https://npmjs.com/package/semantic-release
 [convention]: https://github.com/conventional-changelog/conventional-changelog-angular/blob/ed32559941719a130bb0327f886d6a32a8cbc2ba/convention.md
 [all-contributors]: https://github.com/kentcdodds/all-contributors
-[ROADMAP]: ./ROADMAP.md
 [nps]: https://www.npmjs.com/package/nps
