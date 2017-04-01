@@ -61,6 +61,8 @@ const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
 
 const getPrettierOption = (key: string) => getConfigOption(`prettierOptions.${key}`);
 
+const getPrettierEslintOption = (key: string) => getConfigOption(`prettierEslintOptions.${key}`);
+
 const getCurrentFilePath = (editor: TextEditor) => editor.buffer.file ? editor.buffer.file.path : undefined;
 
 const isInScope = (editor: TextEditor) =>
@@ -105,6 +107,10 @@ const getPrettierOptions = (editor: TextEditor) => ({
   jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
 });
 
+const getPrettierEslintOptions = () => ({
+  prettierLast: getPrettierEslintOption('prettierLast'),
+});
+
 const runLinter = (editor: TextEditor) =>
   isLinterLintCommandDefined(editor)
     ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
@@ -114,6 +120,7 @@ module.exports = {
   getConfigOption,
   shouldDisplayErrors,
   getPrettierOption,
+  getPrettierEslintOption,
   getCurrentFilePath,
   isInScope,
   isCurrentScopeEmbeddedScope,
@@ -126,5 +133,6 @@ module.exports = {
   shouldUseEslint,
   shouldRespectEslintignore,
   getPrettierOptions,
+  getPrettierEslintOptions,
   runLinter,
 };

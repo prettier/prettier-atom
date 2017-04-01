@@ -1,5 +1,7 @@
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var prettierEslint = require('prettier-eslint');
 var prettier = require('prettier');
 
@@ -8,6 +10,7 @@ var _require = require('loophole'),
 
 var _require2 = require('./helpers'),
     getPrettierOptions = _require2.getPrettierOptions,
+    getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
     shouldDisplayErrors = _require2.shouldDisplayErrors,
     shouldUseEslint = _require2.shouldUseEslint,
@@ -31,7 +34,10 @@ var executePrettier = function executePrettier(editor, text) {
   try {
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(function () {
-        return prettierEslint({ text: text, filePath: getCurrentFilePath(editor) });
+        return prettierEslint(_extends({}, getPrettierEslintOptions(), {
+          text: text,
+          filePath: getCurrentFilePath(editor)
+        }));
       });
     }
     return prettier.format(text, getPrettierOptions(editor));

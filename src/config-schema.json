@@ -129,5 +129,18 @@
         "order": 7
       }
     }
+  },
+  "prettierEslintOptions": {
+    "type": "object",
+    "order": 5,
+    "properties": {
+      "prettierLast": {
+        "title": "Run Prettier Last",
+        "description": "Run eslint => prettier (instead of prettier => eslint)",
+        "type": "boolean",
+        "default": false,
+        "order": 1
+      }
+    }
   }
 }

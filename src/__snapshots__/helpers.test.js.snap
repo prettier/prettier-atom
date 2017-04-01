@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getPrettierEslintOptions returns all prettier-eslint options 1`] = `
+Object {
+  "prettierLast": true,
+}
+`;
+
 exports[`getPrettierOptions returns all prettier options 1`] = `
 Object {
   "bracketSpacing": true,

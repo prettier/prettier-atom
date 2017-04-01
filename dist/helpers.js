@@ -88,6 +88,10 @@ var getPrettierOption = function getPrettierOption(key) {
   return getConfigOption('prettierOptions.' + key);
 };
 
+var getPrettierEslintOption = function getPrettierEslintOption(key) {
+  return getConfigOption('prettierEslintOptions.' + key);
+};
+
 var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
@@ -148,6 +152,12 @@ var getPrettierOptions = function getPrettierOptions(editor) {
   };
 };
 
+var getPrettierEslintOptions = function getPrettierEslintOptions() {
+  return {
+    prettierLast: getPrettierEslintOption('prettierLast')
+  };
+};
+
 var runLinter = function runLinter(editor) {
   return isLinterLintCommandDefined(editor) ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND) : undefined;
 };
@@ -156,6 +166,7 @@ module.exports = {
   getConfigOption: getConfigOption,
   shouldDisplayErrors: shouldDisplayErrors,
   getPrettierOption: getPrettierOption,
+  getPrettierEslintOption: getPrettierEslintOption,
   getCurrentFilePath: getCurrentFilePath,
   isInScope: isInScope,
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
@@ -168,5 +179,6 @@ module.exports = {
   shouldUseEslint: shouldUseEslint,
   shouldRespectEslintignore: shouldRespectEslintignore,
   getPrettierOptions: getPrettierOptions,
+  getPrettierEslintOptions: getPrettierEslintOptions,
   runLinter: runLinter
 };
