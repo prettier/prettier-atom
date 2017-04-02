@@ -47,7 +47,8 @@ const executePrettierOnBufferRange = (editor: TextEditor, bufferRange: Range) =>
   const textToTransform = editor.getTextInBufferRange(bufferRange);
   const transformed = executePrettier(editor, textToTransform);
 
-  if (!transformed) return;
+  const isTextUnchanged = transformed === textToTransform;
+  if (!transformed || isTextUnchanged) return;
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);

@@ -51,7 +51,8 @@ var executePrettierOnBufferRange = function executePrettierOnBufferRange(editor,
   var textToTransform = editor.getTextInBufferRange(bufferRange);
   var transformed = executePrettier(editor, textToTransform);
 
-  if (!transformed) return;
+  var isTextUnchanged = transformed === textToTransform;
+  if (!transformed || isTextUnchanged) return;
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);
