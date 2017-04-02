@@ -19,10 +19,11 @@ var _require2 = require('./helpers'),
 var EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
 var displayError = function displayError(error) {
-  var message = 'prettier-atom: ' + error.toString();
-  var detail = error.stack.toString();
-
-  atom.notifications.addError(message, { detail: detail, dismissable: true });
+  atom.notifications.addError('prettier-atom failed!', {
+    detail: error,
+    stack: error.stack,
+    dismissable: true
+  });
 };
 
 var handleError = function handleError(error) {

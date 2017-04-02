@@ -15,10 +15,11 @@ const {
 const EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
 const displayError = (error) => {
-  const message = `prettier-atom: ${error.toString()}`;
-  const detail = error.stack.toString();
-
-  atom.notifications.addError(message, { detail, dismissable: true });
+  atom.notifications.addError('prettier-atom failed!', {
+    detail: error,
+    stack: error.stack,
+    dismissable: true,
+  });
 };
 
 const handleError = (error) => {
