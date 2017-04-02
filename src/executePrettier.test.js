@@ -77,6 +77,24 @@ describe('executePrettierOnBufferRange()', () => {
     });
   });
 
+  describe('when text in buffer range is already pretty', () => {
+    beforeEach(() => {
+      prettier.format.mockImplementation(() => 'untransformed text');
+    });
+
+    test("does not change the text in the editor's buffer range", () => {
+      executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+      expect(editor.setTextInBufferRange).not.toHaveBeenCalled();
+    });
+
+    test("does not change the editor's cursor position", () => {
+      executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+      expect(editor.setCursorScreenPosition).not.toHaveBeenCalled();
+    });
+  });
+
   describe('when prettier throws an error', () => {
     beforeEach(() => {
       prettier.format.mockImplementation(() => {
