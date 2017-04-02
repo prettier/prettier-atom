@@ -1,3 +1,19 @@
+<a name="0.25.0"></a>
+# [0.25.0](https://github.com/jlongster/prettier-atom/compare/v0.24.0...v0.25.0) (2017-04-02)
+
+
+### Bug Fixes
+
+* **config:** Updated description for bracketSpacing option ([9d7051a](https://github.com/jlongster/prettier-atom/commit/9d7051a)), closes [#106](https://github.com/jlongster/prettier-atom/issues/106)
+* **prettier:** Don't alter text buffer if file is already pretty ([613f28e](https://github.com/jlongster/prettier-atom/commit/613f28e))
+
+
+### Features
+
+* **options:** add prettierLast option for prettier-eslint ([0f2714d](https://github.com/jlongster/prettier-atom/commit/0f2714d))
+
+
+
 <a name="0.24.0"></a>
 # [0.24.0](https://github.com/jlongster/prettier-atom/compare/v0.23.1...v0.24.0) (2017-03-25)
 
