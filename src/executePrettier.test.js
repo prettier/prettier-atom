@@ -60,6 +60,23 @@ describe('executePrettierOnBufferRange()', () => {
     expect(prettierEslint).toHaveBeenCalledWith({ filePath: 'foo.js', text: 'untransformed text' });
   });
 
+  test('passes prettierLast option to prettier-eslint', () => {
+    // $FlowFixMe
+    helpers.shouldUseEslint.mockImplementation(() => true);
+    // $FlowFixMe
+    helpers.getCurrentFilePath.mockImplementation(() => 'foo.js');
+    // $FlowFixMe
+    helpers.getPrettierEslintOptions.mockImplementation(() => ({ prettierLast: true }));
+
+    executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+    expect(prettierEslint).toHaveBeenCalledWith({
+      prettierLast: true,
+      filePath: 'foo.js',
+      text: 'untransformed text',
+    });
+  });
+
   describe('when prettier throws an error', () => {
     beforeEach(() => {
       prettier.format.mockImplementation(() => {

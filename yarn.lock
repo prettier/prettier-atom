@@ -3197,9 +3197,23 @@ prettier-eslint-cli@^3.1.3:
     rxjs "^5.2.0"
     yargs "^6.6.0"
 
-prettier-eslint@^4.1.3, prettier-eslint@^4.3.2:
+prettier-eslint@^4.1.3:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-4.3.2.tgz#24c6361f514442506ee2019ca45484e97884e558"
+  dependencies:
+    common-tags "^1.4.0"
+    dlv "^1.1.0"
+    eslint "^3.17.0"
+    indent-string "^3.1.0"
+    lodash.merge "^4.6.0"
+    loglevel-colored-level-prefix "^1.0.0"
+    prettier "^0.22.0"
+    pretty-format "^19.0.0"
+    require-relative "^0.8.7"
+
+prettier-eslint@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-4.4.0.tgz#ded965da6a4d32bef72bfff992afbee0c0cf0443"
   dependencies:
     common-tags "^1.4.0"
     dlv "^1.1.0"

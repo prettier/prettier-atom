@@ -7,6 +7,7 @@ const {
   getConfigOption,
   shouldDisplayErrors,
   getPrettierOption,
+  getPrettierEslintOption,
   getCurrentFilePath,
   isInScope,
   isFilePathEslintignored,
@@ -17,6 +18,7 @@ const {
   isLinterEslintAutofixEnabled,
   shouldUseEslint,
   getPrettierOptions,
+  getPrettierEslintOptions,
   runLinter,
 } = require('./helpers');
 
@@ -57,6 +59,19 @@ describe('getPrettierOption', () => {
     const expected = 'auto';
 
     expect(mockGet).lastCalledWith('prettier-atom.prettierOptions.tabWidth');
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('getPrettierEslintOption', () => {
+  test('retrieves the given prettier-eslint option from the prettier-atom config', () => {
+    const mockGet = jest.fn(() => true);
+    atom = { config: { get: mockGet } };
+
+    const actual = getPrettierEslintOption('prettierLast');
+    const expected = true;
+
+    expect(mockGet).lastCalledWith('prettier-atom.prettierEslintOptions.prettierLast');
     expect(actual).toBe(expected);
   });
 });
@@ -309,6 +324,19 @@ describe('getPrettierOptions', () => {
     const expected = 8;
 
     expect(actual).toEqual(expected);
+  });
+});
+
+describe('getPrettierEslintOptions', () => {
+  test('returns all prettier-eslint options', () => {
+    const mockGet = option =>
+      ({
+        'prettier-atom.prettierEslintOptions.prettierLast': true,
+      }[option]);
+    atom = { config: { get: mockGet } };
+    const actual = getPrettierEslintOptions();
+
+    expect(actual).toMatchSnapshot();
   });
 });
 
