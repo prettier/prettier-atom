@@ -161,6 +161,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "charypar",
+      "name": "Viktor Charypar",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1517854?v=3",
+      "profile": "https://github.com/charypar",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ]
 }
