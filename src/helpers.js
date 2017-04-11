@@ -3,6 +3,7 @@ const { findCached } = require('atom-linter');
 const fs = require('fs');
 const minimatch = require('minimatch');
 const path = require('path');
+const bundledPrettier = require('prettier');
 
 // constants
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -27,9 +28,21 @@ const getLocalPrettierPath = (filePath: ?FilePath): ?FilePath => {
 
   const indexPath = path.join('node_modules', 'prettier', 'index.js');
   const dirPath = getDirFromFilePath(filePath);
-  if (!dirPath) return null;
 
-  return findCached(dirPath, indexPath);
+  return dirPath ? findCached(dirPath, indexPath) : null;
+};
+
+const getPrettier = (filePath: ?FilePath) => {
+  const prettierPath = getLocalPrettierPath(filePath);
+
+  // charypar: This is currently the best way to use local prettier instance.
+  // Using the CLI introduces a noticeable delay and there is currently no
+  // way to use prettier as a long-running process for formatting files as needed
+  //
+  // See https://github.com/prettier/prettier/issues/918
+  //
+  // $FlowFixMe when possible, don't use dynamic require
+  return prettierPath ? require(prettierPath) : bundledPrettier; // eslint-disable-line
 };
 
 const getFilePathRelativeToEslintignore = (filePath: FilePath): ?FilePath => {
@@ -132,7 +145,7 @@ module.exports = {
   getPrettierOption,
   getPrettierEslintOption,
   getCurrentFilePath,
-  getLocalPrettierPath,
+  getPrettier,
   isInScope,
   isCurrentScopeEmbeddedScope,
   isFilePathEslintignored,

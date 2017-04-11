@@ -1,13 +1,12 @@
 // @flow
 const prettierEslint = require('prettier-eslint');
-const prettier = require('prettier');
 const { allowUnsafeNewFunction } = require('loophole');
 
 const {
   getPrettierOptions,
   getPrettierEslintOptions,
   getCurrentFilePath,
-  getLocalPrettierPath,
+  getPrettier,
   shouldDisplayErrors,
   shouldUseEslint,
   runLinter,
@@ -28,15 +27,6 @@ const handleError = (error) => {
   return false;
 };
 
-// charypar: This is currently the best way to use local prettier instance.
-// Using the CLI introduces a noticeable delay and there is currently no
-// way to use prettier as a long-running process for formatting files as needed
-//
-// See https://github.com/prettier/prettier/issues/918
-//
-// $FlowFixMe when possible, don't use dynamic require
-const getLocalPrettier = path => require(path); // eslint-disable-line
-
 const executePrettier = (editor, text) => {
   try {
     if (shouldUseEslint()) {
@@ -48,14 +38,10 @@ const executePrettier = (editor, text) => {
         }));
     }
 
+    const prettier = getPrettier(getCurrentFilePath(editor));
     const prettierOptions = getPrettierOptions(editor);
-    const localPrettier = getLocalPrettierPath(getCurrentFilePath(editor));
 
-    if (!localPrettier) {
-      return prettier.format(text, prettierOptions);
-    }
-
-    return getLocalPrettier(localPrettier).format(text, prettierOptions);
+    return prettier.format(text, prettierOptions);
   } catch (error) {
     return handleError(error);
   }

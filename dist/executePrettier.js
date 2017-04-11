@@ -3,7 +3,6 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var prettierEslint = require('prettier-eslint');
-var prettier = require('prettier');
 
 var _require = require('loophole'),
     allowUnsafeNewFunction = _require.allowUnsafeNewFunction;
@@ -12,7 +11,7 @@ var _require2 = require('./helpers'),
     getPrettierOptions = _require2.getPrettierOptions,
     getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
-    getLocalPrettierPath = _require2.getLocalPrettierPath,
+    getPrettier = _require2.getPrettier,
     shouldDisplayErrors = _require2.shouldDisplayErrors,
     shouldUseEslint = _require2.shouldUseEslint,
     runLinter = _require2.runLinter;
@@ -32,17 +31,6 @@ var handleError = function handleError(error) {
   return false;
 };
 
-// charypar: This is currently the best way to use local prettier instance.
-// Using the CLI introduces a noticeable delay and there is currently no
-// way to use prettier as a long-running process for formatting files as needed
-//
-// See https://github.com/prettier/prettier/issues/918
-//
-// $FlowFixMe when possible, don't use dynamic require
-var getLocalPrettier = function getLocalPrettier(path) {
-  return require(path);
-}; // eslint-disable-line
-
 var executePrettier = function executePrettier(editor, text) {
   try {
     if (shouldUseEslint()) {
@@ -54,14 +42,10 @@ var executePrettier = function executePrettier(editor, text) {
       });
     }
 
+    var prettier = getPrettier(getCurrentFilePath(editor));
     var prettierOptions = getPrettierOptions(editor);
-    var localPrettier = getLocalPrettierPath(getCurrentFilePath(editor));
 
-    if (!localPrettier) {
-      return prettier.format(text, prettierOptions);
-    }
-
-    return getLocalPrettier(localPrettier).format(text, prettierOptions);
+    return prettier.format(text, prettierOptions);
   } catch (error) {
     return handleError(error);
   }

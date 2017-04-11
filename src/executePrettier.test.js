@@ -1,6 +1,4 @@
 // @flow
-const path = require('path');
-const prettier = require('prettier');
 const prettierEslint = require('prettier-eslint');
 
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('./executePrettier');
@@ -8,13 +6,16 @@ const textEditor = require('../tests/mocks/textEditor');
 const helpers = require('./helpers');
 
 jest.mock('./helpers');
-jest.mock('prettier');
 jest.mock('prettier-eslint');
 
 let editor;
 const bufferRangeFixture = { start: { column: 0, row: 0 }, end: { column: 20, row: 0 } };
 
+const prettier = { format: jest.fn(() => 'some transformed text') };
+
 beforeEach(() => {
+  // $FlowFixMe
+  helpers.getPrettier.mockImplementation(() => prettier);
   prettier.format.mockImplementation(() => 'some transformed text');
   prettierEslint.mockImplementation(() => 'some transformed text');
   editor = textEditor({ getTextInBufferRange: jest.fn(() => 'untransformed text') });
@@ -93,18 +94,6 @@ describe('executePrettierOnBufferRange()', () => {
       executePrettierOnBufferRange(editor, bufferRangeFixture);
 
       expect(editor.setCursorScreenPosition).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('when there is a local prettier', () => {
-    test('transforms using local prettier', () => {
-      const mockPrettierPath = path.join(__dirname, '..', 'tests', 'fixtures', 'prettier.js');
-      // $FlowFixMe
-      helpers.getLocalPrettierPath.mockImplementation(() => mockPrettierPath);
-
-      executePrettierOnBufferRange(editor, bufferRangeFixture);
-
-      expect(editor.setTextInBufferRange).toHaveBeenCalledWith(bufferRangeFixture, 'mock formatted text');
     });
   });
 
