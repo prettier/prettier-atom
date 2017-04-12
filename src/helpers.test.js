@@ -1,6 +1,7 @@
 // @flow
 const path = require('path');
 const atomLinter = require('atom-linter');
+const prettier = require('prettier');
 
 const textEditor = require('../tests/mocks/textEditor');
 const {
@@ -9,6 +10,7 @@ const {
   getPrettierOption,
   getPrettierEslintOption,
   getCurrentFilePath,
+  getPrettier,
   isInScope,
   isFilePathEslintignored,
   isFilePathExcluded,
@@ -23,6 +25,7 @@ const {
 } = require('./helpers');
 
 jest.mock('atom-linter');
+jest.mock('prettier');
 
 describe('getConfigOption', () => {
   test('retrieves a config option from the prettier-atom config', () => {
@@ -91,6 +94,31 @@ describe('getCurrentFilePath', () => {
 
     const actual = getCurrentFilePath(editor);
     const expected = undefined;
+
+    expect(actual).toBe(expected);
+  });
+});
+
+describe('getPrettier', () => {
+  test('returns default prettier if no prettier package can be found', () => {
+    atomLinter.findCached.mockImplementation(() => undefined);
+    const filePath = path.join(__dirname, 'sourceFile.js');
+
+    const actual = getPrettier(filePath);
+    const expected = prettier;
+
+    expect(actual).toEqual(expected);
+  });
+
+  test('returns local prettier instance when it exists', () => {
+    const prettierLib = path.join(__dirname, '..', 'tests', 'fixtures', 'prettier.js');
+    atomLinter.findCached.mockImplementation(() => prettierLib);
+
+    const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'sourceFile.js');
+
+    const actual = getPrettier(filePath);
+    // $FlowFixMe
+    const expected = require(prettierLib); // eslint-disable-line
 
     expect(actual).toBe(expected);
   });

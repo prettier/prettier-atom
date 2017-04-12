@@ -3,7 +3,6 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var prettierEslint = require('prettier-eslint');
-var prettier = require('prettier');
 
 var _require = require('loophole'),
     allowUnsafeNewFunction = _require.allowUnsafeNewFunction;
@@ -12,6 +11,7 @@ var _require2 = require('./helpers'),
     getPrettierOptions = _require2.getPrettierOptions,
     getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
+    getPrettier = _require2.getPrettier,
     shouldDisplayErrors = _require2.shouldDisplayErrors,
     shouldUseEslint = _require2.shouldUseEslint,
     runLinter = _require2.runLinter;
@@ -41,7 +41,11 @@ var executePrettier = function executePrettier(editor, text) {
         }));
       });
     }
-    return prettier.format(text, getPrettierOptions(editor));
+
+    var prettier = getPrettier(getCurrentFilePath(editor));
+    var prettierOptions = getPrettierOptions(editor);
+
+    return prettier.format(text, prettierOptions);
   } catch (error) {
     return handleError(error);
   }

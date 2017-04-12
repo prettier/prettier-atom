@@ -1,5 +1,4 @@
 // @flow
-const prettier = require('prettier');
 const prettierEslint = require('prettier-eslint');
 
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('./executePrettier');
@@ -7,13 +6,16 @@ const textEditor = require('../tests/mocks/textEditor');
 const helpers = require('./helpers');
 
 jest.mock('./helpers');
-jest.mock('prettier');
 jest.mock('prettier-eslint');
 
 let editor;
 const bufferRangeFixture = { start: { column: 0, row: 0 }, end: { column: 20, row: 0 } };
 
+const prettier = { format: jest.fn(() => 'some transformed text') };
+
 beforeEach(() => {
+  // $FlowFixMe
+  helpers.getPrettier.mockImplementation(() => prettier);
   prettier.format.mockImplementation(() => 'some transformed text');
   prettierEslint.mockImplementation(() => 'some transformed text');
   editor = textEditor({ getTextInBufferRange: jest.fn(() => 'untransformed text') });
