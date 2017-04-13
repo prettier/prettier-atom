@@ -1,3 +1,14 @@
+<a name="0.27.0"></a>
+# [0.27.0](https://github.com/jlongster/prettier-atom/compare/v0.26.0...v0.27.0) (2017-04-13)
+
+
+### Features
+
+* **deps:** upgrade to the latest prettier-eslint ([f3a0b7f](https://github.com/jlongster/prettier-atom/commit/f3a0b7f))
+* **useLocalPrettier:** Prefer local prettier over bundled ([98e2ea9](https://github.com/jlongster/prettier-atom/commit/98e2ea9))
+
+
+
 <a name="0.26.0"></a>
 # [0.26.0](https://github.com/jlongster/prettier-atom/compare/v0.25.0...v0.26.0) (2017-04-02)
 
