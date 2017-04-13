@@ -11,10 +11,10 @@
     "eslint",
     "formatter"
   ],
-  "repository": "https://github.com/jlongster/prettier-atom",
-  "homepage": "https://github.com/jlongster/prettier-atom",
+  "repository": "https://github.com/prettier/prettier-atom",
+  "homepage": "https://github.com/prettier/prettier-atom",
   "bugs": {
-    "url": "https://github.com/jlongster/prettier-atom/issues"
+    "url": "https://github.com/prettier/prettier-atom/issues"
   },
   "license": "MIT",
   "engines": {
