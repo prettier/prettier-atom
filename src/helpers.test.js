@@ -324,6 +324,8 @@ describe('getPrettierOptions', () => {
         'prettier-atom.prettierOptions.singleQuote': true,
         'prettier-atom.prettierOptions.trailingComma': true,
         'prettier-atom.prettierOptions.bracketSpacing': true,
+        'prettier-atom.prettierOptions.semi': true,
+        'prettier-atom.prettierOptions.useTabs': true,
         'prettier-atom.prettierOptions.jsxBracketSameLine': true,
       }[option]);
     atom = { config: { get: mockGet } };
@@ -345,6 +347,8 @@ describe('getPrettierOptions', () => {
           'prettier-atom.prettierOptions.singleQuote': true,
           'prettier-atom.prettierOptions.trailingComma': true,
           'prettier-atom.prettierOptions.bracketSpacing': true,
+          'prettier-atom.prettierOptions.semi': true,
+          'prettier-atom.prettierOptions.useTabs': true,
           'prettier-atom.prettierOptions.jsxBracketSameLine': true,
         }[option]);
     atom = { config: { get: mockGet } };

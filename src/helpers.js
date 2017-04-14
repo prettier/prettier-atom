@@ -127,6 +127,8 @@ const getPrettierOptions = (editor: TextEditor) => ({
   singleQuote: getPrettierOption('singleQuote'),
   trailingComma: getPrettierOption('trailingComma'),
   bracketSpacing: getPrettierOption('bracketSpacing'),
+  semi: getPrettierOption('semi'),
+  useTabs: getPrettierOption('useTabs'),
   jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
 });
 

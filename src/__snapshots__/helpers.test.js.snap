@@ -12,8 +12,10 @@ Object {
   "jsxBracketSameLine": true,
   "parser": "flow",
   "printWidth": 80,
+  "semi": true,
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": true,
+  "useTabs": true,
 }
 `;
