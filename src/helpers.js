@@ -15,8 +15,8 @@ const getCurrentScope = (editor: TextEditor) => editor.getGrammar().scopeName;
 
 // robwise: my apologies for this one, but I love function composition and want to use one that is Facebook
 // flow inferrable. See https://drboolean.gitbooks.io/mostly-adequate-guide/ch5.html
-const flow = (func: Function, ...funcs: Array<Function>) =>
-  (...args) => funcs.length ? flow(...funcs)(func(...args)) : func(...args);
+const flow = (func: Function, ...funcs: Array<Function>) => (...args) =>
+  (funcs.length ? flow(...funcs)(func(...args)) : func(...args));
 
 const getDirFromFilePath = (filePath: FilePath): FilePath => path.parse(filePath).dir;
 
@@ -60,7 +60,7 @@ const getLinesFromFilePath = (filePath: FilePath) =>
 
 const getIgnoredGlobsFromNearestEslintIgnore: (filePath: FilePath) => Globs = flow(
   getNearestEslintignorePath,
-  maybePath => maybePath ? getLinesFromFilePath(maybePath) : [],
+  maybePath => (maybePath ? getLinesFromFilePath(maybePath) : []),
 );
 
 const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) =>
@@ -70,7 +70,7 @@ const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 
 const useAtomTabLengthIfAuto = (editor, tabLength) =>
-  tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
+  (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
 
 const isLinterLintCommandDefined = (editor: TextEditor) =>
   atom.commands
@@ -86,7 +86,7 @@ const getPrettierOption = (key: string) => getConfigOption(`prettierOptions.${ke
 
 const getPrettierEslintOption = (key: string) => getConfigOption(`prettierEslintOptions.${key}`);
 
-const getCurrentFilePath = (editor: TextEditor) => editor.buffer.file ? editor.buffer.file.path : undefined;
+const getCurrentFilePath = (editor: TextEditor) => (editor.buffer.file ? editor.buffer.file.path : undefined);
 
 const isInScope = (editor: TextEditor) =>
   getConfigOption('formatOnSaveOptions.scopes').includes(getCurrentScope(editor));
@@ -135,9 +135,9 @@ const getPrettierEslintOptions = () => ({
 });
 
 const runLinter = (editor: TextEditor) =>
-  isLinterLintCommandDefined(editor)
+  (isLinterLintCommandDefined(editor)
     ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
-    : undefined;
+    : undefined);
 
 module.exports = {
   getConfigOption,

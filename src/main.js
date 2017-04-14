@@ -40,7 +40,8 @@ const activate = () => {
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
   subscriptions.add(
     atom.workspace.observeTextEditors(editor =>
-      subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor)))),
+      subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor))),
+    ),
   );
   subscriptions.add(
     atom.config.observe('linter-eslint.fixOnSave', () => lazyWarnAboutLinterEslintFixOnSave()),
