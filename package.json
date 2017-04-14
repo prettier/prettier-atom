@@ -24,8 +24,8 @@
     "atom-linter": "^9.0.0",
     "loophole": "^1.1.0",
     "minimatch": "^3.0.3",
-    "prettier": "^0.22.0",
-    "prettier-eslint": "^5.0.0"
+    "prettier": "^1.0.2",
+    "prettier-eslint": "^5.1.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^4.1.0",
