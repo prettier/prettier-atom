@@ -144,7 +144,8 @@ describe('executePrettierOnEmbeddedScripts()', () => {
     const fileBufferRange = { range: { start: { row: 0, column: 0 }, end: { row: 4, column: 5 } } };
     editor.getBuffer.mockImplementation(() => ({ getRange: () => fileBufferRange }));
     editor.backwardsScanInBufferRange.mockImplementation((regex, range, iterator) =>
-      iterator(fileBufferRange));
+      iterator(fileBufferRange),
+    );
 
     executePrettierOnEmbeddedScripts(editor);
 

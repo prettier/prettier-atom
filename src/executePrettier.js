@@ -35,7 +35,8 @@ const executePrettier = (editor, text) => {
           ...getPrettierEslintOptions(),
           text,
           filePath: getCurrentFilePath(editor),
-        }));
+        }),
+      );
     }
 
     const prettier = getPrettier(getCurrentFilePath(editor));

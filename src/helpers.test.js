@@ -203,7 +203,8 @@ describe('isFilePathEslintignored', () => {
 
   test('is false if the filePath does not match a glob in the nearest eslintignore', () => {
     atomLinter.findCached.mockImplementation(() =>
-      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'));
+      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'),
+    );
     const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'doesNotMatchEslintignore.js');
 
     const actual = isFilePathEslintignored(filePath);
@@ -218,7 +219,8 @@ describe('isFilePathEslintignored', () => {
 
   test('is true if the filePath does match a glob in the nearest eslintignore', () => {
     atomLinter.findCached.mockImplementation(() =>
-      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'));
+      path.join(__dirname, '..', 'tests', 'fixtures', '.eslintignore'),
+    );
     const filePath = path.join(__dirname, '..', 'tests', 'fixtures', 'matchesEslintignore.js');
 
     const actual = isFilePathEslintignored(filePath);
@@ -334,7 +336,7 @@ describe('getPrettierOptions', () => {
 
   test('uses the editor tab width if config is set to "auto"', () => {
     const mockGet = option =>
-      option === 'editor.tabLength'
+      (option === 'editor.tabLength'
         ? 8
         : {
           'prettier-atom.prettierOptions.printWidth': 80,
@@ -344,7 +346,7 @@ describe('getPrettierOptions', () => {
           'prettier-atom.prettierOptions.trailingComma': true,
           'prettier-atom.prettierOptions.bracketSpacing': true,
           'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-        }[option];
+        }[option]);
     atom = { config: { get: mockGet } };
     const editor = textEditor({ getLastCursor: () => ({ getScopeDescriptor: () => 'source.js.jsx' }) });
 
