@@ -33,7 +33,7 @@ Use two ways:
 - Invoke manually using the keyboard shortcut (if no selection, whole file is formatted): <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
 - Automatically format on save (requires enabling in Package → `prettier-atom` → Format)
 
-If you use ESlint, check the "ESLint Integration" checkbox and poof, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood). We will recursively search up the file tree for your package.json and eslint settings and use them when formatting.
+If you use ESlint, check the "ESLint Integration" checkbox and poof, everything should work (we use Kent Dodds's [`prettier-eslint`][https://github.com/prettier/prettier-eslint] plugin under the hood). We will recursively search up the file tree for your package.json and eslint settings and use them when formatting.
 
 ![prettier-eslint demo][prettier-eslint-demo]
 
