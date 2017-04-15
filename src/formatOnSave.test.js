@@ -31,7 +31,7 @@ beforeEach(() => {
 });
 
 test('it executes prettier on buffer range', () => {
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, rangeFixture);
 });
@@ -46,7 +46,7 @@ test('it executes prettier on buffer range if file is whitelisted regardless of 
   // $FlowFixMe
   helpers.isFilePathWhitelisted.mockImplementation(() => true);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, rangeFixture);
 });
@@ -61,7 +61,7 @@ test('it does not execute prettier if whitelist is provided and file is not whit
   // $FlowFixMe
   helpers.isFilePathWhitelisted.mockImplementation(() => false);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(executePrettierOnBufferRange).toHaveBeenCalledTimes(0);
 });
@@ -70,7 +70,7 @@ test('it executes prettier on embedded scripts if scope is an embedded scope', (
   // $FlowFixMe
   helpers.isCurrentScopeEmbeddedScope.mockImplementation(() => true);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(executePrettierOnEmbeddedScripts).toHaveBeenCalledWith(editor);
 });
@@ -79,9 +79,21 @@ test('it does nothing if formatOnSave is not enabled', () => {
   // $FlowFixMe
   helpers.isFormatOnSaveEnabled.mockImplementation(() => false);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(helpers.isFormatOnSaveEnabled).toHaveBeenCalled();
+  expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
+  expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
+});
+
+test('it does nothing if file is saved for the first time', () => {
+  // $FlowFixMe
+  helpers.getCurrentFilePath.mockImplementation(() => undefined);
+
+  formatOnSave(editor);
+
+  expect(helpers.isFormatOnSaveEnabled).toHaveBeenCalled();
+  expect(helpers.getCurrentFilePath).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
 });
@@ -90,7 +102,7 @@ test('it does nothing if not a valid scope according to config', () => {
   // $FlowFixMe
   helpers.isInScope.mockImplementation(() => false);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(helpers.isInScope).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
@@ -101,7 +113,7 @@ test('it does nothing if filePath matches an excluded glob', () => {
   // $FlowFixMe
   helpers.isFilePathExcluded.mockImplementation(() => true);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(helpers.isFilePathExcluded).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
@@ -128,7 +140,7 @@ test('does not attempt to check filePath matches .eslintignore if `currentFilePa
   // $FlowFixMe
   helpers.getCurrentFilePath.mockImplementation(() => null);
 
-  formatOnSave(editor, filePathFixture);
+  formatOnSave(editor);
 
   expect(helpers.shouldRespectEslintignore).not.toHaveBeenCalled();
 });
