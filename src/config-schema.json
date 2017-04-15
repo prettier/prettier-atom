@@ -84,26 +84,40 @@
         "default": true,
         "order": 2
       },
+      "semi": {
+        "title": "Semicolons",
+        "description": "Add semicolons at the end of lines.",
+        "type": "boolean",
+        "default": true,
+        "order": 3
+      },
+      "useTabs": {
+        "title": "Use Tabs",
+        "description": "Use tabs instead of spaces.",
+        "type": "boolean",
+        "default": false,
+        "order": 4
+      },
       "jsxBracketSameLine": {
         "title": "JSX Bracket Same Line",
         "description": "Put > on the same line in JSX.",
         "type": "boolean",
         "default": false,
-        "order": 3
+        "order": 5
       },
       "printWidth": {
         "title": "Print Width",
         "description": "Fit code within this line limit",
         "type": "integer",
         "default": 80,
-        "order": 4
+        "order": 6
       },
       "tabWidth": {
         "title": "Tab Width",
         "description": "Number of spaces to use per tab. Use 'auto' to use your editor's tab width setting.",
         "type": "string",
         "default": "auto",
-        "order": 5
+        "order": 7
       },
       "trailingComma": {
         "title": "Trailing Comma",
@@ -115,7 +129,7 @@
           "es5",
           "all"
         ],
-        "order": 6
+        "order": 8
       },
       "parser": {
         "title": "Parser",
@@ -126,7 +140,7 @@
           "babylon",
           "flow"
         ],
-        "order": 7
+        "order": 9
       }
     }
   },
