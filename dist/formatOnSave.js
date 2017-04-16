@@ -20,6 +20,8 @@ var formatOnSaveIfAppropriate = function formatOnSaveIfAppropriate(editor) {
 
   var filePath = getCurrentFilePath(editor);
 
+  if (!filePath) return;
+
   if (filePath && isWhitelistProvided() && !isFilePathWhitelisted(filePath)) {
     return;
   }

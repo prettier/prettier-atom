@@ -17,6 +17,8 @@ const formatOnSaveIfAppropriate = (editor: TextEditor) => {
 
   const filePath = getCurrentFilePath(editor);
 
+  if (!filePath) return;
+
   if (filePath && isWhitelistProvided() && !isFilePathWhitelisted(filePath)) {
     return;
   }
