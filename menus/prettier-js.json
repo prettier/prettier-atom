@@ -1,6 +1,6 @@
 {
   "context-menu": {
-    "atom-text-editor[data-grammar='source js']": [
+    "atom-text-editor[data-grammar='source js'], atom-text-editor[data-grammar='source js jsx']": [
       {
         "label": "Format With prettier",
         "command": "prettier:format"
