@@ -50,4 +50,5 @@ declare var atom: {
     getView: (Atom$Workspace) => Atom$View,
   },
   workspace: Atom$Workspace,
+  getVersion: () => string,
 };

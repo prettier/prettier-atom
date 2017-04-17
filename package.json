@@ -25,7 +25,8 @@
     "loophole": "^1.1.0",
     "minimatch": "^3.0.3",
     "prettier": "^1.0.2",
-    "prettier-eslint": "^5.1.0"
+    "prettier-eslint": "^5.1.0",
+    "read-pkg": "^2.0.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^4.1.0",
