@@ -408,10 +408,11 @@ describe('runLinter()', () => {
 });
 
 describe('getDebugInfo()', () => {
-  test('returns versions of prettier-atom and some of its direct dependencies', () => {
-    const atomVersion = '4.44.44';
-    const mockGetVersion = jest.fn(() => atomVersion);
-    const mockGet = jest.fn();
+  test('returns versions of prettier-atom + dependencies, and its configuration', () => {
+    const expectedAtomVersion = '4.44.44';
+    const expectedConfig = 'config';
+    const mockGetVersion = jest.fn(() => expectedAtomVersion);
+    const mockGet = jest.fn(() => expectedConfig);
     atom = {
       getVersion: mockGetVersion,
       config: { get: mockGet },
@@ -420,36 +421,13 @@ describe('getDebugInfo()', () => {
     const minVersionLength = '0.0.0'.length;
     const info = getDebugInfo();
 
-    expect(info.atomVersion).toBe(atomVersion);
+    expect(info.atomVersion).toBe(expectedAtomVersion);
     expect(typeof info.prettierVersion).toBe('string');
     expect(typeof info.prettierAtomVersion).toBe('string');
     expect(typeof info.prettierESLintVersion).toBe('string');
     expect(info.prettierVersion.length).toBeGreaterThanOrEqual(minVersionLength);
     expect(info.prettierAtomVersion.length).toBeGreaterThanOrEqual(minVersionLength);
     expect(info.prettierESLintVersion.length).toBeGreaterThanOrEqual(minVersionLength);
-  });
-
-  test('returns the configuration for prettier-atom', () => {
-    const expectedConfig = {
-      prettierOptions: {
-        printWidth: 120,
-        singleQuote: true,
-        semi: false,
-        parser: 'flow',
-      },
-      useEslint: false,
-      formatOnSaveOptions: {
-        enabled: false,
-      },
-    };
-    const mockGet = jest.fn(() => expectedConfig);
-    atom = {
-      getVersion: jest.fn(),
-      config: { get: mockGet },
-    };
-
-    const info = getDebugInfo();
-
-    expect(info.prettierAtomConfig).toMatchObject(expectedConfig);
+    expect(info.prettierAtomConfig).toBe(expectedConfig);
   });
 });
