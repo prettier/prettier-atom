@@ -193,14 +193,11 @@ var runLinter = function runLinter(editor) {
 };
 
 var getDebugInfo = function getDebugInfo() {
-  var prettierAtomInfo = readPkg.sync();
-  var prettierInfo = readPkg.sync(getDepPath('prettier'));
-  var prettierESLintInfo = readPkg.sync(getDepPath('prettier-eslint'));
   return {
     atomVersion: atom.getVersion(),
-    prettierAtomVersion: prettierAtomInfo.version,
-    prettierVersion: prettierInfo.version,
-    prettierESLintVersion: prettierESLintInfo.version,
+    prettierAtomVersion: readPkg.sync().version,
+    prettierVersion: readPkg.sync(getDepPath('prettier')).version,
+    prettierESLintVersion: readPkg.sync(getDepPath('prettier-eslint')).version,
     prettierAtomConfig: atom.config.get('prettier-atom')
   };
 };

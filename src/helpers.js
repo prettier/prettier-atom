@@ -78,7 +78,7 @@ const isLinterLintCommandDefined = (editor: TextEditor) =>
     .findCommands({ target: atom.views.getView(editor) })
     .some(command => command.name === LINTER_LINT_COMMAND);
 
-const getDepPath = dep => path.join(__dirname, '../node_modules', dep);
+const getDepPath = (dep: string) => path.join(__dirname, '../node_modules', dep);
 
 // public helpers
 const getConfigOption = (key: string) => atom.config.get(`prettier-atom.${key}`);
@@ -144,18 +144,13 @@ const runLinter = (editor: TextEditor) =>
     ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
     : undefined);
 
-const getDebugInfo = () => {
-  const prettierAtomInfo = readPkg.sync();
-  const prettierInfo = readPkg.sync(getDepPath('prettier'));
-  const prettierESLintInfo = readPkg.sync(getDepPath('prettier-eslint'));
-  return {
-    atomVersion: atom.getVersion(),
-    prettierAtomVersion: prettierAtomInfo.version,
-    prettierVersion: prettierInfo.version,
-    prettierESLintVersion: prettierESLintInfo.version,
-    prettierAtomConfig: atom.config.get('prettier-atom'),
-  };
-};
+const getDebugInfo = () => ({
+  atomVersion: atom.getVersion(),
+  prettierAtomVersion: readPkg.sync().version,
+  prettierVersion: readPkg.sync(getDepPath('prettier')).version,
+  prettierESLintVersion: readPkg.sync(getDepPath('prettier-eslint')).version,
+  prettierAtomConfig: atom.config.get('prettier-atom'),
+});
 
 module.exports = {
   getConfigOption,
