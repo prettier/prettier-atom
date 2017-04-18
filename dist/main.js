@@ -1,7 +1,6 @@
 'use strict';
 
 var config = require('./config-schema.json');
-var helpers = require('./helpers');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 
 var _require = require('atom'),
@@ -13,6 +12,7 @@ var _require = require('atom'),
 var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
+var displayDebugInfo = null;
 var subscriptions = null;
 
 // HACK: lazy load most of the code we need for performance
@@ -40,13 +40,13 @@ var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOn
   warnAboutLinterEslintFixOnSave();
 };
 
-var displayDebugInfo = function displayDebugInfo() {
-  var info = helpers.getDebugInfo();
-  var details = ['Atom version: ' + info.atomVersion, 'prettier-atom version: ' + info.prettierAtomVersion, 'prettier version: ' + info.prettierVersion, 'prettier-eslint version: ' + info.prettierESLintVersion, 'prettier-atom configuration: ' + JSON.stringify(info.prettierAtomConfig, null, 2)].join('\n');
-  atom.notifications.addInfo('prettier-atom: details on current install', {
-    detail: details,
-    dismissable: true
-  });
+// HACK: lazy load most of the code we need for performance
+var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
+  if (!displayDebugInfo) {
+    // eslint-disable-next-line global-require
+    displayDebugInfo = require('./displayDebugInfo');
+  }
+  displayDebugInfo();
 };
 
 // public API
@@ -54,7 +54,7 @@ var activate = function activate() {
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
-  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', displayDebugInfo));
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
     return subscriptions.add(editor.getBuffer().onWillSave(function () {
       return lazyFormatOnSave(editor);
