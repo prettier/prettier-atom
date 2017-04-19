@@ -4,6 +4,7 @@ const fs = require('fs');
 const minimatch = require('minimatch');
 const path = require('path');
 const bundledPrettier = require('prettier');
+const readPkg = require('read-pkg');
 
 // constants
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -77,6 +78,8 @@ const isLinterLintCommandDefined = (editor: TextEditor) =>
     .findCommands({ target: atom.views.getView(editor) })
     .some(command => command.name === LINTER_LINT_COMMAND);
 
+const getDepPath = (dep: string) => path.join(__dirname, '../node_modules', dep);
+
 // public helpers
 const getConfigOption = (key: string) => atom.config.get(`prettier-atom.${key}`);
 
@@ -141,6 +144,14 @@ const runLinter = (editor: TextEditor) =>
     ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
     : undefined);
 
+const getDebugInfo = () => ({
+  atomVersion: atom.getVersion(),
+  prettierAtomVersion: readPkg.sync().version,
+  prettierVersion: readPkg.sync(getDepPath('prettier')).version,
+  prettierESLintVersion: readPkg.sync(getDepPath('prettier-eslint')).version,
+  prettierAtomConfig: atom.config.get('prettier-atom'),
+});
+
 module.exports = {
   getConfigOption,
   shouldDisplayErrors,
@@ -161,4 +172,5 @@ module.exports = {
   getPrettierOptions,
   getPrettierEslintOptions,
   runLinter,
+  getDebugInfo,
 };

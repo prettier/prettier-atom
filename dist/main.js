@@ -12,6 +12,7 @@ var _require = require('atom'),
 var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
+var displayDebugInfo = null;
 var subscriptions = null;
 
 // HACK: lazy load most of the code we need for performance
@@ -39,11 +40,21 @@ var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOn
   warnAboutLinterEslintFixOnSave();
 };
 
+// HACK: lazy load most of the code we need for performance
+var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
+  if (!displayDebugInfo) {
+    // eslint-disable-next-line global-require
+    displayDebugInfo = require('./displayDebugInfo');
+  }
+  displayDebugInfo();
+};
+
 // public API
 var activate = function activate() {
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
     return subscriptions.add(editor.getBuffer().onWillSave(function () {
       return lazyFormatOnSave(editor);

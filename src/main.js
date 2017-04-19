@@ -6,6 +6,7 @@ const { CompositeDisposable } = require('atom');
 let format = null;
 let formatOnSave = null;
 let warnAboutLinterEslintFixOnSave = null;
+let displayDebugInfo = null;
 let subscriptions = null;
 
 // HACK: lazy load most of the code we need for performance
@@ -33,11 +34,21 @@ const lazyWarnAboutLinterEslintFixOnSave = () => {
   warnAboutLinterEslintFixOnSave();
 };
 
+// HACK: lazy load most of the code we need for performance
+const lazyDisplayDebugInfo = () => {
+  if (!displayDebugInfo) {
+    // eslint-disable-next-line global-require
+    displayDebugInfo = require('./displayDebugInfo');
+  }
+  displayDebugInfo();
+};
+
 // public API
 const activate = () => {
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(
     atom.workspace.observeTextEditors(editor =>
       subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor))),

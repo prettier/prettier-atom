@@ -17,6 +17,10 @@
             {
               "label": "Format",
               "command": "prettier:format"
+            },
+            {
+              "label": "Debug",
+              "command": "prettier:debug"
             }
           ]
         }

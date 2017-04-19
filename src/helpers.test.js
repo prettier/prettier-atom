@@ -22,6 +22,7 @@ const {
   getPrettierOptions,
   getPrettierEslintOptions,
   runLinter,
+  getDebugInfo,
 } = require('./helpers');
 
 jest.mock('atom-linter');
@@ -403,5 +404,30 @@ describe('runLinter()', () => {
 
     expect(atom.commands.findCommands).toHaveBeenCalledWith({ target: viewMock });
     expect(atom.commands.dispatch).not.toHaveBeenCalled();
+  });
+});
+
+describe('getDebugInfo()', () => {
+  test('returns versions of prettier-atom + dependencies, and its configuration', () => {
+    const expectedAtomVersion = '4.44.44';
+    const expectedConfig = 'config';
+    const mockGetVersion = jest.fn(() => expectedAtomVersion);
+    const mockGet = jest.fn(() => expectedConfig);
+    atom = {
+      getVersion: mockGetVersion,
+      config: { get: mockGet },
+    };
+
+    const minVersionLength = '0.0.0'.length;
+    const info = getDebugInfo();
+
+    expect(info.atomVersion).toBe(expectedAtomVersion);
+    expect(typeof info.prettierVersion).toBe('string');
+    expect(typeof info.prettierAtomVersion).toBe('string');
+    expect(typeof info.prettierESLintVersion).toBe('string');
+    expect(info.prettierVersion.length).toBeGreaterThanOrEqual(minVersionLength);
+    expect(info.prettierAtomVersion.length).toBeGreaterThanOrEqual(minVersionLength);
+    expect(info.prettierESLintVersion.length).toBeGreaterThanOrEqual(minVersionLength);
+    expect(info.prettierAtomConfig).toBe(expectedConfig);
   });
 });

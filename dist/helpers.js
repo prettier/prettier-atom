@@ -7,6 +7,7 @@ var fs = require('fs');
 var minimatch = require('minimatch');
 var path = require('path');
 var bundledPrettier = require('prettier');
+var readPkg = require('read-pkg');
 
 // constants
 var LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -98,6 +99,10 @@ var isLinterLintCommandDefined = function isLinterLintCommandDefined(editor) {
   });
 };
 
+var getDepPath = function getDepPath(dep) {
+  return path.join(__dirname, '../node_modules', dep);
+};
+
 // public helpers
 var getConfigOption = function getConfigOption(key) {
   return atom.config.get('prettier-atom.' + key);
@@ -187,6 +192,16 @@ var runLinter = function runLinter(editor) {
   return isLinterLintCommandDefined(editor) ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND) : undefined;
 };
 
+var getDebugInfo = function getDebugInfo() {
+  return {
+    atomVersion: atom.getVersion(),
+    prettierAtomVersion: readPkg.sync().version,
+    prettierVersion: readPkg.sync(getDepPath('prettier')).version,
+    prettierESLintVersion: readPkg.sync(getDepPath('prettier-eslint')).version,
+    prettierAtomConfig: atom.config.get('prettier-atom')
+  };
+};
+
 module.exports = {
   getConfigOption: getConfigOption,
   shouldDisplayErrors: shouldDisplayErrors,
@@ -206,5 +221,6 @@ module.exports = {
   shouldRespectEslintignore: shouldRespectEslintignore,
   getPrettierOptions: getPrettierOptions,
   getPrettierEslintOptions: getPrettierEslintOptions,
-  runLinter: runLinter
+  runLinter: runLinter,
+  getDebugInfo: getDebugInfo
 };
