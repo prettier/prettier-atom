@@ -3289,9 +3289,9 @@ prettier-eslint@^4.4.0:
     pretty-format "^19.0.0"
     require-relative "^0.8.7"
 
-prettier-eslint@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-5.1.0.tgz#cee9aaaa9f3370665e5897057313a823da0932e2"
+prettier-eslint@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-6.0.0.tgz#eb90af758d945296edb705d23348e9b6a42eac75"
   dependencies:
     common-tags "^1.4.0"
     dlv "^1.1.0"
