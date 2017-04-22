@@ -94,7 +94,7 @@ This project follows the [all-contributors][all-contributors] specification. Con
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [all-contributors-badge]: https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square
 [prettier]: https://github.com/prettier/prettier
-[prettier-eslint]: https://github.com/prettier/prettier-atom
+[prettier-eslint]: https://github.com/prettier/prettier-eslint
 [kentcdodds]: https://github.com/kentcdodds
 [james-long]: https://github.com/jlongster
 [robwise]: https://github.com/robwise
