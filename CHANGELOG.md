@@ -1,3 +1,33 @@
+<a name="0.29.0"></a>
+# [0.29.0](https://github.com/prettier/prettier-atom/compare/v0.28.0...v0.29.0) (2017-04-22)
+
+
+### Bug Fixes
+
+* **contextMenu:** Enable context menu entry for JSX files ([06e9945](https://github.com/prettier/prettier-atom/commit/06e9945))
+* **contextMenu:** Uppercase P for Prettier in context menu entries ([3376665](https://github.com/prettier/prettier-atom/commit/3376665))
+* **embedded-scripts:** skip single-line script tags in html files ([4f5d1c6](https://github.com/prettier/prettier-atom/commit/4f5d1c6))
+* **formatOnSave:** Don't format if file is saved for the first time ([2a7c0cd](https://github.com/prettier/prettier-atom/commit/2a7c0cd))
+* **ignore-globs:** switch to using node-ignore instead of minimatch globs ([5122823](https://github.com/prettier/prettier-atom/commit/5122823)), closes [#133](https://github.com/prettier/prettier-atom/issues/133)
+
+
+### Features
+
+* **command:** Add a debug command ([63c91d1](https://github.com/prettier/prettier-atom/commit/63c91d1))
+
+
+### Performance Improvements
+
+* **main:** Lazy load displayDebugInfo() ([cac4403](https://github.com/prettier/prettier-atom/commit/cac4403))
+
+
+### BREAKING CHANGES
+
+* **ignore-globs:** Some files that were previously ignored may now no longer be ignored, and vice
+versa.
+
+
+
 <a name="0.28.0"></a>
 # [0.28.0](https://github.com/prettier/prettier-atom/compare/v0.27.0...v0.28.0) (2017-04-15)
 
