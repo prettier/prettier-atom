@@ -1,3 +1,5 @@
+// @flow
+
 // types for working with Atom stuff
 declare type FilePath = string;
 declare type Point = { row: number, column: number };
@@ -21,15 +23,13 @@ declare type TextEditor = {
   backwardsScanInBufferRange: (
     regex: RegExp,
     Range: Range,
-    iter: (
-      {
-        match: string,
-        matchText: string,
-        range: Range,
-        stop: Function,
-        replace: (replacement: string) => void,
-      },
-    ) => void,
+    iter: ({
+      match: string,
+      matchText: string,
+      range: Range,
+      stop: Function,
+      replace: (replacement: string) => void,
+    }) => void,
   ) => void,
 };
 declare type Atom$View = any;
@@ -47,7 +47,7 @@ declare var atom: {
     addError: (message: string, options?: { detail?: string, dismissable?: boolean }) => void,
   },
   views: {
-    getView: (Atom$Workspace) => Atom$View,
+    getView: Atom$Workspace => Atom$View,
   },
   workspace: Atom$Workspace,
   getVersion: () => string,
