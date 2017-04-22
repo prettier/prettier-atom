@@ -1,7 +1,7 @@
 // @flow
 const { findCached } = require('atom-linter');
 const fs = require('fs');
-const minimatch = require('minimatch');
+const ignore = require('ignore');
 const path = require('path');
 const bundledPrettier = require('prettier');
 const readPkg = require('read-pkg');
@@ -64,8 +64,7 @@ const getIgnoredGlobsFromNearestEslintIgnore: (filePath: FilePath) => Globs = fl
   maybePath => (maybePath ? getLinesFromFilePath(maybePath) : []),
 );
 
-const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) =>
-  globs.some(glob => minimatch(filePath, glob));
+const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) => ignore().add(globs).ignores(filePath);
 
 const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
