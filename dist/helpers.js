@@ -4,7 +4,7 @@ var _require = require('atom-linter'),
     findCached = _require.findCached;
 
 var fs = require('fs');
-var minimatch = require('minimatch');
+var ignore = require('ignore');
 var path = require('path');
 var bundledPrettier = require('prettier');
 var readPkg = require('read-pkg');
@@ -80,9 +80,7 @@ var getIgnoredGlobsFromNearestEslintIgnore = flow(getNearestEslintignorePath, fu
 });
 
 var someGlobsMatchFilePath = function someGlobsMatchFilePath(globs, filePath) {
-  return globs.some(function (glob) {
-    return minimatch(filePath, glob);
-  });
+  return ignore().add(globs).ignores(filePath);
 };
 
 var getAtomTabLength = function getAtomTabLength(editor) {
