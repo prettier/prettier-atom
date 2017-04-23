@@ -106,6 +106,10 @@ var getConfigOption = function getConfigOption(key) {
   return atom.config.get('prettier-atom.' + key);
 };
 
+var setConfigOption = function setConfigOption(key, value) {
+  return atom.config.set('prettier-atom.' + key, value);
+};
+
 var shouldDisplayErrors = function shouldDisplayErrors() {
   return !getConfigOption('silenceErrors');
 };
@@ -202,6 +206,7 @@ var getDebugInfo = function getDebugInfo() {
 
 module.exports = {
   getConfigOption: getConfigOption,
+  setConfigOption: setConfigOption,
   shouldDisplayErrors: shouldDisplayErrors,
   getPrettierOption: getPrettierOption,
   getPrettierEslintOption: getPrettierEslintOption,

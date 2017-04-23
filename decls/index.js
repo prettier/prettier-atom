@@ -42,6 +42,7 @@ declare var atom: {
   },
   config: {
     get: (key: string) => any,
+    set: (key: string) => any,
   },
   notifications: {
     addError: (message: string, options?: { detail?: string, dismissable?: boolean }) => void,

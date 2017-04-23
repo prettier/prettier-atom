@@ -13,6 +13,7 @@ var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
 var displayDebugInfo = null;
+var toggleFormatOnSave = null;
 var subscriptions = null;
 
 // HACK: lazy load most of the code we need for performance
@@ -49,12 +50,22 @@ var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
   displayDebugInfo();
 };
 
+var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
+  if (!toggleFormatOnSave) {
+    // eslint-disable-next-line global-require
+    toggleFormatOnSave = require('./toggleFormatOnSave');
+  }
+  toggleFormatOnSave();
+};
+
 // public API
 var activate = function activate() {
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', lazyToggleFormatOnSave));
+
   subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
     return subscriptions.add(editor.getBuffer().onWillSave(function () {
       return lazyFormatOnSave(editor);
