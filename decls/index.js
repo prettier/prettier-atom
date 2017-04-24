@@ -32,6 +32,7 @@ declare type TextEditor = {
     }) => void,
   ) => void,
 };
+declare type Atom$Disposable = any;
 declare type Atom$View = any;
 declare type Atom$Workspace = any;
 declare type Atom$Command = { name: string, displayName: string };
@@ -46,6 +47,10 @@ declare var atom: {
   },
   notifications: {
     addError: (message: string, options?: { detail?: string, dismissable?: boolean }) => void,
+    addInfo: (message: string, options?: { detail?: string, dismissable?: boolean }) => void,
+  },
+  tooltips: {
+    add: (target: HTMLElement, options?: { title?: string }) => Atom$Disposable
   },
   views: {
     getView: Atom$Workspace => Atom$View,

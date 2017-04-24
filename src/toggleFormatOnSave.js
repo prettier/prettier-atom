@@ -1,3 +1,4 @@
+// @flow
 const { getConfigOption, setConfigOption } = require('./helpers');
 
 const toggleFormatOnSave = () => {
