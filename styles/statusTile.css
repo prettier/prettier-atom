@@ -1,0 +1,7 @@
+div[data-format-on-save="enabled"] {
+  color: #8BC34A;
+}
+
+div[data-format-on-save="enabled"]::after {
+  content: " ✓";
+}

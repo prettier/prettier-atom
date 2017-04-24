@@ -1,6 +1,7 @@
 const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
+const { createStatusTile, updateStatusTile } = require('./statusTile');
 
 // local helpers
 let format = null;
@@ -9,6 +10,8 @@ let warnAboutLinterEslintFixOnSave = null;
 let displayDebugInfo = null;
 let toggleFormatOnSave = null;
 let subscriptions = null;
+let statusBarTile = null;
+let tileElement = null;
 
 // HACK: lazy load most of the code we need for performance
 const lazyFormat = () => {
@@ -82,6 +85,25 @@ const activate = () => {
 
 const deactivate = () => {
   subscriptions.dispose();
+  if (statusBarTile) {
+    statusBarTile.destroy();
+  }
+};
+
+const consumeStatusBar = (statusBar) => {
+  tileElement = createStatusTile();
+  statusBarTile = statusBar.addLeftTile({
+    item: tileElement,
+    priority: 1000,
+  });
+  updateStatusTile(subscriptions, tileElement);
+
+  subscriptions.add(
+    atom.config.observe(
+      'prettier-atom.formatOnSaveOptions.enabled',
+      () => updateStatusTile(subscriptions, tileElement),
+    ),
+  );
 };
 
 module.exports = {
@@ -89,4 +111,5 @@ module.exports = {
   deactivate,
   config,
   subscriptions,
+  consumeStatusBar,
 };
