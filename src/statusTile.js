@@ -25,6 +25,8 @@ const updateStatusTile = (disposable: Atom$Disposable, element: HTMLElement) => 
   }
   tooltip = atom.tooltips.add(element, { title: `Format on Save: ${getFormatOnSaveStatus()}` });
   disposable.add(tooltip);
+
+  return tooltip;
 };
 
 module.exports = {
