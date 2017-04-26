@@ -5,6 +5,7 @@ const ignore = require('ignore');
 const path = require('path');
 const bundledPrettier = require('prettier');
 const readPkg = require('read-pkg');
+const editorconfig = require('editorconfig');
 
 // constants
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -69,7 +70,7 @@ const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) => ignore().ad
 const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 
-const useAtomTabLengthIfAuto = (editor, tabLength) =>
+const tabLengthOption = (editor, tabLength) =>
   (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
 
 const isLinterLintCommandDefined = (editor: TextEditor) =>
@@ -124,7 +125,7 @@ const isWhitelistProvided = () => getConfigOption('formatOnSaveOptions.whitelist
 
 const getPrettierOptions = (editor: TextEditor) => ({
   printWidth: getPrettierOption('printWidth'),
-  tabWidth: useAtomTabLengthIfAuto(editor, getPrettierOption('tabWidth')),
+  tabWidth: tabLengthOption(editor, getPrettierOption('tabWidth')),
   parser: getPrettierOption('parser'),
   singleQuote: getPrettierOption('singleQuote'),
   trailingComma: getPrettierOption('trailingComma'),
@@ -133,6 +134,20 @@ const getPrettierOptions = (editor: TextEditor) => ({
   useTabs: getPrettierOption('useTabs'),
   jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
 });
+
+const mapEditorConfigOptions = (options: Object) => {
+  const { indent_style: indentStyle, tab_width: tabWidth, max_line_length: printWidth } = options;
+  return {
+    ...(tabWidth ? { tabWidth } : null),
+    ...(printWidth ? { printWidth } : null),
+    ...(indentStyle ? { useTabs: indentStyle === 'tab' } : null),
+  };
+};
+
+const getEditorConfigOptions = (file: FilePath) => {
+  const options = editorconfig.parseSync(file);
+  return options ? mapEditorConfigOptions(options) : null;
+};
 
 const getPrettierEslintOptions = () => ({
   prettierLast: getPrettierEslintOption('prettierLast'),
@@ -169,6 +184,7 @@ module.exports = {
   shouldUseEslint,
   shouldRespectEslintignore,
   getPrettierOptions,
+  getEditorConfigOptions,
   getPrettierEslintOptions,
   runLinter,
   getDebugInfo,

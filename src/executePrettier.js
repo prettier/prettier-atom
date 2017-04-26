@@ -4,6 +4,7 @@ const { allowUnsafeNewFunction } = require('loophole');
 
 const {
   getPrettierOptions,
+  getEditorConfigOptions,
   getPrettierEslintOptions,
   getCurrentFilePath,
   getPrettier,
@@ -29,20 +30,21 @@ const handleError = (error) => {
 
 const executePrettier = (editor, text) => {
   try {
+    const filePath = getCurrentFilePath(editor);
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(() =>
         prettierEslint({
           ...getPrettierEslintOptions(),
           text,
-          filePath: getCurrentFilePath(editor),
+          filePath,
         }),
       );
     }
 
-    const prettier = getPrettier(getCurrentFilePath(editor));
+    const prettier = getPrettier(filePath);
     const prettierOptions = getPrettierOptions(editor);
-
-    return prettier.format(text, prettierOptions);
+    const editorConfigOptions = filePath ? getEditorConfigOptions(filePath) : null;
+    return prettier.format(text, { ...prettierOptions, ...editorConfigOptions });
   } catch (error) {
     return handleError(error);
   }

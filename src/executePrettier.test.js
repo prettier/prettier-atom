@@ -24,10 +24,24 @@ beforeEach(() => {
 describe('executePrettierOnBufferRange()', () => {
   test('transforms the given buffer range using prettier', () => {
     // $FlowFixMe
-    helpers.getPrettierOptions.mockImplementation(() => 'fake prettier options');
+    helpers.getPrettierOptions.mockImplementation(() => ({ option: 'fake prettier option' }));
     executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-    expect(prettier.format).toHaveBeenCalledWith('untransformed text', 'fake prettier options');
+    expect(prettier.format).toHaveBeenCalledWith('untransformed text', { option: 'fake prettier option' });
+  });
+
+  test('uses editorconfig options if available', () => {
+    // $FlowFixMe
+    helpers.getPrettierOptions.mockImplementation(() => ({ option: 'fake prettier option' }));
+    // $FlowFixMe
+    helpers.getCurrentFilePath.mockImplementation(() => 'foo.js');
+    // $FlowFixMe
+    helpers.getEditorConfigOptions.mockImplementation(() => ({ option: 'fake editorconfig option' }));
+    executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+    expect(prettier.format).toHaveBeenCalledWith('untransformed text', {
+      option: 'fake editorconfig option',
+    });
   });
 
   test('sets the transformed text in the buffer range', () => {
@@ -140,7 +154,7 @@ describe('executePrettierOnBufferRange()', () => {
 describe('executePrettierOnEmbeddedScripts()', () => {
   test('finds embedded scripts in buffer and transforms each', () => {
     // $FlowFixMe
-    helpers.getPrettierOptions.mockImplementation(() => 'fake prettier options');
+    helpers.getPrettierOptions.mockImplementation(() => ({ option: 'fake prettier option' }));
     const fileBufferRange = { range: { start: { row: 0, column: 0 }, end: { row: 4, column: 5 } } };
     editor.getBuffer.mockImplementation(() => ({ getRange: () => fileBufferRange }));
     editor.backwardsScanInBufferRange.mockImplementation((regex, range, iterator) =>
@@ -149,6 +163,6 @@ describe('executePrettierOnEmbeddedScripts()', () => {
 
     executePrettierOnEmbeddedScripts(editor);
 
-    expect(prettier.format).toHaveBeenCalledWith('untransformed text', 'fake prettier options');
+    expect(prettier.format).toHaveBeenCalledWith('untransformed text', { option: 'fake prettier option' });
   });
 });

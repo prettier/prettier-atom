@@ -2,6 +2,7 @@
 const path = require('path');
 const atomLinter = require('atom-linter');
 const prettier = require('prettier');
+const editorconfig = require('editorconfig');
 
 const textEditor = require('../tests/mocks/textEditor');
 const {
@@ -21,12 +22,14 @@ const {
   shouldUseEslint,
   getPrettierOptions,
   getPrettierEslintOptions,
+  getEditorConfigOptions,
   runLinter,
   getDebugInfo,
 } = require('./helpers');
 
 jest.mock('atom-linter');
 jest.mock('prettier');
+jest.mock('editorconfig');
 
 describe('getConfigOption', () => {
   test('retrieves a config option from the prettier-atom config', () => {
@@ -372,6 +375,45 @@ describe('getPrettierEslintOptions', () => {
     const actual = getPrettierEslintOptions();
 
     expect(actual).toMatchSnapshot();
+  });
+});
+
+describe('getEditorConfigOptions', () => {
+  test('parse editorconfig by filename', () => {
+    getEditorConfigOptions('filename');
+    expect(editorconfig.parseSync).toHaveBeenCalledWith('filename');
+  });
+  test('maps editorconfig options', () => {
+    editorconfig.parseSync.mockImplementation(() => ({
+      indent_size: 4,
+      end_of_line: 'lf',
+      charset: 'utf-8',
+      trim_trailing_whitespace: true,
+      insert_final_newline: true,
+      tab_width: 2,
+      max_line_length: 100,
+    }));
+    const expected = {
+      tabWidth: 2,
+      printWidth: 100,
+    };
+    expect(getEditorConfigOptions('')).toEqual(expected);
+  });
+
+  test('returns boolean for useTabs option', () => {
+    const setIndentStyle = (style) => {
+      editorconfig.parseSync.mockImplementation(() => ({
+        indent_style: style,
+      }));
+    };
+    const getUseTabsConfig = () => {
+      const options = getEditorConfigOptions('');
+      return options ? options.useTabs : null;
+    };
+    setIndentStyle('tab');
+    expect(getUseTabsConfig()).toEqual(true);
+    setIndentStyle('space');
+    expect(getUseTabsConfig()).toEqual(false);
   });
 });
 

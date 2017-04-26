@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "atom-linter": "^10.0.0",
+    "editorconfig": "^0.13.2",
     "ignore": "^3.2.7",
     "loophole": "^1.1.0",
     "prettier": "^1.2.2",
