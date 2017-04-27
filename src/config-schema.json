@@ -19,7 +19,7 @@
     "type": "object",
     "properties": {
       "enabled": {
-        "title": "Enabled",
+        "title": "Format Files on Save",
         "description": "Automatically format entire file when saving.",
         "type": "boolean",
         "default": false,
