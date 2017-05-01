@@ -1,18 +1,28 @@
 // @flow
 const toggleFormatOnSave = require('./toggleFormatOnSave');
-const { getConfigOption } = require('./helpers');
 
-test('it toggles the state of prettier-atom\'s option formatOnSaveOptions.enabled', () => {
-  let enabled = false;
+test('it sets formatOnSaveOptions.enabled to false if it was true', () => {
   atom = {
     config: {
-      get: jest.fn(() => enabled),
-      set: jest.fn((key, value) => (enabled = value)),
+      get: jest.fn(() => true),
+      set: jest.fn(),
     },
   };
 
   toggleFormatOnSave();
-  expect(getConfigOption('...')).toBe(true);
+
+  expect(atom.config.set).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.enabled', false);
+});
+
+test('it sets formatOnSaveOptions.enabled to true if it was false', () => {
+  atom = {
+    config: {
+      get: jest.fn(() => false),
+      set: jest.fn(),
+    },
+  };
+
   toggleFormatOnSave();
-  expect(getConfigOption('...')).toBe(false);
+
+  expect(atom.config.set).toHaveBeenCalledWith('prettier-atom.formatOnSaveOptions.enabled', true);
 });

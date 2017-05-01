@@ -1,7 +1,11 @@
 const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
-const { createStatusTile, updateStatusTile } = require('./statusTile');
+const {
+  createStatusTile,
+  updateStatusTile,
+  disposeTooltip,
+} = require('./statusTile');
 
 // local helpers
 let format = null;
@@ -85,6 +89,7 @@ const activate = () => {
 
 const deactivate = () => {
   subscriptions.dispose();
+  disposeTooltip();
   if (statusBarTile) {
     statusBarTile.destroy();
   }

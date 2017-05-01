@@ -20,13 +20,18 @@ var createStatusTile = function createStatusTile() {
   return element;
 };
 
+var disposeTooltip = function disposeTooltip() {
+  if (tooltip) {
+    tooltip.dispose();
+  }
+};
+
 var updateStatusTile = function updateStatusTile(disposable, element) {
   // eslint-disable-next-line no-param-reassign
   element.dataset.formatOnSave = getFormatOnSaveStatus();
 
-  if (tooltip) {
-    tooltip.dispose();
-  }
+  disposeTooltip();
+
   tooltip = atom.tooltips.add(element, { title: 'Format on Save: ' + getFormatOnSaveStatus() });
   disposable.add(tooltip);
 
@@ -35,5 +40,6 @@ var updateStatusTile = function updateStatusTile(disposable, element) {
 
 module.exports = {
   createStatusTile: createStatusTile,
-  updateStatusTile: updateStatusTile
+  updateStatusTile: updateStatusTile,
+  disposeTooltip: disposeTooltip
 };

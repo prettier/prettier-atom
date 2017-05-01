@@ -8,7 +8,8 @@ var _require = require('atom'),
 
 var _require2 = require('./statusTile'),
     createStatusTile = _require2.createStatusTile,
-    updateStatusTile = _require2.updateStatusTile;
+    updateStatusTile = _require2.updateStatusTile,
+    disposeTooltip = _require2.disposeTooltip;
 
 // local helpers
 
@@ -92,6 +93,7 @@ var activate = function activate() {
 
 var deactivate = function deactivate() {
   subscriptions.dispose();
+  disposeTooltip();
   if (statusBarTile) {
     statusBarTile.destroy();
   }
