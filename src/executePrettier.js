@@ -29,18 +29,20 @@ const handleError = (error) => {
 
 const executePrettier = (editor, text) => {
   try {
+    const prettierOptions = getPrettierOptions(editor);
+
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(() =>
         prettierEslint({
           ...getPrettierEslintOptions(),
           text,
           filePath: getCurrentFilePath(editor),
+          fallbackPrettierOptions: prettierOptions,
         }),
       );
     }
 
     const prettier = getPrettier(getCurrentFilePath(editor));
-    const prettierOptions = getPrettierOptions(editor);
 
     return prettier.format(text, prettierOptions);
   } catch (error) {

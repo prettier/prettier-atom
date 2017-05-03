@@ -33,17 +33,19 @@ var handleError = function handleError(error) {
 
 var executePrettier = function executePrettier(editor, text) {
   try {
+    var prettierOptions = getPrettierOptions(editor);
+
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(function () {
         return prettierEslint(_extends({}, getPrettierEslintOptions(), {
           text: text,
-          filePath: getCurrentFilePath(editor)
+          filePath: getCurrentFilePath(editor),
+          fallbackPrettierOptions: prettierOptions
         }));
       });
     }
 
     var prettier = getPrettier(getCurrentFilePath(editor));
-    var prettierOptions = getPrettierOptions(editor);
 
     return prettier.format(text, prettierOptions);
   } catch (error) {
