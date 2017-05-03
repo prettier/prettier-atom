@@ -17,7 +17,7 @@ const getCurrentScope = (editor: TextEditor) => editor.getGrammar().scopeName;
 // robwise: my apologies for this one, but I love function composition and want to use one that is Facebook
 // flow inferrable. See https://drboolean.gitbooks.io/mostly-adequate-guide/ch5.html
 const flow = (func: Function, ...funcs: Array<Function>) => (...args) =>
-  (funcs.length ? flow(...funcs)(func(...args)) : func(...args));
+  funcs.length ? flow(...funcs)(func(...args)) : func(...args);
 
 const getDirFromFilePath = (filePath: FilePath): FilePath => path.parse(filePath).dir;
 
@@ -70,7 +70,7 @@ const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 
 const useAtomTabLengthIfAuto = (editor, tabLength) =>
-  (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
+  tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
 
 const isLinterLintCommandDefined = (editor: TextEditor) =>
   atom.commands
@@ -141,9 +141,9 @@ const getPrettierEslintOptions = () => ({
 });
 
 const runLinter = (editor: TextEditor) =>
-  (isLinterLintCommandDefined(editor)
+  isLinterLintCommandDefined(editor)
     ? atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND)
-    : undefined);
+    : undefined;
 
 const getDebugInfo = () => ({
   atomVersion: atom.getVersion(),

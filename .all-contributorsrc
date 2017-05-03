@@ -182,6 +182,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "da-vaibhav",
+      "name": "vaibhav",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1468518?v=3",
+      "profile": "https://vaibhavchatarkar.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "karlhorky",
+      "name": "Karl Horky",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1935696?v=3",
+      "profile": "https://work.karlhorky.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "gaearon",
+      "name": "Dan Abramov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/810438?v=3",
+      "profile": "http://twitter.com/dan_abramov",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }

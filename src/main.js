@@ -1,11 +1,7 @@
 const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
-const {
-  createStatusTile,
-  updateStatusTile,
-  disposeTooltip,
-} = require('./statusTile');
+const { createStatusTile, updateStatusTile, disposeTooltip } = require('./statusTile');
 
 // local helpers
 let format = null;
@@ -104,9 +100,8 @@ const consumeStatusBar = (statusBar) => {
   updateStatusTile(subscriptions, tileElement);
 
   subscriptions.add(
-    atom.config.observe(
-      'prettier-atom.formatOnSaveOptions.enabled',
-      () => updateStatusTile(subscriptions, tileElement),
+    atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
+      updateStatusTile(subscriptions, tileElement),
     ),
   );
 };
