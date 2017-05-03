@@ -3,7 +3,7 @@ const { getConfigOption } = require('./helpers');
 
 let tooltip: Atom$Disposable = null;
 
-const getFormatOnSaveStatus = () => getConfigOption('formatOnSaveOptions.enabled') ? 'enabled' : 'disabled';
+const getFormatOnSaveStatus = () => (getConfigOption('formatOnSaveOptions.enabled') ? 'enabled' : 'disabled');
 
 const createStatusTile = () => {
   const element = document.createElement('div');

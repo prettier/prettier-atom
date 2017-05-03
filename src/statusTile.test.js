@@ -1,8 +1,5 @@
 // @flow
-const {
-  createStatusTile,
-  updateStatusTile,
-} = require('./statusTile');
+const { createStatusTile, updateStatusTile } = require('./statusTile');
 
 beforeEach(() => {
   atom = {
