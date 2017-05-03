@@ -82,6 +82,8 @@ const getDepPath = (dep: string) => path.join(__dirname, '../node_modules', dep)
 // public helpers
 const getConfigOption = (key: string) => atom.config.get(`prettier-atom.${key}`);
 
+const setConfigOption = (key: string, value: any) => atom.config.set(`prettier-atom.${key}`, value);
+
 const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
 
 const getPrettierOption = (key: string) => getConfigOption(`prettierOptions.${key}`);
@@ -153,6 +155,7 @@ const getDebugInfo = () => ({
 
 module.exports = {
   getConfigOption,
+  setConfigOption,
   shouldDisplayErrors,
   getPrettierOption,
   getPrettierEslintOption,

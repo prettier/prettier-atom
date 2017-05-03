@@ -21,6 +21,10 @@
             {
               "label": "Debug",
               "command": "prettier:debug"
+            },
+            {
+              "label": "Toggle Format on Save",
+              "command": "prettier:toggle-format-on-save"
             }
           ]
         }

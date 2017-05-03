@@ -1,3 +1,4 @@
+// @flow
 const { getDebugInfo } = require('./helpers');
 
 const displayDebugInfo = () => {
