@@ -1,16 +1,17 @@
 // @flow
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('./executePrettier');
 const {
-  shouldRespectEslintignore,
-  isFormatOnSaveEnabled,
   getCurrentFilePath,
   isCurrentScopeEmbeddedScope,
   isFilePathEslintignored,
   isFilePathExcluded,
   isInScope,
   isFilePathWhitelisted,
-  isWhitelistProvided,
 } = require('./helpers');
+
+const { shouldRespectEslintignore } = require('./options');
+
+const { isFormatOnSaveEnabled, isWhitelistProvided } = require('./options');
 
 const formatOnSaveIfAppropriate = (editor: TextEditor) => {
   if (!isFormatOnSaveEnabled()) return;

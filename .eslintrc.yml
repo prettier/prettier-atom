@@ -11,6 +11,7 @@ plugins:
 
 globals:
   atom: true
+  document: false
 
 env:
   node: true

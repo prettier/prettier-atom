@@ -5,7 +5,6 @@ const ignore = require('ignore');
 const path = require('path');
 const bundledPrettier = require('prettier');
 const readPkg = require('read-pkg');
-const editorconfig = require('editorconfig');
 
 // constants
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -70,7 +69,7 @@ const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) => ignore().ad
 const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 
-const tabLengthOption = (editor, tabLength) =>
+const useAtomTabLengthIfAuto = (editor, tabLength) =>
   (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
 
 const isLinterLintCommandDefined = (editor: TextEditor) =>
@@ -83,11 +82,7 @@ const getDepPath = (dep: string) => path.join(__dirname, '../node_modules', dep)
 // public helpers
 const getConfigOption = (key: string) => atom.config.get(`prettier-atom.${key}`);
 
-const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
-
-const getPrettierOption = (key: string) => getConfigOption(`prettierOptions.${key}`);
-
-const getPrettierEslintOption = (key: string) => getConfigOption(`prettierEslintOptions.${key}`);
+const setConfigOption = (key: string, value: any) => atom.config.set(`prettier-atom.${key}`, value);
 
 const getCurrentFilePath = (editor: TextEditor) => (editor.buffer.file ? editor.buffer.file.path : undefined);
 
@@ -95,8 +90,6 @@ const isInScope = (editor: TextEditor) =>
   getConfigOption('formatOnSaveOptions.scopes').includes(getCurrentScope(editor));
 
 const isCurrentScopeEmbeddedScope = (editor: TextEditor) => EMBEDDED_SCOPES.includes(getCurrentScope(editor));
-
-const shouldUseEslint = () => getConfigOption('useEslint');
 
 const isFilePathEslintignored = (filePath: FilePath) => {
   const filePathRelativeToEslintignore = getFilePathRelativeToEslintignore(filePath);
@@ -109,49 +102,11 @@ const isFilePathEslintignored = (filePath: FilePath) => {
   );
 };
 
-const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
-
-const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
-
-const isLinterEslintAutofixEnabled = () => atom.config.get('linter-eslint.fixOnSave');
-
 const isFilePathExcluded = (filePath: FilePath) =>
   someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.excludedGlobs'), filePath);
 
 const isFilePathWhitelisted = (filePath: FilePath) =>
   someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.whitelistedGlobs'), filePath);
-
-const isWhitelistProvided = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs').length > 0;
-
-const getPrettierOptions = (editor: TextEditor) => ({
-  printWidth: getPrettierOption('printWidth'),
-  tabWidth: tabLengthOption(editor, getPrettierOption('tabWidth')),
-  parser: getPrettierOption('parser'),
-  singleQuote: getPrettierOption('singleQuote'),
-  trailingComma: getPrettierOption('trailingComma'),
-  bracketSpacing: getPrettierOption('bracketSpacing'),
-  semi: getPrettierOption('semi'),
-  useTabs: getPrettierOption('useTabs'),
-  jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
-});
-
-const mapEditorConfigOptions = (options: Object) => {
-  const { indent_style: indentStyle, tab_width: tabWidth, max_line_length: printWidth } = options;
-  return {
-    ...(tabWidth ? { tabWidth } : null),
-    ...(printWidth ? { printWidth } : null),
-    ...(indentStyle ? { useTabs: indentStyle === 'tab' } : null),
-  };
-};
-
-const getEditorConfigOptions = (file: FilePath) => {
-  const options = editorconfig.parseSync(file);
-  return options ? mapEditorConfigOptions(options) : null;
-};
-
-const getPrettierEslintOptions = () => ({
-  prettierLast: getPrettierEslintOption('prettierLast'),
-});
 
 const runLinter = (editor: TextEditor) =>
   (isLinterLintCommandDefined(editor)
@@ -168,9 +123,7 @@ const getDebugInfo = () => ({
 
 module.exports = {
   getConfigOption,
-  shouldDisplayErrors,
-  getPrettierOption,
-  getPrettierEslintOption,
+  setConfigOption,
   getCurrentFilePath,
   getPrettier,
   isInScope,
@@ -178,14 +131,6 @@ module.exports = {
   isFilePathEslintignored,
   isFilePathExcluded,
   isFilePathWhitelisted,
-  isWhitelistProvided,
-  isFormatOnSaveEnabled,
-  isLinterEslintAutofixEnabled,
-  shouldUseEslint,
-  shouldRespectEslintignore,
-  getPrettierOptions,
-  getEditorConfigOptions,
-  getPrettierEslintOptions,
   runLinter,
   getDebugInfo,
 };

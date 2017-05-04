@@ -1,8 +1,8 @@
 // @flow
-const helpers = require('./helpers');
+const helpers = require('./options');
 const warnAboutLinterEslintFixOnSave = require('./warnAboutLinterEslintFixOnSave');
 
-jest.mock('./helpers');
+jest.mock('./options');
 
 beforeEach(() => {
   atom = { notifications: { addWarning: jest.fn() } };

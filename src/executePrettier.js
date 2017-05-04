@@ -2,16 +2,14 @@
 const prettierEslint = require('prettier-eslint');
 const { allowUnsafeNewFunction } = require('loophole');
 
+const { getCurrentFilePath, getPrettier, runLinter } = require('./helpers');
+
 const {
   getPrettierOptions,
-  getEditorConfigOptions,
   getPrettierEslintOptions,
-  getCurrentFilePath,
-  getPrettier,
-  shouldDisplayErrors,
   shouldUseEslint,
-  runLinter,
-} = require('./helpers');
+  shouldDisplayErrors,
+} = require('./options');
 
 const EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
@@ -31,20 +29,21 @@ const handleError = (error) => {
 const executePrettier = (editor, text) => {
   try {
     const filePath = getCurrentFilePath(editor);
+    const prettierOptions = getPrettierOptions(editor);
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(() =>
         prettierEslint({
           ...getPrettierEslintOptions(),
           text,
           filePath,
+          fallbackPrettierOptions: prettierOptions,
         }),
       );
     }
 
     const prettier = getPrettier(filePath);
-    const prettierOptions = getPrettierOptions(editor);
-    const editorConfigOptions = filePath ? getEditorConfigOptions(filePath) : null;
-    return prettier.format(text, { ...prettierOptions, ...editorConfigOptions });
+
+    return prettier.format(text, prettierOptions);
   } catch (error) {
     return handleError(error);
   }

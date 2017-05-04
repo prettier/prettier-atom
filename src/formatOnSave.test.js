@@ -1,11 +1,13 @@
 // @flow
 const helpers = require('./helpers');
+const options = require('./options');
 const formatOnSave = require('./formatOnSave');
 const textEditor = require('../tests/mocks/textEditor');
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('./executePrettier');
 
 jest.mock('./executePrettier');
 jest.mock('./helpers');
+jest.mock('./options');
 
 let editor;
 const filePathFixture = 'foo.js';
@@ -16,7 +18,7 @@ beforeEach(() => {
 
   // Defaults for running on buffer range
   // $FlowFixMe
-  helpers.isFormatOnSaveEnabled.mockImplementation(() => true);
+  options.isFormatOnSaveEnabled.mockImplementation(() => true);
   // $FlowFixMe
   helpers.getConfigOption.mockImplementation(() => true);
   // $FlowFixMe
@@ -38,7 +40,7 @@ test('it executes prettier on buffer range', () => {
 
 test('it executes prettier on buffer range if file is whitelisted regardless of exclusions or scopes', () => {
   // $FlowFixMe
-  helpers.isWhitelistProvided.mockImplementation(() => true);
+  options.isWhitelistProvided.mockImplementation(() => true);
   // $FlowFixMe
   helpers.isInScope.mockImplementation(() => false);
   // $FlowFixMe
@@ -53,7 +55,7 @@ test('it executes prettier on buffer range if file is whitelisted regardless of 
 
 test('it does not execute prettier if whitelist is provided and file is not whitelisted', () => {
   // $FlowFixMe
-  helpers.isWhitelistProvided.mockImplementation(() => true);
+  options.isWhitelistProvided.mockImplementation(() => true);
   // $FlowFixMe
   helpers.isInScope.mockImplementation(() => true);
   // $FlowFixMe
@@ -77,11 +79,11 @@ test('it executes prettier on embedded scripts if scope is an embedded scope', (
 
 test('it does nothing if formatOnSave is not enabled', () => {
   // $FlowFixMe
-  helpers.isFormatOnSaveEnabled.mockImplementation(() => false);
+  options.isFormatOnSaveEnabled.mockImplementation(() => false);
 
   formatOnSave(editor);
 
-  expect(helpers.isFormatOnSaveEnabled).toHaveBeenCalled();
+  expect(options.isFormatOnSaveEnabled).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
 });
@@ -92,7 +94,7 @@ test('it does nothing if file is saved for the first time', () => {
 
   formatOnSave(editor);
 
-  expect(helpers.isFormatOnSaveEnabled).toHaveBeenCalled();
+  expect(options.isFormatOnSaveEnabled).toHaveBeenCalled();
   expect(helpers.getCurrentFilePath).toHaveBeenCalled();
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
@@ -124,13 +126,13 @@ test('it does nothing if config says to respectEslintignore and file is matched 
   // $FlowFixMe
   helpers.getCurrentFilePath.mockImplementation(() => filePathFixture);
   // $FlowFixMe
-  helpers.shouldRespectEslintignore.mockImplementation(() => true);
+  options.shouldRespectEslintignore.mockImplementation(() => true);
   // $FlowFixMe
   helpers.isFilePathEslintignored.mockImplementation(() => true);
 
   formatOnSave(editor);
 
-  expect(helpers.shouldRespectEslintignore).toHaveBeenCalled();
+  expect(options.shouldRespectEslintignore).toHaveBeenCalled();
   expect(helpers.isFilePathEslintignored).toHaveBeenCalledWith('foo.js');
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
@@ -142,5 +144,5 @@ test('does not attempt to check filePath matches .eslintignore if `currentFilePa
 
   formatOnSave(editor);
 
-  expect(helpers.shouldRespectEslintignore).not.toHaveBeenCalled();
+  expect(options.shouldRespectEslintignore).not.toHaveBeenCalled();
 });

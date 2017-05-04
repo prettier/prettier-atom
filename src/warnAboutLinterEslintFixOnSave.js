@@ -1,5 +1,5 @@
 // @flow
-const { shouldUseEslint, isLinterEslintAutofixEnabled } = require('./helpers');
+const { shouldUseEslint, isLinterEslintAutofixEnabled } = require('./options');
 
 const message =
   "prettier-atom: linter-eslint's `Fix on Save` feature is currently enabled. " +

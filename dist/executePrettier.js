@@ -9,6 +9,7 @@ var _require = require('loophole'),
 
 var _require2 = require('./helpers'),
     getPrettierOptions = _require2.getPrettierOptions,
+    getEditorConfigOptions = _require2.getEditorConfigOptions,
     getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
     getPrettier = _require2.getPrettier,
@@ -33,19 +34,36 @@ var handleError = function handleError(error) {
 
 var executePrettier = function executePrettier(editor, text) {
   try {
+<<<<<<< Updated upstream
+    var prettierOptions = getPrettierOptions(editor);
+
+=======
+    var filePath = getCurrentFilePath(editor);
+>>>>>>> Stashed changes
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(function () {
         return prettierEslint(_extends({}, getPrettierEslintOptions(), {
           text: text,
-          filePath: getCurrentFilePath(editor)
+<<<<<<< Updated upstream
+          filePath: getCurrentFilePath(editor),
+          fallbackPrettierOptions: prettierOptions
+=======
+          filePath: filePath
+>>>>>>> Stashed changes
         }));
       });
     }
 
+<<<<<<< Updated upstream
     var prettier = getPrettier(getCurrentFilePath(editor));
-    var prettierOptions = getPrettierOptions(editor);
 
     return prettier.format(text, prettierOptions);
+=======
+    var prettier = getPrettier(filePath);
+    var prettierOptions = getPrettierOptions(editor);
+    var editorConfigOptions = filePath ? getEditorConfigOptions(filePath) : null;
+    return prettier.format(text, _extends({}, prettierOptions, editorConfigOptions));
+>>>>>>> Stashed changes
   } catch (error) {
     return handleError(error);
   }

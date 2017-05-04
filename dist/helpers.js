@@ -1,5 +1,7 @@
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _require = require('atom-linter'),
     findCached = _require.findCached;
 
@@ -8,6 +10,7 @@ var ignore = require('ignore');
 var path = require('path');
 var bundledPrettier = require('prettier');
 var readPkg = require('read-pkg');
+var editorconfig = require('editorconfig');
 
 // constants
 var LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -87,7 +90,7 @@ var getAtomTabLength = function getAtomTabLength(editor) {
   return atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 };
 
-var useAtomTabLengthIfAuto = function useAtomTabLengthIfAuto(editor, tabLength) {
+var tabLengthOption = function tabLengthOption(editor, tabLength) {
   return tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
 };
 
@@ -104,6 +107,10 @@ var getDepPath = function getDepPath(dep) {
 // public helpers
 var getConfigOption = function getConfigOption(key) {
   return atom.config.get('prettier-atom.' + key);
+};
+
+var setConfigOption = function setConfigOption(key, value) {
+  return atom.config.set('prettier-atom.' + key, value);
 };
 
 var shouldDisplayErrors = function shouldDisplayErrors() {
@@ -169,7 +176,7 @@ var isWhitelistProvided = function isWhitelistProvided() {
 var getPrettierOptions = function getPrettierOptions(editor) {
   return {
     printWidth: getPrettierOption('printWidth'),
-    tabWidth: useAtomTabLengthIfAuto(editor, getPrettierOption('tabWidth')),
+    tabWidth: tabLengthOption(editor, getPrettierOption('tabWidth')),
     parser: getPrettierOption('parser'),
     singleQuote: getPrettierOption('singleQuote'),
     trailingComma: getPrettierOption('trailingComma'),
@@ -178,6 +185,19 @@ var getPrettierOptions = function getPrettierOptions(editor) {
     useTabs: getPrettierOption('useTabs'),
     jsxBracketSameLine: getPrettierOption('jsxBracketSameLine')
   };
+};
+
+var mapEditorConfigOptions = function mapEditorConfigOptions(options) {
+  var indentStyle = options.indent_style,
+      tabWidth = options.tab_width,
+      printWidth = options.max_line_length;
+
+  return _extends({}, tabWidth ? { tabWidth: tabWidth } : null, printWidth ? { printWidth: printWidth } : null, indentStyle ? { useTabs: indentStyle === 'tab' } : null);
+};
+
+var getEditorConfigOptions = function getEditorConfigOptions(file) {
+  var options = editorconfig.parseSync(file);
+  return options ? mapEditorConfigOptions(options) : null;
 };
 
 var getPrettierEslintOptions = function getPrettierEslintOptions() {
@@ -202,6 +222,7 @@ var getDebugInfo = function getDebugInfo() {
 
 module.exports = {
   getConfigOption: getConfigOption,
+  setConfigOption: setConfigOption,
   shouldDisplayErrors: shouldDisplayErrors,
   getPrettierOption: getPrettierOption,
   getPrettierEslintOption: getPrettierEslintOption,
@@ -218,6 +239,7 @@ module.exports = {
   shouldUseEslint: shouldUseEslint,
   shouldRespectEslintignore: shouldRespectEslintignore,
   getPrettierOptions: getPrettierOptions,
+  getEditorConfigOptions: getEditorConfigOptions,
   getPrettierEslintOptions: getPrettierEslintOptions,
   runLinter: runLinter,
   getDebugInfo: getDebugInfo
