@@ -19,3 +19,17 @@ Object {
   "useTabs": true,
 }
 `;
+
+exports[`getPrettierOptions uses the editorconfig options if provided 1`] = `
+Object {
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "parser": "flow",
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 4,
+  "trailingComma": true,
+  "useTabs": false,
+}
+`;

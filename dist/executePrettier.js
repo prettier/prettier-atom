@@ -8,13 +8,15 @@ var _require = require('loophole'),
     allowUnsafeNewFunction = _require.allowUnsafeNewFunction;
 
 var _require2 = require('./helpers'),
-    getPrettierOptions = _require2.getPrettierOptions,
-    getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
     getPrettier = _require2.getPrettier,
-    shouldDisplayErrors = _require2.shouldDisplayErrors,
-    shouldUseEslint = _require2.shouldUseEslint,
     runLinter = _require2.runLinter;
+
+var _require3 = require('./options'),
+    getPrettierOptions = _require3.getPrettierOptions,
+    getPrettierEslintOptions = _require3.getPrettierEslintOptions,
+    shouldUseEslint = _require3.shouldUseEslint,
+    shouldDisplayErrors = _require3.shouldDisplayErrors;
 
 var EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
@@ -33,19 +35,19 @@ var handleError = function handleError(error) {
 
 var executePrettier = function executePrettier(editor, text) {
   try {
+    var filePath = getCurrentFilePath(editor);
     var prettierOptions = getPrettierOptions(editor);
-
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(function () {
         return prettierEslint(_extends({}, getPrettierEslintOptions(), {
           text: text,
-          filePath: getCurrentFilePath(editor),
+          filePath: filePath,
           fallbackPrettierOptions: prettierOptions
         }));
       });
     }
 
-    var prettier = getPrettier(getCurrentFilePath(editor));
+    var prettier = getPrettier(filePath);
 
     return prettier.format(text, prettierOptions);
   } catch (error) {

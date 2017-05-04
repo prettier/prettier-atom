@@ -4,8 +4,10 @@ const prettierEslint = require('prettier-eslint');
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('./executePrettier');
 const textEditor = require('../tests/mocks/textEditor');
 const helpers = require('./helpers');
+const options = require('./options');
 
 jest.mock('./helpers');
+jest.mock('./options');
 jest.mock('prettier-eslint');
 
 let editor;
@@ -24,10 +26,10 @@ beforeEach(() => {
 describe('executePrettierOnBufferRange()', () => {
   test('transforms the given buffer range using prettier', () => {
     // $FlowFixMe
-    helpers.getPrettierOptions.mockImplementation(() => 'fake prettier options');
+    options.getPrettierOptions.mockImplementation(() => ({ option: 'fake prettier option' }));
     executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-    expect(prettier.format).toHaveBeenCalledWith('untransformed text', 'fake prettier options');
+    expect(prettier.format).toHaveBeenCalledWith('untransformed text', { option: 'fake prettier option' });
   });
 
   test('sets the transformed text in the buffer range', () => {
@@ -53,13 +55,11 @@ describe('executePrettierOnBufferRange()', () => {
 
   test('transforms the given buffer range using prettier-eslint if config enables it', () => {
     // $FlowFixMe
-    helpers.shouldUseEslint.mockImplementation(() => true);
+    options.shouldUseEslint.mockImplementation(() => true);
     // $FlowFixMe
-    helpers.shouldUseEslint.mockImplementation(() => true);
+    options.getPrettierEslintOptions.mockImplementation(() => ({ prettierLast: true }));
     // $FlowFixMe
-    helpers.getPrettierEslintOptions.mockImplementation(() => ({ prettierLast: true }));
-    // $FlowFixMe
-    helpers.getPrettierOptions.mockImplementation(() => ({ semi: true }));
+    options.getPrettierOptions.mockImplementation(() => ({ semi: true }));
     // $FlowFixMe
     helpers.getCurrentFilePath.mockImplementation(() => 'foo.js');
 
@@ -103,7 +103,7 @@ describe('executePrettierOnBufferRange()', () => {
 
     test('displays an error', () => {
       // $FlowFixMe
-      helpers.shouldDisplayErrors.mockImplementation(() => true);
+      options.shouldDisplayErrors.mockImplementation(() => true);
 
       executePrettierOnBufferRange(editor, bufferRangeFixture);
 
@@ -112,7 +112,7 @@ describe('executePrettierOnBufferRange()', () => {
 
     test('skips displaying an error if user chose to silence them', () => {
       // $FlowFixMe
-      helpers.shouldDisplayErrors.mockImplementation(() => false);
+      options.shouldDisplayErrors.mockImplementation(() => false);
 
       executePrettierOnBufferRange(editor, bufferRangeFixture);
 
@@ -136,7 +136,7 @@ describe('executePrettierOnBufferRange()', () => {
 describe('executePrettierOnEmbeddedScripts()', () => {
   test('finds embedded scripts in buffer and transforms each', () => {
     // $FlowFixMe
-    helpers.getPrettierOptions.mockImplementation(() => 'fake prettier options');
+    options.getPrettierOptions.mockImplementation(() => ({ option: 'fake prettier option' }));
     const fileBufferRange = { range: { start: { row: 0, column: 0 }, end: { row: 4, column: 5 } } };
     editor.getBuffer.mockImplementation(() => ({ getRange: () => fileBufferRange }));
     editor.backwardsScanInBufferRange.mockImplementation((regex, range, iterator) =>
@@ -145,6 +145,6 @@ describe('executePrettierOnEmbeddedScripts()', () => {
 
     executePrettierOnEmbeddedScripts(editor);
 
-    expect(prettier.format).toHaveBeenCalledWith('untransformed text', 'fake prettier options');
+    expect(prettier.format).toHaveBeenCalledWith('untransformed text', { option: 'fake prettier option' });
   });
 });
