@@ -1,7 +1,5 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _require = require('atom-linter'),
     findCached = _require.findCached;
 
@@ -10,7 +8,6 @@ var ignore = require('ignore');
 var path = require('path');
 var bundledPrettier = require('prettier');
 var readPkg = require('read-pkg');
-var editorconfig = require('editorconfig');
 
 // constants
 var LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
@@ -86,14 +83,6 @@ var someGlobsMatchFilePath = function someGlobsMatchFilePath(globs, filePath) {
   return ignore().add(globs).ignores(filePath);
 };
 
-var getAtomTabLength = function getAtomTabLength(editor) {
-  return atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
-};
-
-var tabLengthOption = function tabLengthOption(editor, tabLength) {
-  return tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
-};
-
 var isLinterLintCommandDefined = function isLinterLintCommandDefined(editor) {
   return atom.commands.findCommands({ target: atom.views.getView(editor) }).some(function (command) {
     return command.name === LINTER_LINT_COMMAND;
@@ -113,18 +102,6 @@ var setConfigOption = function setConfigOption(key, value) {
   return atom.config.set('prettier-atom.' + key, value);
 };
 
-var shouldDisplayErrors = function shouldDisplayErrors() {
-  return !getConfigOption('silenceErrors');
-};
-
-var getPrettierOption = function getPrettierOption(key) {
-  return getConfigOption('prettierOptions.' + key);
-};
-
-var getPrettierEslintOption = function getPrettierEslintOption(key) {
-  return getConfigOption('prettierEslintOptions.' + key);
-};
-
 var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
@@ -137,10 +114,6 @@ var isCurrentScopeEmbeddedScope = function isCurrentScopeEmbeddedScope(editor) {
   return EMBEDDED_SCOPES.includes(getCurrentScope(editor));
 };
 
-var shouldUseEslint = function shouldUseEslint() {
-  return getConfigOption('useEslint');
-};
-
 var isFilePathEslintignored = function isFilePathEslintignored(filePath) {
   var filePathRelativeToEslintignore = getFilePathRelativeToEslintignore(filePath);
 
@@ -149,61 +122,12 @@ var isFilePathEslintignored = function isFilePathEslintignored(filePath) {
   return someGlobsMatchFilePath(getIgnoredGlobsFromNearestEslintIgnore(filePath), filePathRelativeToEslintignore);
 };
 
-var isFormatOnSaveEnabled = function isFormatOnSaveEnabled() {
-  return getConfigOption('formatOnSaveOptions.enabled');
-};
-
-var shouldRespectEslintignore = function shouldRespectEslintignore() {
-  return getConfigOption('formatOnSaveOptions.respectEslintignore');
-};
-
-var isLinterEslintAutofixEnabled = function isLinterEslintAutofixEnabled() {
-  return atom.config.get('linter-eslint.fixOnSave');
-};
-
 var isFilePathExcluded = function isFilePathExcluded(filePath) {
   return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.excludedGlobs'), filePath);
 };
 
 var isFilePathWhitelisted = function isFilePathWhitelisted(filePath) {
   return someGlobsMatchFilePath(getConfigOption('formatOnSaveOptions.whitelistedGlobs'), filePath);
-};
-
-var isWhitelistProvided = function isWhitelistProvided() {
-  return getConfigOption('formatOnSaveOptions.whitelistedGlobs').length > 0;
-};
-
-var getPrettierOptions = function getPrettierOptions(editor) {
-  return {
-    printWidth: getPrettierOption('printWidth'),
-    tabWidth: tabLengthOption(editor, getPrettierOption('tabWidth')),
-    parser: getPrettierOption('parser'),
-    singleQuote: getPrettierOption('singleQuote'),
-    trailingComma: getPrettierOption('trailingComma'),
-    bracketSpacing: getPrettierOption('bracketSpacing'),
-    semi: getPrettierOption('semi'),
-    useTabs: getPrettierOption('useTabs'),
-    jsxBracketSameLine: getPrettierOption('jsxBracketSameLine')
-  };
-};
-
-var mapEditorConfigOptions = function mapEditorConfigOptions(options) {
-  var indentStyle = options.indent_style,
-      tabWidth = options.tab_width,
-      printWidth = options.max_line_length;
-
-  return _extends({}, tabWidth ? { tabWidth: tabWidth } : null, printWidth ? { printWidth: printWidth } : null, indentStyle ? { useTabs: indentStyle === 'tab' } : null);
-};
-
-var getEditorConfigOptions = function getEditorConfigOptions(file) {
-  var options = editorconfig.parseSync(file);
-  return options ? mapEditorConfigOptions(options) : null;
-};
-
-var getPrettierEslintOptions = function getPrettierEslintOptions() {
-  return {
-    prettierLast: getPrettierEslintOption('prettierLast')
-  };
 };
 
 var runLinter = function runLinter(editor) {
@@ -223,9 +147,6 @@ var getDebugInfo = function getDebugInfo() {
 module.exports = {
   getConfigOption: getConfigOption,
   setConfigOption: setConfigOption,
-  shouldDisplayErrors: shouldDisplayErrors,
-  getPrettierOption: getPrettierOption,
-  getPrettierEslintOption: getPrettierEslintOption,
   getCurrentFilePath: getCurrentFilePath,
   getPrettier: getPrettier,
   isInScope: isInScope,
@@ -233,14 +154,6 @@ module.exports = {
   isFilePathEslintignored: isFilePathEslintignored,
   isFilePathExcluded: isFilePathExcluded,
   isFilePathWhitelisted: isFilePathWhitelisted,
-  isWhitelistProvided: isWhitelistProvided,
-  isFormatOnSaveEnabled: isFormatOnSaveEnabled,
-  isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
-  shouldUseEslint: shouldUseEslint,
-  shouldRespectEslintignore: shouldRespectEslintignore,
-  getPrettierOptions: getPrettierOptions,
-  getEditorConfigOptions: getEditorConfigOptions,
-  getPrettierEslintOptions: getPrettierEslintOptions,
   runLinter: runLinter,
   getDebugInfo: getDebugInfo
 };

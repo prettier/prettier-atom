@@ -8,14 +8,15 @@ var _require = require('loophole'),
     allowUnsafeNewFunction = _require.allowUnsafeNewFunction;
 
 var _require2 = require('./helpers'),
-    getPrettierOptions = _require2.getPrettierOptions,
-    getEditorConfigOptions = _require2.getEditorConfigOptions,
-    getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     getCurrentFilePath = _require2.getCurrentFilePath,
     getPrettier = _require2.getPrettier,
-    shouldDisplayErrors = _require2.shouldDisplayErrors,
-    shouldUseEslint = _require2.shouldUseEslint,
     runLinter = _require2.runLinter;
+
+var _require3 = require('./options'),
+    getPrettierOptions = _require3.getPrettierOptions,
+    getPrettierEslintOptions = _require3.getPrettierEslintOptions,
+    shouldUseEslint = _require3.shouldUseEslint,
+    shouldDisplayErrors = _require3.shouldDisplayErrors;
 
 var EMBEDDED_JS_REGEX = /<script\b[^>]*>([\s\S]*?)(?=<\/script>)/gi;
 
@@ -34,36 +35,21 @@ var handleError = function handleError(error) {
 
 var executePrettier = function executePrettier(editor, text) {
   try {
-<<<<<<< Updated upstream
-    var prettierOptions = getPrettierOptions(editor);
-
-=======
     var filePath = getCurrentFilePath(editor);
->>>>>>> Stashed changes
+    var prettierOptions = getPrettierOptions(editor);
     if (shouldUseEslint()) {
       return allowUnsafeNewFunction(function () {
         return prettierEslint(_extends({}, getPrettierEslintOptions(), {
           text: text,
-<<<<<<< Updated upstream
-          filePath: getCurrentFilePath(editor),
+          filePath: filePath,
           fallbackPrettierOptions: prettierOptions
-=======
-          filePath: filePath
->>>>>>> Stashed changes
         }));
       });
     }
 
-<<<<<<< Updated upstream
-    var prettier = getPrettier(getCurrentFilePath(editor));
+    var prettier = getPrettier(filePath);
 
     return prettier.format(text, prettierOptions);
-=======
-    var prettier = getPrettier(filePath);
-    var prettierOptions = getPrettierOptions(editor);
-    var editorConfigOptions = filePath ? getEditorConfigOptions(filePath) : null;
-    return prettier.format(text, _extends({}, prettierOptions, editorConfigOptions));
->>>>>>> Stashed changes
   } catch (error) {
     return handleError(error);
   }

@@ -13,7 +13,6 @@ const {
   isFilePathExcluded,
   isFilePathWhitelisted,
   isCurrentScopeEmbeddedScope,
-  isLinterEslintAutofixEnabled,
   runLinter,
   getDebugInfo,
 } = require('./helpers');

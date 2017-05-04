@@ -66,12 +66,6 @@ const getIgnoredGlobsFromNearestEslintIgnore: (filePath: FilePath) => Globs = fl
 
 const someGlobsMatchFilePath = (globs: Globs, filePath: FilePath) => ignore().add(globs).ignores(filePath);
 
-const getAtomTabLength = (editor: TextEditor) =>
-  atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
-
-const useAtomTabLengthIfAuto = (editor, tabLength) =>
-  (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
-
 const isLinterLintCommandDefined = (editor: TextEditor) =>
   atom.commands
     .findCommands({ target: atom.views.getView(editor) })

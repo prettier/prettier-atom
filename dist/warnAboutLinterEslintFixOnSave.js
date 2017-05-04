@@ -1,6 +1,6 @@
 'use strict';
 
-var _require = require('./helpers'),
+var _require = require('./options'),
     shouldUseEslint = _require.shouldUseEslint,
     isLinterEslintAutofixEnabled = _require.isLinterEslintAutofixEnabled;
 

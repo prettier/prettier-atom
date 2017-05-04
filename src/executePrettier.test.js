@@ -55,7 +55,6 @@ describe('executePrettierOnBufferRange()', () => {
 
   test('transforms the given buffer range using prettier-eslint if config enables it', () => {
     // $FlowFixMe
-    // $FlowFixMe
     options.shouldUseEslint.mockImplementation(() => true);
     // $FlowFixMe
     options.getPrettierEslintOptions.mockImplementation(() => ({ prettierLast: true }));
