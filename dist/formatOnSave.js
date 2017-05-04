@@ -13,11 +13,9 @@ var _require2 = require('./helpers'),
     isFilePathWhitelisted = _require2.isFilePathWhitelisted;
 
 var _require3 = require('./options'),
+    isFormatOnSaveEnabled = _require3.isFormatOnSaveEnabled,
+    isWhitelistProvided = _require3.isWhitelistProvided,
     shouldRespectEslintignore = _require3.shouldRespectEslintignore;
-
-var _require4 = require('./options'),
-    isFormatOnSaveEnabled = _require4.isFormatOnSaveEnabled,
-    isWhitelistProvided = _require4.isWhitelistProvided;
 
 var formatOnSaveIfAppropriate = function formatOnSaveIfAppropriate(editor) {
   if (!isFormatOnSaveEnabled()) return;

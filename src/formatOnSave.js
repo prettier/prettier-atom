@@ -9,9 +9,7 @@ const {
   isFilePathWhitelisted,
 } = require('./helpers');
 
-const { shouldRespectEslintignore } = require('./options');
-
-const { isFormatOnSaveEnabled, isWhitelistProvided } = require('./options');
+const { isFormatOnSaveEnabled, isWhitelistProvided, shouldRespectEslintignore } = require('./options');
 
 const formatOnSaveIfAppropriate = (editor: TextEditor) => {
   if (!isFormatOnSaveEnabled()) return;

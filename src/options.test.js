@@ -123,13 +123,34 @@ describe('getPrettierOptions', () => {
 
     expect(actual).toEqual(expected);
   });
+
+  test('uses the editorconfig options if provided', () => {
+    const mockGet = option =>
+      ({
+        'prettier-atom.prettierOptions.printWidth': 80,
+        'prettier-atom.prettierOptions.tabWidth': 2,
+        'prettier-atom.prettierOptions.parser': 'flow',
+        'prettier-atom.prettierOptions.singleQuote': true,
+        'prettier-atom.prettierOptions.trailingComma': true,
+        'prettier-atom.prettierOptions.bracketSpacing': true,
+        'prettier-atom.prettierOptions.semi': true,
+        'prettier-atom.prettierOptions.useTabs': true,
+        'prettier-atom.prettierOptions.jsxBracketSameLine': true,
+      }[option]);
+    atom = { config: { get: mockGet } };
+    editorconfig.parseSync.mockImplementation(() => ({
+      tab_width: 4,
+      max_line_length: 100,
+      indent_style: 'space',
+    }));
+    const editor = textEditor();
+
+    const actual = getPrettierOptions(editor);
+    expect(actual).toMatchSnapshot();
+  });
 });
 
 describe('getEditorConfigOptions', () => {
-  test('parse editorconfig by filename', () => {
-    getEditorConfigOptions('filename');
-    expect(editorconfig.parseSync).toHaveBeenCalledWith('filename');
-  });
   test('maps editorconfig options', () => {
     editorconfig.parseSync.mockImplementation(() => ({
       indent_size: 4,
@@ -140,27 +161,32 @@ describe('getEditorConfigOptions', () => {
       tab_width: 2,
       max_line_length: 100,
     }));
+    const actual = getEditorConfigOptions('filename.js');
     const expected = {
       tabWidth: 2,
       printWidth: 100,
     };
-    expect(getEditorConfigOptions('')).toEqual(expected);
+    expect(actual).toEqual(expected);
+    expect(editorconfig.parseSync).toHaveBeenCalledWith('filename.js');
   });
 
-  test('returns boolean for useTabs option', () => {
-    const setIndentStyle = (style) => {
+  describe('returns boolean value for useTabs option', () => {
+    test('when indent style is tab', () => {
       editorconfig.parseSync.mockImplementation(() => ({
-        indent_style: style,
+        indent_style: 'tab',
       }));
-    };
-    const getUseTabsConfig = () => {
-      const options = getEditorConfigOptions('');
-      return options ? options.useTabs : null;
-    };
-    setIndentStyle('tab');
-    expect(getUseTabsConfig()).toEqual(true);
-    setIndentStyle('space');
-    expect(getUseTabsConfig()).toEqual(false);
+      const actual = getEditorConfigOptions('filename.js').useTabs;
+      const expected = true;
+      expect(actual).toEqual(expected);
+    });
+    test('when indent style is space', () => {
+      editorconfig.parseSync.mockImplementation(() => ({
+        indent_style: 'space',
+      }));
+      const actual = getEditorConfigOptions('filename.js').useTabs;
+      const expected = false;
+      expect(actual).toEqual(expected);
+    });
   });
 });
 
