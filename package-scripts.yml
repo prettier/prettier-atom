@@ -37,8 +37,11 @@ scripts:
 
   build:
     default:
-      description: Delete the dist directory and run babel to build the files
+      description: Delete the dist directory and run Babel to build the files
       script: rimraf dist && babel src --copy-files --out-dir dist --ignore src/__snapshots__,**.test.js
+    watch:
+      description: Build sources with Babel as soon as they change
+      script: nps "build --watch"
 
   validate:
     default:
