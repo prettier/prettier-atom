@@ -13,9 +13,16 @@
     "default": false,
     "order": 2
   },
+  "useEditorConfig": {
+    "title": "EditorConfig Integration",
+    "description": "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for prettier formatting <br />Next options will be overriden: **Use tabs**, **Tab width**, **Print width**",
+    "type": "boolean",
+    "default": true,
+    "order": 3
+  },
   "formatOnSaveOptions": {
     "title": "Format on Save",
-    "order": 3,
+    "order": 4,
     "type": "object",
     "properties": {
       "enabled": {
@@ -55,14 +62,14 @@
         "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob.",
         "type": "array",
         "default": [],
-        "order": 4
+        "order": 5
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
         "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob. NOTE: If there are globs in this list, files not matching the globs will not be formatted on save regardless of other options.",
         "type": "array",
         "default": [],
-        "order": 5
+        "order": 6
       }
     }
   },
