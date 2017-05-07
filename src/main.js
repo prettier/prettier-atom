@@ -57,18 +57,20 @@ const lazyToggleFormatOnSave = () => {
 };
 
 const attachStatusTile = () => {
-  tileElement = createStatusTile();
-  statusBarTile = statusBarHandler.addLeftTile({
-    item: tileElement,
-    priority: 1000,
-  });
-  updateStatusTile(subscriptions, tileElement);
+  if (statusBarHandler) {
+    tileElement = createStatusTile();
+    statusBarTile = statusBarHandler.addLeftTile({
+      item: tileElement,
+      priority: 1000,
+    });
+    updateStatusTile(subscriptions, tileElement);
 
-  subscriptions.add(
-    atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
-      updateStatusTile(subscriptions, tileElement),
-    ),
-  );
+    subscriptions.add(
+      atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
+        updateStatusTile(subscriptions, tileElement),
+      ),
+    );
+  }
 };
 
 const detachStatusTile = () => {

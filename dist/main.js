@@ -67,16 +67,18 @@ var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
 };
 
 var attachStatusTile = function attachStatusTile() {
-  tileElement = createStatusTile();
-  statusBarTile = statusBarHandler.addLeftTile({
-    item: tileElement,
-    priority: 1000
-  });
-  updateStatusTile(subscriptions, tileElement);
+  if (statusBarHandler) {
+    tileElement = createStatusTile();
+    statusBarTile = statusBarHandler.addLeftTile({
+      item: tileElement,
+      priority: 1000
+    });
+    updateStatusTile(subscriptions, tileElement);
 
-  subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', function () {
-    return updateStatusTile(subscriptions, tileElement);
-  }));
+    subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', function () {
+      return updateStatusTile(subscriptions, tileElement);
+    }));
+  }
 };
 
 var detachStatusTile = function detachStatusTile() {
