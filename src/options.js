@@ -15,7 +15,7 @@ const getAtomTabLength = (editor: TextEditor) =>
   atom.config.get('editor.tabLength', { scope: editor.getLastCursor().getScopeDescriptor() });
 
 const useAtomTabLengthIfAuto = (editor, tabLength) =>
-  (tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength));
+  tabLength === 'auto' ? getAtomTabLength(editor) : Number(tabLength);
 
 const mapEditorConfigOptions = (options: Object) => {
   const { indent_style: indentStyle, tab_width: tabWidth, max_line_length: printWidth } = options;

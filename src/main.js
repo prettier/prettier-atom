@@ -104,7 +104,7 @@ const activate = () => {
   subscriptions.add(
     atom.config.observe(
       'prettier-atom.formatOnSaveOptions.showInStatusBar',
-      show => show ? attachStatusTile() : detachStatusTile(),
+      show => (show ? attachStatusTile() : detachStatusTile()),
     ),
   );
 
