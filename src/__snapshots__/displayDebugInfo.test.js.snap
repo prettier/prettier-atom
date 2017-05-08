@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it displays a notification on Atom with package information 1`] = `
+"Atom version: undefined
+prettier-atom version: 0.30.0
+prettier version: 1.3.1
+prettier-eslint version: 6.2.0
+prettier-atom configuration: undefined
+"
+`;

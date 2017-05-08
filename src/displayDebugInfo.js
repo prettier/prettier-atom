@@ -1,19 +1,18 @@
 // @flow
 const { getDebugInfo } = require('./helpers');
 
-const displayDebugInfo = () => {
-  const info = getDebugInfo();
-  const details = [
-    `Atom version: ${info.atomVersion}`,
-    `prettier-atom version: ${info.prettierAtomVersion}`,
-    `prettier version: ${info.prettierVersion}`,
-    `prettier-eslint version: ${info.prettierESLintVersion}`,
-    `prettier-atom configuration: ${JSON.stringify(info.prettierAtomConfig, null, 2)}`,
-  ].join('\n');
+const buildDetailFromDebugInfo = debugInfo =>
+  `Atom version: ${debugInfo.atomVersion}
+prettier-atom version: ${debugInfo.prettierAtomVersion}
+prettier version: ${debugInfo.prettierVersion}
+prettier-eslint version: ${debugInfo.prettierESLintVersion}
+prettier-atom configuration: ${JSON.stringify(debugInfo.prettierAtomConfig, null, 2)}
+`;
+
+const displayDebugInfo = () =>
   atom.notifications.addInfo('prettier-atom: details on current install', {
-    detail: details,
+    detail: buildDetailFromDebugInfo(getDebugInfo()),
     dismissable: true,
   });
-};
 
 module.exports = displayDebugInfo;

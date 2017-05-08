@@ -19,12 +19,11 @@ test('it displays a notification on Atom with package information', () => {
   };
 
   displayDebugInfo();
+
   expect(atom.notifications.addInfo).toHaveBeenCalled();
   expect(title).toContain('prettier-atom');
   // $FlowFixMe
-  expect(typeof options.detail).toBe('string');
-  // $FlowFixMe
-  expect(options.detail.length).toBeGreaterThan(0);
+  expect(options.detail).toMatchSnapshot();
   // $FlowFixMe
   expect(options.dismissable).toBe(true);
 });
