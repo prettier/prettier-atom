@@ -124,29 +124,62 @@ describe('getPrettierOptions', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('uses the editorconfig options if provided', () => {
-    const mockGet = option =>
-      ({
-        'prettier-atom.prettierOptions.printWidth': 80,
-        'prettier-atom.prettierOptions.tabWidth': 2,
-        'prettier-atom.prettierOptions.parser': 'flow',
-        'prettier-atom.prettierOptions.singleQuote': true,
-        'prettier-atom.prettierOptions.trailingComma': true,
-        'prettier-atom.prettierOptions.bracketSpacing': true,
-        'prettier-atom.prettierOptions.semi': true,
-        'prettier-atom.prettierOptions.useTabs': true,
-        'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-      }[option]);
-    atom = { config: { get: mockGet } };
-    editorconfig.parseSync.mockImplementation(() => ({
-      tab_width: 4,
-      max_line_length: 100,
-      indent_style: 'space',
-    }));
-    const editor = textEditor();
+  describe('editorconfig integration', () => {
+    test('uses editorconfig options when enabled in config', () => {
+      const mockGet = option =>
+        ({
+          'prettier-atom.useEditorConfig': true,
+          'prettier-atom.prettierOptions.printWidth': 80,
+          'prettier-atom.prettierOptions.tabWidth': 2,
+          'prettier-atom.prettierOptions.parser': 'flow',
+          'prettier-atom.prettierOptions.singleQuote': true,
+          'prettier-atom.prettierOptions.trailingComma': true,
+          'prettier-atom.prettierOptions.bracketSpacing': true,
+          'prettier-atom.prettierOptions.semi': true,
+          'prettier-atom.prettierOptions.useTabs': true,
+          'prettier-atom.prettierOptions.jsxBracketSameLine': true,
+        }[option]);
+      atom = { config: { get: mockGet } };
+      editorconfig.parseSync.mockImplementation(() => ({
+        tab_width: 4,
+        max_line_length: 100,
+        indent_style: 'space',
+      }));
+      const editor = textEditor();
 
-    const actual = getPrettierOptions(editor);
-    expect(actual).toMatchSnapshot();
+      const actual = getPrettierOptions(editor);
+      expect(actual).toMatchSnapshot();
+    });
+
+    test('ignores editorconfig when disabled in config', () => {
+      const mockGet = option =>
+        ({
+          'prettier-atom.useEditorConfig': false,
+        }[option]);
+      atom = { config: { get: mockGet } };
+      const editor = textEditor();
+
+      getPrettierOptions(editor);
+      expect(editorconfig.parseSync).not.toHaveBeenCalled();
+    });
+
+    test('ignores editorconfig for unsaved files', () => {
+      const mockGet = option =>
+        ({
+          'prettier-atom.useEditorConfig': true,
+        }[option]);
+      atom = { config: { get: mockGet } };
+      const editor = textEditor({
+        buffer: {
+          file: {
+            path: '',
+          },
+        },
+      });
+
+      getPrettierOptions(editor);
+      expect(editorconfig.parseSync).not.toHaveBeenCalled();
+    });
   });
 });
 

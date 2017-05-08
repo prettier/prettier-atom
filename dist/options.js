@@ -58,7 +58,10 @@ var getPrettierOptions = function getPrettierOptions(editor) {
     useTabs: getPrettierOption('useTabs'),
     jsxBracketSameLine: getPrettierOption('jsxBracketSameLine')
   };
-  return filePath ? _extends({}, optionsFromSettings, getEditorConfigOptions(filePath)) : optionsFromSettings;
+  if (!filePath || !getConfigOption('useEditorConfig')) {
+    return optionsFromSettings;
+  }
+  return _extends({}, optionsFromSettings, getEditorConfigOptions(filePath));
 };
 
 var getPrettierEslintOptions = function getPrettierEslintOptions() {

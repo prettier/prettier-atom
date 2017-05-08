@@ -44,7 +44,13 @@ const getPrettierOptions = (editor: TextEditor) => {
     useTabs: getPrettierOption('useTabs'),
     jsxBracketSameLine: getPrettierOption('jsxBracketSameLine'),
   };
-  return filePath ? { ...optionsFromSettings, ...getEditorConfigOptions(filePath) } : optionsFromSettings;
+  if (!filePath || !getConfigOption('useEditorConfig')) {
+    return optionsFromSettings;
+  }
+  return {
+    ...optionsFromSettings,
+    ...getEditorConfigOptions(filePath),
+  };
 };
 
 const getPrettierEslintOptions = () => ({

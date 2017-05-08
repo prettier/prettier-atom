@@ -1,5 +1,5 @@
 // @flow
-const helpers = require('./options');
+const options = require('./options');
 const warnAboutLinterEslintFixOnSave = require('./warnAboutLinterEslintFixOnSave');
 
 jest.mock('./options');
@@ -7,9 +7,9 @@ jest.mock('./options');
 beforeEach(() => {
   atom = { notifications: { addWarning: jest.fn() } };
   // $FlowFixMe
-  helpers.isLinterEslintAutofixEnabled.mockImplementation(() => true);
+  options.isLinterEslintAutofixEnabled.mockImplementation(() => true);
   // $FlowFixMe
-  helpers.shouldUseEslint.mockImplementation(() => true);
+  options.shouldUseEslint.mockImplementation(() => true);
 });
 
 test('it warns about not having eslint autofix on', () => {
@@ -21,7 +21,7 @@ test('it warns about not having eslint autofix on', () => {
 
 test('it does not warn if eslint autofix is disabled', () => {
   // $FlowFixMe
-  helpers.isLinterEslintAutofixEnabled.mockImplementation(() => false);
+  options.isLinterEslintAutofixEnabled.mockImplementation(() => false);
 
   warnAboutLinterEslintFixOnSave();
 
@@ -31,7 +31,7 @@ test('it does not warn if eslint autofix is disabled', () => {
 
 test('it does not warn if eslint integration is disabled', () => {
   // $FlowFixMe
-  helpers.shouldUseEslint.mockImplementation(() => false);
+  options.shouldUseEslint.mockImplementation(() => false);
 
   warnAboutLinterEslintFixOnSave();
 
