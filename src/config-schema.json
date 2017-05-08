@@ -32,6 +32,13 @@
         "default": true,
         "order": 2
       },
+      "showInStatusBar": {
+        "title": "Show in Status Bar",
+        "description": "Show in status bar if *Format on Save* is enabled or not.",
+        "type": "boolean",
+        "default": false,
+        "order": 3
+      },
       "scopes": {
         "title": "Scopes",
         "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
@@ -48,7 +55,7 @@
         "items": {
           "type": "string"
         },
-        "order": 3
+        "order": 4
       },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",

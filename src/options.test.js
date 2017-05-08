@@ -102,7 +102,7 @@ describe('getPrettierOptions', () => {
 
   test('uses the editor tab width if config is set to "auto"', () => {
     const mockGet = option =>
-      (option === 'editor.tabLength'
+      option === 'editor.tabLength'
         ? 8
         : {
           'prettier-atom.prettierOptions.printWidth': 80,
@@ -114,7 +114,7 @@ describe('getPrettierOptions', () => {
           'prettier-atom.prettierOptions.semi': true,
           'prettier-atom.prettierOptions.useTabs': true,
           'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-        }[option]);
+        }[option];
     atom = { config: { get: mockGet } };
     const editor = textEditor({ getLastCursor: () => ({ getScopeDescriptor: () => 'source.js.jsx' }) });
 

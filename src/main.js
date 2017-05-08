@@ -10,6 +10,7 @@ let warnAboutLinterEslintFixOnSave = null;
 let displayDebugInfo = null;
 let toggleFormatOnSave = null;
 let subscriptions = null;
+let statusBarHandler = null;
 let statusBarTile = null;
 let tileElement = null;
 
@@ -55,6 +56,30 @@ const lazyToggleFormatOnSave = () => {
   toggleFormatOnSave();
 };
 
+const attachStatusTile = () => {
+  if (statusBarHandler) {
+    tileElement = createStatusTile();
+    statusBarTile = statusBarHandler.addLeftTile({
+      item: tileElement,
+      priority: 1000,
+    });
+    updateStatusTile(subscriptions, tileElement);
+
+    subscriptions.add(
+      atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
+        updateStatusTile(subscriptions, tileElement),
+      ),
+    );
+  }
+};
+
+const detachStatusTile = () => {
+  disposeTooltip();
+  if (statusBarTile) {
+    statusBarTile.destroy();
+  }
+};
+
 // public API
 const activate = () => {
   subscriptions = new CompositeDisposable();
@@ -76,6 +101,12 @@ const activate = () => {
   subscriptions.add(
     atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
+  subscriptions.add(
+    atom.config.observe(
+      'prettier-atom.formatOnSaveOptions.showInStatusBar',
+      show => (show ? attachStatusTile() : detachStatusTile()),
+    ),
+  );
 
   // HACK: an Atom bug seems to be causing old configuration settings to linger for some users
   //       https://github.com/jlongster/prettier-atom/issues/72
@@ -85,25 +116,16 @@ const activate = () => {
 
 const deactivate = () => {
   subscriptions.dispose();
-  disposeTooltip();
-  if (statusBarTile) {
-    statusBarTile.destroy();
-  }
+  detachStatusTile();
 };
 
 const consumeStatusBar = (statusBar) => {
-  tileElement = createStatusTile();
-  statusBarTile = statusBar.addLeftTile({
-    item: tileElement,
-    priority: 1000,
-  });
-  updateStatusTile(subscriptions, tileElement);
+  statusBarHandler = statusBar;
 
-  subscriptions.add(
-    atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
-      updateStatusTile(subscriptions, tileElement),
-    ),
-  );
+  const showInStatusBar = atom.config.get('prettier-atom.formatOnSaveOptions.showInStatusBar');
+  if (showInStatusBar) {
+    attachStatusTile();
+  }
 };
 
 module.exports = {
