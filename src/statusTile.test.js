@@ -17,6 +17,7 @@ describe('createStatusTile()', () => {
         },
         dataset: {},
         appendChild: jest.fn(),
+        addEventListener: jest.fn(),
       })),
       createTextNode: jest.fn(arg => arg),
     };

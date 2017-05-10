@@ -3,6 +3,8 @@
 var _require = require('./helpers'),
     getConfigOption = _require.getConfigOption;
 
+var toggleFormatOnSave = require('./toggleFormatOnSave');
+
 var tooltip = null;
 
 var getFormatOnSaveStatus = function getFormatOnSaveStatus() {
@@ -14,6 +16,7 @@ var createStatusTile = function createStatusTile() {
   element.classList.add('prettier-atom-status-tile');
   element.classList.add('inline-block');
   element.dataset.formatOnSave = getFormatOnSaveStatus();
+  element.addEventListener('click', toggleFormatOnSave);
 
   element.appendChild(document.createTextNode('Prettier'));
 

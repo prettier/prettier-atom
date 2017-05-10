@@ -1,5 +1,6 @@
 // @flow
 const { getConfigOption } = require('./helpers');
+const toggleFormatOnSave = require('./toggleFormatOnSave');
 
 let tooltip: Atom$Disposable = null;
 
@@ -10,6 +11,7 @@ const createStatusTile = () => {
   element.classList.add('prettier-atom-status-tile');
   element.classList.add('inline-block');
   element.dataset.formatOnSave = getFormatOnSaveStatus();
+  element.addEventListener('click', toggleFormatOnSave);
 
   element.appendChild(document.createTextNode('Prettier'));
 
