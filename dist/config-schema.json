@@ -15,7 +15,7 @@
   },
   "useEditorConfig": {
     "title": "EditorConfig Integration",
-    "description": "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for prettier formatting <br />Next options will be overriden: **Use tabs**, **Tab width**, **Print width**",
+    "description": "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for prettier formatting <br />Takes precedence over your settings. The following settings will be overriden if they are found in your .editorconfig: **Use tabs**, **Tab width**, **Print width**",
     "type": "boolean",
     "default": true,
     "order": 3

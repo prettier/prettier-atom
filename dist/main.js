@@ -26,7 +26,7 @@ var tileElement = null;
 
 // HACK: lazy load most of the code we need for performance
 var lazyFormat = function lazyFormat() {
-  if (!format) format = require('./format'); // eslint-disable-line global-require
+  if (!format) format = require('./manualFormat'); // eslint-disable-line global-require
 
   var editor = atom.workspace.getActiveTextEditor();
   if (editor) format(editor);
@@ -61,7 +61,7 @@ var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
 var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
   if (!toggleFormatOnSave) {
     // eslint-disable-next-line global-require
-    toggleFormatOnSave = require('./toggleFormatOnSave');
+    toggleFormatOnSave = require('./atomInterface').toggleFormatOnSave;
   }
   toggleFormatOnSave();
 };
@@ -112,7 +112,7 @@ var activate = function activate() {
   }));
 
   // HACK: an Atom bug seems to be causing old configuration settings to linger for some users
-  //       https://github.com/jlongster/prettier-atom/issues/72
+  //       https://github.com/prettier/prettier-atom/issues/72
   atom.config.unset('prettier-atom.singleQuote');
   atom.config.unset('prettier-atom.trailingComma');
 };
