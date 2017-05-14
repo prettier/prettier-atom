@@ -8,7 +8,7 @@ const getDepPath = (dep: string) => path.join(__dirname, '..', '..', 'node_modul
 const getDebugInfo = () =>
   `
 Atom version: ${getAtomVersion()}
-prettier-atom version: ${readPkg.sync().version}
+prettier-atom version: ${readPkg.sync(path.join(__dirname, '..', '..')).version}
 prettier version: ${readPkg.sync(getDepPath('prettier')).version}
 prettier-eslint version: ${readPkg.sync(getDepPath('prettier-eslint')).version}
 prettier-atom configuration: ${JSON.stringify(getPrettierAtomConfig(), null, 2)}
