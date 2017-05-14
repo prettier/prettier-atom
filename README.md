@@ -11,9 +11,11 @@
 [![All Contributors][all-contributors-badge]](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 
-Atom package to format your JavaScript using Prettier. Comes with powerful optional ESlint integration.
+Atom package to format your JavaScript using [Prettier](https://github.com/prettier/prettier).
+Comes with powerful optional [ESLint](http://eslint.org/) integration.
 
 ## Demo
+
 ![prettier demo][prettier-demo]
 
 ## Installation
@@ -22,18 +24,19 @@ Atom package to format your JavaScript using Prettier. Comes with powerful optio
 apm install prettier-atom
 ```
 
-Or, Settings → Install → Search for `prettier-atom`
+Or go to *File → Settings → Install* and search for `prettier-atom`.
 
-Make sure to restart Atom app after package installation.
+Make sure to restart Atom after the package is installed.
 
 ## Usage
 
-Use two ways:
+There are two modes you can use:
 
-- Invoke manually using the keyboard shortcut (if no selection, whole file is formatted): <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
-- Automatically format on save (requires enabling in Package → `prettier-atom` → Format)
+- Invoke manually using the **keyboard shortcut** (if no selection, whole file is formatted): <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
+- Automatically **format on save** (requires enabling in *Packages → Prettier → Toggle Format on Save*)
 
-If you use ESlint, check the "ESLint Integration" checkbox and poof, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood). We will recursively search up the file tree for your package.json and eslint settings and use them when formatting.
+If you use ESLint, check the "ESLint Integration" checkbox and \*poof\*, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood).
+We will recursively search up the file tree for your `package.json` and ESLint settings, and use them when formatting.
 
 ![prettier-eslint demo][prettier-eslint-demo]
 
@@ -43,9 +46,10 @@ Please open a pull request or file an issue if you notice bugs or something does
 
 ## Inspiration
 
-This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original prettier-atom plugin to create the prettier-eslint-atom plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, prettier-eslint-atom, [Rob Wise][robwise] merged prettier-eslint back into prettier-atom.
+This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original `prettier-atom` plugin to create the `prettier-eslint-atom` plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, [Rob Wise][robwise] merged `prettier-eslint-atom` back into `prettier-atom`.
 
 ## Maintainers
+
 [Rob Wise][robwise]
 
 ## Contributors
@@ -60,7 +64,7 @@ Thanks goes to these people ([emoji key][emojis]):
 | [<img src="https://avatars3.githubusercontent.com/u/810438?v=3" width="100px;"/><br /><sub>Dan Abramov</sub>](http://twitter.com/dan_abramov)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=gaearon "Code") |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!
+This project follows the [all-contributors][all-contributors] specification. Contributions of any kind are welcome!
 
 ## LICENSE
 
