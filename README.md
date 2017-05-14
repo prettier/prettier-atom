@@ -32,7 +32,7 @@ Make sure to restart Atom after the package is installed.
 
 There are two modes you can use:
 
-- Invoke manually using the **keyboard shortcut** (if no selection, whole file is formatted): <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
+- Invoke manually using the **keyboard shortcut** (if no selection, whole file is formatted): <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd>
 - Automatically **format on save** (requires enabling in *Packages → Prettier → Toggle Format on Save*)
 
 If you use ESLint, check the "ESLint Integration" checkbox and \*poof\*, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood).
