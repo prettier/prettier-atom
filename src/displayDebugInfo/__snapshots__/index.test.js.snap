@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it displays a notification on Atom with package information 1`] = `
+"Atom version: FAKE_ATOM_VERSION
+prettier-atom version: FAKE_PACKAGE_VERSION
+prettier version: FAKE_PACKAGE_VERSION
+prettier-eslint version: FAKE_PACKAGE_VERSION
+prettier-atom configuration: \\"FAKE_PRETTIER_ATOM_CONFIG\\""
+`;
