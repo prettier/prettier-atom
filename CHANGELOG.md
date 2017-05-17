@@ -1,3 +1,13 @@
+<a name="0.31.1"></a>
+## [0.31.1](https://github.com/prettier/prettier-atom/compare/v0.31.0...v0.31.1) (2017-05-17)
+
+
+### Bug Fixes
+
+* **debugCommand:** Provide package's absolute path to read package.json ([824dd47](https://github.com/prettier/prettier-atom/commit/824dd47)), closes [#156](https://github.com/prettier/prettier-atom/issues/156)
+
+
+
 <a name="0.31.0"></a>
 # [0.31.0](https://github.com/prettier/prettier-atom/compare/v0.30.0...v0.31.0) (2017-05-14)
 
