@@ -43,6 +43,8 @@ const getPrettierEslintOptions = () => getConfigOption('prettierEslintOptions');
 
 const getAtomVersion = () => atom.getVersion();
 
+const isPackageActive = (name: string) => atom.packages.isPackageActive(name);
+
 const getPrettierAtomConfig = () => atom.config.get('prettier-atom');
 
 const addTooltip = (element: HTMLElement, options: Atom$Tooltips$Options) =>
@@ -68,6 +70,7 @@ module.exports = {
   addWarningNotification,
   getAtomTabLength,
   getAtomVersion,
+  isPackageActive,
   getExcludedGlobs,
   getPrettierAtomConfig,
   getPrettierEslintOptions,

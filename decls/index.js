@@ -51,6 +51,9 @@ declare var atom: {
     addInfo: (message: string, options?: Atom$Notifications$Options) => void,
     addWarning: (message: string, options?: Atom$Notifications$Options) => void,
   },
+  packages: {
+    isPackageActive: (name: string) => boolean,
+  },
   tooltips: {
     add: (target: HTMLElement, options?: Atom$Tooltips$Options) => Atom$Disposable,
   },

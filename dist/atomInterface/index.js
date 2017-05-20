@@ -75,6 +75,10 @@ var getAtomVersion = function getAtomVersion() {
   return atom.getVersion();
 };
 
+var isPackageActive = function isPackageActive(name) {
+  return atom.packages.isPackageActive(name);
+};
+
 var getPrettierAtomConfig = function getPrettierAtomConfig() {
   return atom.config.get('prettier-atom');
 };
@@ -106,6 +110,7 @@ module.exports = {
   addWarningNotification: addWarningNotification,
   getAtomTabLength: getAtomTabLength,
   getAtomVersion: getAtomVersion,
+  isPackageActive: isPackageActive,
   getExcludedGlobs: getExcludedGlobs,
   getPrettierAtomConfig: getPrettierAtomConfig,
   getPrettierEslintOptions: getPrettierEslintOptions,
