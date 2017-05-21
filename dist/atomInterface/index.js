@@ -20,7 +20,7 @@ var isLinterLintCommandDefined = function isLinterLintCommandDefined(editor) {
 
 // public
 var isLinterEslintAutofixEnabled = function isLinterEslintAutofixEnabled() {
-  return atom.config.get('linter-eslint.fixOnSave');
+  return atom.packages.isPackageActive('linter-eslint') && atom.config.get('linter-eslint.fixOnSave');
 };
 
 var shouldUseEslint = function shouldUseEslint() {
@@ -75,10 +75,6 @@ var getAtomVersion = function getAtomVersion() {
   return atom.getVersion();
 };
 
-var isPackageActive = function isPackageActive(name) {
-  return atom.packages.isPackageActive(name);
-};
-
 var getPrettierAtomConfig = function getPrettierAtomConfig() {
   return atom.config.get('prettier-atom');
 };
@@ -110,7 +106,6 @@ module.exports = {
   addWarningNotification: addWarningNotification,
   getAtomTabLength: getAtomTabLength,
   getAtomVersion: getAtomVersion,
-  isPackageActive: isPackageActive,
   getExcludedGlobs: getExcludedGlobs,
   getPrettierAtomConfig: getPrettierAtomConfig,
   getPrettierEslintOptions: getPrettierEslintOptions,

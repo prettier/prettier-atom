@@ -14,7 +14,8 @@ const isLinterLintCommandDefined = (editor: TextEditor) =>
     .some(command => command.name === LINTER_LINT_COMMAND);
 
 // public
-const isLinterEslintAutofixEnabled = () => atom.config.get('linter-eslint.fixOnSave');
+const isLinterEslintAutofixEnabled = () =>
+  atom.packages.isPackageActive('linter-eslint') && atom.config.get('linter-eslint.fixOnSave');
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
@@ -43,8 +44,6 @@ const getPrettierEslintOptions = () => getConfigOption('prettierEslintOptions');
 
 const getAtomVersion = () => atom.getVersion();
 
-const isPackageActive = (name: string) => atom.packages.isPackageActive(name);
-
 const getPrettierAtomConfig = () => atom.config.get('prettier-atom');
 
 const addTooltip = (element: HTMLElement, options: Atom$Tooltips$Options) =>
@@ -70,7 +69,6 @@ module.exports = {
   addWarningNotification,
   getAtomTabLength,
   getAtomVersion,
-  isPackageActive,
   getExcludedGlobs,
   getPrettierAtomConfig,
   getPrettierEslintOptions,
