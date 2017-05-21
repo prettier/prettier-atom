@@ -14,7 +14,8 @@ const isLinterLintCommandDefined = (editor: TextEditor) =>
     .some(command => command.name === LINTER_LINT_COMMAND);
 
 // public
-const isLinterEslintAutofixEnabled = () => atom.config.get('linter-eslint.fixOnSave');
+const isLinterEslintAutofixEnabled = () =>
+  atom.packages.isPackageActive('linter-eslint') && atom.config.get('linter-eslint.fixOnSave');
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
