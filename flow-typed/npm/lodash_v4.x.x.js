@@ -1,5 +1,5 @@
-// flow-typed signature: a7d253bb465906a2d746884b23c74257
-// flow-typed version: df11ef698b/lodash_v4.x.x/flow_>=v0.38.x
+// flow-typed signature: 8aec94c06a03f9a985342a95577c5c7f
+// flow-typed version: 3451de220c/lodash_v4.x.x/flow_>=v0.38.x
 
 declare module 'lodash' {
   declare type TemplateSettings = {
@@ -479,7 +479,7 @@ declare module 'lodash' {
     methodOf(object?: ?Object, ...args?: Array<any>): Function;
     mixin<T: Function|Object>(object?: T, source: Object, options?: { chain: bool }): T;
     noConflict(): Lodash;
-    noop(): void;
+    noop(...args: Array<mixed>): void;
     nthArg(n?: number): Function;
     over(...iteratees: Array<Function>): Function;
     over(iteratees: Array<Function>): Function;
