@@ -44,6 +44,25 @@ More detailed descriptions of each option can be found in the Atom settings for 
 
 Please open a pull request or file an issue if you notice bugs or something doesn't work as it should!
 
+## Troubleshooting
+If prettier (or prettier-eslint, if eslint integration is enabled) is not formatting something properly, please make an issue on the relevant GitHub repo. This package is just the Atom integration of those projects.
+
+Some users have reported getting the following error after updating:
+
+```
+Validation Error:
+ Option "tabWidth" must be of type:
+   number
+ but instead received:
+   string
+ Example:
+ {
+   "tabWidth": 2
+ }
+ ```
+
+ To fix the problem, open you configuration file and manually ensure that there are no quotation marks around the setting. We suspect this may be a bug with Atom.
+
 ## Inspiration
 
 This repository was created by [James Long][james-long] to go along with his Prettier project. [Kent C. Dodds][kentcdodds] extended Prettier to add `eslint --fix` integration as [prettier-eslint][prettier-eslint] and forked the original `prettier-atom` plugin to create the `prettier-eslint-atom` plugin. Because it became clear that the plugins were very similar and thus maintenance made easier by combining the two, [Rob Wise][robwise] merged `prettier-eslint-atom` back into `prettier-atom`.
