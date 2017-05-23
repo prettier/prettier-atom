@@ -24,7 +24,7 @@ Comes with powerful optional [ESLint](http://eslint.org/) integration.
 apm install prettier-atom
 ```
 
-Or go to *File → Settings → Install* and search for `prettier-atom`.
+Or go to *Settings → Install* and search for `prettier-atom`.
 
 Make sure to restart Atom after the package is installed.
 
