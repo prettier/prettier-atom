@@ -28,7 +28,7 @@
     "loophole": "^1.1.0",
     "prettier": "^1.4.1",
     "prettier-eslint": "^6.2.3",
-    "read-pkg": "^2.0.0"
+    "read-pkg-up": "^2.0.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
