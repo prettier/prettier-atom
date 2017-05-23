@@ -88,13 +88,28 @@ describe('getPrettierEslintOptions()', () => {
 });
 
 describe('isLinterEslintAutofixEnabled()', () => {
-  it('returns the value from the linter-eslint config', () => {
-    atom = { config: { get: jest.fn(() => true) } };
+  it('is true if linter-eslint is active and fix on save is enabled', () => {
+    atom = { config: { get: () => true }, packages: { isPackageActive: () => true } };
 
     const actual = isLinterEslintAutofixEnabled();
 
-    expect(atom.config.get).toHaveBeenCalledWith('linter-eslint.fixOnSave');
     expect(actual).toBe(true);
+  });
+
+  it('is false if linter-eslint is not active', () => {
+    atom = { config: { get: () => true }, packages: { isPackageActive: () => false } };
+
+    const actual = isLinterEslintAutofixEnabled();
+
+    expect(actual).toBe(false);
+  });
+
+  it('is false if fix on save is not enabled', () => {
+    atom = { config: { get: () => false }, packages: { isPackageActive: () => true } };
+
+    const actual = isLinterEslintAutofixEnabled();
+
+    expect(actual).toBe(false);
   });
 });
 
