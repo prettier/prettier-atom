@@ -1,3 +1,18 @@
+<a name="0.32.0"></a>
+# [0.32.0](https://github.com/prettier/prettier-atom/compare/v0.31.1...v0.32.0) (2017-06-02)
+
+
+### Bug Fixes
+
+* **warnings:** Check if linter-eslint is actually active instead of reading user config ([88114c6](https://github.com/prettier/prettier-atom/commit/88114c6)), closes [#168](https://github.com/prettier/prettier-atom/issues/168)
+
+
+### Features
+
+* **prettier:** bump to 0.4.1 ([1791886](https://github.com/prettier/prettier-atom/commit/1791886))
+
+
+
 <a name="0.31.1"></a>
 ## [0.31.1](https://github.com/prettier/prettier-atom/compare/v0.31.0...v0.31.1) (2017-05-17)
 
