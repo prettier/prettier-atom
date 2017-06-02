@@ -1,11 +1,7 @@
 const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
-const {
-  createStatusTile,
-  updateStatusTile,
-  disposeTooltip,
-} = require('./statusTile');
+const { createStatusTile, updateStatusTile, disposeTooltip } = require('./statusTile');
 
 // local helpers
 let format = null;
@@ -88,36 +84,22 @@ const detachStatusTile = () => {
 const activate = () => {
   subscriptions = new CompositeDisposable();
 
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
+  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(
-    atom.commands.add('atom-workspace', 'prettier:format', lazyFormat),
-  );
-  subscriptions.add(
-    atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo),
-  );
-  subscriptions.add(
-    atom.commands.add(
-      'atom-workspace',
-      'prettier:toggle-format-on-save',
-      lazyToggleFormatOnSave,
-    ),
+    atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', lazyToggleFormatOnSave),
   );
 
   subscriptions.add(
     atom.workspace.observeTextEditors(editor =>
-      subscriptions.add(
-        editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor)),
-      ),
+      subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor))),
     ),
   );
   subscriptions.add(
-    atom.config.observe('linter-eslint.fixOnSave', () =>
-      lazyWarnAboutLinterEslintFixOnSave(),
-    ),
+    atom.config.observe('linter-eslint.fixOnSave', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
   subscriptions.add(
-    atom.config.observe('prettier-atom.useEslint', () =>
-      lazyWarnAboutLinterEslintFixOnSave(),
-    ),
+    atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
   subscriptions.add(
     atom.config.observe(
@@ -140,9 +122,7 @@ const deactivate = () => {
 const consumeStatusBar = (statusBar) => {
   statusBarHandler = statusBar;
 
-  const showInStatusBar = atom.config.get(
-    'prettier-atom.formatOnSaveOptions.showInStatusBar',
-  );
+  const showInStatusBar = atom.config.get('prettier-atom.formatOnSaveOptions.showInStatusBar');
   if (showInStatusBar) {
     attachStatusTile();
   }
