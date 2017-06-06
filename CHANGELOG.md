@@ -9,7 +9,7 @@
 
 ### Features
 
-* **prettier:** bump to 0.4.1 ([1791886](https://github.com/prettier/prettier-atom/commit/1791886))
+* **prettier:** bump to 1.4.1 ([1791886](https://github.com/prettier/prettier-atom/commit/1791886))
 
 
 
