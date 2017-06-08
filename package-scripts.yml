@@ -17,7 +17,7 @@ scripts:
 
   format:
     description: Run prettier-eslint on the src code
-    script: prettier-eslint src/*.js *.js --write
+    script: prettier-eslint "src/**/*.js" --write
 
   flow:
     default:

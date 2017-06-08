@@ -1,10 +1,6 @@
 jest.mock('../atomInterface');
 
-const {
-  isLinterEslintAutofixEnabled,
-  shouldUseEslint,
-  addWarningNotification,
-} = require('../atomInterface');
+const { isLinterEslintAutofixEnabled, shouldUseEslint, addWarningNotification } = require('../atomInterface');
 const warnAboutLinterEslintFixOnSave = require('./index');
 
 test('it warns about not having eslint autofix on', () => {
