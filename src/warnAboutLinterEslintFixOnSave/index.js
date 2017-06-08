@@ -1,9 +1,5 @@
 // @flow
-const {
-  shouldUseEslint,
-  isLinterEslintAutofixEnabled,
-  addWarningNotification,
-} = require('../atomInterface');
+const { shouldUseEslint, isLinterEslintAutofixEnabled, addWarningNotification } = require('../atomInterface');
 
 const MESSAGE =
   "prettier-atom: linter-eslint's `Fix on Save` feature is currently enabled. " +
