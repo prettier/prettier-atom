@@ -1,7 +1,13 @@
 jest.mock('../atomInterface');
+jest.mock('../editorInterface');
 jest.mock('./buildEditorConfigOptions');
 
 const { getPrettierOptions, getAtomTabLength, shouldUseEditorConfig } = require('../atomInterface');
+const {
+  getCurrentFilePath,
+  isCurrentScopeTypescriptScope,
+  isCurrentScopeCssScope,
+} = require('../editorInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const buildMockEditor = require('../../tests/mocks/textEditor');
 const buildPrettierOptions = require('./buildPrettierOptions');
@@ -27,6 +33,28 @@ it('uses the atom tab length if the tabWidth option is set to "auto"', () => {
   expect(actual).toEqual({ tabWidth: 2 });
 });
 
+it('uses typescript as the parser if current scope is listed as a typescript scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeTypescriptScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'typescript' });
+});
+
+it('uses postcss as the parser if current scope is listed as a CSS scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeCssScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'postcss' });
+});
+
 it('does not use editorconfig options if that setting is not enabled', () => {
   const editor = buildMockEditor();
   getPrettierOptions.mockImplementation(() => ({}));
@@ -44,6 +72,7 @@ it('overrides values with editorconfig values if editor config is enabled', () =
   getPrettierOptions.mockImplementation(() => fakePrettierOptions);
   buildEditorConfigOptions.mockImplementation(() => fakeEditorConfigOptions);
   shouldUseEditorConfig.mockImplementation(() => true);
+  getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
 
   const actual = buildPrettierOptions(editor);
 

@@ -1,6 +1,10 @@
 // @flow
 const _ = require('lodash/fp');
-const { getCurrentFilePath } = require('../editorInterface');
+const {
+  getCurrentFilePath,
+  isCurrentScopeTypescriptScope,
+  isCurrentScopeCssScope,
+} = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 
@@ -21,6 +25,14 @@ const buildPrettierOptions = (editor: TextEditor) => {
 
   if (optionsFromSettings.tabWidth === 'auto') {
     optionsFromSettings.tabWidth = getAtomTabLength(editor);
+  }
+
+  if (isCurrentScopeTypescriptScope(editor)) {
+    optionsFromSettings.parser = 'typescript';
+  }
+
+  if (isCurrentScopeCssScope(editor)) {
+    optionsFromSettings.parser = 'postcss';
   }
 
   return {

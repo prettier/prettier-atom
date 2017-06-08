@@ -30,7 +30,13 @@ const isDisabledIfNotInPackageJson = () =>
 
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
-const getScopes = () => getConfigOption('formatOnSaveOptions.scopes');
+const getJavascriptScopes = () => getConfigOption('formatOnSaveOptions.javascriptScopes');
+
+const getTypescriptScopes = () => getConfigOption('formatOnSaveOptions.typescriptScopes');
+
+const getCssScopes = () => getConfigOption('formatOnSaveOptions.cssScopes');
+
+const getAllScopes = () => [...getJavascriptScopes(), ...getTypescriptScopes(), ...getCssScopes()];
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
@@ -76,7 +82,10 @@ module.exports = {
   getPrettierAtomConfig,
   getPrettierEslintOptions,
   getPrettierOptions,
-  getScopes,
+  getJavascriptScopes,
+  getTypescriptScopes,
+  getCssScopes,
+  getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
   isFormatOnSaveEnabled,

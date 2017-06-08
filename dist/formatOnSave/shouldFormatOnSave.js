@@ -11,7 +11,7 @@ var _require2 = require('../editorInterface'),
 
 var _require3 = require('../atomInterface'),
     isFormatOnSaveEnabled = _require3.isFormatOnSaveEnabled,
-    getScopes = _require3.getScopes,
+    getAllScopes = _require3.getAllScopes,
     getExcludedGlobs = _require3.getExcludedGlobs,
     getWhitelistedGlobs = _require3.getWhitelistedGlobs,
     isDisabledIfNotInPackageJson = _require3.isDisabledIfNotInPackageJson;
@@ -24,7 +24,7 @@ var hasFilePath = function hasFilePath(editor) {
 };
 
 var isInScope = function isInScope(editor) {
-  return getScopes().includes(getCurrentScope(editor));
+  return getAllScopes().includes(getCurrentScope(editor));
 };
 
 var filePathDoesNotMatchBlacklistGlobs = _.flow(getCurrentFilePath, function (filePath) {
