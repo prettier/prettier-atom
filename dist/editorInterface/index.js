@@ -1,5 +1,8 @@
 'use strict';
 
+var _ = require('lodash/fp');
+var path = require('path');
+
 var EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
 
 var getBufferRange = function getBufferRange(editor) {
@@ -18,9 +21,14 @@ var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
 
+var getCurrentDir = _.flow(getCurrentFilePath, function (maybeFilePath) {
+  return typeof maybeFilePath === 'string' ? path.dirname(maybeFilePath) : undefined;
+});
+
 module.exports = {
   getBufferRange: getBufferRange,
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
   getCurrentScope: getCurrentScope,
-  getCurrentFilePath: getCurrentFilePath
+  getCurrentFilePath: getCurrentFilePath,
+  getCurrentDir: getCurrentDir
 };

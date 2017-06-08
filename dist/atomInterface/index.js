@@ -39,6 +39,10 @@ var isFormatOnSaveEnabled = function isFormatOnSaveEnabled() {
   return getConfigOption('formatOnSaveOptions.enabled');
 };
 
+var isDisabledIfNotInPackageJson = function isDisabledIfNotInPackageJson() {
+  return getConfigOption('formatOnSaveOptions.isDisabledIfNotInPackageJson');
+};
+
 var shouldRespectEslintignore = function shouldRespectEslintignore() {
   return getConfigOption('formatOnSaveOptions.respectEslintignore');
 };
@@ -112,6 +116,7 @@ module.exports = {
   getPrettierOptions: getPrettierOptions,
   getScopes: getScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
+  isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   runLinter: runLinter,
