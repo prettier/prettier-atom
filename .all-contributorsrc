@@ -218,6 +218,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "splodingsocks",
+      "name": "Murphy Randle",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1227109?v=3",
+      "profile": "https://sploding.rocks",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ]
 }

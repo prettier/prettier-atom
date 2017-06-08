@@ -147,12 +147,14 @@
       },
       "parser": {
         "title": "Parser",
-        "description": "Use either the [flow](https://github.com/facebook/flow) or [babylon](https://github.com/babel/babylon) parser.",
+        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use.",
         "type": "string",
         "default": "babylon",
         "enum": [
           "babylon",
-          "flow"
+          "flow",
+          "typescript",
+          "postcss"
         ],
         "order": 9
       }
