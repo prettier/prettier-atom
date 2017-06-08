@@ -1,6 +1,6 @@
 'use strict';
 
-var readPkg = require('read-pkg');
+var readPkgUp = require('read-pkg-up');
 var path = require('path');
 
 var _require = require('../atomInterface'),
@@ -13,7 +13,7 @@ var getDepPath = function getDepPath(dep) {
 };
 
 var getDebugInfo = function getDebugInfo() {
-  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + readPkg.sync(path.join(__dirname, '..', '..')).version + '\nprettier version: ' + readPkg.sync(getDepPath('prettier')).version + '\nprettier-eslint version: ' + readPkg.sync(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + JSON.stringify(getPrettierAtomConfig(), null, 2) + '\n').trim();
+  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + readPkgUp.sync(__dirname).version + '\nprettier version: ' + readPkgUp.sync(getDepPath('prettier')).version + '\nprettier-eslint version: ' + readPkgUp.sync(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + JSON.stringify(getPrettierAtomConfig(), null, 2) + '\n').trim();
 };
 
 var displayDebugInfo = function displayDebugInfo() {

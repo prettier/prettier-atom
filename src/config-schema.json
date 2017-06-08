@@ -77,6 +77,13 @@
         "type": "array",
         "default": [],
         "order": 6
+      },
+      "isDisabledIfNotInPackageJson": {
+        "title": "Only format if prettier is found in your project's dependencies",
+        "description": "Does not format on save if prettier (or prettier-eslint/prettier-eslint-cli if using eslint integration) is in your project's package.json (dependencies or devDependencies)",
+        "type": "boolean",
+        "default": false,
+        "order": 7
       }
     }
   },

@@ -25,6 +25,9 @@ const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
 
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
 
+const isDisabledIfNotInPackageJson = () =>
+  getConfigOption('formatOnSaveOptions.isDisabledIfNotInPackageJson');
+
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
 const getScopes = () => getConfigOption('formatOnSaveOptions.scopes');
@@ -75,6 +78,7 @@ module.exports = {
   getPrettierOptions,
   getScopes,
   getWhitelistedGlobs,
+  isDisabledIfNotInPackageJson,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
   runLinter,

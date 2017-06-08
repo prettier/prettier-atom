@@ -16,14 +16,6 @@ var getLocalPrettierPath = function getLocalPrettierPath(filePath) {
   return findCachedFromFilePath(filePath, PRETTIER_INDEX_PATH);
 };
 
-// const getLocalPrettierPath = (filePath: ?FilePath): ?FilePath => {
-//   if (!filePath) return null;
-//
-//   const dirPath = getDirFromFilePath(filePath);
-//
-//   return dirPath ? findCached(dirPath, PRETTIER_INDEX_PATH) : null;
-// };
-
 // charypar: This is currently the best way to use local prettier instance.
 // Using the CLI introduces a noticeable delay and there is currently no
 // way to use prettier as a long-running process for formatting files as needed
