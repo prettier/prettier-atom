@@ -1,8 +1,13 @@
+jest.mock('../atomInterface');
+
 const buildMockTextEditor = require('../../tests/mocks/textEditor');
+const { getCssScopes, getTypescriptScopes } = require('../atomInterface');
 const {
   getBufferRange,
   getCurrentScope,
   isCurrentScopeEmbeddedScope,
+  isCurrentScopeCssScope,
+  isCurrentScopeTypescriptScope,
   getCurrentFilePath,
 } = require('./index');
 
@@ -26,7 +31,7 @@ describe('getCurrentScope()', () => {
   });
 });
 
-describe('isCurrentScopeEmbeddedScope', () => {
+describe('isCurrentScopeEmbeddedScope()', () => {
   it('returns true if the current scope is an embedded scope type', () => {
     const scopeName = 'text.html.basic';
     const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
@@ -41,6 +46,50 @@ describe('isCurrentScopeEmbeddedScope', () => {
     const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
 
     const actual = isCurrentScopeEmbeddedScope(editor);
+
+    expect(actual).toBe(false);
+  });
+});
+
+describe('isCurrentScopeCssScope()', () => {
+  it('returns true if the current scope is a CSS scope type', () => {
+    const scopeName = 'src.typescript';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getCssScopes.mockImplementation(() => ['src.typescript']);
+
+    const actual = isCurrentScopeCssScope(editor);
+
+    expect(actual).toBe(true);
+  });
+
+  it('returns false if the current scope is not a CSS scope type', () => {
+    const scopeName = 'src.python';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getCssScopes.mockImplementation(() => ['src.typescript']);
+
+    const actual = isCurrentScopeCssScope(editor);
+
+    expect(actual).toBe(false);
+  });
+});
+
+describe('isCurrentScopeTypescriptScope()', () => {
+  it('returns true if the current scope is a typescript scope type', () => {
+    const scopeName = 'src.typescript';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getTypescriptScopes.mockImplementation(() => ['src.typescript']);
+
+    const actual = isCurrentScopeTypescriptScope(editor);
+
+    expect(actual).toBe(true);
+  });
+
+  it('returns false if the current scope is not a typescript scope type', () => {
+    const scopeName = 'src.python';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getTypescriptScopes.mockImplementation(() => ['src.typescript']);
+
+    const actual = isCurrentScopeTypescriptScope(editor);
 
     expect(actual).toBe(false);
   });

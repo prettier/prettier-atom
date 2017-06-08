@@ -46,8 +46,8 @@
         "default": false,
         "order": 3
       },
-      "scopes": {
-        "title": "Scopes",
+      "javascriptScopes": {
+        "title": "JS Scopes",
         "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
         "default": [
@@ -64,26 +64,52 @@
         },
         "order": 4
       },
+      "typescriptScopes": {
+        "title": "Typescript Scopes",
+        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "type": "array",
+        "default": [
+          "source.ts",
+          "source.tsx",
+          "source.ts.tsx"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "order": 5
+      },
+      "cssScopes": {
+        "title": "CSS Scopes",
+        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "type": "array",
+        "default": [
+          "source.css"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "order": 6
+      },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
         "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob.",
         "type": "array",
         "default": [],
-        "order": 5
+        "order": 7
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
         "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob. NOTE: If there are globs in this list, files not matching the globs will not be formatted on save regardless of other options.",
         "type": "array",
         "default": [],
-        "order": 6
+        "order": 8
       },
       "isDisabledIfNotInPackageJson": {
         "title": "Only format if prettier is found in your project's dependencies",
         "description": "Does not format on save if prettier (or prettier-eslint/prettier-eslint-cli if using eslint integration) is in your project's package.json (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
-        "order": 7
+        "order": 9
       }
     }
   },
@@ -153,15 +179,13 @@
         "order": 8
       },
       "parser": {
-        "title": "Parser",
-        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use.",
+        "title": "Javascript Parser",
+        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to Typescript or CSS)",
         "type": "string",
         "default": "babylon",
         "enum": [
           "babylon",
-          "flow",
-          "typescript",
-          "postcss"
+          "flow"
         ],
         "order": 9
       }

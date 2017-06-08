@@ -1,5 +1,7 @@
 'use strict';
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 // constants
 var LINTER_LINT_COMMAND = 'linter:lint';
 
@@ -47,8 +49,20 @@ var shouldRespectEslintignore = function shouldRespectEslintignore() {
   return getConfigOption('formatOnSaveOptions.respectEslintignore');
 };
 
-var getScopes = function getScopes() {
-  return getConfigOption('formatOnSaveOptions.scopes');
+var getJavascriptScopes = function getJavascriptScopes() {
+  return getConfigOption('formatOnSaveOptions.javascriptScopes');
+};
+
+var getTypescriptScopes = function getTypescriptScopes() {
+  return getConfigOption('formatOnSaveOptions.typescriptScopes');
+};
+
+var getCssScopes = function getCssScopes() {
+  return getConfigOption('formatOnSaveOptions.cssScopes');
+};
+
+var getAllScopes = function getAllScopes() {
+  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()));
 };
 
 var getWhitelistedGlobs = function getWhitelistedGlobs() {
@@ -114,7 +128,10 @@ module.exports = {
   getPrettierAtomConfig: getPrettierAtomConfig,
   getPrettierEslintOptions: getPrettierEslintOptions,
   getPrettierOptions: getPrettierOptions,
-  getScopes: getScopes,
+  getJavascriptScopes: getJavascriptScopes,
+  getTypescriptScopes: getTypescriptScopes,
+  getCssScopes: getCssScopes,
+  getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,

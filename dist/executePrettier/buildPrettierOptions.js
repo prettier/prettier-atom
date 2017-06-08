@@ -5,7 +5,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var _ = require('lodash/fp');
 
 var _require = require('../editorInterface'),
-    getCurrentFilePath = _require.getCurrentFilePath;
+    getCurrentFilePath = _require.getCurrentFilePath,
+    isCurrentScopeTypescriptScope = _require.isCurrentScopeTypescriptScope,
+    isCurrentScopeCssScope = _require.isCurrentScopeCssScope;
 
 var _require2 = require('../atomInterface'),
     shouldUseEditorConfig = _require2.shouldUseEditorConfig,
@@ -25,6 +27,14 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
 
   if (optionsFromSettings.tabWidth === 'auto') {
     optionsFromSettings.tabWidth = getAtomTabLength(editor);
+  }
+
+  if (isCurrentScopeTypescriptScope(editor)) {
+    optionsFromSettings.parser = 'typescript';
+  }
+
+  if (isCurrentScopeCssScope(editor)) {
+    optionsFromSettings.parser = 'postcss';
   }
 
   return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor));

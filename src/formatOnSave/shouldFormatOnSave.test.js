@@ -9,7 +9,7 @@ const {
   isFormatOnSaveEnabled,
   getExcludedGlobs,
   getWhitelistedGlobs,
-  getScopes,
+  getAllScopes,
 } = require('../atomInterface');
 const { getCurrentScope, getCurrentFilePath } = require('../editorInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
@@ -21,7 +21,7 @@ const callShouldFormatOnSave = () => shouldFormatOnSave(createMockTextEditor());
 
 beforeEach(() => {
   isFormatOnSaveEnabled.mockImplementation(() => true);
-  getScopes.mockImplementation(() => ['js', 'jsx']);
+  getAllScopes.mockImplementation(() => ['js', 'jsx']);
   getCurrentScope.mockImplementation(() => 'js');
   getCurrentFilePath.mockImplementation(() => fakeCurrentFilePath);
   isFilePathEslintIgnored.mockImplementation(() => false);

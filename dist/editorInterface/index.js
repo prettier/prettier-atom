@@ -3,6 +3,10 @@
 var _ = require('lodash/fp');
 var path = require('path');
 
+var _require = require('../atomInterface'),
+    getCssScopes = _require.getCssScopes,
+    getTypescriptScopes = _require.getTypescriptScopes;
+
 var EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
 
 var getBufferRange = function getBufferRange(editor) {
@@ -17,6 +21,14 @@ var isCurrentScopeEmbeddedScope = function isCurrentScopeEmbeddedScope(editor) {
   return EMBEDDED_SCOPES.includes(getCurrentScope(editor));
 };
 
+var isCurrentScopeCssScope = function isCurrentScopeCssScope(editor) {
+  return getCssScopes().includes(getCurrentScope(editor));
+};
+
+var isCurrentScopeTypescriptScope = function isCurrentScopeTypescriptScope(editor) {
+  return getTypescriptScopes().includes(getCurrentScope(editor));
+};
+
 var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
@@ -28,6 +40,8 @@ var getCurrentDir = _.flow(getCurrentFilePath, function (maybeFilePath) {
 module.exports = {
   getBufferRange: getBufferRange,
   isCurrentScopeEmbeddedScope: isCurrentScopeEmbeddedScope,
+  isCurrentScopeCssScope: isCurrentScopeCssScope,
+  isCurrentScopeTypescriptScope: isCurrentScopeTypescriptScope,
   getCurrentScope: getCurrentScope,
   getCurrentFilePath: getCurrentFilePath,
   getCurrentDir: getCurrentDir
