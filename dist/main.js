@@ -33,10 +33,8 @@ var lazyFormat = function lazyFormat() {
 };
 
 // HACK: lazy load most of the code we need for performance
-var lazyFormatOnSave = function lazyFormatOnSave() {
+var lazyFormatOnSave = function lazyFormatOnSave(editor) {
   if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
-
-  var editor = atom.workspace.getActiveTextEditor();
   if (editor) formatOnSave(editor);
 };
 
