@@ -83,7 +83,11 @@
         "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
         "default": [
-          "source.css"
+          "source.css",
+          "source.less",
+          "source.css.less",
+          "source.scss",
+          "source.css.scss"
         ],
         "items": {
           "type": "string"
