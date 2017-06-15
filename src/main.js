@@ -23,10 +23,8 @@ const lazyFormat = () => {
 };
 
 // HACK: lazy load most of the code we need for performance
-const lazyFormatOnSave = () => {
+const lazyFormatOnSave = (editor) => {
   if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
-
-  const editor = atom.workspace.getActiveTextEditor();
   if (editor) formatOnSave(editor);
 };
 
