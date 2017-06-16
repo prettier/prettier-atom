@@ -1,0 +1,31 @@
+jest.mock('../atomInterface');
+jest.mock('../editorInterface');
+
+const { getCurrentScope } = require('../editorInterface');
+const { getAllScopes } = require('../atomInterface');
+const updateStatusTileScope = require('./updateStatusTileScope');
+
+const callUpdateStatusTileScope = () => {
+  const div = { dataset: {} };
+  const editor = {};
+
+  updateStatusTileScope(div, editor);
+
+  return { div, editor };
+};
+
+beforeEach(() => {
+  getAllScopes.mockImplementation(() => ['source.js']);
+});
+
+it('sets the match-scope data attribute to true if the editor is in scope', () => {
+  getCurrentScope.mockImplementation(() => 'source.js');
+  const { div } = callUpdateStatusTileScope();
+  expect(div.dataset.prettierMatchScope).toBe('true');
+});
+
+it('sets the match-scope data attribute to false if the editor is out of scope', () => {
+  getCurrentScope.mockImplementation(() => 'source.html');
+  const { div } = callUpdateStatusTileScope();
+  expect(div.dataset.prettierMatchScope).toBe('false');
+});

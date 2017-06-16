@@ -1,7 +1,7 @@
 const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
-const { createStatusTile, updateStatusTile, disposeTooltip } = require('./statusTile');
+const { createStatusTile, updateStatusTile, updateStatusTileScope, disposeTooltip } = require('./statusTile');
 
 // local helpers
 let format = null;
@@ -67,6 +67,9 @@ const attachStatusTile = () => {
       atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () =>
         updateStatusTile(subscriptions, tileElement),
       ),
+    );
+    subscriptions.add(
+      atom.workspace.onDidChangeActiveTextEditor(editor => updateStatusTileScope(tileElement, editor)),
     );
   }
 };

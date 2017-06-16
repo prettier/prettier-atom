@@ -12,7 +12,7 @@ var _require2 = require('../atomInterface'),
 var updateStatusTile = function updateStatusTile(disposable, element) {
   disposeTooltip();
 
-  element.dataset.formatOnSave = getFormatOnSaveStatus(); // eslint-disable-line no-param-reassign
+  element.dataset.prettierFormatOnSave = getFormatOnSaveStatus(); // eslint-disable-line no-param-reassign
 
   var newTooltip = addTooltip(element, { title: 'Format on Save: ' + getFormatOnSaveStatus() });
 
