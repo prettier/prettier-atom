@@ -1,21 +1,21 @@
 {
   "silenceErrors": {
     "title": "Silence Errors",
-    "description": "Don't show an error message if there is a problem formatting your code",
+    "description": "Don't show an error message if there is a problem formatting your code.",
     "type": "boolean",
     "default": false,
     "order": 1
   },
   "useEslint": {
-    "title": "ESlint Integration",
-    "description": "Use [prettier-eslint](https://github.com/prettier/prettier-eslint) to infer your prettier settings based on your eslint config. If we cannot infer a prettier setting from your eslint config (or if there is no eslint config in the current project), we will fallback to using your settings in the *Prettier Options* section.<br /><br />**Note:** If you enable *Format on Save*, we recommend disabling ESlint's auto-fix to prevent fixing your code twice.",
+    "title": "ESLint Integration",
+    "description": "Use [prettier-eslint](https://github.com/prettier/prettier-eslint) to infer your Prettier settings based on your ESLint config. If we cannot infer a Prettier setting from your ESLint config (or if there is none in the current project), we will fallback to using your settings in the *Prettier Options* section.<br><br>**Note:** If you enable *Format on Save*, we recommend disabling ESlint's auto-fix to prevent fixing your code twice.",
     "type": "boolean",
     "default": false,
     "order": 2
   },
   "useEditorConfig": {
     "title": "EditorConfig Integration",
-    "description": "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for prettier formatting <br />Takes precedence over your settings. The following settings will be overriden if they are found in your .editorconfig: **Use tabs**, **Tab width**, **Print width**",
+    "description": "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for Prettier formatting.<br>Takes precedence over your settings. The following settings will be overriden if they are found in your `.editorconfig`: **Use tabs**, **Tab width**, **Print width**.",
     "type": "boolean",
     "default": true,
     "order": 3
@@ -33,8 +33,8 @@
         "order": 1
       },
       "respectEslintignore": {
-        "title": "Ignore Files in .eslintignore",
-        "description": "Works regardless of whether ESlint integration is enabled or not.",
+        "title": "Ignore Files in `.eslintignore`",
+        "description": "Works regardless of whether *ESLint Integration* is enabled or not.",
         "type": "boolean",
         "default": true,
         "order": 2
@@ -47,8 +47,8 @@
         "order": 3
       },
       "javascriptScopes": {
-        "title": "JS Scopes",
-        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "title": "JavaScript Scopes",
+        "description": "Select which files containing JavaScript should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
         "default": [
           "source.js",
@@ -65,8 +65,8 @@
         "order": 4
       },
       "typescriptScopes": {
-        "title": "Typescript Scopes",
-        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "title": "TypeScript Scopes",
+        "description": "Select which files containing TypeScript should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
         "default": [
           "source.ts",
@@ -80,10 +80,14 @@
       },
       "cssScopes": {
         "title": "CSS Scopes",
-        "description": "Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "description": "Select which files containing CSS should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
         "default": [
-          "source.css"
+          "source.css",
+          "source.less",
+          "source.css.less",
+          "source.scss",
+          "source.css.scss"
         ],
         "items": {
           "type": "string"
@@ -92,21 +96,21 @@
       },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
-        "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to seperate each glob.",
+        "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
         "type": "array",
         "default": [],
         "order": 7
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
-        "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to seperate each glob. NOTE: If there are globs in this list, files not matching the globs will not be formatted on save regardless of other options.",
+        "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
         "type": "array",
         "default": [],
         "order": 8
       },
       "isDisabledIfNotInPackageJson": {
-        "title": "Only format if prettier is found in your project's dependencies",
-        "description": "Does not format on save if prettier (or prettier-eslint/prettier-eslint-cli if using eslint integration) is in your project's package.json (dependencies or devDependencies)",
+        "title": "Only format if Prettier is found in your project's dependencies",
+        "description": "Does not format on save if `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is in your project's `package.json` (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
         "order": 9
@@ -119,7 +123,7 @@
     "properties": {
       "singleQuote": {
         "title": "Single Quotes",
-        "description": "Use single instead of double quotes.",
+        "description": "Use single quotes instead of double quotes for strings.",
         "type": "boolean",
         "default": false,
         "order": 1
@@ -133,14 +137,14 @@
       },
       "semi": {
         "title": "Semicolons",
-        "description": "Add semicolons at the end of lines.",
+        "description": "Add semicolons at the end of statements.",
         "type": "boolean",
         "default": true,
         "order": 3
       },
       "useTabs": {
         "title": "Use Tabs",
-        "description": "Use tabs instead of spaces.",
+        "description": "Indent lines with tabs instead of spaces.",
         "type": "boolean",
         "default": false,
         "order": 4
@@ -154,21 +158,21 @@
       },
       "printWidth": {
         "title": "Print Width",
-        "description": "Fit code within this line limit",
+        "description": "Fit lines of code within this length.",
         "type": "integer",
         "default": 80,
         "order": 6
       },
       "tabWidth": {
         "title": "Tab Width",
-        "description": "Number of spaces to use per tab. Use 'auto' to use your editor's tab width setting.",
+        "description": "Number of spaces to use per tab. Put `auto` to use your editor's tab width setting.",
         "type": "string",
         "default": "auto",
         "order": 7
       },
       "trailingComma": {
         "title": "Trailing Comma",
-        "description": "Controls the printing of trailing commas wherever possible",
+        "description": "Print trailing commas wherever possible.",
         "type": "string",
         "default": "none",
         "enum": [
@@ -179,8 +183,8 @@
         "order": 8
       },
       "parser": {
-        "title": "Javascript Parser",
-        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to Typescript or CSS)",
+        "title": "JavaScript Parser",
+        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to TypeScript or CSS)",
         "type": "string",
         "default": "babylon",
         "enum": [
@@ -192,12 +196,13 @@
     }
   },
   "prettierEslintOptions": {
+    "title": "prettier-eslint options",
     "type": "object",
     "order": 5,
     "properties": {
       "prettierLast": {
         "title": "Run Prettier Last",
-        "description": "Run eslint => prettier (instead of prettier => eslint)",
+        "description": "Run `eslint => prettier` instead of `prettier => eslint`.",
         "type": "boolean",
         "default": false,
         "order": 1
