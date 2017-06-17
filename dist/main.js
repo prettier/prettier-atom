@@ -9,6 +9,7 @@ var _require = require('atom'),
 var _require2 = require('./statusTile'),
     createStatusTile = _require2.createStatusTile,
     updateStatusTile = _require2.updateStatusTile,
+    updateStatusTileScope = _require2.updateStatusTileScope,
     disposeTooltip = _require2.disposeTooltip;
 
 // local helpers
@@ -75,6 +76,9 @@ var attachStatusTile = function attachStatusTile() {
 
     subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', function () {
       return updateStatusTile(subscriptions, tileElement);
+    }));
+    subscriptions.add(atom.workspace.onDidChangeActiveTextEditor(function (editor) {
+      return updateStatusTileScope(tileElement, editor);
     }));
   }
 };

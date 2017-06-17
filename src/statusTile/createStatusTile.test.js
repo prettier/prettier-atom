@@ -23,8 +23,8 @@ beforeEach(() => {
 it('creates a div with "Prettier" and a tooltip indicating formatOnSave status', () => {
   const div = createStatusTile();
 
-  expect(div.dataset.formatOnSave).toBe('enabled');
-  expect(div.classList.add).toHaveBeenCalledWith('prettier-atom-status-tile');
+  expect(div.dataset.prettierFormatOnSave).toBe('enabled');
+  expect(div.classList.add).toHaveBeenCalledWith('prettier-status-tile');
   expect(div.appendChild).toHaveBeenCalledWith('Prettier');
   expect(div.addEventListener).toHaveBeenCalledWith('click', toggleFormatOnSave);
 });

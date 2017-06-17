@@ -10,9 +10,9 @@ var createStatusTile = function createStatusTile() {
   var prettierTextNode = document.createTextNode('Prettier');
 
   element.appendChild(prettierTextNode);
-  element.classList.add('prettier-atom-status-tile');
+  element.classList.add('prettier-status-tile');
   element.classList.add('inline-block');
-  element.dataset.formatOnSave = getFormatOnSaveStatus();
+  element.dataset.prettierFormatOnSave = getFormatOnSaveStatus();
   element.addEventListener('click', toggleFormatOnSave);
 
   return element;

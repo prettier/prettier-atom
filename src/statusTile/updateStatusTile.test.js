@@ -31,8 +31,10 @@ it('adds the new tooltip with the updated formatOnSave status to atom', () => {
 
   const { div } = callUpdateStatusTile();
 
-  expect(atom.tooltips.add).toHaveBeenCalledWith(div, { title: 'Format on Save: enabled' });
-  expect(div.dataset.formatOnSave).toEqual('enabled');
+  expect(atom.tooltips.add).toHaveBeenCalledWith(div, {
+    title: 'Format on Save: enabled<br>Click to toggle',
+  });
+  expect(div.dataset.prettierFormatOnSave).toEqual('enabled');
 });
 
 it('updates our reference to the new tooltip so that we may dispose it manually', () => {

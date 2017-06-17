@@ -1,0 +1,14 @@
+div {
+  // Active file not in supported scopes: hide tile.
+  &[data-prettier-match-scope="false"] {
+    display: none;
+  }
+
+  // If Format on Save is enabled, make the label more visible.
+  &[data-prettier-format-on-save="enabled"] {
+    color: #8BC34A;
+    &::after {
+      content: " ✓";
+    }
+  }
+}
