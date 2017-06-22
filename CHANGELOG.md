@@ -1,3 +1,19 @@
+<a name="0.34.0"></a>
+# [0.34.0](https://github.com/prettier/prettier-atom/compare/v0.33.0...v0.34.0) (2017-06-22)
+
+
+### Bug Fixes
+
+* **save:** On save, use editor provided by observer ([b93ec93](https://github.com/prettier/prettier-atom/commit/b93ec93)), closes [#96](https://github.com/prettier/prettier-atom/issues/96)
+
+
+### Features
+
+* **css:** Add LESS and SCSS to default scopes for CSS files ([d41a008](https://github.com/prettier/prettier-atom/commit/d41a008)), closes [#195](https://github.com/prettier/prettier-atom/issues/195)
+* **statusTile:** Display status bar tile only if active file matches one of the scopes (file extens ([56467b9](https://github.com/prettier/prettier-atom/commit/56467b9)), closes [#170](https://github.com/prettier/prettier-atom/issues/170)
+
+
+
 <a name="0.33.0"></a>
 # [0.33.0](https://github.com/prettier/prettier-atom/compare/v0.32.0...v0.33.0) (2017-06-08)
 
@@ -323,6 +339,3 @@ versa.
 
 <a name="0.0.3"></a>
 ## 0.0.3 (2017-01-10)
-
-
-
