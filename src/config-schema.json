@@ -110,7 +110,7 @@
       },
       "isDisabledIfNotInPackageJson": {
         "title": "Only format if Prettier is found in your project's dependencies",
-        "description": "Does not format on save if `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is in your project's `package.json` (dependencies or devDependencies)",
+        "description": "Does not format on save if `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is not in your project's `package.json` (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
         "order": 9
