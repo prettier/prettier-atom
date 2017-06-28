@@ -7,6 +7,7 @@ const {
   getCurrentFilePath,
   isCurrentScopeTypescriptScope,
   isCurrentScopeCssScope,
+  isCurrentScopeJsonScope,
 } = require('../editorInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const buildMockEditor = require('../../tests/mocks/textEditor');
@@ -53,6 +54,17 @@ it('uses postcss as the parser if current scope is listed as a CSS scope in sett
   const actual = buildPrettierOptions(editor);
 
   expect(actual).toEqual({ parser: 'postcss' });
+});
+
+it('uses json as the parser if current scope is listed as a JSON scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeJsonScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'json' });
 });
 
 it('does not use editorconfig options if that setting is not enabled', () => {

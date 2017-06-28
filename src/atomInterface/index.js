@@ -36,7 +36,14 @@ const getTypescriptScopes = () => getConfigOption('formatOnSaveOptions.typescrip
 
 const getCssScopes = () => getConfigOption('formatOnSaveOptions.cssScopes');
 
-const getAllScopes = () => [...getJavascriptScopes(), ...getTypescriptScopes(), ...getCssScopes()];
+const getJsonScopes = () => getConfigOption('formatOnSaveOptions.jsonScopes');
+
+const getAllScopes = () => [
+  ...getJavascriptScopes(),
+  ...getTypescriptScopes(),
+  ...getCssScopes(),
+  ...getJsonScopes(),
+];
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
@@ -85,6 +92,7 @@ module.exports = {
   getJavascriptScopes,
   getTypescriptScopes,
   getCssScopes,
+  getJsonScopes,
   getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,

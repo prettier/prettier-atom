@@ -94,26 +94,38 @@
         },
         "order": 6
       },
+      "jsonScopes": {
+        "title": "JSON Scopes",
+        "description": "Select which files containing JSON should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "type": "array",
+        "default": [
+          "source.json"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "order": 7
+      },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
         "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
         "type": "array",
         "default": [],
-        "order": 7
+        "order": 8
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
         "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
         "type": "array",
         "default": [],
-        "order": 8
+        "order": 9
       },
       "isDisabledIfNotInPackageJson": {
         "title": "Only format if Prettier is found in your project's dependencies",
         "description": "Does not format on save if `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is in your project's `package.json` (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
-        "order": 9
+        "order": 10
       }
     }
   },
@@ -184,7 +196,7 @@
       },
       "parser": {
         "title": "JavaScript Parser",
-        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to TypeScript or CSS)",
+        "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to TypeScript, CSS or JSON)",
         "type": "string",
         "default": "babylon",
         "enum": [
