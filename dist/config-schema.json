@@ -68,11 +68,7 @@
         "title": "TypeScript Scopes",
         "description": "Select which files containing TypeScript should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
-        "default": [
-          "source.ts",
-          "source.tsx",
-          "source.ts.tsx"
-        ],
+        "default": ["source.ts", "source.tsx", "source.ts.tsx"],
         "items": {
           "type": "string"
         },
@@ -82,13 +78,7 @@
         "title": "CSS Scopes",
         "description": "Select which files containing CSS should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
-        "default": [
-          "source.css",
-          "source.less",
-          "source.css.less",
-          "source.scss",
-          "source.css.scss"
-        ],
+        "default": ["source.css", "source.less", "source.css.less", "source.scss", "source.css.scss"],
         "items": {
           "type": "string"
         },
@@ -98,9 +88,7 @@
         "title": "JSON Scopes",
         "description": "Select which files containing JSON should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
-        "default": [
-          "source.json"
-        ],
+        "default": ["source.json"],
         "items": {
           "type": "string"
         },
@@ -187,11 +175,7 @@
         "description": "Print trailing commas wherever possible.",
         "type": "string",
         "default": "none",
-        "enum": [
-          "none",
-          "es5",
-          "all"
-        ],
+        "enum": ["none", "es5", "all"],
         "order": 8
       },
       "parser": {
@@ -199,10 +183,7 @@
         "description": "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to TypeScript, CSS or JSON)",
         "type": "string",
         "default": "babylon",
-        "enum": [
-          "babylon",
-          "flow"
-        ],
+        "enum": ["babylon", "flow"],
         "order": 9
       }
     }
