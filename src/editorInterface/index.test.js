@@ -1,13 +1,14 @@
 jest.mock('../atomInterface');
 
 const buildMockTextEditor = require('../../tests/mocks/textEditor');
-const { getCssScopes, getTypescriptScopes } = require('../atomInterface');
+const { getCssScopes, getTypescriptScopes, getJsonScopes } = require('../atomInterface');
 const {
   getBufferRange,
   getCurrentScope,
   isCurrentScopeEmbeddedScope,
   isCurrentScopeCssScope,
   isCurrentScopeTypescriptScope,
+  isCurrentScopeJsonScope,
   getCurrentFilePath,
 } = require('./index');
 
@@ -90,6 +91,28 @@ describe('isCurrentScopeTypescriptScope()', () => {
     getTypescriptScopes.mockImplementation(() => ['src.typescript']);
 
     const actual = isCurrentScopeTypescriptScope(editor);
+
+    expect(actual).toBe(false);
+  });
+});
+
+describe('isCurrentScopeJsonScope()', () => {
+  it('returns true if the current scope is a JSON scope type', () => {
+    const scopeName = 'src.json';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getJsonScopes.mockImplementation(() => ['src.json']);
+
+    const actual = isCurrentScopeJsonScope(editor);
+
+    expect(actual).toBe(true);
+  });
+
+  it('returns false if the current scope is not a JSON scope type', () => {
+    const scopeName = 'src.css';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getJsonScopes.mockImplementation(() => ['src.json']);
+
+    const actual = isCurrentScopeJsonScope(editor);
 
     expect(actual).toBe(false);
   });

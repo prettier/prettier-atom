@@ -7,7 +7,8 @@ var _ = require('lodash/fp');
 var _require = require('../editorInterface'),
     getCurrentFilePath = _require.getCurrentFilePath,
     isCurrentScopeTypescriptScope = _require.isCurrentScopeTypescriptScope,
-    isCurrentScopeCssScope = _require.isCurrentScopeCssScope;
+    isCurrentScopeCssScope = _require.isCurrentScopeCssScope,
+    isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope;
 
 var _require2 = require('../atomInterface'),
     shouldUseEditorConfig = _require2.shouldUseEditorConfig,
@@ -35,6 +36,10 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
 
   if (isCurrentScopeCssScope(editor)) {
     optionsFromSettings.parser = 'postcss';
+  }
+
+  if (isCurrentScopeJsonScope(editor)) {
+    optionsFromSettings.parser = 'json';
   }
 
   return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor));

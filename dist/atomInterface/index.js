@@ -61,8 +61,12 @@ var getCssScopes = function getCssScopes() {
   return getConfigOption('formatOnSaveOptions.cssScopes');
 };
 
+var getJsonScopes = function getJsonScopes() {
+  return getConfigOption('formatOnSaveOptions.jsonScopes');
+};
+
 var getAllScopes = function getAllScopes() {
-  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()));
+  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()), _toConsumableArray(getJsonScopes()));
 };
 
 var getWhitelistedGlobs = function getWhitelistedGlobs() {
@@ -131,6 +135,7 @@ module.exports = {
   getJavascriptScopes: getJavascriptScopes,
   getTypescriptScopes: getTypescriptScopes,
   getCssScopes: getCssScopes,
+  getJsonScopes: getJsonScopes,
   getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
