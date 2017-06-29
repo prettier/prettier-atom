@@ -1,3 +1,14 @@
+<a name="0.35.0"></a>
+# [0.35.0](https://github.com/prettier/prettier-atom/compare/v0.34.0...v0.35.0) (2017-06-29)
+
+
+### Features
+
+* **json:** add JSON support ([112f58a](https://github.com/prettier/prettier-atom/commit/112f58a))
+* **prettier:** bump to 1.5.2 ([3519fab](https://github.com/prettier/prettier-atom/commit/3519fab))
+
+
+
 <a name="0.34.0"></a>
 # [0.34.0](https://github.com/prettier/prettier-atom/compare/v0.33.0...v0.34.0) (2017-06-22)
 
