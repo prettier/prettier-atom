@@ -12,9 +12,9 @@ var _require2 = require('./statusTile'),
     updateStatusTileScope = _require2.updateStatusTileScope,
     disposeTooltip = _require2.disposeTooltip;
 
+var linterInterface = require('./linterInterface');
+
 // local helpers
-
-
 var format = null;
 var formatOnSave = null;
 var warnAboutLinterEslintFixOnSave = null;
@@ -94,8 +94,21 @@ var detachStatusTile = function detachStatusTile() {
   }
 };
 
+var loadPackageDeps = function loadPackageDeps() {
+  return (
+    // eslint-disable-next-line global-require
+    require('atom-package-deps').install('prettier-atom')
+    // eslint-disable-next-line no-console
+    .then(function () {
+      return console.log('All dependencies installed, good to go');
+    })
+  );
+};
+
 // public API
 var activate = function activate() {
+  loadPackageDeps();
+
   subscriptions = new CompositeDisposable();
 
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
@@ -137,10 +150,32 @@ var consumeStatusBar = function consumeStatusBar(statusBar) {
   }
 };
 
+var consumeIndie = function consumeIndie(registerIndie) {
+  var linter = registerIndie({ name: 'Prettier' });
+  subscriptions.add(linter);
+  linterInterface.set(linter);
+
+  // Setting and clearing messages per filePath
+  subscriptions.add(atom.workspace.observeTextEditors(function (textEditor) {
+    var editorPath = textEditor.getPath();
+    if (!editorPath) {
+      return;
+    }
+
+    var subscription = textEditor.onDidDestroy(function () {
+      subscriptions.remove(subscription);
+      linter.setMessages(editorPath, []);
+      linterInterface.set(null);
+    });
+    subscriptions.add(subscription);
+  }));
+};
+
 module.exports = {
   activate: activate,
   deactivate: deactivate,
   config: config,
   subscriptions: subscriptions,
-  consumeStatusBar: consumeStatusBar
+  consumeStatusBar: consumeStatusBar,
+  consumeIndie: consumeIndie
 };

@@ -5,9 +5,7 @@ const executePrettierOnBufferRange = require('./executePrettierOnBufferRange');
 const executePrettierOnEmbeddedScripts = require('./executePrettierOnEmbeddedScripts');
 
 test('retrieves buffer ranges for embedded scripts and executes prettier on them', () => {
-  const scriptRange = { start: { row: 2, column: 0 }, end: { row: 4, column: 5 } };
   const entireFileRange = {
-    constructor: () => scriptRange,
     start: { row: 0, column: 0 },
     end: { row: 4, column: 5 },
   };
@@ -17,5 +15,6 @@ test('retrieves buffer ranges for embedded scripts and executes prettier on them
 
   executePrettierOnEmbeddedScripts(editor);
 
-  expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, scriptRange);
+  const expectedScriptRange = { start: { row: 1, column: 0 }, end: { row: 4, column: 5 } };
+  expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, expectedScriptRange);
 });

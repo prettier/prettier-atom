@@ -7,6 +7,9 @@ var ignore = require('ignore');
 var _require = require('atom-linter'),
     findCached = _require.findCached;
 
+var Point = require('atom-text-buffer-point');
+var Range = require('atom-text-buffer-range');
+
 var isPresent = function isPresent(target) {
   return !!target && (typeof target.length === 'undefined' || target.length > 0);
 };
@@ -27,9 +30,19 @@ var findCachedFromFilePath = function findCachedFromFilePath(filePath, name) {
   })(filePath);
 };
 
+var createPoint = function createPoint(row, column) {
+  return new Point(row, column);
+};
+
+var createRange = function createRange(start, end) {
+  return new Range(start, end);
+};
+
 module.exports = {
   isPresent: isPresent,
   getDirFromFilePath: getDirFromFilePath,
   someGlobsMatchFilePath: someGlobsMatchFilePath,
-  findCachedFromFilePath: findCachedFromFilePath
+  findCachedFromFilePath: findCachedFromFilePath,
+  createRange: createRange,
+  createPoint: createPoint
 };

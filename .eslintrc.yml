@@ -18,6 +18,7 @@ env:
   jest: true
 
 rules:
+  no-mixed-operators: 0 # incompatible with prettier
   no-confusing-arrow: 0 # not that confusing
   max-len:
     - 2
