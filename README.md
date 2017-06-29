@@ -11,7 +11,7 @@
 [![All Contributors][all-contributors-badge]](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 
-Atom package to format your JavaScript using [Prettier](https://github.com/prettier/prettier).
+Atom package to format your JavaScript, Typescript, CSS, Sass, and JSON using [Prettier](https://github.com/prettier/prettier).
 Comes with powerful optional [ESLint](http://eslint.org/) integration.
 
 ## Demo
@@ -61,7 +61,7 @@ Validation Error:
  }
  ```
 
- To fix the problem, open you configuration file and manually ensure that there are no quotation marks around the setting. We suspect this may be a bug with Atom.
+ To fix the problem, open your configuration file and manually ensure that there are no quotation marks around the "tabWidth" setting. We suspect this may be a bug with Atom.
 
 ## Inspiration
 
