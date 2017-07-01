@@ -40,6 +40,7 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
 
   if (isCurrentScopeJsonScope(editor)) {
     optionsFromSettings.parser = 'json';
+    optionsFromSettings.trailingComma = 'none';
   }
 
   return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor));
