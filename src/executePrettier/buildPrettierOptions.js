@@ -38,6 +38,7 @@ const buildPrettierOptions = (editor: TextEditor) => {
 
   if (isCurrentScopeJsonScope(editor)) {
     optionsFromSettings.parser = 'json';
+    optionsFromSettings.trailingComma = 'none';
   }
 
   return {
