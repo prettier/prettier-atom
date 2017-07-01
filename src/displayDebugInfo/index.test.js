@@ -12,7 +12,11 @@ test('it displays a notification on Atom with package information', () => {
     title = _title;
     options = _options;
   });
-  readPkgUp.sync.mockImplementation(() => ({ version: 'FAKE_PACKAGE_VERSION' }));
+  readPkgUp.sync.mockImplementation(() => ({
+    pkg: {
+      version: 'FAKE_PACKAGE_VERSION',
+    },
+  }));
   getAtomVersion.mockImplementation(() => 'FAKE_ATOM_VERSION');
   getPrettierAtomConfig.mockImplementation(() => 'FAKE_PRETTIER_ATOM_CONFIG');
 

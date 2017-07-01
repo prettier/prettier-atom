@@ -12,8 +12,12 @@ var getDepPath = function getDepPath(dep) {
   return path.join(__dirname, '..', '..', 'node_modules', dep);
 };
 
+var getPackageInfo = function getPackageInfo(dir) {
+  return readPkgUp.sync({ cwd: dir }).pkg;
+};
+
 var getDebugInfo = function getDebugInfo() {
-  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + readPkgUp.sync(__dirname).version + '\nprettier version: ' + readPkgUp.sync(getDepPath('prettier')).version + '\nprettier-eslint version: ' + readPkgUp.sync(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + JSON.stringify(getPrettierAtomConfig(), null, 2) + '\n').trim();
+  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + getPackageInfo(__dirname).version + '\nprettier version: ' + getPackageInfo(getDepPath('prettier')).version + '\nprettier-eslint version: ' + getPackageInfo(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + JSON.stringify(getPrettierAtomConfig(), null, 2) + '\n').trim();
 };
 
 var displayDebugInfo = function displayDebugInfo() {
