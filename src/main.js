@@ -69,7 +69,12 @@ const attachStatusTile = () => {
       ),
     );
     subscriptions.add(
-      atom.workspace.onDidChangeActiveTextEditor(editor => updateStatusTileScope(tileElement, editor)),
+      // onDidChangeActiveTextEditor is only available in Atom 1.18.0+.
+      atom.workspace.onDidChangeActiveTextEditor
+        ? atom.workspace.onDidChangeActiveTextEditor(editor => updateStatusTileScope(tileElement, editor))
+        : atom.workspace.onDidChangeActivePaneItem(() =>
+          updateStatusTileScope(tileElement, atom.workspace.getActiveTextEditor()),
+        ),
     );
   }
 };

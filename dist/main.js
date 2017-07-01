@@ -77,8 +77,12 @@ var attachStatusTile = function attachStatusTile() {
     subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', function () {
       return updateStatusTile(subscriptions, tileElement);
     }));
-    subscriptions.add(atom.workspace.onDidChangeActiveTextEditor(function (editor) {
+    subscriptions.add(
+    // onDidChangeActiveTextEditor is only available in Atom 1.18.0+.
+    atom.workspace.onDidChangeActiveTextEditor ? atom.workspace.onDidChangeActiveTextEditor(function (editor) {
       return updateStatusTileScope(tileElement, editor);
+    }) : atom.workspace.onDidChangeActivePaneItem(function () {
+      return updateStatusTileScope(tileElement, atom.workspace.getActiveTextEditor());
     }));
   }
 };
