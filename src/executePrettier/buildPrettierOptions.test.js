@@ -64,7 +64,7 @@ it('uses json as the parser if current scope is listed as a JSON scope in settin
 
   const actual = buildPrettierOptions(editor);
 
-  expect(actual).toEqual({ parser: 'json' });
+  expect(actual).toEqual({ parser: 'json', trailingComma: 'none' });
 });
 
 it('does not use editorconfig options if that setting is not enabled', () => {
