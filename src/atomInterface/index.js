@@ -78,7 +78,7 @@ const attemptWithErrorNotification = (func: Function, ...args: Array<any>) => {
   try {
     func(...args);
   } catch (e) {
-    addErrorNotification(e.message, { dismissable: true, detail: e.stack });
+    addErrorNotification(e.message, { dismissable: true, stack: e.stack });
   }
 };
 
