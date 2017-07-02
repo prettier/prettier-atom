@@ -74,6 +74,14 @@ const addWarningNotification = (message: string, options?: Atom$Notifications$Op
 const addErrorNotification = (message: string, options?: Atom$Notifications$Options) =>
   atom.notifications.addError(message, options);
 
+const attemptWithErrorNotification = (func: Function, ...args: Array<any>) => {
+  try {
+    func(...args);
+  } catch (e) {
+    addErrorNotification(e.message, { dismissable: true, detail: e.stack });
+  }
+};
+
 const runLinter = (editor: TextEditor) =>
   isLinterLintCommandDefined(editor) &&
   atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
@@ -104,4 +112,5 @@ module.exports = {
   shouldUseEditorConfig,
   shouldUseEslint,
   toggleFormatOnSave,
+  attemptWithErrorNotification,
 };

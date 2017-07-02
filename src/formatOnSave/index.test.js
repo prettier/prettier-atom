@@ -40,3 +40,16 @@ it('does nothing if it should not format on save', () => {
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
   expect(executePrettierOnEmbeddedScripts).not.toHaveBeenCalled();
 });
+
+it('catches uncaught errors so that the user is not prevented from saving', () => {
+  const editor = createMockTextEditor();
+  const fakeError = new Error('fake error');
+  atom = { notifications: { addError: jest.fn() } };
+  shouldFormatOnSave.mockImplementation(() => {
+    throw fakeError;
+  });
+
+  formatOnSave(editor);
+
+  expect(atom.notifications.addError).toHaveBeenCalled();
+});
