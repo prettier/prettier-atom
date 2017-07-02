@@ -117,6 +117,18 @@ var addErrorNotification = function addErrorNotification(message, options) {
   return atom.notifications.addError(message, options);
 };
 
+var attemptWithErrorNotification = function attemptWithErrorNotification(func) {
+  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  try {
+    func.apply(undefined, args);
+  } catch (e) {
+    addErrorNotification(e.message, { dismissable: true, detail: e.stack });
+  }
+};
+
 var runLinter = function runLinter(editor) {
   return isLinterLintCommandDefined(editor) && atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
 };
@@ -146,5 +158,6 @@ module.exports = {
   shouldRespectEslintignore: shouldRespectEslintignore,
   shouldUseEditorConfig: shouldUseEditorConfig,
   shouldUseEslint: shouldUseEslint,
-  toggleFormatOnSave: toggleFormatOnSave
+  toggleFormatOnSave: toggleFormatOnSave,
+  attemptWithErrorNotification: attemptWithErrorNotification
 };
