@@ -2,16 +2,19 @@
 
 var _ = require('lodash/fp');
 
-var _require = require('../editorInterface'),
-    isCurrentScopeEmbeddedScope = _require.isCurrentScopeEmbeddedScope,
-    getBufferRange = _require.getBufferRange;
+var _require = require('../linterInterface'),
+    clearLinterErrors = _require.clearLinterErrors;
 
-var _require2 = require('../executePrettier'),
-    executePrettierOnBufferRange = _require2.executePrettierOnBufferRange,
-    executePrettierOnEmbeddedScripts = _require2.executePrettierOnEmbeddedScripts;
+var _require2 = require('../editorInterface'),
+    isCurrentScopeEmbeddedScope = _require2.isCurrentScopeEmbeddedScope,
+    getBufferRange = _require2.getBufferRange;
 
-var _require3 = require('../atomInterface'),
-    attemptWithErrorNotification = _require3.attemptWithErrorNotification;
+var _require3 = require('../executePrettier'),
+    executePrettierOnBufferRange = _require3.executePrettierOnBufferRange,
+    executePrettierOnEmbeddedScripts = _require3.executePrettierOnEmbeddedScripts;
+
+var _require4 = require('../atomInterface'),
+    attemptWithErrorNotification = _require4.attemptWithErrorNotification;
 
 var shouldFormatOnSave = require('./shouldFormatOnSave');
 
@@ -19,7 +22,7 @@ var callAppropriatePrettierExecutor = function callAppropriatePrettierExecutor(e
   return isCurrentScopeEmbeddedScope(editor) ? executePrettierOnEmbeddedScripts(editor) : executePrettierOnBufferRange(editor, getBufferRange(editor));
 };
 
-var formatOnSaveIfAppropriate = _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]);
+var formatOnSaveIfAppropriate = _.flow(_.tap(clearLinterErrors), _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]));
 
 var safeFormatOnSaveIfAppropriate = function safeFormatOnSaveIfAppropriate(editor) {
   return attemptWithErrorNotification(function () {

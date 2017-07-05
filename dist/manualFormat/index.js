@@ -10,6 +10,9 @@ var _require2 = require('../editorInterface'),
     getBufferRange = _require2.getBufferRange,
     isCurrentScopeEmbeddedScope = _require2.isCurrentScopeEmbeddedScope;
 
+var _require3 = require('../linterInterface'),
+    clearLinterErrors = _require3.clearLinterErrors;
+
 var hasSelectedText = function hasSelectedText(editor) {
   return !!editor.getSelectedText();
 };
@@ -24,6 +27,6 @@ var executePrettierOnCurrentBufferRange = function executePrettierOnCurrentBuffe
   return executePrettierOnBufferRange(editor, getBufferRange(editor));
 };
 
-var format = _.cond([[hasSelectedText, formatSelectedBufferRanges], [isCurrentScopeEmbeddedScope, executePrettierOnEmbeddedScripts], [_.stubTrue, executePrettierOnCurrentBufferRange]]);
+var format = _.flow(_.tap(clearLinterErrors), _.cond([[hasSelectedText, formatSelectedBufferRanges], [isCurrentScopeEmbeddedScope, executePrettierOnEmbeddedScripts], [_.stubTrue, executePrettierOnCurrentBufferRange]]));
 
 module.exports = format;

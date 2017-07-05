@@ -1,4 +1,5 @@
 // @flow
+const _ = require('lodash/fp');
 const prettierEslint = require('prettier-eslint');
 const { allowUnsafeNewFunction } = require('loophole');
 
@@ -18,7 +19,7 @@ const executePrettierOrPrettierEslint = (editor: TextEditor, text: string) => {
   try {
     return shouldUseEslint() ? executePrettierEslint(editor, text) : executePrettier(editor, text);
   } catch (error) {
-    return handleError(error);
+    return error;
   }
 };
 
@@ -29,6 +30,11 @@ const executePrettierOnBufferRange = (editor: TextEditor, bufferRange: Range) =>
 
   const isTextUnchanged = transformed === textToTransform;
   if (!transformed || isTextUnchanged) return;
+
+  if (_.isError(transformed)) {
+    handleError({ bufferRange, editor, error: transformed });
+    return;
+  }
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);

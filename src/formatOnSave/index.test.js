@@ -1,12 +1,22 @@
 jest.mock('../executePrettier');
 jest.mock('../editorInterface');
+jest.mock('../linterInterface');
 jest.mock('./shouldFormatOnSave');
 
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('../executePrettier');
 const { isCurrentScopeEmbeddedScope, getBufferRange } = require('../editorInterface');
+const { clearLinterErrors } = require('../linterInterface');
 const createMockTextEditor = require('../../tests/mocks/textEditor');
 const shouldFormatOnSave = require('./shouldFormatOnSave');
 const formatOnSave = require('./index');
+
+it('clears linter errors before running', () => {
+  const editor = createMockTextEditor();
+
+  formatOnSave(editor);
+
+  expect(clearLinterErrors).toHaveBeenCalledWith(editor);
+});
 
 it('executes prettier on the buffer range if appropriate and scope is not embedded', () => {
   const editor = createMockTextEditor();

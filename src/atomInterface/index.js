@@ -21,8 +21,6 @@ const shouldUseEslint = () => getConfigOption('useEslint');
 
 const shouldUseEditorConfig = () => getConfigOption('useEditorConfig');
 
-const shouldDisplayErrors = () => !getConfigOption('silenceErrors');
-
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
 
 const isDisabledIfNotInPackageJson = () =>
@@ -107,7 +105,6 @@ module.exports = {
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
   runLinter,
-  shouldDisplayErrors,
   shouldRespectEslintignore,
   shouldUseEditorConfig,
   shouldUseEslint,

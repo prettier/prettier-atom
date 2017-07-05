@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash/fp');
 var prettierEslint = require('prettier-eslint');
 
 var _require = require('loophole'),
@@ -28,7 +29,7 @@ var executePrettierOrPrettierEslint = function executePrettierOrPrettierEslint(e
   try {
     return shouldUseEslint() ? executePrettierEslint(editor, text) : executePrettier(editor, text);
   } catch (error) {
-    return handleError(error);
+    return error;
   }
 };
 
@@ -39,6 +40,11 @@ var executePrettierOnBufferRange = function executePrettierOnBufferRange(editor,
 
   var isTextUnchanged = transformed === textToTransform;
   if (!transformed || isTextUnchanged) return;
+
+  if (_.isError(transformed)) {
+    handleError({ bufferRange: bufferRange, editor: editor, error: transformed });
+    return;
+  }
 
   editor.setTextInBufferRange(bufferRange, transformed);
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);

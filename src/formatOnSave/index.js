@@ -1,5 +1,6 @@
 // @flow
 const _ = require('lodash/fp');
+const { clearLinterErrors } = require('../linterInterface');
 const { isCurrentScopeEmbeddedScope, getBufferRange } = require('../editorInterface');
 const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('../executePrettier');
 const { attemptWithErrorNotification } = require('../atomInterface');
@@ -10,9 +11,10 @@ const callAppropriatePrettierExecutor = (editor: TextEditor) =>
     ? executePrettierOnEmbeddedScripts(editor)
     : executePrettierOnBufferRange(editor, getBufferRange(editor));
 
-const formatOnSaveIfAppropriate: TextEditor => void = _.cond([
-  [shouldFormatOnSave, callAppropriatePrettierExecutor],
-]);
+const formatOnSaveIfAppropriate: TextEditor => void = _.flow(
+  _.tap(clearLinterErrors),
+  _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]),
+);
 
 const safeFormatOnSaveIfAppropriate = (editor: TextEditor) =>
   attemptWithErrorNotification(() => formatOnSaveIfAppropriate(editor));

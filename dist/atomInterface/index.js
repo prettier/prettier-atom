@@ -33,10 +33,6 @@ var shouldUseEditorConfig = function shouldUseEditorConfig() {
   return getConfigOption('useEditorConfig');
 };
 
-var shouldDisplayErrors = function shouldDisplayErrors() {
-  return !getConfigOption('silenceErrors');
-};
-
 var isFormatOnSaveEnabled = function isFormatOnSaveEnabled() {
   return getConfigOption('formatOnSaveOptions.enabled');
 };
@@ -154,7 +150,6 @@ module.exports = {
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   runLinter: runLinter,
-  shouldDisplayErrors: shouldDisplayErrors,
   shouldRespectEslintignore: shouldRespectEslintignore,
   shouldUseEditorConfig: shouldUseEditorConfig,
   shouldUseEslint: shouldUseEslint,

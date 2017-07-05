@@ -3,6 +3,8 @@ const _ = require('lodash/fp');
 const path = require('path');
 const ignore = require('ignore');
 const { findCached } = require('atom-linter');
+const Point = require('atom-text-buffer-point');
+const Range = require('atom-text-buffer-range');
 
 const isPresent = (target: any): boolean =>
   !!target && (typeof target.length === 'undefined' || target.length > 0);
@@ -21,9 +23,16 @@ const findCachedFromFilePath = (filePath: ?FilePath, name: string | Array<string
     (dirPath: FilePath): ?FilePath => (isPresent(dirPath) ? findCached(dirPath, name) : undefined),
   )(filePath);
 
+const createPoint = (row: number, column: number): Point => new Point(row, column);
+
+const createRange = (start: Point | [number, number], end: Point | [number, number]): Range =>
+  new Range(start, end);
+
 module.exports = {
   isPresent,
   getDirFromFilePath,
   someGlobsMatchFilePath,
   findCachedFromFilePath,
+  createRange,
+  createPoint,
 };

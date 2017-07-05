@@ -1,7 +1,6 @@
 const {
   runLinter,
   shouldUseEslint,
-  shouldDisplayErrors,
   getPrettierOptions,
   getPrettierEslintOptions,
   isLinterEslintAutofixEnabled,
@@ -59,18 +58,6 @@ describe('shouldUseEslint()', () => {
     const actual = shouldUseEslint();
 
     expect(mockGet).toHaveBeenCalledWith('prettier-atom.useEslint');
-    expect(actual).toBe(false);
-  });
-});
-
-describe('shouldDisplayErrors()', () => {
-  it('is true if the user has chosen to silence errors', () => {
-    const mockGet = jest.fn(() => true);
-    atom = { config: { get: mockGet } };
-
-    const actual = shouldDisplayErrors();
-
-    expect(mockGet).lastCalledWith('prettier-atom.silenceErrors');
     expect(actual).toBe(false);
   });
 });

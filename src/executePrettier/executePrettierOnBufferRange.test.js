@@ -102,7 +102,7 @@ describe('when prettier throws an error', () => {
   it('handles the error', () => {
     executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-    expect(handleError).toHaveBeenCalledWith(error);
+    expect(handleError).toHaveBeenCalledWith({ editor, error, bufferRange: bufferRangeFixture });
   });
 
   it("does not change the text in the editor's buffer range", () => {
