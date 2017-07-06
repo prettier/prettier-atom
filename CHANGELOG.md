@@ -1,11 +1,18 @@
-<a name="0.35.1"></a>
-## [0.35.1](https://github.com/prettier/prettier-atom/compare/v0.35.0...v0.35.1) (2017-07-01)
+<a name="0.36.0"></a>
+# [0.36.0](https://github.com/prettier/prettier-atom/compare/v0.35.0...v0.36.0) (2017-07-06)
 
 
 ### Bug Fixes
 
+* **debug:** Fix usage of readPkgUp to fetch package info ([4c2561d](https://github.com/prettier/prettier-atom/commit/4c2561d)), closes [#217](https://github.com/prettier/prettier-atom/issues/217)
+* **formatOnSave:** don't prevent user from saving if uncaught error ([8f3bfd9](https://github.com/prettier/prettier-atom/commit/8f3bfd9)), closes [#190](https://github.com/prettier/prettier-atom/issues/190)
 * **main:** Subscribe to onDidChangeActivePaneItem when onDidChangeActiveTextEditor is not available ([2efe713](https://github.com/prettier/prettier-atom/commit/2efe713)), closes [#205](https://github.com/prettier/prettier-atom/issues/205)
 * **prettierOptions:** Always disable trailingComma option for JSON ([600cbc0](https://github.com/prettier/prettier-atom/commit/600cbc0)), closes [#212](https://github.com/prettier/prettier-atom/issues/212)
+
+
+### Features
+
+* **errors:** use linter to display errors ([fc20a8c](https://github.com/prettier/prettier-atom/commit/fc20a8c)), closes [#146](https://github.com/prettier/prettier-atom/issues/146)
 
 
 
