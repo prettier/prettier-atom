@@ -1,3 +1,13 @@
+<a name="0.36.1"></a>
+## [0.36.1](https://github.com/prettier/prettier-atom/compare/v0.36.0...v0.36.1) (2017-07-07)
+
+
+### Bug Fixes
+
+* **handleError:** properly handle alternative loc in Prettier errors ([e2dce36](https://github.com/prettier/prettier-atom/commit/e2dce36)), closes [#229](https://github.com/prettier/prettier-atom/issues/229)
+
+
+
 <a name="0.36.0"></a>
 # [0.36.0](https://github.com/prettier/prettier-atom/compare/v0.35.0...v0.36.0) (2017-07-06)
 
