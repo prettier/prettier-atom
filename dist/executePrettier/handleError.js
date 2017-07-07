@@ -11,9 +11,17 @@ var _require2 = require('../helpers'),
     createPoint = _require2.createPoint,
     createRange = _require2.createRange;
 
+var errorLine = function errorLine(error) {
+  return error.loc.start ? error.loc.start.line : error.loc.line;
+};
+
+var errorColumn = function errorColumn(error) {
+  return error.loc.start ? error.loc.start.column : error.loc.column;
+};
+
 // NOTE: Prettier error locations are not zero-based (i.e., they start at 1)
 var buildPointArrayFromPrettierErrorAndRange = function buildPointArrayFromPrettierErrorAndRange(error, bufferRange) {
-  return createPoint(error.loc.start.line + bufferRange.start.row - 1, error.loc.start.line === 0 ? error.loc.start.column + bufferRange.start.column - 1 : error.loc.start.column - 1);
+  return createPoint(errorLine(error) + bufferRange.start.row - 1, errorLine(error) === 0 ? errorColumn(error) + bufferRange.start.column - 1 : errorColumn(error) - 1);
 };
 
 var buildExcerpt = function buildExcerpt(error) {
