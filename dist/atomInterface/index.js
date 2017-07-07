@@ -121,7 +121,7 @@ var attemptWithErrorNotification = function attemptWithErrorNotification(func) {
   try {
     func.apply(undefined, args);
   } catch (e) {
-    addErrorNotification(e.message, { dismissable: true, detail: e.stack });
+    addErrorNotification(e.message, { dismissable: true, stack: e.stack });
   }
 };
 
