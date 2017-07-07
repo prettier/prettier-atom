@@ -7,9 +7,13 @@ const { createRange } = require('../helpers');
 const handleError = require('./handleError');
 
 // helpers
-const buildFakeError = ({ line, column }) => {
+const buildFakeError = ({ line, column }, useAlternativeErrorApi = false) => {
   const error = new Error(`Unexpected token (${line}:${column}) | stack trace`);
-  error.loc = { start: { line, column } };
+  if (useAlternativeErrorApi) {
+    error.loc = { line, column };
+  } else {
+    error.loc = { start: { line, column } };
+  }
 
   return error;
 };
@@ -21,6 +25,27 @@ const positionOfFirstCallOfFirstMessageOfSetMessages = () =>
 it('sets an error message in the indie-linter', () => {
   getCurrentFilePath.mockImplementation(() => '/fake/file/path.js');
   const error = buildFakeError({ line: 1, column: 2 });
+  const editor = null;
+  const bufferRange = { start: { row: 0, column: 0 }, end: { row: 0, column: 0 } };
+
+  handleError({ bufferRange, editor, error });
+
+  const expectedMessages = [
+    {
+      location: {
+        file: '/fake/file/path.js',
+        position: createRange([0, 1], [0, 1]),
+      },
+      excerpt: 'Unexpected token',
+      severity: 'error',
+    },
+  ];
+  expect(linterInterface.setMessages).toHaveBeenCalledWith(editor, expectedMessages);
+});
+
+it('works with the alternative error location API from Prettier', () => {
+  getCurrentFilePath.mockImplementation(() => '/fake/file/path.js');
+  const error = buildFakeError({ line: 1, column: 2 }, true);
   const editor = null;
   const bufferRange = { start: { row: 0, column: 0 }, end: { row: 0, column: 0 } };
 

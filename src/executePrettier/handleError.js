@@ -10,13 +10,16 @@ type HandleErrorArgs = {
   bufferRange: Range,
 };
 
+const errorLine = (error: Prettier$SyntaxError) => (error.loc.start ? error.loc.start.line : error.loc.line);
+
+const errorColumn = (error: Prettier$SyntaxError) =>
+  error.loc.start ? error.loc.start.column : error.loc.column;
+
 // NOTE: Prettier error locations are not zero-based (i.e., they start at 1)
 const buildPointArrayFromPrettierErrorAndRange = (error: Prettier$SyntaxError, bufferRange: Range): Point =>
   createPoint(
-    error.loc.start.line + bufferRange.start.row - 1,
-    error.loc.start.line === 0
-      ? error.loc.start.column + bufferRange.start.column - 1
-      : error.loc.start.column - 1,
+    errorLine(error) + bufferRange.start.row - 1,
+    errorLine(error) === 0 ? errorColumn(error) + bufferRange.start.column - 1 : errorColumn(error) - 1,
   );
 
 const buildExcerpt = (error: Prettier$SyntaxError) => /(.*)\s\(\d+:\d+\).*/.exec(error.message)[1];

@@ -89,7 +89,7 @@ declare type Linter$Message$ApplySolution = {
 };
 // eslint-disable-next-line no-undef
 declare type Prettier$SyntaxError = {
-  loc: { start: { line: number, column: number } },
+  loc: { start: { line: number, column: number } } | {| line: number, column: number |},
   message: string,
 };
 declare type Linter$Message = {
@@ -136,5 +136,4 @@ declare type Linter$IndieDelegate = {
   setAllMessages: (messages: Array<Linter$Message>) => void,
   onDidUpdate: (callback: Function) => Atom$Disposable,
   onDidDestroy: (callback: Function) => Atom$Disposable,
-  dispose: () => void,
 };
