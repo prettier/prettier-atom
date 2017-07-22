@@ -8,6 +8,7 @@ const {
   isCurrentScopeTypescriptScope,
   isCurrentScopeCssScope,
   isCurrentScopeJsonScope,
+  isCurrentScopeGraphQlScope,
 } = require('../editorInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const buildMockEditor = require('../../tests/mocks/textEditor');
@@ -65,6 +66,17 @@ it('uses json as the parser if current scope is listed as a JSON scope in settin
   const actual = buildPrettierOptions(editor);
 
   expect(actual).toEqual({ parser: 'json', trailingComma: 'none' });
+});
+
+it('uses graphql as the parser if current scope is listed as a GraphQl scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeGraphQlScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'graphql' });
 });
 
 it('does not use editorconfig options if that setting is not enabled', () => {

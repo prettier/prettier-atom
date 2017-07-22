@@ -61,8 +61,12 @@ var getJsonScopes = function getJsonScopes() {
   return getConfigOption('formatOnSaveOptions.jsonScopes');
 };
 
+var getGraphQlScopes = function getGraphQlScopes() {
+  return getConfigOption('formatOnSaveOptions.graphQlScopes');
+};
+
 var getAllScopes = function getAllScopes() {
-  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()), _toConsumableArray(getJsonScopes()));
+  return [].concat(_toConsumableArray(getJavascriptScopes()), _toConsumableArray(getTypescriptScopes()), _toConsumableArray(getCssScopes()), _toConsumableArray(getJsonScopes()), _toConsumableArray(getGraphQlScopes()));
 };
 
 var getWhitelistedGlobs = function getWhitelistedGlobs() {
@@ -144,6 +148,7 @@ module.exports = {
   getTypescriptScopes: getTypescriptScopes,
   getCssScopes: getCssScopes,
   getJsonScopes: getJsonScopes,
+  getGraphQlScopes: getGraphQlScopes,
   getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,

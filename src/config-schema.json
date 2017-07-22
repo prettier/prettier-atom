@@ -87,26 +87,36 @@
         },
         "order": 7
       },
+      "graphQlScopes": {
+        "title": "GraphQL Scopes",
+        "description": "Select which files containing GraphQL should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
+        "type": "array",
+        "default": ["source.graphql"],
+        "items": {
+          "type": "string"
+        },
+        "order": 8
+      },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
         "description": "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
         "type": "array",
         "default": [],
-        "order": 8
+        "order": 9
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
         "description": "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
         "type": "array",
         "default": [],
-        "order": 9
+        "order": 10
       },
       "isDisabledIfNotInPackageJson": {
         "title": "Only format if Prettier is found in your project's dependencies",
         "description": "Only format on save when `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is in your project's `package.json` (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
-        "order": 10
+        "order": 11
       }
     }
   },
