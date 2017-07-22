@@ -1,8 +1,10 @@
 jest.mock('../editorInterface');
 jest.mock('../linterInterface');
+jest.mock('../atomInterface');
 
 const { getCurrentFilePath } = require('../editorInterface');
 const linterInterface = require('../linterInterface');
+const { addErrorNotification } = require('../atomInterface');
 const { createRange } = require('../helpers');
 const handleError = require('./handleError');
 
@@ -86,4 +88,12 @@ describe('position property of the message sent to the linter', () => {
     const expectedPosition = createRange([2, 100], [2, 100]);
     expect(positionOfFirstCallOfFirstMessageOfSetMessages()).toEqual(expectedPosition);
   });
+});
+
+it('displays errors in a popup if they are not syntax errors', () => {
+  const error = new Error('fake error');
+
+  handleError({ error });
+
+  expect(addErrorNotification).toHaveBeenCalled();
 });

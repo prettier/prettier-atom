@@ -91,6 +91,7 @@ declare type Linter$Message$ApplySolution = {
 declare type Prettier$SyntaxError = {
   loc: { start: { line: number, column: number } } | {| line: number, column: number |},
   message: string,
+  stack: string,
 };
 declare type Linter$Message = {
   // NOTE: These are given by providers

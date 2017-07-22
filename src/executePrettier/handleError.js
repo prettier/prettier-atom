@@ -2,6 +2,7 @@
 const _ = require('lodash/fp');
 const { getCurrentFilePath } = require('../editorInterface');
 const linter = require('../linterInterface');
+const { addErrorNotification } = require('../atomInterface');
 const { createPoint, createRange } = require('../helpers');
 
 type HandleErrorArgs = {
@@ -40,6 +41,20 @@ const setErrorMessageInLinter = ({ editor, bufferRange, error }: HandleErrorArgs
     },
   ]);
 
-const handleError: HandleErrorArgs => false = _.flow(setErrorMessageInLinter, _.stubFalse);
+const isSyntaxError: HandleErrorArgs => boolean = _.overSome([
+  _.flow(_.get('error.loc.start.line'), _.isInteger),
+  _.flow(_.get('error.loc.line'), _.isInteger),
+]);
+
+const displayErrorInPopup = (args: HandleErrorArgs) =>
+  addErrorNotification(`prettier-atom failed: ${args.error.message}`, {
+    stack: args.error.stack,
+    dismissable: true,
+  });
+
+const handleError: HandleErrorArgs => void = _.cond([
+  [isSyntaxError, setErrorMessageInLinter],
+  [_.stubTrue, displayErrorInPopup],
+]);
 
 module.exports = handleError;

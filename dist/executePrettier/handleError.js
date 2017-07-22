@@ -7,9 +7,12 @@ var _require = require('../editorInterface'),
 
 var linter = require('../linterInterface');
 
-var _require2 = require('../helpers'),
-    createPoint = _require2.createPoint,
-    createRange = _require2.createRange;
+var _require2 = require('../atomInterface'),
+    addErrorNotification = _require2.addErrorNotification;
+
+var _require3 = require('../helpers'),
+    createPoint = _require3.createPoint,
+    createRange = _require3.createRange;
 
 var errorLine = function errorLine(error) {
   return error.loc.start ? error.loc.start.line : error.loc.line;
@@ -44,6 +47,15 @@ var setErrorMessageInLinter = function setErrorMessageInLinter(_ref) {
   }]);
 };
 
-var handleError = _.flow(setErrorMessageInLinter, _.stubFalse);
+var isSyntaxError = _.overSome([_.flow(_.get('error.loc.start.line'), _.isInteger), _.flow(_.get('error.loc.line'), _.isInteger)]);
+
+var displayErrorInPopup = function displayErrorInPopup(args) {
+  return addErrorNotification('prettier-atom failed: ' + args.error.message, {
+    stack: args.error.stack,
+    dismissable: true
+  });
+};
+
+var handleError = _.cond([[isSyntaxError, setErrorMessageInLinter], [_.stubTrue, displayErrorInPopup]]);
 
 module.exports = handleError;
