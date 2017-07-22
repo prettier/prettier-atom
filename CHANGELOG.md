@@ -1,3 +1,19 @@
+<a name="0.37.0"></a>
+# [0.37.0](https://github.com/prettier/prettier-atom/compare/v0.36.1...v0.37.0) (2017-07-22)
+
+
+### Bug Fixes
+
+* **errors:** handle errors that aren't syntax errors ([c3d02b0](https://github.com/prettier/prettier-atom/commit/c3d02b0)), closes [#231](https://github.com/prettier/prettier-atom/issues/231)
+
+
+### Features
+
+* **graphql:** add GraphQl query support (requires language-graphql) ([c3672ca](https://github.com/prettier/prettier-atom/commit/c3672ca)), closes [#237](https://github.com/prettier/prettier-atom/issues/237)
+* **prettier:** update to 1.5.3 ([85b3d68](https://github.com/prettier/prettier-atom/commit/85b3d68))
+
+
+
 <a name="0.36.1"></a>
 ## [0.36.1](https://github.com/prettier/prettier-atom/compare/v0.36.0...v0.36.1) (2017-07-07)
 
@@ -82,7 +98,7 @@
 
 ### Features
 
-* **prettier:** bump to 1.4.1 ([1791886](https://github.com/prettier/prettier-atom/commit/1791886))
+* **prettier:** bump to 0.4.1 ([1791886](https://github.com/prettier/prettier-atom/commit/1791886))
 
 
 
@@ -378,3 +394,6 @@ versa.
 
 <a name="0.0.3"></a>
 ## 0.0.3 (2017-01-10)
+
+
+
