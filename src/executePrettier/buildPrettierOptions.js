@@ -5,6 +5,7 @@ const {
   isCurrentScopeTypescriptScope,
   isCurrentScopeCssScope,
   isCurrentScopeJsonScope,
+  isCurrentScopeGraphQlScope,
 } = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
@@ -39,6 +40,10 @@ const buildPrettierOptions = (editor: TextEditor) => {
   if (isCurrentScopeJsonScope(editor)) {
     optionsFromSettings.parser = 'json';
     optionsFromSettings.trailingComma = 'none';
+  }
+
+  if (isCurrentScopeGraphQlScope(editor)) {
+    optionsFromSettings.parser = 'graphql';
   }
 
   return {

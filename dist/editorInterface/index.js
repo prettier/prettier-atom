@@ -6,7 +6,8 @@ var path = require('path');
 var _require = require('../atomInterface'),
     getCssScopes = _require.getCssScopes,
     getTypescriptScopes = _require.getTypescriptScopes,
-    getJsonScopes = _require.getJsonScopes;
+    getJsonScopes = _require.getJsonScopes,
+    getGraphQlScopes = _require.getGraphQlScopes;
 
 var EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
 
@@ -34,6 +35,10 @@ var isCurrentScopeJsonScope = function isCurrentScopeJsonScope(editor) {
   return getJsonScopes().includes(getCurrentScope(editor));
 };
 
+var isCurrentScopeGraphQlScope = function isCurrentScopeGraphQlScope(editor) {
+  return getGraphQlScopes().includes(getCurrentScope(editor));
+};
+
 var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
@@ -48,6 +53,7 @@ module.exports = {
   isCurrentScopeCssScope: isCurrentScopeCssScope,
   isCurrentScopeTypescriptScope: isCurrentScopeTypescriptScope,
   isCurrentScopeJsonScope: isCurrentScopeJsonScope,
+  isCurrentScopeGraphQlScope: isCurrentScopeGraphQlScope,
   getCurrentScope: getCurrentScope,
   getCurrentFilePath: getCurrentFilePath,
   getCurrentDir: getCurrentDir

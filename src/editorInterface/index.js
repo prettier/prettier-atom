@@ -2,7 +2,7 @@
 const _ = require('lodash/fp');
 const path = require('path');
 
-const { getCssScopes, getTypescriptScopes, getJsonScopes } = require('../atomInterface');
+const { getCssScopes, getTypescriptScopes, getJsonScopes, getGraphQlScopes } = require('../atomInterface');
 
 const EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
 
@@ -19,6 +19,9 @@ const isCurrentScopeTypescriptScope = (editor: TextEditor) =>
 
 const isCurrentScopeJsonScope = (editor: TextEditor) => getJsonScopes().includes(getCurrentScope(editor));
 
+const isCurrentScopeGraphQlScope = (editor: TextEditor) =>
+  getGraphQlScopes().includes(getCurrentScope(editor));
+
 const getCurrentFilePath = (editor: TextEditor) => (editor.buffer.file ? editor.buffer.file.path : undefined);
 
 const getCurrentDir: (editor: TextEditor) => ?string = _.flow(
@@ -32,6 +35,7 @@ module.exports = {
   isCurrentScopeCssScope,
   isCurrentScopeTypescriptScope,
   isCurrentScopeJsonScope,
+  isCurrentScopeGraphQlScope,
   getCurrentScope,
   getCurrentFilePath,
   getCurrentDir,

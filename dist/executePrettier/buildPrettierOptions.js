@@ -8,7 +8,8 @@ var _require = require('../editorInterface'),
     getCurrentFilePath = _require.getCurrentFilePath,
     isCurrentScopeTypescriptScope = _require.isCurrentScopeTypescriptScope,
     isCurrentScopeCssScope = _require.isCurrentScopeCssScope,
-    isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope;
+    isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope,
+    isCurrentScopeGraphQlScope = _require.isCurrentScopeGraphQlScope;
 
 var _require2 = require('../atomInterface'),
     shouldUseEditorConfig = _require2.shouldUseEditorConfig,
@@ -41,6 +42,10 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
   if (isCurrentScopeJsonScope(editor)) {
     optionsFromSettings.parser = 'json';
     optionsFromSettings.trailingComma = 'none';
+  }
+
+  if (isCurrentScopeGraphQlScope(editor)) {
+    optionsFromSettings.parser = 'graphql';
   }
 
   return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor));
