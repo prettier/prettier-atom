@@ -90,6 +90,16 @@ describe('when shouldUseEslint is true', () => {
     expect(actual).toBe(true);
   });
 
+  it('is true if eslint-plugin-prettier is a dependency', () => {
+    readPkgUp.sync.mockImplementation(() => ({
+      pkg: { dependencies: { 'eslint-plugin-prettier': '^0.0.1' } },
+    }));
+
+    const actual = isPrettierInPackageJson();
+
+    expect(actual).toBe(true);
+  });
+
   it('is true if eslint-plugin-prettier is a dev dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
       pkg: { devDependencies: { 'eslint-plugin-prettier': '^0.0.1' } },
@@ -100,7 +110,7 @@ describe('when shouldUseEslint is true', () => {
     expect(actual).toBe(true);
   });
 
-  it('is false if prettier-eslint, prettier-eslint-cli, or eslint-plugin-prettier are not dependencies', () => {
+  it('is false if missing prettier-eslint, prettier-eslint-cli, or eslint-plugin-prettier packges', () => {
     const actual = isPrettierInPackageJson();
 
     expect(actual).toBe(false);

@@ -25,6 +25,6 @@ var readContentsOfNearestPackageJson = _.flow(getCurrentDir, _.set('cwd', _, {})
 
 var isPrettierInPackageJson = _.flow(readContentsOfNearestPackageJson, hasPackage('prettier'));
 
-var isPrettierEslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli')]));
+var isPrettierEslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli'), hasPackage('eslint-plugin-prettier')]));
 
 module.exports = _.cond([[shouldUseEslint, isPrettierEslintInPackageJson], [_.stubTrue, isPrettierInPackageJson]]);
