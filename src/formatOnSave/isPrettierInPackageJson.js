@@ -27,7 +27,11 @@ const isPrettierInPackageJson: (editor: TextEditor) => boolean = _.flow(
 
 const isPrettierEslintInPackageJson: (editor: TextEditor) => boolean = _.flow(
   readContentsOfNearestPackageJson,
-  _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli')]),
+  _.overSome([
+    hasPackage('prettier-eslint'),
+    hasPackage('prettier-eslint-cli'),
+    hasPackage('eslint-plugin-prettier'),
+  ]),
 );
 
 module.exports = _.cond([
