@@ -4,11 +4,12 @@ div {
     display: none;
   }
 
-  &:hover {
+  // Show the tile as clickable.
+  &.prettier-status-tile:hover {
     text-decoration: underline;
     cursor: pointer;
   }
-  
+
   // If Format on Save is enabled, make the label more visible.
   &[data-prettier-format-on-save="enabled"] {
     color: #8BC34A;
