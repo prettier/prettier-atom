@@ -68,6 +68,7 @@ it('works with the alternative error location API from Prettier', () => {
 
 describe('position property of the message sent to the linter', () => {
   it('accounts for the start row of the buffer range', () => {
+    getCurrentFilePath.mockImplementation(() => 'fake/file/path.js');
     const editor = null;
     const bufferRange = { start: { row: 3, column: 99 }, end: { row: 99, column: 99 } };
     const error = buildFakeError({ line: 1, column: 2 });
@@ -79,6 +80,7 @@ describe('position property of the message sent to the linter', () => {
   });
 
   it('accounts for the start column of the buffer range if the error line is the first line', () => {
+    getCurrentFilePath.mockImplementation(() => 'fake/file/path.js');
     const editor = null;
     const bufferRange = { start: { row: 3, column: 99 }, end: { row: 99, column: 99 } };
     const error = buildFakeError({ line: 0, column: 2 });
@@ -91,6 +93,16 @@ describe('position property of the message sent to the linter', () => {
 });
 
 it('displays errors in a popup if they are not syntax errors', () => {
+  getCurrentFilePath.mockImplementation(() => 'fake/file/path.js');
+  const error = new Error('fake error');
+
+  handleError({ error });
+
+  expect(addErrorNotification).toHaveBeenCalled();
+});
+
+it('displays errors in a popup if there is no filepath (linter requires a filepath)', () => {
+  getCurrentFilePath.mockImplementation(() => null);
   const error = new Error('fake error');
 
   handleError({ error });

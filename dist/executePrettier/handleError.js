@@ -49,6 +49,8 @@ var setErrorMessageInLinter = function setErrorMessageInLinter(_ref) {
 
 var isSyntaxError = _.overSome([_.flow(_.get('error.loc.start.line'), _.isInteger), _.flow(_.get('error.loc.line'), _.isInteger)]);
 
+var isFilePathPresent = _.flow(_.get('editor'), getCurrentFilePath, _.negate(_.isNil));
+
 var displayErrorInPopup = function displayErrorInPopup(args) {
   return addErrorNotification('prettier-atom failed: ' + args.error.message, {
     stack: args.error.stack,
@@ -56,6 +58,6 @@ var displayErrorInPopup = function displayErrorInPopup(args) {
   });
 };
 
-var handleError = _.cond([[isSyntaxError, setErrorMessageInLinter], [_.stubTrue, displayErrorInPopup]]);
+var handleError = _.flow(_.cond([[_.overEvery([isSyntaxError, isFilePathPresent]), setErrorMessageInLinter], [_.stubTrue, displayErrorInPopup]]));
 
 module.exports = handleError;

@@ -46,15 +46,23 @@ const isSyntaxError: HandleErrorArgs => boolean = _.overSome([
   _.flow(_.get('error.loc.line'), _.isInteger),
 ]);
 
+const isFilePathPresent: HandleErrorArgs => boolean = _.flow(
+  _.get('editor'),
+  getCurrentFilePath,
+  _.negate(_.isNil),
+);
+
 const displayErrorInPopup = (args: HandleErrorArgs) =>
   addErrorNotification(`prettier-atom failed: ${args.error.message}`, {
     stack: args.error.stack,
     dismissable: true,
   });
 
-const handleError: HandleErrorArgs => void = _.cond([
-  [isSyntaxError, setErrorMessageInLinter],
-  [_.stubTrue, displayErrorInPopup],
-]);
+const handleError: HandleErrorArgs => void = _.flow(
+  _.cond([
+    [_.overEvery([isSyntaxError, isFilePathPresent]), setErrorMessageInLinter],
+    [_.stubTrue, displayErrorInPopup],
+  ]),
+);
 
 module.exports = handleError;
