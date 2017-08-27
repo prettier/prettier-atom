@@ -1,3 +1,20 @@
+<a name="0.38.0"></a>
+# [0.38.0](https://github.com/prettier/prettier-atom/compare/v0.37.0...v0.38.0) (2017-08-27)
+
+
+### Bug Fixes
+
+* **display-of-errors:** show syntax errors for unsaved files ([cc402c9](https://github.com/prettier/prettier-atom/commit/cc402c9)), closes [#235](https://github.com/prettier/prettier-atom/issues/235)
+* **statusTile:** Fix style scope ([1e563b6](https://github.com/prettier/prettier-atom/commit/1e563b6))
+
+
+### Features
+
+* **formatOnSave:** Added 'eslint-plugin-prettier' to list of packages to look for (#247) ([b3a6838](https://github.com/prettier/prettier-atom/commit/b3a6838))
+* **prettier-eslint:** bump to 4.2.1 ([89bed30](https://github.com/prettier/prettier-atom/commit/89bed30))
+
+
+
 <a name="0.37.0"></a>
 # [0.37.0](https://github.com/prettier/prettier-atom/compare/v0.36.1...v0.37.0) (2017-07-22)
 
