@@ -10,7 +10,9 @@ var _require2 = require('../atomInterface'),
     shouldUseEslint = _require2.shouldUseEslint,
     runLinter = _require2.runLinter;
 
-var getPrettierInstance = require('./getPrettierInstance');
+var _require3 = require('../helpers'),
+    getPrettierInstance = _require3.getPrettierInstance;
+
 var buildPrettierEslintOptions = require('./buildPrettierEslintOptions');
 var buildPrettierOptions = require('./buildPrettierOptions');
 var handleError = require('./handleError');

@@ -1,6 +1,7 @@
 jest.mock('../atomInterface');
 jest.mock('../editorInterface');
 jest.mock('./buildEditorConfigOptions');
+jest.mock('../helpers');
 
 const { getPrettierOptions, getAtomTabLength, shouldUseEditorConfig } = require('../atomInterface');
 const {
@@ -13,6 +14,11 @@ const {
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const buildMockEditor = require('../../tests/mocks/textEditor');
 const buildPrettierOptions = require('./buildPrettierOptions');
+const { getPrettierInstance } = require('../helpers');
+
+beforeEach(() => {
+  getPrettierInstance.mockImplementation(() => ({ resolveConfig: { sync: jest.fn() } }));
+});
 
 it('returns prettier options', () => {
   const editor = buildMockEditor();
@@ -101,4 +107,18 @@ it('overrides values with editorconfig values if editor config is enabled', () =
   const actual = buildPrettierOptions(editor);
 
   expect(actual).toEqual(fakeEditorConfigOptions);
+});
+
+it('overrides values with prettier config values if one exists', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { tabWidth: 2, printWidth: 80, useTabs: false };
+  const fakePrettierConfigOptions = { tabWidth: 4, printWidth: 100, useTabs: true };
+  const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => fakePrettierConfigOptions) } };
+  getPrettierInstance.mockImplementation(() => mockPrettierInstance);
+  getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual(fakePrettierConfigOptions);
 });

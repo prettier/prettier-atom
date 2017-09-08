@@ -1,6 +1,7 @@
 jest.mock('../editorInterface');
 jest.mock('../atomInterface');
 jest.mock('./isFilePathEslintIgnored');
+jest.mock('./isFilePathPrettierIgnored');
 jest.mock('./isPrettierInPackageJson');
 
 const createMockTextEditor = require('../../tests/mocks/textEditor');
@@ -13,6 +14,7 @@ const {
 } = require('../atomInterface');
 const { getCurrentScope, getCurrentFilePath } = require('../editorInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
+const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const shouldFormatOnSave = require('./shouldFormatOnSave');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
@@ -85,6 +87,14 @@ it('returns false if the filepath is not in scope', () => {
 
 it('returns false if the filepath is eslintignored', () => {
   isFilePathEslintIgnored.mockImplementation(() => true);
+
+  const actual = callShouldFormatOnSave();
+
+  expect(actual).toBe(false);
+});
+
+it('returns false if the filepath is prettier ignored', () => {
+  isFilePathPrettierIgnored.mockImplementation(() => true);
 
   const actual = callShouldFormatOnSave();
 

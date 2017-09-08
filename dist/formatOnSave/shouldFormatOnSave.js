@@ -17,6 +17,7 @@ var _require3 = require('../atomInterface'),
     isDisabledIfNotInPackageJson = _require3.isDisabledIfNotInPackageJson;
 
 var isFilePathEslintignored = require('./isFilePathEslintIgnored');
+var isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 var isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 var hasFilePath = function hasFilePath(editor) {
@@ -39,6 +40,8 @@ var isFilePathWhitelisted = _.flow(getCurrentFilePath, function (filePath) {
 
 var isFilePathNotEslintignored = _.flow(getCurrentFilePath, _.negate(isFilePathEslintignored));
 
-var shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), isFilePathNotEslintignored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson])]);
+var isFilePathNotPrettierIgnored = _.flow(getCurrentFilePath, _.negate(isFilePathPrettierIgnored));
+
+var shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), isFilePathNotEslintignored, isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson])]);
 
 module.exports = shouldFormatOnSave;
