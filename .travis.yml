@@ -7,3 +7,5 @@ script:
   - yarn start ci
 after_success:
   - yarn start reportCoverage
+branches:
+  only: master
