@@ -26,6 +26,8 @@ const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled
 const isDisabledIfNotInPackageJson = () =>
   getConfigOption('formatOnSaveOptions.isDisabledIfNotInPackageJson');
 
+const isDisabledIfNoConfigFile = () => getConfigOption('formatOnSaveOptions.isDisabledIfNoConfigFile');
+
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
 const getJavascriptScopes = () => getConfigOption('formatOnSaveOptions.javascriptScopes');
@@ -106,6 +108,7 @@ module.exports = {
   getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
+  isDisabledIfNoConfigFile,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
   runLinter,

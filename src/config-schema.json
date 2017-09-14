@@ -127,6 +127,14 @@
         "type": "boolean",
         "default": false,
         "order": 11
+      },
+      "isDisabledIfNoConfigFile": {
+        "title": "Only format if a Prettier config is found",
+        "description":
+          "Only format on save if we find a `.prettierrc` file (written in YAML or JSON), a `prettier.config.js` file that exports an object, or a 'prettier' key in your `package.json` file.",
+        "type": "boolean",
+        "default": false,
+        "order": 12
       }
     }
   },

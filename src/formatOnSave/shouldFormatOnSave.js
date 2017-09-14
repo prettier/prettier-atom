@@ -1,6 +1,6 @@
 // @flow
 const _ = require('lodash/fp');
-const { someGlobsMatchFilePath } = require('../helpers');
+const { someGlobsMatchFilePath, getPrettierInstance } = require('../helpers');
 const { getCurrentFilePath, getCurrentScope } = require('../editorInterface');
 const {
   isFormatOnSaveEnabled,
@@ -8,6 +8,7 @@ const {
   getExcludedGlobs,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
+  isDisabledIfNoConfigFile,
 } = require('../atomInterface');
 const isFilePathEslintignored = require('./isFilePathEslintIgnored');
 const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
@@ -41,6 +42,10 @@ const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
   _.negate(isFilePathPrettierIgnored),
 );
 
+const isPrettierConfigPresent = (editor: TextEditor): boolean =>
+  !!getPrettierInstance(editor).resolveConfig.sync &&
+  _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+
 const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
   isFormatOnSaveEnabled,
   hasFilePath,
@@ -52,6 +57,7 @@ const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
   isFilePathNotEslintignored,
   isFilePathNotPrettierIgnored,
   _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]),
+  _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]),
 ]);
 
 module.exports = shouldFormatOnSave;

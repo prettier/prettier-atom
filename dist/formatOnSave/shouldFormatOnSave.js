@@ -3,7 +3,8 @@
 var _ = require('lodash/fp');
 
 var _require = require('../helpers'),
-    someGlobsMatchFilePath = _require.someGlobsMatchFilePath;
+    someGlobsMatchFilePath = _require.someGlobsMatchFilePath,
+    getPrettierInstance = _require.getPrettierInstance;
 
 var _require2 = require('../editorInterface'),
     getCurrentFilePath = _require2.getCurrentFilePath,
@@ -14,7 +15,8 @@ var _require3 = require('../atomInterface'),
     getAllScopes = _require3.getAllScopes,
     getExcludedGlobs = _require3.getExcludedGlobs,
     getWhitelistedGlobs = _require3.getWhitelistedGlobs,
-    isDisabledIfNotInPackageJson = _require3.isDisabledIfNotInPackageJson;
+    isDisabledIfNotInPackageJson = _require3.isDisabledIfNotInPackageJson,
+    isDisabledIfNoConfigFile = _require3.isDisabledIfNoConfigFile;
 
 var isFilePathEslintignored = require('./isFilePathEslintIgnored');
 var isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
@@ -42,6 +44,10 @@ var isFilePathNotEslintignored = _.flow(getCurrentFilePath, _.negate(isFilePathE
 
 var isFilePathNotPrettierIgnored = _.flow(getCurrentFilePath, _.negate(isFilePathPrettierIgnored));
 
-var shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), isFilePathNotEslintignored, isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson])]);
+var isPrettierConfigPresent = function isPrettierConfigPresent(editor) {
+  return !!getPrettierInstance(editor).resolveConfig.sync && _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+};
+
+var shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), isFilePathNotEslintignored, isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent])]);
 
 module.exports = shouldFormatOnSave;
