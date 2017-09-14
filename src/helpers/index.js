@@ -15,7 +15,10 @@ const safePathParse = (filePath: FilePath) =>
 const getDirFromFilePath: (filePath: ?FilePath) => ?FilePath = _.flow(safePathParse, _.get('dir'));
 
 const someGlobsMatchFilePath = (globs: Globs, filePath: ?FilePath) =>
-  isPresent(filePath) && ignore().add(globs).ignores(filePath);
+  isPresent(filePath) &&
+  ignore()
+    .add(globs)
+    .ignores(filePath);
 
 const findCachedFromFilePath = (filePath: ?FilePath, name: string | Array<string>): ?FilePath =>
   _.flow(
