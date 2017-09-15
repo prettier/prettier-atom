@@ -131,7 +131,7 @@
       "isDisabledIfNoConfigFile": {
         "title": "Only format if a Prettier config is found",
         "description":
-          "Only format on save if we find a `.prettierrc` file (written in YAML or JSON), a `prettier.config.js` file that exports an object, or a 'prettier' key in your `package.json` file.",
+          "Only format on save if we find a `.prettierrc` file (written in YAML or JSON), a `prettier.config.js` file that exports an object, or a 'prettier' key in your `package.json` file. <br><br>**Note:** You must have at least one valid rule in order for your config to be considered present.",
         "type": "boolean",
         "default": false,
         "order": 12
