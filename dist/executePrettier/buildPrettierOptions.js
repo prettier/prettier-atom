@@ -18,11 +18,18 @@ var _require2 = require('../atomInterface'),
 
 var buildEditorConfigOptions = require('./buildEditorConfigOptions');
 
+var _require3 = require('../helpers'),
+    getPrettierInstance = _require3.getPrettierInstance;
+
 var isDefined = _.negate(_.isNil);
 
 var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseEditorConfig]);
 
 var buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
+
+var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), function (editor) {
+  return isDefined(getPrettierInstance(editor).resolveConfig.sync) ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor)) : null;
+}]]);
 
 var buildPrettierOptions = function buildPrettierOptions(editor) {
   var optionsFromSettings = getPrettierOptions();
@@ -48,7 +55,7 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
     optionsFromSettings.parser = 'graphql';
   }
 
-  return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor));
+  return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));
 };
 
 module.exports = buildPrettierOptions;

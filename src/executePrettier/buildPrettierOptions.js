@@ -9,6 +9,7 @@ const {
 } = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
+const { getPrettierInstance } = require('../helpers');
 
 const isDefined: (x: any) => boolean = _.negate(_.isNil);
 
@@ -21,6 +22,16 @@ const buildEditorConfigOptionsIfAppropriate: (editor: TextEditor) => ?{} = _.flo
   getCurrentFilePath,
   _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]),
 );
+
+const getPrettierConfigOptions: (editor: TextEditor) => ?{} = _.cond([
+  [
+    _.flow(getCurrentFilePath, isDefined),
+    editor =>
+      isDefined(getPrettierInstance(editor).resolveConfig.sync)
+        ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor))
+        : null,
+  ],
+]);
 
 const buildPrettierOptions = (editor: TextEditor) => {
   const optionsFromSettings = getPrettierOptions();
@@ -49,6 +60,7 @@ const buildPrettierOptions = (editor: TextEditor) => {
   return {
     ...optionsFromSettings,
     ...buildEditorConfigOptionsIfAppropriate(editor),
+    ...getPrettierConfigOptions(editor),
   };
 };
 

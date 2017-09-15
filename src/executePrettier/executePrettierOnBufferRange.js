@@ -4,7 +4,7 @@ const prettierEslint = require('prettier-eslint');
 const { allowUnsafeNewFunction } = require('loophole');
 
 const { shouldUseEslint, runLinter } = require('../atomInterface');
-const getPrettierInstance = require('./getPrettierInstance');
+const { getPrettierInstance } = require('../helpers');
 const buildPrettierEslintOptions = require('./buildPrettierEslintOptions');
 const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');

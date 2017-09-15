@@ -29,8 +29,8 @@
     "ignore": "^3.3.4",
     "lodash": "^4.17.4",
     "loophole": "^1.1.0",
-    "prettier": "^1.5.3",
-    "prettier-eslint": "^6.4.2",
+    "prettier": "^1.7.0",
+    "prettier-eslint": "^8.1.0",
     "read-pkg-up": "^2.0.0"
   },
   "devDependencies": {

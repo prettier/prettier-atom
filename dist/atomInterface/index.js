@@ -41,6 +41,10 @@ var isDisabledIfNotInPackageJson = function isDisabledIfNotInPackageJson() {
   return getConfigOption('formatOnSaveOptions.isDisabledIfNotInPackageJson');
 };
 
+var isDisabledIfNoConfigFile = function isDisabledIfNoConfigFile() {
+  return getConfigOption('formatOnSaveOptions.isDisabledIfNoConfigFile');
+};
+
 var shouldRespectEslintignore = function shouldRespectEslintignore() {
   return getConfigOption('formatOnSaveOptions.respectEslintignore');
 };
@@ -152,6 +156,7 @@ module.exports = {
   getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
+  isDisabledIfNoConfigFile: isDisabledIfNoConfigFile,
   isFormatOnSaveEnabled: isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled: isLinterEslintAutofixEnabled,
   runLinter: runLinter,
