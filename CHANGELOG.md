@@ -1,3 +1,16 @@
+<a name="0.39.0"></a>
+# [0.39.0](https://github.com/prettier/prettier-atom/compare/v0.38.0...v0.39.0) (2017-09-15)
+
+
+### Features
+
+* **prettier:** bump bundled version to 1.7.0 ([20281be](https://github.com/prettier/prettier-atom/commit/20281be))
+* **prettier-config:** use options from prettier-config if present ([881bd09](https://github.com/prettier/prettier-atom/commit/881bd09))
+* **prettier-eslint:** bump bundled version to 8.1.0 ([142de95](https://github.com/prettier/prettier-atom/commit/142de95))
+* **settings:** add ability not to format on save if a prettier config is not present ([97bdf8e](https://github.com/prettier/prettier-atom/commit/97bdf8e))
+
+
+
 <a name="0.38.0"></a>
 # [0.38.0](https://github.com/prettier/prettier-atom/compare/v0.37.0...v0.38.0) (2017-08-27)
 
