@@ -16,8 +16,12 @@ scripts:
     script: rimraf node_modules && yarn install
 
   format:
-    description: Run prettier-eslint on the src code
-    script: prettier-eslint "src/**/*.js" "src/**/*.json" --write
+    default:
+      description: Run prettier on the src code
+      script: prettier --write "src/**/*.js" "decls/**/*.js" "tests/**/*.js" "menus/**/*.json" "keymaps/**/*.json" "styles/**/*.less"
+    listDifferent:
+      description: Run a check that all code has been formatted
+      script: prettier --list-different "src/**/*.js" "decls/**/*.js" "tests/**/*.js" "menus/**/*.json" "keymaps/**/*.json" "styles/**/*.less"
 
   flow:
     default:
@@ -33,7 +37,7 @@ scripts:
 
   lint:
     description: Lint the entire project
-    script: nps eslint && nps flow
+    script: nps eslint && nps flow && nps format.listDifferent
 
   build:
     default:

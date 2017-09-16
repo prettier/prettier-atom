@@ -5,7 +5,7 @@ const { getCurrentScope } = require('../editorInterface');
 const { getAllScopes } = require('../atomInterface');
 const updateStatusTileScope = require('./updateStatusTileScope');
 
-const callUpdateStatusTileScope = (editor) => {
+const callUpdateStatusTileScope = editor => {
   const div = { dataset: {} };
 
   updateStatusTileScope(div, editor);
