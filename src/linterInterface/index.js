@@ -13,7 +13,16 @@ const get = () => indieDelegate;
 
 const setMessages = (editor: TextEditor, messages: Array<Linter$Message>) => {
   const filePath = getCurrentFilePath(editor);
-  if (!indieDelegate || !filePath) return;
+
+  if (!indieDelegate || !filePath) {
+    // eslint-disable-next-line
+    console.error(
+      `prettier-atom attempted to set messages with linter package, but was unable. Messages: ${JSON.stringify(
+        messages,
+      )}`,
+    );
+    return;
+  }
 
   indieDelegate.setMessages(filePath, messages);
 };

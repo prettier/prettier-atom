@@ -129,6 +129,7 @@ var attemptWithErrorNotification = function attemptWithErrorNotification(func) {
   try {
     func.apply(undefined, args);
   } catch (e) {
+    console.error(e); // eslint-disable-line no-console
     addErrorNotification(e.message, { dismissable: true, stack: e.stack });
   }
 };

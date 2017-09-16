@@ -53,6 +53,7 @@ const isFilePathPresent: HandleErrorArgs => boolean = _.flow(
 );
 
 const displayErrorInPopup = (args: HandleErrorArgs) =>
+  console.error(args.error) || // eslint-disable-line no-console
   addErrorNotification(`prettier-atom failed: ${args.error.message}`, {
     stack: args.error.stack,
     dismissable: true,
