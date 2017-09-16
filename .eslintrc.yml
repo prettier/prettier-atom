@@ -2,6 +2,7 @@ extends:
   - airbnb-base
   - plugin:flowtype/recommended
   - plugin:jest/recommended
+  - prettier
 
 parser: babel-eslint
 
@@ -19,7 +20,5 @@ env:
 
 rules:
   no-mixed-operators: 0 # incompatible with prettier
-  no-confusing-arrow: 0 # not that confusing
-  max-len:
-    - 2
-    - 110
+  no-confusing-arrow: 0 # incompatible with prettier
+  max-len: 0 # prefer prettier
