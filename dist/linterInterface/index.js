@@ -19,7 +19,12 @@ var get = function get() {
 
 var setMessages = function setMessages(editor, messages) {
   var filePath = getCurrentFilePath(editor);
-  if (!indieDelegate || !filePath) return;
+
+  if (!indieDelegate || !filePath) {
+    // eslint-disable-next-line
+    console.error('prettier-atom attempted to set messages with linter package, but was unable. Messages: ' + JSON.stringify(messages));
+    return;
+  }
 
   indieDelegate.setMessages(filePath, messages);
 };

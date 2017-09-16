@@ -52,6 +52,8 @@ it('does nothing if it should not format on save', () => {
 });
 
 it('catches uncaught errors so that the user is not prevented from saving', () => {
+  const originalConsoleError = console.error; // eslint-disable-line no-console
+  console.error = jest.fn(); // eslint-disable-line no-console
   const editor = createMockTextEditor();
   const fakeError = new Error('fake error');
   atom = { notifications: { addError: jest.fn() } };
@@ -62,4 +64,7 @@ it('catches uncaught errors so that the user is not prevented from saving', () =
   formatOnSave(editor);
 
   expect(atom.notifications.addError).toHaveBeenCalled();
+  expect(console.error).toHaveBeenCalledWith(fakeError); // eslint-disable-line no-console
+
+  console.error = originalConsoleError; // eslint-disable-line no-console
 });

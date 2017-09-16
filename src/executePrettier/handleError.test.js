@@ -23,6 +23,17 @@ const buildFakeError = ({ line, column }, useAlternativeErrorApi = false) => {
 const positionOfFirstCallOfFirstMessageOfSetMessages = () =>
   linterInterface.setMessages.mock.calls[0][1][0].location.position;
 
+let originalConsoleError;
+
+beforeEach(() => {
+  originalConsoleError = console.error; // eslint-disable-line no-console
+  console.error = jest.fn(); // eslint-disable-line no-console
+});
+
+afterEach(() => {
+  console.error = originalConsoleError; // eslint-disable-line no-console
+});
+
 // tests
 it('sets an error message in the indie-linter', () => {
   getCurrentFilePath.mockImplementation(() => '/fake/file/path.js');
@@ -99,6 +110,7 @@ it('displays errors in a popup if they are not syntax errors', () => {
   handleError({ error });
 
   expect(addErrorNotification).toHaveBeenCalled();
+  expect(console.error).toHaveBeenCalledWith(error); // eslint-disable-line no-console
 });
 
 it('displays errors in a popup if there is no filepath (linter requires a filepath)', () => {
@@ -108,4 +120,5 @@ it('displays errors in a popup if there is no filepath (linter requires a filepa
   handleError({ error });
 
   expect(addErrorNotification).toHaveBeenCalled();
+  expect(console.error).toHaveBeenCalledWith(error); // eslint-disable-line no-console
 });

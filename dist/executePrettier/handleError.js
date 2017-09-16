@@ -52,7 +52,8 @@ var isSyntaxError = _.overSome([_.flow(_.get('error.loc.start.line'), _.isIntege
 var isFilePathPresent = _.flow(_.get('editor'), getCurrentFilePath, _.negate(_.isNil));
 
 var displayErrorInPopup = function displayErrorInPopup(args) {
-  return addErrorNotification('prettier-atom failed: ' + args.error.message, {
+  return console.error(args.error) || // eslint-disable-line no-console
+  addErrorNotification('prettier-atom failed: ' + args.error.message, {
     stack: args.error.stack,
     dismissable: true
   });
