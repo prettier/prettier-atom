@@ -45,23 +45,8 @@ More detailed descriptions of each option can be found in the Atom settings for 
 Please open a pull request or file an issue if you notice bugs or something doesn't work as it should!
 
 ## Troubleshooting
-If prettier (or prettier-eslint, if eslint integration is enabled) is not formatting something properly, please make an issue on the relevant GitHub repo. This package is just the Atom integration of those projects.
 
-Some users have reported getting the following error after updating:
-
-```
-Validation Error:
- Option "tabWidth" must be of type:
-   number
- but instead received:
-   string
- Example:
- {
-   "tabWidth": 2
- }
- ```
-
- To fix the problem, open your configuration file and manually ensure that there are no quotation marks around the "tabWidth" setting. We suspect this may be a bug with Atom.
+If Prettier (or prettier-eslint, if ESLint integration is enabled) is not formatting something properly, please open an issue on the relevant GitHub repository. This package is only integrating those projects to be used in Atom.
 
 ## Inspiration
 
