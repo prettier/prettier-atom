@@ -1,3 +1,19 @@
+<a name="0.40.0"></a>
+# [0.40.0](https://github.com/prettier/prettier-atom/compare/v0.39.0...v0.40.0) (2017-09-20)
+
+
+### Bug Fixes
+
+* **config:** Update tabWidth's type to be integer first or string ([6f8fe9b](https://github.com/prettier/prettier-atom/commit/6f8fe9b)), closes [#241](https://github.com/prettier/prettier-atom/issues/241)
+* **prettier-eslint:** gracefully handle resolveConfig.sync error ([97ed081](https://github.com/prettier/prettier-atom/commit/97ed081)), closes [#267](https://github.com/prettier/prettier-atom/issues/267)
+
+
+### Features
+
+* **error-logging:** log errors to Atom's developer tools ([eddc7bc](https://github.com/prettier/prettier-atom/commit/eddc7bc))
+
+
+
 <a name="0.39.0"></a>
 # [0.39.0](https://github.com/prettier/prettier-atom/compare/v0.38.0...v0.39.0) (2017-09-15)
 
