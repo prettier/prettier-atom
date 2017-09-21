@@ -59,7 +59,7 @@ var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
 
 var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
   if (!toggleFormatOnSave) {
-    // eslint-disable-next-line global-require prefer-destructuring
+    // eslint-disable-next-line global-require,prefer-destructuring
     toggleFormatOnSave = require('./atomInterface').toggleFormatOnSave;
   }
   toggleFormatOnSave();
