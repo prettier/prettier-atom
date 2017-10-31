@@ -76,7 +76,7 @@
         "description":
           "Select which files containing CSS should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
-        "default": ["source.css", "source.less", "source.css.less", "source.scss", "source.css.scss"],
+        "default": ["source.css", "source.less", "source.css.less", "source.scss", "source.css.scss", "source.css.postcss"],
         "items": {
           "type": "string"
         },
