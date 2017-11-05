@@ -15,11 +15,12 @@ const {
 
 describe('getBufferRange()', () => {
   it('gets the buffer range from the editor', () => {
-    const editor = buildMockTextEditor();
+    const fakeBufferRange = { start: { row: 0, column: 0 }, end: { row: 0, column: 1 } };
+    const editor = buildMockTextEditor({ getBuffer: () => ({ getRange: () => fakeBufferRange }) });
 
     const actual = getBufferRange(editor);
 
-    expect(actual).toEqual('FAKE BUFFER RANGE');
+    expect(actual).toEqual(fakeBufferRange);
   });
 });
 

@@ -9,7 +9,9 @@ const textEditorFactory = (overrides?: {} = {}): TextEditor =>
           path: 'xyz.js',
         },
       },
-      getBuffer: jest.fn(() => ({ getRange: jest.fn(() => 'FAKE BUFFER RANGE') })),
+      getBuffer: jest.fn(() => ({
+        getRange: jest.fn(() => ({ start: { row: 0, column: 0 }, end: { row: 0, column: 0 } })),
+      })),
       getGrammar: jest.fn(() => ({ scopeName: 'FAKE SCOPE NAME' })),
       getSelectedText: jest.fn(),
       getLastCursor: jest.fn(),

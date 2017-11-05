@@ -14,6 +14,7 @@ const safeRelativePath = _.curry(
 );
 
 const getFilePathRelativeToPrettierIgnore = (filePath: FilePath): ?FilePath =>
+  // $FlowIssue: lodashfp placeholders not supported yet
   _.flow(getNearestPrettierIgnorePath, getDirFromFilePath, safeRelativePath(_, filePath))(filePath);
 
 const getLinesFromFilePath = (filePath: ?FilePath) =>
