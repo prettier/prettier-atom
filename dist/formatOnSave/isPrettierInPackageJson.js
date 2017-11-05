@@ -21,7 +21,9 @@ var hasPackage = function hasPackage(packageName) {
   return _.overSome([hasPackageDependency(packageName), hasPackageDevDependency(packageName)]);
 };
 
-var readContentsOfNearestPackageJson = _.flow(getCurrentDir, _.set('cwd', _, {}), readPgkUp.sync);
+var readContentsOfNearestPackageJson = _.flow(getCurrentDir,
+// $FlowIssue: lodashfp placeholders not supported yet
+_.set('cwd', _, {}), readPgkUp.sync);
 
 var isPrettierInPackageJson = _.flow(readContentsOfNearestPackageJson, hasPackage('prettier'));
 

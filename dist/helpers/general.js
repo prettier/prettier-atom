@@ -19,6 +19,7 @@ var safePathParse = function safePathParse(filePath) {
   return typeof filePath === 'string' && filePath.length > 0 ? path.parse(filePath) : undefined;
 };
 
+// $FlowFixMe: calling `_.get` on possibly undefined value
 var getDirFromFilePath = _.flow(safePathParse, _.get('dir'));
 
 var findCachedFromFilePath = function findCachedFromFilePath(filePath, name) {

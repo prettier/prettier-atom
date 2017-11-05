@@ -16,6 +16,7 @@ const hasPackage = (packageName: string): ((packageJson: {}) => boolean) =>
 
 const readContentsOfNearestPackageJson: TextEditor => {} = _.flow(
   getCurrentDir,
+  // $FlowIssue: lodashfp placeholders not supported yet
   _.set('cwd', _, {}),
   readPgkUp.sync,
 );

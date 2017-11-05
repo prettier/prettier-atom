@@ -3,9 +3,13 @@ const _ = require('lodash/fp');
 const editorconfig = require('editorconfig');
 
 type RawOpts = {
+  // $FlowFixMe
   indent_style?: 'tab' | 'space',
+  // $FlowFixMe
   indent_size?: 'tab' | number,
+  // $FlowFixMe
   tab_width?: number,
+  // $FlowFixMe
   max_line_length?: number | 'off',
 };
 

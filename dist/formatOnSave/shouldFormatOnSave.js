@@ -34,6 +34,7 @@ var filePathDoesNotMatchBlacklistGlobs = _.flow(getCurrentFilePath, function (fi
   return _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath);
 });
 
+// $FlowFixMe
 var noWhitelistGlobsPresent = _.flow(getWhitelistedGlobs, _.isEmpty);
 
 var isFilePathWhitelisted = _.flow(getCurrentFilePath, function (filePath) {

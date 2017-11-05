@@ -20,14 +20,15 @@ const isInScope = (editor: TextEditor) => getAllScopes().includes(getCurrentScop
 
 const filePathDoesNotMatchBlacklistGlobs: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
-  (filePath: FilePath) => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath),
+  (filePath: ?FilePath) => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath),
 );
 
+// $FlowFixMe
 const noWhitelistGlobsPresent: () => boolean = _.flow(getWhitelistedGlobs, _.isEmpty);
 
 const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
-  (filePath: FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
+  (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
 
 const isFilePathNotEslintignored: (editor: TextEditor) => boolean = _.flow(

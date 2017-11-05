@@ -19,7 +19,9 @@ var safeRelativePath = _.curry(function (from, to) {
   return !!from && !!to ? path.relative(from, to) : undefined;
 });
 
-var getFilePathRelativeToPrettierIgnore = function getFilePathRelativeToPrettierIgnore(filePath) {
+var getFilePathRelativeToPrettierIgnore = function getFilePathRelativeToPrettierIgnore(filePath
+// $FlowIssue: lodashfp placeholders not supported yet
+) {
   return _.flow(getNearestPrettierIgnorePath, getDirFromFilePath, safeRelativePath(_, filePath))(filePath);
 };
 
