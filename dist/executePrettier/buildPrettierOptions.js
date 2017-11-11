@@ -9,7 +9,8 @@ var _require = require('../editorInterface'),
     isCurrentScopeTypescriptScope = _require.isCurrentScopeTypescriptScope,
     isCurrentScopeCssScope = _require.isCurrentScopeCssScope,
     isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope,
-    isCurrentScopeGraphQlScope = _require.isCurrentScopeGraphQlScope;
+    isCurrentScopeGraphQlScope = _require.isCurrentScopeGraphQlScope,
+    isCurrentScopeMarkdownScope = _require.isCurrentScopeMarkdownScope;
 
 var _require2 = require('../atomInterface'),
     shouldUseEditorConfig = _require2.shouldUseEditorConfig,
@@ -53,6 +54,10 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
 
   if (isCurrentScopeGraphQlScope(editor)) {
     optionsFromSettings.parser = 'graphql';
+  }
+
+  if (isCurrentScopeMarkdownScope(editor)) {
+    optionsFromSettings.parser = 'markdown';
   }
 
   return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));
