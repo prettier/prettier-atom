@@ -1,7 +1,13 @@
 jest.mock('../atomInterface');
 
 const buildMockTextEditor = require('../../tests/mocks/textEditor');
-const { getCssScopes, getTypescriptScopes, getJsonScopes, getGraphQlScopes } = require('../atomInterface');
+const {
+  getCssScopes,
+  getTypescriptScopes,
+  getJsonScopes,
+  getGraphQlScopes,
+  getMarkdownScopes,
+} = require('../atomInterface');
 const {
   getBufferRange,
   getCurrentScope,
@@ -10,6 +16,7 @@ const {
   isCurrentScopeTypescriptScope,
   isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope,
+  isCurrentScopeMarkdownScope,
   getCurrentFilePath,
 } = require('./index');
 
@@ -137,6 +144,28 @@ describe('isCurrentScopeGraphQlScope()', () => {
     getGraphQlScopes.mockImplementation(() => ['meta.type.interface.graphql']);
 
     const actual = isCurrentScopeGraphQlScope(editor);
+
+    expect(actual).toBe(false);
+  });
+});
+
+describe('isCurrentScopeMarkdownScope()', () => {
+  it('returns true if the current scope is a Markdown scope type', () => {
+    const scopeName = 'meta.type.interface.markdown';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getMarkdownScopes.mockImplementation(() => ['meta.type.interface.markdown']);
+
+    const actual = isCurrentScopeMarkdownScope(editor);
+
+    expect(actual).toBe(true);
+  });
+
+  it('returns false if the current scope is not a Markdown scope type', () => {
+    const scopeName = 'src.css';
+    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
+    getMarkdownScopes.mockImplementation(() => ['meta.type.interface.markdown']);
+
+    const actual = isCurrentScopeMarkdownScope(editor);
 
     expect(actual).toBe(false);
   });

@@ -40,12 +40,15 @@ const getJsonScopes = () => getConfigOption('formatOnSaveOptions.jsonScopes');
 
 const getGraphQlScopes = () => getConfigOption('formatOnSaveOptions.graphQlScopes');
 
+const getMarkdownScopes = () => getConfigOption('formatOnSaveOptions.markdownScopes');
+
 const getAllScopes = () => [
   ...getJavascriptScopes(),
   ...getTypescriptScopes(),
   ...getCssScopes(),
   ...getJsonScopes(),
   ...getGraphQlScopes(),
+  ...getMarkdownScopes(),
 ];
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
@@ -106,6 +109,7 @@ module.exports = {
   getCssScopes,
   getJsonScopes,
   getGraphQlScopes,
+  getMarkdownScopes,
   getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
