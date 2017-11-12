@@ -6,6 +6,7 @@ const {
   isCurrentScopeCssScope,
   isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope,
+  isCurrentScopeMarkdownScope,
 } = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
@@ -55,6 +56,10 @@ const buildPrettierOptions = (editor: TextEditor) => {
 
   if (isCurrentScopeGraphQlScope(editor)) {
     optionsFromSettings.parser = 'graphql';
+  }
+
+  if (isCurrentScopeMarkdownScope(editor)) {
+    optionsFromSettings.parser = 'markdown';
   }
 
   return {
