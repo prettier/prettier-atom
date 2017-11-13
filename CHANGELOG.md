@@ -1,3 +1,18 @@
+<a name="0.41.0"></a>
+# [0.41.0](https://github.com/prettier/prettier-atom/compare/v0.40.0...v0.41.0) (2017-11-13)
+
+
+### Features
+
+* **css-parser-scopes:** add postcss ([972c6b9](https://github.com/prettier/prettier-atom/commit/972c6b9))
+* **markdown:** add markdown support ([8d08bc1](https://github.com/prettier/prettier-atom/commit/8d08bc1)), closes [#303](https://github.com/prettier/prettier-atom/issues/303)
+* **prettier:** bump to 1.7.4 ([8cab72f](https://github.com/prettier/prettier-atom/commit/8cab72f))
+* **prettier:** bump to v1.7.3 ([3ebf25c](https://github.com/prettier/prettier-atom/commit/3ebf25c))
+* **prettier-eslint:** bump to 8.2.1 ([4ecae83](https://github.com/prettier/prettier-atom/commit/4ecae83))
+* **prettier-eslint:** bump to v8.2.0 ([8f4d33d](https://github.com/prettier/prettier-atom/commit/8f4d33d))
+
+
+
 <a name="0.40.0"></a>
 # [0.40.0](https://github.com/prettier/prettier-atom/compare/v0.39.0...v0.40.0) (2017-09-20)
 
