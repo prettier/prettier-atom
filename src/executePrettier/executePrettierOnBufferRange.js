@@ -36,7 +36,13 @@ const executePrettierOnBufferRange = (editor: TextEditor, bufferRange: Range) =>
     return;
   }
 
-  editor.setTextInBufferRange(bufferRange, transformed);
+  const editorBuffer = editor.getBuffer();
+  if (editorBuffer.getRange().isEqual(bufferRange)) {
+    editorBuffer.setTextViaDiff(transformed);
+  } else {
+    editor.setTextInBufferRange(bufferRange, transformed);
+  }
+
   editor.setCursorScreenPosition(cursorPositionPriorToFormat);
   runLinter(editor);
 };

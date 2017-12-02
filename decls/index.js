@@ -7,6 +7,7 @@ declare type Point = {
   column: number,
 };
 declare type Range = {
+  isEqual: (range: Range) => boolean,
   start: Point,
   end: Point,
 };
@@ -23,7 +24,7 @@ declare type Atom$Iterator = ({
 // eslint-disable-next-line no-undef
 declare type TextEditor = {
   getGrammar: () => { scopeName: string },
-  getBuffer: () => { getRange: () => Range },
+  getBuffer: () => { getRange: () => Range, setTextViaDiff: (text: string) => Range },
   getCursorScreenPosition: () => Point,
   getLastCursor: () => { getScopeDescriptor: () => Atom$ScopeDescriptor },
   getSelectedText: () => string,
