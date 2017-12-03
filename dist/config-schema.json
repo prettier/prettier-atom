@@ -116,7 +116,7 @@
         "description":
           "Select which files containing Markdown should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
         "type": "array",
-        "default": ["source.md", "source.gfm"],
+        "default": ["source.md", "source.gfm", "text.md"],
         "items": {
           "type": "string"
         },
