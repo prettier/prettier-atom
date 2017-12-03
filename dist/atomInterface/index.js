@@ -29,6 +29,10 @@ var shouldUseEslint = function shouldUseEslint() {
   return getConfigOption('useEslint');
 };
 
+var shouldUseStylelint = function shouldUseStylelint() {
+  return getConfigOption('useStylelint');
+};
+
 var shouldUseEditorConfig = function shouldUseEditorConfig() {
   return getConfigOption('useEditorConfig');
 };
@@ -169,6 +173,7 @@ module.exports = {
   shouldRespectEslintignore: shouldRespectEslintignore,
   shouldUseEditorConfig: shouldUseEditorConfig,
   shouldUseEslint: shouldUseEslint,
+  shouldUseStylelint: shouldUseStylelint,
   toggleFormatOnSave: toggleFormatOnSave,
   attemptWithErrorNotification: attemptWithErrorNotification
 };

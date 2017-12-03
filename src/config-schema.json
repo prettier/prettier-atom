@@ -7,6 +7,14 @@
     "default": false,
     "order": 1
   },
+  "useStylelint": {
+    "title": "Stylelint Integration",
+    "description":
+      "Use [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) to infer your Prettier settings based on your Stylelint config. If we cannot infer a Prettier setting from your Stylelint config (or if there is none in the current project), we will fallback to using your settings in the *Prettier Options* section.",
+    "type": "boolean",
+    "default": false,
+    "order": 1
+  },
   "useEditorConfig": {
     "title": "EditorConfig Integration",
     "description":
