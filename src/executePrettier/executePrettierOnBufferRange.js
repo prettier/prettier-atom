@@ -36,6 +36,8 @@ const executePrettierOnBufferRange = (editor: TextEditor, bufferRange: Range) =>
     return;
   }
 
+  // we use setTextViaDiff when formatting the entire buffer to improve performance,
+  // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
   const editorBuffer = editor.getBuffer();
   if (editorBuffer.getRange().isEqual(bufferRange)) {
     editorBuffer.setTextViaDiff(transformed);
