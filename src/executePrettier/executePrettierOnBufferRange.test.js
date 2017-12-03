@@ -36,6 +36,19 @@ it('sets the transformed text in the buffer range', () => {
   expect(editor.setTextInBufferRange).toHaveBeenCalledWith(bufferRangeFixture, 'const foo = 2;');
 });
 
+it('sets the transformed text via diff when buffer equals entire range of editor', () => {
+  const setTextViaDiffMock = jest.fn();
+  editor.getBuffer.mockImplementation(() => ({
+    getRange: () => ({ isEqual: () => true }),
+    setTextViaDiff: setTextViaDiffMock,
+  }));
+
+  executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+  expect(prettier.format).toHaveBeenCalledWith('const foo = (2);', { useTabs: false });
+  expect(setTextViaDiffMock).toHaveBeenCalledWith('const foo = 2;');
+});
+
 it('runs linter:lint if available to refresh linter highlighting', () => {
   executePrettierOnBufferRange(editor, bufferRangeFixture);
 
