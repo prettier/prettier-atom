@@ -10,7 +10,12 @@ const textEditorFactory = (overrides?: {} = {}): TextEditor =>
         },
       },
       getBuffer: jest.fn(() => ({
-        getRange: jest.fn(() => ({ start: { row: 0, column: 0 }, end: { row: 0, column: 0 } })),
+        getRange: jest.fn(() => ({
+          isEqual: jest.fn(),
+          start: { row: 0, column: 0 },
+          end: { row: 0, column: 0 },
+        })),
+        setTextViaDiff: jest.fn(),
       })),
       getGrammar: jest.fn(() => ({ scopeName: 'FAKE SCOPE NAME' })),
       getSelectedText: jest.fn(),
