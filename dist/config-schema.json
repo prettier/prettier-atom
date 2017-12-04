@@ -7,17 +7,25 @@
     "default": false,
     "order": 1
   },
+  "useStylelint": {
+    "title": "Stylelint Integration",
+    "description":
+      "Use [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) to infer your Prettier settings based on your Stylelint config. If we cannot infer a Prettier setting from your Stylelint config (or if there is none in the current project), we will fallback to using your settings in the *Prettier Options* section.",
+    "type": "boolean",
+    "default": false,
+    "order": 2
+  },
   "useEditorConfig": {
     "title": "EditorConfig Integration",
     "description":
       "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for Prettier formatting.<br>Takes precedence over your settings. The following settings will be overriden if they are found in your `.editorconfig`: **Use tabs**, **Tab width**, **Print width**.",
     "type": "boolean",
     "default": true,
-    "order": 2
+    "order": 3
   },
   "formatOnSaveOptions": {
     "title": "Format on Save",
-    "order": 3,
+    "order": 4,
     "type": "object",
     "properties": {
       "enabled": {
@@ -158,7 +166,7 @@
   },
   "prettierOptions": {
     "type": "object",
-    "order": 4,
+    "order": 5,
     "properties": {
       "singleQuote": {
         "title": "Single Quotes",
@@ -231,7 +239,7 @@
   "prettierEslintOptions": {
     "title": "prettier-eslint options",
     "type": "object",
-    "order": 5,
+    "order": 6,
     "properties": {
       "prettierLast": {
         "title": "Run Prettier Last",
