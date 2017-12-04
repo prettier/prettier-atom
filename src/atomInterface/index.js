@@ -19,6 +19,8 @@ const isLinterEslintAutofixEnabled = () =>
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
+const shouldUseStylelint = () => getConfigOption('useStylelint');
+
 const shouldUseEditorConfig = () => getConfigOption('useEditorConfig');
 
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
@@ -120,6 +122,7 @@ module.exports = {
   shouldRespectEslintignore,
   shouldUseEditorConfig,
   shouldUseEslint,
+  shouldUseStylelint,
   toggleFormatOnSave,
   attemptWithErrorNotification,
 };

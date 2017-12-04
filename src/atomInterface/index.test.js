@@ -1,6 +1,7 @@
 const {
   runLinter,
   shouldUseEslint,
+  shouldUseStylelint,
   getPrettierOptions,
   getPrettierEslintOptions,
   isLinterEslintAutofixEnabled,
@@ -58,6 +59,28 @@ describe('shouldUseEslint()', () => {
     const actual = shouldUseEslint();
 
     expect(mockGet).toHaveBeenCalledWith('prettier-atom.useEslint');
+    expect(actual).toBe(false);
+  });
+});
+
+describe('shouldUseStylelint()', () => {
+  it('is true if the config option is enabled', () => {
+    const mockGet = jest.fn(() => true);
+    atom = { config: { get: mockGet } };
+
+    const actual = shouldUseStylelint();
+
+    expect(mockGet).toHaveBeenCalledWith('prettier-atom.useStylelint');
+    expect(actual).toBe(true);
+  });
+
+  it('is false if the config option is not enabled', () => {
+    const mockGet = jest.fn(() => false);
+    atom = { config: { get: mockGet } };
+
+    const actual = shouldUseStylelint();
+
+    expect(mockGet).toHaveBeenCalledWith('prettier-atom.useStylelint');
     expect(actual).toBe(false);
   });
 });
