@@ -1,16 +1,10 @@
 {
   "name": "prettier-atom",
   "main": "./dist/main.js",
-  "version": "0.41.0",
-  "description": "Atom plugin for formatting JavaScript using prettier with (optional) prettier-eslint integration",
-  "keywords": [
-    "atom",
-    "javascript",
-    "prettier",
-    "prettier-eslint",
-    "eslint",
-    "formatter"
-  ],
+  "version": "0.42.0",
+  "description":
+    "Atom plugin for formatting JavaScript using prettier with (optional) prettier-eslint integration",
+  "keywords": ["atom", "javascript", "prettier", "prettier-eslint", "eslint", "formatter"],
   "repository": "https://github.com/prettier/prettier-atom",
   "homepage": "https://github.com/prettier/prettier-atom",
   "bugs": {
@@ -69,23 +63,17 @@
     }
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**.js"
-    ],
+    "collectCoverageFrom": ["src/**.js"],
     "globals": {
       "atom": true
     },
     "notify": false,
     "resetMocks": true,
     "resetModules": true,
-    "roots": [
-      "src"
-    ],
+    "roots": ["src"],
     "testEnvironment": "node"
   },
-  "package-deps": [
-    "linter:2.0.0"
-  ],
+  "package-deps": ["linter:2.0.0"],
   "consumedServices": {
     "status-bar": {
       "versions": {
