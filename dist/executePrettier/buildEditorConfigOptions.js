@@ -1,6 +1,10 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _ = require('lodash/fp');
 var editorconfig = require('editorconfig');
@@ -33,7 +37,7 @@ var getUseTabs = _.cond([[indentStyleIsTab, _.constant({ useTabs: true })], [ind
 
 var mapEditorConfigOptions = function mapEditorConfigOptions() {
   var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _extends({}, getPrintWidth(opts), getTabWidth(opts), getUseTabs(opts));
+  return (0, _extends3.default)({}, getPrintWidth(opts), getTabWidth(opts), getUseTabs(opts));
 };
 
 var buildEditorConfigOptions = _.flow(editorconfig.parseSync, mapEditorConfigOptions);

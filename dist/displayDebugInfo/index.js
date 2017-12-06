@@ -1,5 +1,11 @@
 'use strict';
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var readPkgUp = require('read-pkg-up');
 var path = require('path');
 
@@ -17,7 +23,7 @@ var getPackageInfo = function getPackageInfo(dir) {
 };
 
 var getDebugInfo = function getDebugInfo() {
-  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + getPackageInfo(__dirname).version + '\nprettier version: ' + getPackageInfo(getDepPath('prettier')).version + '\nprettier-eslint version: ' + getPackageInfo(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + JSON.stringify(getPrettierAtomConfig(), null, 2) + '\n').trim();
+  return ('\nAtom version: ' + getAtomVersion() + '\nprettier-atom version: ' + getPackageInfo(__dirname).version + '\nprettier version: ' + getPackageInfo(getDepPath('prettier')).version + '\nprettier-eslint version: ' + getPackageInfo(getDepPath('prettier-eslint')).version + '\nprettier-atom configuration: ' + (0, _stringify2.default)(getPrettierAtomConfig(), null, 2) + '\n').trim();
 };
 
 var displayDebugInfo = function displayDebugInfo() {
