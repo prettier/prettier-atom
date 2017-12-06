@@ -152,8 +152,8 @@ var consumeStatusBar = function consumeStatusBar(statusBar) {
 
 var consumeIndie = function consumeIndie(registerIndie) {
   var linter = registerIndie({ name: 'Prettier' });
-  subscriptions.add(linter);
   linterInterface.set(linter);
+  subscriptions.add(linter);
 
   // Setting and clearing messages per filePath
   subscriptions.add(atom.workspace.observeTextEditors(function (textEditor) {
@@ -165,7 +165,6 @@ var consumeIndie = function consumeIndie(registerIndie) {
     var subscription = textEditor.onDidDestroy(function () {
       subscriptions.remove(subscription);
       linter.setMessages(editorPath, []);
-      linterInterface.set(null);
     });
     subscriptions.add(subscription);
   }));
