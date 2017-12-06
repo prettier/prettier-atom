@@ -146,8 +146,8 @@ const consumeStatusBar = statusBar => {
 
 const consumeIndie = registerIndie => {
   const linter = registerIndie({ name: 'Prettier' });
-  subscriptions.add(linter);
   linterInterface.set(linter);
+  subscriptions.add(linter);
 
   // Setting and clearing messages per filePath
   subscriptions.add(
@@ -160,7 +160,6 @@ const consumeIndie = registerIndie => {
       const subscription = textEditor.onDidDestroy(() => {
         subscriptions.remove(subscription);
         linter.setMessages(editorPath, []);
-        linterInterface.set(null);
       });
       subscriptions.add(subscription);
     }),
