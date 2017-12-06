@@ -1,5 +1,11 @@
 'use strict';
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var _require = require('../editorInterface'),
     getCurrentFilePath = _require.getCurrentFilePath;
 
@@ -22,7 +28,7 @@ var setMessages = function setMessages(editor, messages) {
 
   if (!indieDelegate || !filePath) {
     // eslint-disable-next-line
-    console.error('prettier-atom attempted to set messages with linter package, but was unable. Messages: ' + JSON.stringify(messages));
+    console.error('prettier-atom attempted to set messages with linter package, but was unable. Messages: ' + (0, _stringify2.default)(messages));
     return;
   }
 

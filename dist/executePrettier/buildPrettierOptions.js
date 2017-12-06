@@ -1,6 +1,10 @@
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _ = require('lodash/fp');
 
@@ -60,7 +64,7 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
     optionsFromSettings.parser = 'markdown';
   }
 
-  return _extends({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));
+  return (0, _extends3.default)({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));
 };
 
 module.exports = buildPrettierOptions;

@@ -1,5 +1,4 @@
 // @flow
-require('babel-polyfill');
 const _ = require('lodash/fp');
 const prettierEslint = require('prettier-eslint');
 const prettierStylelint = require('prettier-stylelint');
