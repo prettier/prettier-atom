@@ -132,7 +132,7 @@ var executePrettierOnBufferRange = function () {
 
           case 11:
 
-            if (options.setTextViaDiff) {
+            if (options && options.setTextViaDiff) {
               // we use setTextViaDiff when formatting the entire buffer to improve performance,
               // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
               // however, we can't always use it because it replaces all text in the file and sometimes
