@@ -27,7 +27,7 @@ it('executes prettier on the buffer range if appropriate and scope is not embedd
 
   formatOnSave(editor);
 
-  expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, mockRange);
+  expect(executePrettierOnBufferRange).toHaveBeenCalledWith(editor, mockRange, { setTextViaDiff: true });
 });
 
 it('executes prettier on the embedded scripts if appropriate and scope is embedded', () => {

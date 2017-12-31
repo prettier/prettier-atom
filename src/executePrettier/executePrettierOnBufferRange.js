@@ -38,7 +38,11 @@ const executePrettierOrIntegration = async (editor: TextEditor, text: string) =>
   }
 };
 
-const executePrettierOnBufferRange = async (editor: TextEditor, bufferRange: Range) => {
+const executePrettierOnBufferRange = async (
+  editor: TextEditor,
+  bufferRange: Range,
+  options?: { setTextViaDiff?: boolean },
+) => {
   const cursorPositionPriorToFormat = editor.getCursorScreenPosition();
   const textToTransform = editor.getTextInBufferRange(bufferRange);
   const transformed = await executePrettierOrIntegration(editor, textToTransform);
@@ -51,11 +55,12 @@ const executePrettierOnBufferRange = async (editor: TextEditor, bufferRange: Ran
     return;
   }
 
-  // we use setTextViaDiff when formatting the entire buffer to improve performance,
-  // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
-  const editorBuffer = editor.getBuffer();
-  if (editorBuffer.getRange().isEqual(bufferRange)) {
-    editorBuffer.setTextViaDiff(transformed);
+  if (options && options.setTextViaDiff) {
+    // we use setTextViaDiff when formatting the entire buffer to improve performance,
+    // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
+    // however, we can't always use it because it replaces all text in the file and sometimes
+    // we're only editing a sub-selection of the text in a file
+    editor.getBuffer().setTextViaDiff(transformed);
   } else {
     editor.setTextInBufferRange(bufferRange, transformed);
   }
