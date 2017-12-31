@@ -1,3 +1,18 @@
+<a name="0.45.0"></a>
+# [0.45.0](https://github.com/prettier/prettier-atom/compare/v0.44.0...v0.45.0) (2017-12-31)
+
+
+### Bug Fixes
+
+* **manual-format:** fix bug from forgetting to rebuild dist ([2121038](https://github.com/prettier/prettier-atom/commit/2121038)), closes [#336](https://github.com/prettier/prettier-atom/issues/336)
+
+
+### Performance Improvements
+
+* **statusTile:** faster array creation and lodash lazy loading ([5f90f45](https://github.com/prettier/prettier-atom/commit/5f90f45))
+
+
+
 <a name="0.44.0"></a>
 # [0.44.0](https://github.com/prettier/prettier-atom/compare/v0.43.1...v0.44.0) (2017-12-31)
 
