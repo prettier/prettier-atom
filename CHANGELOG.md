@@ -1,3 +1,19 @@
+<a name="0.44.0"></a>
+# [0.44.0](https://github.com/prettier/prettier-atom/compare/v0.43.1...v0.44.0) (2017-12-31)
+
+
+### Bug Fixes
+
+* **set-text-via-diff:** base use on option instead of flaky buffer range comparison ([378b6bd](https://github.com/prettier/prettier-atom/commit/378b6bd))
+
+
+### Features
+
+* **prettier:** bump to 1.9.2 ([3186833](https://github.com/prettier/prettier-atom/commit/3186833))
+* **prettier-eslint:** bump to 8.7.0 ([c59b768](https://github.com/prettier/prettier-atom/commit/c59b768))
+
+
+
 <a name="0.43.1"></a>
 ## [0.43.1](https://github.com/prettier/prettier-atom/compare/v0.43.0...v0.43.1) (2017-12-10)
 
