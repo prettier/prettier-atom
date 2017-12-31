@@ -1,11 +1,5 @@
 'use strict';
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 // constants
 var LINTER_LINT_COMMAND = 'linter:lint';
 
@@ -82,7 +76,9 @@ var getMarkdownScopes = function getMarkdownScopes() {
 };
 
 var getAllScopes = function getAllScopes() {
-  return [].concat((0, _toConsumableArray3.default)(getJavascriptScopes()), (0, _toConsumableArray3.default)(getTypescriptScopes()), (0, _toConsumableArray3.default)(getCssScopes()), (0, _toConsumableArray3.default)(getJsonScopes()), (0, _toConsumableArray3.default)(getGraphQlScopes()), (0, _toConsumableArray3.default)(getMarkdownScopes()));
+  return [getJavascriptScopes(), getTypescriptScopes(), getCssScopes(), getJsonScopes(), getGraphQlScopes(), getMarkdownScopes()].reduce(function (acc, els) {
+    return acc.concat(els);
+  });
 };
 
 var getWhitelistedGlobs = function getWhitelistedGlobs() {
