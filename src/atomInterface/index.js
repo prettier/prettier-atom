@@ -44,14 +44,15 @@ const getGraphQlScopes = () => getConfigOption('formatOnSaveOptions.graphQlScope
 
 const getMarkdownScopes = () => getConfigOption('formatOnSaveOptions.markdownScopes');
 
-const getAllScopes = () => [
-  ...getJavascriptScopes(),
-  ...getTypescriptScopes(),
-  ...getCssScopes(),
-  ...getJsonScopes(),
-  ...getGraphQlScopes(),
-  ...getMarkdownScopes(),
-];
+const getAllScopes = () =>
+  [
+    getJavascriptScopes(),
+    getTypescriptScopes(),
+    getCssScopes(),
+    getJsonScopes(),
+    getGraphQlScopes(),
+    getMarkdownScopes(),
+  ].reduce((acc, els) => acc.concat(els));
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
