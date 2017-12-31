@@ -99,8 +99,8 @@ var executePrettierOrIntegration = function () {
 }();
 
 var executePrettierOnBufferRange = function () {
-  var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(editor, bufferRange) {
-    var cursorPositionPriorToFormat, textToTransform, transformed, isTextUnchanged, editorBuffer;
+  var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(editor, bufferRange, options) {
+    var cursorPositionPriorToFormat, textToTransform, transformed, isTextUnchanged;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -132,12 +132,12 @@ var executePrettierOnBufferRange = function () {
 
           case 11:
 
-            // we use setTextViaDiff when formatting the entire buffer to improve performance,
-            // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
-            editorBuffer = editor.getBuffer();
-
-            if (editorBuffer.getRange().isEqual(bufferRange)) {
-              editorBuffer.setTextViaDiff(transformed);
+            if (options.setTextViaDiff) {
+              // we use setTextViaDiff when formatting the entire buffer to improve performance,
+              // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
+              // however, we can't always use it because it replaces all text in the file and sometimes
+              // we're only editing a sub-selection of the text in a file
+              editor.getBuffer().setTextViaDiff(transformed);
             } else {
               editor.setTextInBufferRange(bufferRange, transformed);
             }
@@ -145,7 +145,7 @@ var executePrettierOnBufferRange = function () {
             editor.setCursorScreenPosition(cursorPositionPriorToFormat);
             runLinter(editor);
 
-          case 15:
+          case 14:
           case 'end':
             return _context2.stop();
         }
@@ -153,7 +153,7 @@ var executePrettierOnBufferRange = function () {
     }, _callee2, undefined);
   }));
 
-  return function executePrettierOnBufferRange(_x3, _x4) {
+  return function executePrettierOnBufferRange(_x3, _x4, _x5) {
     return _ref2.apply(this, arguments);
   };
 }();

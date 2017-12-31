@@ -19,7 +19,7 @@ var _require4 = require('../atomInterface'),
 var shouldFormatOnSave = require('./shouldFormatOnSave');
 
 var callAppropriatePrettierExecutor = function callAppropriatePrettierExecutor(editor) {
-  return isCurrentScopeEmbeddedScope(editor) ? executePrettierOnEmbeddedScripts(editor) : executePrettierOnBufferRange(editor, getBufferRange(editor));
+  return isCurrentScopeEmbeddedScope(editor) ? executePrettierOnEmbeddedScripts(editor) : executePrettierOnBufferRange(editor, getBufferRange(editor), { setTextViaDiff: true });
 };
 
 var formatOnSaveIfAppropriate = _.flow(_.tap(clearLinterErrors), _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]));
