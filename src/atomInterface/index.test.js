@@ -136,6 +136,7 @@ describe('getPrettierOptions()', () => {
         'prettier-atom.prettierOptions.semi': true,
         'prettier-atom.prettierOptions.useTabs': true,
         'prettier-atom.prettierOptions.jsxBracketSameLine': true,
+        'prettier-atom.prettierOptions.arrowParens': 'avoid',
       }[option]);
     atom = { config: { get: mockGet } };
     const editor = textEditor();

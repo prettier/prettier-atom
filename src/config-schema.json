@@ -233,6 +233,14 @@
         "default": "babylon",
         "enum": ["babylon", "flow"],
         "order": 9
+      },
+      "arrowParens": {
+        "title": "Arrow Function Parentheses",
+        "description": "Include parentheses around a sole arrow function parameter.",
+        "type": "string",
+        "default": "avoid",
+        "enum": ["avoid", "always"],
+        "order": 10
       }
     }
   },
