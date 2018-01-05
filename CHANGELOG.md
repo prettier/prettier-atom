@@ -1,3 +1,13 @@
+<a name="0.46.0"></a>
+# [0.46.0](https://github.com/prettier/prettier-atom/compare/v0.45.0...v0.46.0) (2018-01-05)
+
+
+### Features
+
+* **options:** add arrow-parens prettier option ([805f183](https://github.com/prettier/prettier-atom/commit/805f183))
+
+
+
 <a name="0.45.0"></a>
 # [0.45.0](https://github.com/prettier/prettier-atom/compare/v0.44.0...v0.45.0) (2017-12-31)
 
