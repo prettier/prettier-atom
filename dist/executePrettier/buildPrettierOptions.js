@@ -14,7 +14,8 @@ var _require = require('../editorInterface'),
     isCurrentScopeCssScope = _require.isCurrentScopeCssScope,
     isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope,
     isCurrentScopeGraphQlScope = _require.isCurrentScopeGraphQlScope,
-    isCurrentScopeMarkdownScope = _require.isCurrentScopeMarkdownScope;
+    isCurrentScopeMarkdownScope = _require.isCurrentScopeMarkdownScope,
+    isCurrentScopeVueScope = _require.isCurrentScopeVueScope;
 
 var _require2 = require('../atomInterface'),
     shouldUseEditorConfig = _require2.shouldUseEditorConfig,
@@ -62,6 +63,10 @@ var buildPrettierOptions = function buildPrettierOptions(editor) {
 
   if (isCurrentScopeMarkdownScope(editor)) {
     optionsFromSettings.parser = 'markdown';
+  }
+
+  if (isCurrentScopeVueScope(editor)) {
+    optionsFromSettings.parser = 'vue';
   }
 
   return (0, _extends3.default)({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));

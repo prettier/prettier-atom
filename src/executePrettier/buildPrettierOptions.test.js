@@ -10,6 +10,8 @@ const {
   isCurrentScopeCssScope,
   isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope,
+  isCurrentScopeMarkdownScope,
+  isCurrentScopeVueScope,
 } = require('../editorInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const buildMockEditor = require('../../tests/mocks/textEditor');
@@ -83,6 +85,28 @@ it('uses graphql as the parser if current scope is listed as a GraphQl scope in 
   const actual = buildPrettierOptions(editor);
 
   expect(actual).toEqual({ parser: 'graphql' });
+});
+
+it('uses markdown as the parser if current scope is listed as a Markdown scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeMarkdownScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'markdown' });
+});
+
+it('uses vue as the parser if current scope is listed as a Vue SFC scope in settings', () => {
+  const editor = buildMockEditor();
+  const fakePrettierOptions = { parser: 'babylon' };
+  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  isCurrentScopeVueScope.mockImplementation(() => true);
+
+  const actual = buildPrettierOptions(editor);
+
+  expect(actual).toEqual({ parser: 'vue' });
 });
 
 it('does not use editorconfig options if that setting is not enabled', () => {

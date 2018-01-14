@@ -7,6 +7,7 @@ const {
   isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope,
   isCurrentScopeMarkdownScope,
+  isCurrentScopeVueScope,
 } = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
 const buildEditorConfigOptions = require('./buildEditorConfigOptions');
@@ -60,6 +61,10 @@ const buildPrettierOptions = (editor: TextEditor) => {
 
   if (isCurrentScopeMarkdownScope(editor)) {
     optionsFromSettings.parser = 'markdown';
+  }
+
+  if (isCurrentScopeVueScope(editor)) {
+    optionsFromSettings.parser = 'vue';
   }
 
   return {

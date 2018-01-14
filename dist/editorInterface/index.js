@@ -7,7 +7,8 @@ var _require = require('../atomInterface'),
     getTypescriptScopes = _require.getTypescriptScopes,
     getJsonScopes = _require.getJsonScopes,
     getGraphQlScopes = _require.getGraphQlScopes,
-    getMarkdownScopes = _require.getMarkdownScopes;
+    getMarkdownScopes = _require.getMarkdownScopes,
+    getVueScopes = _require.getVueScopes;
 
 var flow = void 0;
 var lazyFlow = function lazyFlow() {
@@ -17,7 +18,7 @@ var lazyFlow = function lazyFlow() {
   return flow;
 };
 
-var EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
+var EMBEDDED_SCOPES = ['text.html.basic'];
 
 var getBufferRange = function getBufferRange(editor) {
   return editor.getBuffer().getRange();
@@ -51,6 +52,10 @@ var isCurrentScopeMarkdownScope = function isCurrentScopeMarkdownScope(editor) {
   return getMarkdownScopes().includes(getCurrentScope(editor));
 };
 
+var isCurrentScopeVueScope = function isCurrentScopeVueScope(editor) {
+  return getVueScopes().includes(getCurrentScope(editor));
+};
+
 var getCurrentFilePath = function getCurrentFilePath(editor) {
   return editor.buffer.file ? editor.buffer.file.path : undefined;
 };
@@ -69,6 +74,7 @@ module.exports = {
   isCurrentScopeJsonScope: isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope: isCurrentScopeGraphQlScope,
   isCurrentScopeMarkdownScope: isCurrentScopeMarkdownScope,
+  isCurrentScopeVueScope: isCurrentScopeVueScope,
   getCurrentScope: getCurrentScope,
   getCurrentFilePath: getCurrentFilePath,
   getCurrentDir: getCurrentDir

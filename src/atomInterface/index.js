@@ -44,6 +44,8 @@ const getGraphQlScopes = () => getConfigOption('formatOnSaveOptions.graphQlScope
 
 const getMarkdownScopes = () => getConfigOption('formatOnSaveOptions.markdownScopes');
 
+const getVueScopes = () => getConfigOption('formatOnSaveOptions.vueScopes');
+
 const getAllScopes = () =>
   [
     getJavascriptScopes(),
@@ -52,6 +54,7 @@ const getAllScopes = () =>
     getJsonScopes(),
     getGraphQlScopes(),
     getMarkdownScopes(),
+    getVueScopes(),
   ].reduce((acc, els) => acc.concat(els));
 
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
@@ -113,6 +116,7 @@ module.exports = {
   getJsonScopes,
   getGraphQlScopes,
   getMarkdownScopes,
+  getVueScopes,
   getAllScopes,
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,

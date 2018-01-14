@@ -8,6 +8,7 @@ const {
   getJsonScopes,
   getGraphQlScopes,
   getMarkdownScopes,
+  getVueScopes,
 } = require('../atomInterface');
 
 let flow;
@@ -18,7 +19,7 @@ const lazyFlow = () => {
   return flow;
 };
 
-const EMBEDDED_SCOPES = ['text.html.vue', 'text.html.basic'];
+const EMBEDDED_SCOPES = ['text.html.basic'];
 
 const getBufferRange = (editor: TextEditor) => editor.getBuffer().getRange();
 
@@ -39,6 +40,8 @@ const isCurrentScopeGraphQlScope = (editor: TextEditor) =>
 const isCurrentScopeMarkdownScope = (editor: TextEditor) =>
   getMarkdownScopes().includes(getCurrentScope(editor));
 
+const isCurrentScopeVueScope = (editor: TextEditor) => getVueScopes().includes(getCurrentScope(editor));
+
 const getCurrentFilePath = (editor: TextEditor) => (editor.buffer.file ? editor.buffer.file.path : undefined);
 
 const getCurrentDir: (editor: TextEditor) => ?string = editor =>
@@ -55,6 +58,7 @@ module.exports = {
   isCurrentScopeJsonScope,
   isCurrentScopeGraphQlScope,
   isCurrentScopeMarkdownScope,
+  isCurrentScopeVueScope,
   getCurrentScope,
   getCurrentFilePath,
   getCurrentDir,
