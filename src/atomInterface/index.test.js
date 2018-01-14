@@ -127,21 +127,22 @@ describe('getPrettierOptions()', () => {
   it('returns all prettier options', () => {
     const mockGet = option =>
       ({
-        'prettier-atom.prettierOptions.printWidth': 80,
-        'prettier-atom.prettierOptions.tabWidth': 2,
-        'prettier-atom.prettierOptions.parser': 'flow',
-        'prettier-atom.prettierOptions.singleQuote': true,
-        'prettier-atom.prettierOptions.trailingComma': true,
-        'prettier-atom.prettierOptions.bracketSpacing': true,
-        'prettier-atom.prettierOptions.semi': true,
-        'prettier-atom.prettierOptions.useTabs': true,
-        'prettier-atom.prettierOptions.jsxBracketSameLine': true,
-        'prettier-atom.prettierOptions.arrowParens': 'avoid',
+        'prettier-atom.prettierOptions': {
+          printWidth: 80,
+          tabWidth: 2,
+          parser: 'flow',
+          singleQuote: true,
+          trailingComma: true,
+          bracketSpacing: true,
+          semi: true,
+          useTabs: true,
+          jsxBracketSameLine: true,
+          arrowParens: 'avoid',
+        },
       }[option]);
     atom = { config: { get: mockGet } };
-    const editor = textEditor();
 
-    const actual = getPrettierOptions(editor);
+    const actual = getPrettierOptions();
 
     expect(actual).toMatchSnapshot();
   });
