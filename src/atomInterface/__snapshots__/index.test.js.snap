@@ -1,3 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getPrettierOptions() returns all prettier options 1`] = `undefined`;
+exports[`getPrettierOptions() returns all prettier options 1`] = `
+Object {
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "parser": "flow",
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": true,
+  "useTabs": true,
+}
+`;
