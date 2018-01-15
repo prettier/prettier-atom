@@ -75,8 +75,12 @@ var getMarkdownScopes = function getMarkdownScopes() {
   return getConfigOption('formatOnSaveOptions.markdownScopes');
 };
 
+var getVueScopes = function getVueScopes() {
+  return getConfigOption('formatOnSaveOptions.vueScopes');
+};
+
 var getAllScopes = function getAllScopes() {
-  return [getJavascriptScopes(), getTypescriptScopes(), getCssScopes(), getJsonScopes(), getGraphQlScopes(), getMarkdownScopes()].reduce(function (acc, els) {
+  return [getJavascriptScopes(), getTypescriptScopes(), getCssScopes(), getJsonScopes(), getGraphQlScopes(), getMarkdownScopes(), getVueScopes()].reduce(function (acc, els) {
     return acc.concat(els);
   });
 };
@@ -163,6 +167,7 @@ module.exports = {
   getJsonScopes: getJsonScopes,
   getGraphQlScopes: getGraphQlScopes,
   getMarkdownScopes: getMarkdownScopes,
+  getVueScopes: getVueScopes,
   getAllScopes: getAllScopes,
   getWhitelistedGlobs: getWhitelistedGlobs,
   isDisabledIfNotInPackageJson: isDisabledIfNotInPackageJson,
