@@ -1,3 +1,13 @@
+<a name="0.47.0"></a>
+# [0.47.0](https://github.com/prettier/prettier-atom/compare/v0.46.0...v0.47.0) (2018-01-15)
+
+
+### Features
+
+* **scopes:** Support Vue Single File Components ([707e107](https://github.com/prettier/prettier-atom/commit/707e107)), closes [#327](https://github.com/prettier/prettier-atom/issues/327)
+
+
+
 <a name="0.46.0"></a>
 # [0.46.0](https://github.com/prettier/prettier-atom/compare/v0.45.0...v0.46.0) (2018-01-05)
 
