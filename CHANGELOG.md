@@ -1,3 +1,13 @@
+<a name="0.47.2"></a>
+## [0.47.2](https://github.com/prettier/prettier-atom/compare/v0.47.1...v0.47.2) (2018-01-17)
+
+
+### Bug Fixes
+
+* **prettier-eslint:** lock version to 8.4.0 ([1a3e885](https://github.com/prettier/prettier-atom/commit/1a3e885))
+
+
+
 <a name="0.47.1"></a>
 ## [0.47.1](https://github.com/prettier/prettier-atom/compare/v0.47.0...v0.47.1) (2018-01-17)
 
