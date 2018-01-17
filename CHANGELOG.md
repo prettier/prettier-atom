@@ -1,3 +1,13 @@
+<a name="0.47.1"></a>
+## [0.47.1](https://github.com/prettier/prettier-atom/compare/v0.47.0...v0.47.1) (2018-01-17)
+
+
+### Bug Fixes
+
+* **prettier-eslint:** lock to 8.6.2 to avoid regression ([e9d2a85](https://github.com/prettier/prettier-atom/commit/e9d2a85))
+
+
+
 <a name="0.47.0"></a>
 # [0.47.0](https://github.com/prettier/prettier-atom/compare/v0.46.0...v0.47.0) (2018-01-15)
 
