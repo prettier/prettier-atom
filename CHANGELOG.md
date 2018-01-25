@@ -1,3 +1,13 @@
+<a name="0.48.1"></a>
+## [0.48.1](https://github.com/prettier/prettier-atom/compare/v0.48.0...v0.48.1) (2018-01-25)
+
+
+### Bug Fixes
+
+* **editorInterface:** use File.getpath over reading the path directly ([3b89260](https://github.com/prettier/prettier-atom/commit/3b89260))
+
+
+
 <a name="0.48.0"></a>
 # [0.48.0](https://github.com/prettier/prettier-atom/compare/v0.47.2...v0.48.0) (2018-01-17)
 
