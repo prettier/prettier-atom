@@ -57,7 +57,7 @@ var isCurrentScopeVueScope = function isCurrentScopeVueScope(editor) {
 };
 
 var getCurrentFilePath = function getCurrentFilePath(editor) {
-  return editor.buffer.file ? editor.buffer.file.path : undefined;
+  return editor.buffer.file ? editor.buffer.file.getPath() : undefined;
 };
 
 var getCurrentDir = function getCurrentDir(editor) {

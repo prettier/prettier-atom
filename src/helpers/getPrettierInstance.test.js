@@ -8,7 +8,8 @@ const getPrettierInstance = require('./getPrettierInstance');
 
 test("returns user's project's local prettier instance if it exists", () => {
   const filePath = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'sourceFile.js');
-  const editor = createMockTextEditor({ buffer: { file: { path: filePath } } });
+  const file = { path: filePath, getPath: () => filePath };
+  const editor = createMockTextEditor({ buffer: { file } });
   const prettierLib = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'prettier.js');
   atomLinter.findCached.mockImplementation(() => prettierLib);
 
@@ -24,7 +25,8 @@ test("returns user's project's local prettier instance if it exists", () => {
 test("returns bundled prettier if user's project has no local prettier package", () => {
   atomLinter.findCached.mockImplementation(() => undefined);
   const filePath = path.join(__dirname, 'sourceFile.js');
-  const editor = createMockTextEditor({ buffer: { file: { path: filePath } } });
+  const file = { path: filePath, getPath: () => filePath };
+  const editor = createMockTextEditor({ buffer: { file } });
 
   const actual = getPrettierInstance(editor);
 
@@ -32,7 +34,8 @@ test("returns bundled prettier if user's project has no local prettier package",
 });
 
 test('returns bundled prettier if filePath is null', () => {
-  const editor = createMockTextEditor({ buffer: { file: { path: null } } });
+  const file = { path: null, getPath: () => null };
+  const editor = createMockTextEditor({ buffer: { file } });
 
   const actual = getPrettierInstance(editor);
 
@@ -40,7 +43,8 @@ test('returns bundled prettier if filePath is null', () => {
 });
 
 test('returns bundled prettier if filePath has no parent directory', () => {
-  const editor = createMockTextEditor({ buffer: { file: { path: 'foo.js' } } });
+  const file = { path: 'foo.js', getPath: () => 'foo.js' };
+  const editor = createMockTextEditor({ buffer: { file } });
 
   const actual = getPrettierInstance(editor);
 
