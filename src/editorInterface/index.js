@@ -42,7 +42,8 @@ const isCurrentScopeMarkdownScope = (editor: TextEditor) =>
 
 const isCurrentScopeVueScope = (editor: TextEditor) => getVueScopes().includes(getCurrentScope(editor));
 
-const getCurrentFilePath = (editor: TextEditor) => (editor.buffer.file ? editor.buffer.file.path : undefined);
+const getCurrentFilePath = (editor: TextEditor) =>
+  editor.buffer.file ? editor.buffer.file.getPath() : undefined;
 
 const getCurrentDir: (editor: TextEditor) => ?string = editor =>
   lazyFlow()(

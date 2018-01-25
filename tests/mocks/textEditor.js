@@ -7,6 +7,7 @@ const textEditorFactory = (overrides?: {} = {}): TextEditor =>
       buffer: {
         file: {
           path: 'xyz.js',
+          getPath: jest.fn(),
         },
       },
       getBuffer: jest.fn(() => ({

@@ -24,8 +24,13 @@ const {
 
 describe('getBufferRange()', () => {
   it('gets the buffer range from the editor', () => {
-    const fakeBufferRange = { start: { row: 0, column: 0 }, end: { row: 0, column: 1 } };
-    const editor = buildMockTextEditor({ getBuffer: () => ({ getRange: () => fakeBufferRange }) });
+    const fakeBufferRange = {
+      start: { row: 0, column: 0 },
+      end: { row: 0, column: 1 },
+    };
+    const editor = buildMockTextEditor({
+      getBuffer: () => ({ getRange: () => fakeBufferRange }),
+    });
 
     const actual = getBufferRange(editor);
 
@@ -197,7 +202,7 @@ describe('isCurrentScopeVueScope()', () => {
 
 describe('getCurrentFilePath()', () => {
   it('returns the current file path if there is one', () => {
-    const file = { path: 'xyz.js' };
+    const file = { path: 'xyz.js', getPath: () => 'xyz.js' };
     const editor = buildMockTextEditor({ buffer: { file } });
 
     const actual = getCurrentFilePath(editor);
@@ -212,5 +217,14 @@ describe('getCurrentFilePath()', () => {
     const actual = getCurrentFilePath(editor);
 
     expect(actual).toBeUndefined();
+  });
+
+  it('uses the getPath method over reading the path directly from the buffer', () => {
+    const file = { path: 'wrongPath.js', getPath: () => 'rightPath.js' };
+    const editor = buildMockTextEditor({ buffer: { file } });
+
+    const actual = getCurrentFilePath(editor);
+
+    expect(actual).toEqual('rightPath.js');
   });
 });

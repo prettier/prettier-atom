@@ -32,7 +32,12 @@ declare type TextEditor = {
   getTextInBufferRange: (bufferRange: Range) => string,
   setCursorScreenPosition: (point: Point) => Point,
   setTextInBufferRange: (bufferRange: Range, text: string) => Range,
-  buffer: { file: ?{ path: ?FilePath } },
+  buffer: {
+    file: ?{
+      path: ?FilePath,
+      getPath: () => string,
+    },
+  },
   backwardsScanInBufferRange: (regex: RegExp, Range: Range, iterator: Atom$Iterator) => void,
 };
 declare type Atom$Disposable = any;

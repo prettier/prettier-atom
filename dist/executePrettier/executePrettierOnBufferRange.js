@@ -48,7 +48,7 @@ var executePrettierStylelint = function executePrettierStylelint(editor, text) {
 };
 
 var executePrettierOrIntegration = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(editor, text) {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(editor, text) {
     var formatted;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -99,7 +99,7 @@ var executePrettierOrIntegration = function () {
 }();
 
 var executePrettierOnBufferRange = function () {
-  var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(editor, bufferRange, options) {
+  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(editor, bufferRange, options) {
     var cursorPositionPriorToFormat, textToTransform, transformed, isTextUnchanged;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
