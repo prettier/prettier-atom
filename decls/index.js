@@ -24,13 +24,15 @@ declare type Atom$Iterator = ({
 // eslint-disable-next-line no-undef
 declare type TextEditor = {
   getGrammar: () => { scopeName: string },
-  getBuffer: () => { getRange: () => Range, setTextViaDiff: (text: string) => Range },
+  getBuffer: () => TextBuffer,
   getCursorScreenPosition: () => Point,
+  getCursorBufferPosition: () => Point,
   getLastCursor: () => { getScopeDescriptor: () => Atom$ScopeDescriptor },
   getSelectedText: () => string,
   getSelectedBufferRanges: () => Ranges,
   getTextInBufferRange: (bufferRange: Range) => string,
   setCursorScreenPosition: (point: Point) => Point,
+  setCursorBufferPosition: (point: Point) => Point,
   setTextInBufferRange: (bufferRange: Range, text: string) => Range,
   buffer: {
     file: ?{
@@ -39,6 +41,12 @@ declare type TextEditor = {
     },
   },
   backwardsScanInBufferRange: (regex: RegExp, Range: Range, iterator: Atom$Iterator) => void,
+};
+declare type TextBuffer = {
+  characterIndexForPosition: (cursorPosition: Point) => number,
+  positionForCharacterIndex: (cursorOffset: number) => Point,
+  getRange: () => Range,
+  setTextViaDiff: (text: string) => Range,
 };
 declare type Atom$Disposable = any;
 declare type Atom$View = any;
@@ -98,6 +106,10 @@ declare type Prettier$SyntaxError = {
   loc: { start: { line: number, column: number } } | {| line: number, column: number |},
   message: string,
   stack: string,
+};
+declare type Prettier$CursorResult = {
+  formatted: any,
+  cursorOffset: number,
 };
 declare type Linter$Message = {
   // NOTE: These are given by providers
