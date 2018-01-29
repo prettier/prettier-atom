@@ -14,6 +14,7 @@ var _extends3 = _interopRequireDefault(_extends2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _ = require('lodash/fp');
 var prettierEslint = require('prettier-eslint');
 var prettierStylelint = require('prettier-stylelint');
 
@@ -54,45 +55,38 @@ var executePrettierStylelint = function executePrettierStylelint(editor, text) {
 
 var executePrettierOrIntegration = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(editor, text, cursorOffset) {
-    var nextCursorOffset, nextText;
+    var formatted, _formatted;
+
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            nextCursorOffset = cursorOffset;
-            nextText = void 0;
-
             if (!(shouldUseStylelint() && isCurrentScopeCssScope(editor))) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 3;
+            return executePrettierStylelint(editor, text);
+
+          case 3:
+            formatted = _context.sent;
+            return _context.abrupt('return', { formatted: formatted, cursorOffset: cursorOffset });
+
+          case 5:
+            if (!shouldUseEslint()) {
               _context.next = 8;
               break;
             }
 
-            _context.next = 5;
-            return executePrettierStylelint(editor, text);
-
-          case 5:
-            nextText = _context.sent;
-            _context.next = 13;
-            break;
+            // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
+            _formatted = executePrettierEslint(editor, text);
+            return _context.abrupt('return', { formatted: _formatted, cursorOffset: cursorOffset });
 
           case 8:
-            if (!shouldUseEslint()) {
-              _context.next = 12;
-              break;
-            }
-
-            // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
-            nextText = executePrettierEslint(editor, text);
-            _context.next = 13;
-            break;
-
-          case 12:
             return _context.abrupt('return', executePrettierWithCursor(editor, text, cursorOffset));
 
-          case 13:
-            return _context.abrupt('return', { formatted: nextText, cursorOffset: nextCursorOffset });
-
-          case 14:
+          case 9:
           case 'end':
             return _context.stop();
         }
@@ -107,7 +101,7 @@ var executePrettierOrIntegration = function () {
 
 var executePrettierOnBufferRange = function () {
   var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(editor, bufferRange, options) {
-    var currentBuffer, cursorPosition, source, cursorOffset, results, nextCursorPosition;
+    var currentBuffer, cursorPosition, textToTransform, cursorOffset, results, isTextUnchanged, nextCursorPosition;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -115,16 +109,14 @@ var executePrettierOnBufferRange = function () {
             // grab cursor position and file contents
             currentBuffer = editor.getBuffer();
             cursorPosition = editor.getCursorBufferPosition();
-            source = editor.getTextInBufferRange(bufferRange);
+            textToTransform = editor.getTextInBufferRange(bufferRange);
             cursorOffset = currentBuffer.characterIndexForPosition(cursorPosition);
             results = {
               cursorOffset: cursorOffset,
-              formatted: source
+              formatted: textToTransform
             };
 
-            // make sure we actually have text to format
-
-            if (!(!source || source.length === 0)) {
+            if (!_.isEmpty(textToTransform)) {
               _context2.next = 7;
               break;
             }
@@ -134,7 +126,7 @@ var executePrettierOnBufferRange = function () {
           case 7:
             _context2.prev = 7;
             _context2.next = 10;
-            return executePrettierOrIntegration(editor, source, cursorOffset);
+            return executePrettierOrIntegration(editor, textToTransform, cursorOffset);
 
           case 10:
             results = _context2.sent;
@@ -149,14 +141,16 @@ var executePrettierOnBufferRange = function () {
             return _context2.abrupt('return');
 
           case 17:
-            if (!(results.formatted === source)) {
-              _context2.next = 19;
+            isTextUnchanged = results.formatted === textToTransform;
+
+            if (!isTextUnchanged) {
+              _context2.next = 20;
               break;
             }
 
             return _context2.abrupt('return');
 
-          case 19:
+          case 20:
 
             if (options && options.setTextViaDiff) {
               // we use setTextViaDiff when formatting the entire buffer to improve performance,
@@ -175,7 +169,7 @@ var executePrettierOnBufferRange = function () {
             editor.setCursorBufferPosition(nextCursorPosition);
             runLinter(editor);
 
-          case 23:
+          case 24:
           case 'end':
             return _context2.stop();
         }
