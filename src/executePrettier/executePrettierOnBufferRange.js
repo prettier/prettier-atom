@@ -12,30 +12,38 @@ const buildPrettierStylelintOptions = require('./buildPrettierStylelintOptions')
 const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 
-const executePrettier = (editor: TextEditor, text: string) =>
-  getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
+const executePrettierWithCursor = (
+  editor: TextEditor,
+  text: string,
+  cursorOffset: number,
+): Prettier$CursorResult =>
+  getPrettierInstance(editor).formatWithCursor(text, {
+    ...buildPrettierOptions(editor),
+    cursorOffset,
+  });
 
-const executePrettierEslint = (editor: TextEditor, text: string) =>
+const executePrettierEslint = (editor: TextEditor, text: string): string =>
   allowUnsafeNewFunction(() => prettierEslint(buildPrettierEslintOptions(editor, text)));
 
-const executePrettierStylelint = (editor: TextEditor, text: string) =>
+const executePrettierStylelint = (editor: TextEditor, text: string): string =>
   prettierStylelint.format(buildPrettierStylelintOptions(editor, text));
 
-const executePrettierOrIntegration = async (editor: TextEditor, text: string) => {
-  try {
-    let formatted;
-    if (shouldUseStylelint() && isCurrentScopeCssScope(editor)) {
-      formatted = await executePrettierStylelint(editor, text);
-    } else if (shouldUseEslint()) {
-      formatted = executePrettierEslint(editor, text);
-    } else {
-      formatted = executePrettier(editor, text);
-    }
+const executePrettierOrIntegration = async (editor: TextEditor, text: string, cursorOffset: number) => {
+  if (shouldUseStylelint() && isCurrentScopeCssScope(editor)) {
+    // TODO: add support for cursor position - https://github.com/hugomrdias/prettier-stylelint/issues/13
+    const formatted = await executePrettierStylelint(editor, text);
 
-    return formatted;
-  } catch (error) {
-    return error;
+    return { formatted, cursorOffset };
   }
+
+  if (shouldUseEslint()) {
+    // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
+    const formatted = executePrettierEslint(editor, text);
+
+    return { formatted, cursorOffset };
+  }
+
+  return executePrettierWithCursor(editor, text, cursorOffset);
 };
 
 const executePrettierOnBufferRange = async (
@@ -43,29 +51,42 @@ const executePrettierOnBufferRange = async (
   bufferRange: Range,
   options?: { setTextViaDiff?: boolean },
 ) => {
-  const cursorPositionPriorToFormat = editor.getCursorScreenPosition();
-  const textToTransform = editor.getTextInBufferRange(bufferRange);
-  const transformed = await executePrettierOrIntegration(editor, textToTransform);
+  // grab cursor position and file contents
+  const currentBuffer = editor.getBuffer();
+  const cursorPosition: Point = editor.getCursorBufferPosition();
+  const textToTransform: string = editor.getTextInBufferRange(bufferRange);
+  const cursorOffset: number = currentBuffer.characterIndexForPosition(cursorPosition);
+  let results: Prettier$CursorResult = {
+    cursorOffset,
+    formatted: textToTransform,
+  };
 
-  const isTextUnchanged = transformed === textToTransform;
-  if (!transformed || isTextUnchanged) return;
+  if (_.isEmpty(textToTransform)) return;
 
-  if (_.isError(transformed)) {
-    handleError({ bufferRange, editor, error: transformed });
+  try {
+    results = await executePrettierOrIntegration(editor, textToTransform, cursorOffset);
+  } catch (error) {
+    handleError({ editor, bufferRange, error });
     return;
   }
+
+  const isTextUnchanged = results.formatted === textToTransform;
+  if (isTextUnchanged) return;
 
   if (options && options.setTextViaDiff) {
     // we use setTextViaDiff when formatting the entire buffer to improve performance,
     // maintain metadata (bookmarks, folds, etc) and eliminate syntax highlight flickering
     // however, we can't always use it because it replaces all text in the file and sometimes
     // we're only editing a sub-selection of the text in a file
-    editor.getBuffer().setTextViaDiff(transformed);
+    currentBuffer.setTextViaDiff(results.formatted);
   } else {
-    editor.setTextInBufferRange(bufferRange, transformed);
+    editor.setTextInBufferRange(bufferRange, results.formatted);
   }
 
-  editor.setCursorScreenPosition(cursorPositionPriorToFormat);
+  // calculate next cursor position after buffer has been updated with new text
+  const nextCursorPosition = currentBuffer.positionForCharacterIndex(results.cursorOffset);
+
+  editor.setCursorBufferPosition(nextCursorPosition);
   runLinter(editor);
 };
 
