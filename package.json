@@ -1,7 +1,7 @@
 {
   "name": "prettier-atom",
   "main": "./dist/main.js",
-  "version": "0.48.1",
+  "version": "0.49.0",
   "description": "Atom plugin for formatting JavaScript using prettier with (optional) prettier-eslint integration",
   "keywords": [
     "atom",
