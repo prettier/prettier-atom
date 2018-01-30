@@ -1,3 +1,13 @@
+<a name="0.49.0"></a>
+# [0.49.0](https://github.com/prettier/prettier-atom/compare/v0.48.1...v0.49.0) (2018-01-30)
+
+
+### Features
+
+* **executePrettier:** Maintain cursor position on format ([159b2b2](https://github.com/prettier/prettier-atom/commit/159b2b2))
+
+
+
 <a name="0.48.1"></a>
 ## [0.48.1](https://github.com/prettier/prettier-atom/compare/v0.48.0...v0.48.1) (2018-01-25)
 
