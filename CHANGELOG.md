@@ -1,3 +1,13 @@
+<a name="0.49.1"></a>
+## [0.49.1](https://github.com/prettier/prettier-atom/compare/v0.49.0...v0.49.1) (2018-02-02)
+
+
+### Bug Fixes
+
+* **executePrettier:** fallback to `format` when `formatWithCursor` fails ([105f9e1](https://github.com/prettier/prettier-atom/commit/105f9e1))
+
+
+
 <a name="0.49.0"></a>
 # [0.49.0](https://github.com/prettier/prettier-atom/compare/v0.48.1...v0.49.0) (2018-01-30)
 
