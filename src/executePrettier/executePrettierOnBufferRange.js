@@ -12,6 +12,9 @@ const buildPrettierStylelintOptions = require('./buildPrettierStylelintOptions')
 const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 
+const executePrettier = (editor: TextEditor, text: string) =>
+  getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
+
 const executePrettierWithCursor = (
   editor: TextEditor,
   text: string,
@@ -43,7 +46,16 @@ const executePrettierOrIntegration = async (editor: TextEditor, text: string, cu
     return { formatted, cursorOffset };
   }
 
-  return executePrettierWithCursor(editor, text, cursorOffset);
+  let formatted;
+
+  // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
+  try {
+    formatted = executePrettierWithCursor(editor, text, cursorOffset);
+  } catch (error) {
+    formatted = executePrettier(editor, text);
+  }
+
+  return { formatted, cursorOffset };
 };
 
 const executePrettierOnBufferRange = async (

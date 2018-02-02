@@ -37,6 +37,10 @@ var buildPrettierStylelintOptions = require('./buildPrettierStylelintOptions');
 var buildPrettierOptions = require('./buildPrettierOptions');
 var handleError = require('./handleError');
 
+var executePrettier = function executePrettier(editor, text) {
+  return getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
+};
+
 var executePrettierWithCursor = function executePrettierWithCursor(editor, text, cursorOffset) {
   return getPrettierInstance(editor).formatWithCursor(text, (0, _extends3.default)({}, buildPrettierOptions(editor), {
     cursorOffset: cursorOffset
@@ -55,7 +59,7 @@ var executePrettierStylelint = function executePrettierStylelint(editor, text) {
 
 var executePrettierOrIntegration = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(editor, text, cursorOffset) {
-    var formatted, _formatted;
+    var _formatted, _formatted2, formatted;
 
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -70,8 +74,8 @@ var executePrettierOrIntegration = function () {
             return executePrettierStylelint(editor, text);
 
           case 3:
-            formatted = _context.sent;
-            return _context.abrupt('return', { formatted: formatted, cursorOffset: cursorOffset });
+            _formatted = _context.sent;
+            return _context.abrupt('return', { formatted: _formatted, cursorOffset: cursorOffset });
 
           case 5:
             if (!shouldUseEslint()) {
@@ -80,13 +84,23 @@ var executePrettierOrIntegration = function () {
             }
 
             // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
-            _formatted = executePrettierEslint(editor, text);
-            return _context.abrupt('return', { formatted: _formatted, cursorOffset: cursorOffset });
+            _formatted2 = executePrettierEslint(editor, text);
+            return _context.abrupt('return', { formatted: _formatted2, cursorOffset: cursorOffset });
 
           case 8:
-            return _context.abrupt('return', executePrettierWithCursor(editor, text, cursorOffset));
+            formatted = void 0;
 
-          case 9:
+            // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
+
+            try {
+              formatted = executePrettierWithCursor(editor, text, cursorOffset);
+            } catch (error) {
+              formatted = executePrettier(editor, text);
+            }
+
+            return _context.abrupt('return', { formatted: formatted, cursorOffset: cursorOffset });
+
+          case 11:
           case 'end':
             return _context.stop();
         }

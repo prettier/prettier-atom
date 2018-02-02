@@ -167,6 +167,11 @@ describe('when prettier throws an error', () => {
     prettier.formatWithCursor.mockImplementation(() => {
       throw error;
     });
+    // NOTE: while we guard against `formatWithCursor` we need to test throwing
+    // `format` too
+    prettier.format.mockImplementation(() => {
+      throw error;
+    });
   });
 
   it('handles the error', async () => {
