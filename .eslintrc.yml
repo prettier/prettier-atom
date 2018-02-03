@@ -22,3 +22,4 @@ rules:
   no-mixed-operators: 0 # incompatible with prettier
   no-confusing-arrow: 0 # incompatible with prettier
   max-len: 0 # prefer prettier
+  prefer-destructuring: 0 # not always preferable

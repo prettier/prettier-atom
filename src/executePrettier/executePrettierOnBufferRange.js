@@ -31,7 +31,11 @@ const executePrettierEslint = (editor: TextEditor, text: string): string =>
 const executePrettierStylelint = (editor: TextEditor, text: string): string =>
   prettierStylelint.format(buildPrettierStylelintOptions(editor, text));
 
-const executePrettierOrIntegration = async (editor: TextEditor, text: string, cursorOffset: number) => {
+const executePrettierOrIntegration = async (
+  editor: TextEditor,
+  text: string,
+  cursorOffset: number,
+): Promise<{ formatted: string, cursorOffset: number }> => {
   if (shouldUseStylelint() && isCurrentScopeCssScope(editor)) {
     // TODO: add support for cursor position - https://github.com/hugomrdias/prettier-stylelint/issues/13
     const formatted = await executePrettierStylelint(editor, text);
@@ -46,11 +50,11 @@ const executePrettierOrIntegration = async (editor: TextEditor, text: string, cu
     return { formatted, cursorOffset };
   }
 
-  let formatted;
+  let formatted: string;
 
   // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
   try {
-    formatted = executePrettierWithCursor(editor, text, cursorOffset);
+    formatted = executePrettierWithCursor(editor, text, cursorOffset).formatted;
   } catch (error) {
     formatted = executePrettier(editor, text);
   }
