@@ -1,3 +1,13 @@
+<a name="0.49.2"></a>
+## [0.49.2](https://github.com/prettier/prettier-atom/compare/v0.49.1...v0.49.2) (2018-02-03)
+
+
+### Bug Fixes
+
+* **executePrettier:** adjust for API inconsistencies + add type coverage ([800c0e2](https://github.com/prettier/prettier-atom/commit/800c0e2))
+
+
+
 <a name="0.49.1"></a>
 ## [0.49.1](https://github.com/prettier/prettier-atom/compare/v0.49.0...v0.49.1) (2018-02-02)
 
