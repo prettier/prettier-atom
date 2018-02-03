@@ -93,7 +93,7 @@ var executePrettierOrIntegration = function () {
             // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
 
             try {
-              formatted = executePrettierWithCursor(editor, text, cursorOffset);
+              formatted = executePrettierWithCursor(editor, text, cursorOffset).formatted;
             } catch (error) {
               formatted = executePrettier(editor, text);
             }
