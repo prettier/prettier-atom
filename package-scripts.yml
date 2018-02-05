@@ -57,7 +57,7 @@ scripts:
 
   ci:
     description: Run all CI checks
-    script: nps lint && nps test.withCoverage
+    script: nps lint && nps test.withCoverage && nps checkForDistChanges
 
   reportCoverage:
     description: Report coverage stats to codecov. This should be run after the `test` script
@@ -78,3 +78,11 @@ scripts:
   changelog:
     description: Wipe and regenerate the changelog. Requires `conventional-changelog-cli`. Run after publishing using `apm publish <version>`.
     script: conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+
+  checkForDistChanges:
+    description: Exits nonzero if `dist` directory changes after running build.
+    script: |
+      dirty=`git status -s | grep -v '^??' | wc -l | awk '{print $1}'`
+      echo Found $dirty dirty files. These need to be committed to pass CI.
+      [ "$dirty" != "0" ] && exit 1
+      exit 0
