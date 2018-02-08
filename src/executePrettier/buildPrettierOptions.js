@@ -30,48 +30,70 @@ const getPrettierConfigOptions: (editor: TextEditor) => ?{} = _.cond([
     _.flow(getCurrentFilePath, isDefined),
     editor =>
       isDefined(getPrettierInstance(editor).resolveConfig.sync)
-        ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor))
+        ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor), {
+            editorconfig: shouldUseEditorConfig(),
+          })
         : null,
   ],
 ]);
 
-const buildPrettierOptions = (editor: TextEditor) => {
+const getScopeSpecificSettings = (editor: TextEditor) => {
+  const scopeSpecificSettings = {};
+
+  if (isCurrentScopeTypescriptScope(editor)) {
+    scopeSpecificSettings.parser = 'typescript';
+  }
+
+  if (isCurrentScopeCssScope(editor)) {
+    scopeSpecificSettings.parser = 'postcss';
+  }
+
+  if (isCurrentScopeJsonScope(editor)) {
+    scopeSpecificSettings.parser = 'json';
+    scopeSpecificSettings.trailingComma = 'none';
+  }
+
+  if (isCurrentScopeGraphQlScope(editor)) {
+    scopeSpecificSettings.parser = 'graphql';
+  }
+
+  if (isCurrentScopeMarkdownScope(editor)) {
+    scopeSpecificSettings.parser = 'markdown';
+  }
+
+  if (isCurrentScopeVueScope(editor)) {
+    scopeSpecificSettings.parser = 'vue';
+  }
+
+  return scopeSpecificSettings;
+};
+
+const getOptionsFromSettings = (editor: TextEditor, scopeSpecificSettings: Object) => {
   const optionsFromSettings = getPrettierOptions();
 
   if (optionsFromSettings.tabWidth === 'auto') {
     optionsFromSettings.tabWidth = getAtomTabLength(editor);
   }
 
-  if (isCurrentScopeTypescriptScope(editor)) {
-    optionsFromSettings.parser = 'typescript';
-  }
-
-  if (isCurrentScopeCssScope(editor)) {
-    optionsFromSettings.parser = 'postcss';
-  }
-
-  if (isCurrentScopeJsonScope(editor)) {
-    optionsFromSettings.parser = 'json';
-    optionsFromSettings.trailingComma = 'none';
-  }
-
-  if (isCurrentScopeGraphQlScope(editor)) {
-    optionsFromSettings.parser = 'graphql';
-  }
-
-  if (isCurrentScopeMarkdownScope(editor)) {
-    optionsFromSettings.parser = 'markdown';
-  }
-
-  if (isCurrentScopeVueScope(editor)) {
-    optionsFromSettings.parser = 'vue';
-  }
-
   return {
     ...optionsFromSettings,
+    ...scopeSpecificSettings,
     ...buildEditorConfigOptionsIfAppropriate(editor),
-    ...getPrettierConfigOptions(editor),
   };
+};
+
+const buildPrettierOptions = (editor: TextEditor) => {
+  const prettierConfigOptions = getPrettierConfigOptions(editor);
+  const scopeSpecificSettings = getScopeSpecificSettings(editor);
+
+  if (prettierConfigOptions) {
+    return {
+      ...scopeSpecificSettings,
+      ...prettierConfigOptions,
+    };
+  }
+
+  return getOptionsFromSettings(editor, scopeSpecificSettings);
 };
 
 module.exports = buildPrettierOptions;

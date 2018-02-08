@@ -34,42 +34,61 @@ var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseE
 var buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
 
 var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), function (editor) {
-  return isDefined(getPrettierInstance(editor).resolveConfig.sync) ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor)) : null;
+  return isDefined(getPrettierInstance(editor).resolveConfig.sync) ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor), {
+    editorconfig: shouldUseEditorConfig()
+  }) : null;
 }]]);
 
-var buildPrettierOptions = function buildPrettierOptions(editor) {
+var getScopeSpecificSettings = function getScopeSpecificSettings(editor) {
+  var scopeSpecificSettings = {};
+
+  if (isCurrentScopeTypescriptScope(editor)) {
+    scopeSpecificSettings.parser = 'typescript';
+  }
+
+  if (isCurrentScopeCssScope(editor)) {
+    scopeSpecificSettings.parser = 'postcss';
+  }
+
+  if (isCurrentScopeJsonScope(editor)) {
+    scopeSpecificSettings.parser = 'json';
+    scopeSpecificSettings.trailingComma = 'none';
+  }
+
+  if (isCurrentScopeGraphQlScope(editor)) {
+    scopeSpecificSettings.parser = 'graphql';
+  }
+
+  if (isCurrentScopeMarkdownScope(editor)) {
+    scopeSpecificSettings.parser = 'markdown';
+  }
+
+  if (isCurrentScopeVueScope(editor)) {
+    scopeSpecificSettings.parser = 'vue';
+  }
+
+  return scopeSpecificSettings;
+};
+
+var getOptionsFromSettings = function getOptionsFromSettings(editor, scopeSpecificSettings) {
   var optionsFromSettings = getPrettierOptions();
 
   if (optionsFromSettings.tabWidth === 'auto') {
     optionsFromSettings.tabWidth = getAtomTabLength(editor);
   }
 
-  if (isCurrentScopeTypescriptScope(editor)) {
-    optionsFromSettings.parser = 'typescript';
+  return (0, _extends3.default)({}, optionsFromSettings, scopeSpecificSettings, buildEditorConfigOptionsIfAppropriate(editor));
+};
+
+var buildPrettierOptions = function buildPrettierOptions(editor) {
+  var prettierConfigOptions = getPrettierConfigOptions(editor);
+  var scopeSpecificSettings = getScopeSpecificSettings(editor);
+
+  if (prettierConfigOptions) {
+    return (0, _extends3.default)({}, scopeSpecificSettings, prettierConfigOptions);
   }
 
-  if (isCurrentScopeCssScope(editor)) {
-    optionsFromSettings.parser = 'postcss';
-  }
-
-  if (isCurrentScopeJsonScope(editor)) {
-    optionsFromSettings.parser = 'json';
-    optionsFromSettings.trailingComma = 'none';
-  }
-
-  if (isCurrentScopeGraphQlScope(editor)) {
-    optionsFromSettings.parser = 'graphql';
-  }
-
-  if (isCurrentScopeMarkdownScope(editor)) {
-    optionsFromSettings.parser = 'markdown';
-  }
-
-  if (isCurrentScopeVueScope(editor)) {
-    optionsFromSettings.parser = 'vue';
-  }
-
-  return (0, _extends3.default)({}, optionsFromSettings, buildEditorConfigOptionsIfAppropriate(editor), getPrettierConfigOptions(editor));
+  return getOptionsFromSettings(editor, scopeSpecificSettings);
 };
 
 module.exports = buildPrettierOptions;

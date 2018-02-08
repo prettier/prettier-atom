@@ -109,40 +109,61 @@ it('uses vue as the parser if current scope is listed as a Vue SFC scope in sett
   expect(actual).toEqual({ parser: 'vue' });
 });
 
-it('does not use editorconfig options if that setting is not enabled', () => {
-  const editor = buildMockEditor();
-  getPrettierOptions.mockImplementation(() => ({}));
-  shouldUseEditorConfig.mockImplementation(() => false);
+describe('when a prettier config is found', () => {
+  it('returns settings from the prettier config', () => {
+    const editor = buildMockEditor();
+    const fakePrettierConfigOptions = { tabWidth: 4, printWidth: 100, useTabs: true };
+    const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => fakePrettierConfigOptions) } };
+    getPrettierInstance.mockImplementation(() => mockPrettierInstance);
+    getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
 
-  buildPrettierOptions(editor);
+    const actual = buildPrettierOptions(editor);
 
-  expect(buildEditorConfigOptions).not.toHaveBeenCalled();
+    expect(actual).toEqual(fakePrettierConfigOptions);
+  });
+
+  it('tells prettier whether to use editorconfig when resolving options', () => {
+    const editorconfig = true;
+    const editor = buildMockEditor();
+    const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => ({})) } };
+    getPrettierInstance.mockImplementation(() => mockPrettierInstance);
+    shouldUseEditorConfig.mockImplementation(() => editorconfig);
+    getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
+
+    buildPrettierOptions(editor);
+
+    expect(mockPrettierInstance.resolveConfig.sync.mock.calls[0][1]).toEqual({ editorconfig });
+  });
 });
 
-it('overrides values with editorconfig values if editor config is enabled', () => {
-  const editor = buildMockEditor();
-  const fakePrettierOptions = { tabWidth: 2, printWidth: 80, useTabs: false };
-  const fakeEditorConfigOptions = { tabWidth: 4, printWidth: 100, useTabs: true };
-  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
-  buildEditorConfigOptions.mockImplementation(() => fakeEditorConfigOptions);
-  shouldUseEditorConfig.mockImplementation(() => true);
-  getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
+describe('when a prettier config is not found', () => {
+  it('returns settings from prettier-atom', () => {
+    const editor = buildMockEditor();
+    const fakePrettierOptions = { singleQuote: true, tabWidth: 2 };
+    const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => null) } };
+    getPrettierInstance.mockImplementation(() => mockPrettierInstance);
+    shouldUseEditorConfig.mockImplementation(() => false);
+    getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
+    getPrettierOptions.mockImplementation(() => fakePrettierOptions);
 
-  const actual = buildPrettierOptions(editor);
+    const actual = buildPrettierOptions(editor);
 
-  expect(actual).toEqual(fakeEditorConfigOptions);
-});
+    expect(actual).toEqual(fakePrettierOptions);
+  });
 
-it('overrides values with prettier config values if one exists', () => {
-  const editor = buildMockEditor();
-  const fakePrettierOptions = { tabWidth: 2, printWidth: 80, useTabs: false };
-  const fakePrettierConfigOptions = { tabWidth: 4, printWidth: 100, useTabs: true };
-  const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => fakePrettierConfigOptions) } };
-  getPrettierInstance.mockImplementation(() => mockPrettierInstance);
-  getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
-  getPrettierOptions.mockImplementation(() => fakePrettierOptions);
+  it('overrides prettier-atom settings with editorconfig values if editor config is enabled', () => {
+    const editor = buildMockEditor();
+    const fakePrettierOptions = { singleQuote: true, tabWidth: 2 };
+    const fakeEditorConfigOptions = { tabWidth: 4 };
+    const mockPrettierInstance = { resolveConfig: { sync: jest.fn(() => null) } };
+    getPrettierInstance.mockImplementation(() => mockPrettierInstance);
+    buildEditorConfigOptions.mockImplementation(() => fakeEditorConfigOptions);
+    shouldUseEditorConfig.mockImplementation(() => true);
+    getCurrentFilePath.mockImplementation(() => 'parent-dir/foo.js');
+    getPrettierOptions.mockImplementation(() => fakePrettierOptions);
 
-  const actual = buildPrettierOptions(editor);
+    const actual = buildPrettierOptions(editor);
 
-  expect(actual).toEqual(fakePrettierConfigOptions);
+    expect(actual).toEqual({ ...fakePrettierOptions, ...fakeEditorConfigOptions });
+  });
 });
