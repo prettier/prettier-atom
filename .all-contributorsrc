@@ -275,6 +275,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "olsonpm",
+      "name": "olsonpm",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5957709?v=4",
+      "profile": "https://github.com/olsonpm",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
