@@ -22,18 +22,18 @@ var _require = require('loophole'),
     allowUnsafeNewFunction = _require.allowUnsafeNewFunction;
 
 var _require2 = require('../atomInterface'),
+    getPrettierEslintOptions = _require2.getPrettierEslintOptions,
     shouldUseEslint = _require2.shouldUseEslint,
     shouldUseStylelint = _require2.shouldUseStylelint,
     runLinter = _require2.runLinter;
 
 var _require3 = require('../editorInterface'),
+    getCurrentFilePath = _require3.getCurrentFilePath,
     isCurrentScopeCssScope = _require3.isCurrentScopeCssScope;
 
 var _require4 = require('../helpers'),
     getPrettierInstance = _require4.getPrettierInstance;
 
-var buildPrettierEslintOptions = require('./buildPrettierEslintOptions');
-var buildPrettierStylelintOptions = require('./buildPrettierStylelintOptions');
 var buildPrettierOptions = require('./buildPrettierOptions');
 var handleError = require('./handleError');
 
@@ -47,10 +47,27 @@ var executePrettierWithCursor = function executePrettierWithCursor(editor, text,
   }));
 };
 
+var buildPrettierEslintOptions = function buildPrettierEslintOptions(editor, text) {
+  return (0, _extends3.default)({
+    text: text
+  }, getPrettierEslintOptions(), {
+    fallbackPrettierOptions: buildPrettierOptions(editor),
+    filePath: getCurrentFilePath(editor)
+  });
+};
+
 var executePrettierEslint = function executePrettierEslint(editor, text) {
   return allowUnsafeNewFunction(function () {
     return prettierEslint(buildPrettierEslintOptions(editor, text));
   });
+};
+
+var buildPrettierStylelintOptions = function buildPrettierStylelintOptions(editor, text) {
+  return {
+    text: text,
+    prettierOptions: buildPrettierOptions(editor),
+    filePath: getCurrentFilePath(editor)
+  };
 };
 
 var executePrettierStylelint = function executePrettierStylelint(editor, text) {
