@@ -1,5 +1,7 @@
 // @flow
 const _ = require('lodash/fp');
+const editorconfig = require('editorconfig');
+const editorconfigToPretter = require('editorconfig-to-prettier');
 const {
   getCurrentFilePath,
   isCurrentScopeTypescriptScope,
@@ -10,10 +12,20 @@ const {
   isCurrentScopeVueScope,
 } = require('../editorInterface');
 const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
-const buildEditorConfigOptions = require('./buildEditorConfigOptions');
 const { getPrettierInstance } = require('../helpers');
 
+type EditorConfigToPretterResult = {
+  tabWidth?: number,
+  printWidth?: number,
+  useTabs?: boolean,
+};
+
 const isDefined: (x: any) => boolean = _.negate(_.isNil);
+
+const buildEditorConfigOptions: (file: FilePath) => EditorConfigToPretterResult = _.flow(
+  editorconfig.parseSync,
+  editorconfigToPretter,
+);
 
 const isAppropriateToBuildEditorConfigOptions: (filePath: FilePath) => boolean = _.overEvery([
   isDefined,

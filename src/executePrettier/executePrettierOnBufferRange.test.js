@@ -5,18 +5,19 @@ jest.mock('../atomInterface');
 jest.mock('../editorInterface');
 jest.mock('../helpers');
 jest.mock('./buildPrettierOptions');
-jest.mock('./buildPrettierEslintOptions');
-jest.mock('./buildPrettierStylelintOptions');
 jest.mock('./handleError');
 
 const prettier = require('prettier');
 const prettierEslint = require('prettier-eslint');
 const prettierStylelint = require('prettier-stylelint');
-const { shouldUseEslint, shouldUseStylelint, runLinter } = require('../atomInterface');
+const {
+  getPrettierEslintOptions,
+  shouldUseEslint,
+  shouldUseStylelint,
+  runLinter,
+} = require('../atomInterface');
 const { getCurrentFilePath, isCurrentScopeCssScope } = require('../editorInterface');
 const { getPrettierInstance } = require('../helpers');
-const buildPrettierEslintOptions = require('./buildPrettierEslintOptions');
-const buildPrettierStylelintOptions = require('./buildPrettierStylelintOptions');
 const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 const buildMockTextEditor = require('../../tests/mocks/textEditor');
@@ -89,23 +90,20 @@ it('runs linter:lint if available to refresh linter highlighting', async () => {
 it('transforms the given buffer range using prettier-eslint if config enables it', async () => {
   shouldUseEslint.mockImplementation(() => true);
 
-  const options = {
-    filePath: 'foo.js',
-    prettierLast: true,
-    fallbackPrettierOptions: { useTabs: false },
-  };
+  const fallbackPrettierOptions = { useTabs: false };
+  const prettierLast = true;
 
-  buildPrettierEslintOptions.mockImplementation((_editor, text) => ({
-    text,
-    ...options,
-  }));
+  getPrettierEslintOptions.mockImplementation(() => ({ prettierLast }));
+  buildPrettierOptions.mockImplementation(() => fallbackPrettierOptions);
   getCurrentFilePath.mockImplementation(() => 'foo.js');
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
   expect(prettierEslint).toHaveBeenCalledWith({
+    fallbackPrettierOptions,
+    filePath: 'foo.js',
+    prettierLast,
     text: sourceFixture,
-    ...options,
   });
 });
 
@@ -113,22 +111,18 @@ it('transforms the given buffer range using prettier-stylelint if scope is CSS a
   isCurrentScopeCssScope.mockImplementation(() => true);
   shouldUseStylelint.mockImplementation(() => true);
 
-  const options = {
-    filePath: 'foo.js',
-    prettierOptions: { useTabs: false },
-  };
+  const prettierOptions = { tabWidth: false };
+  const filePath = 'foo.js';
 
-  buildPrettierStylelintOptions.mockImplementation((_editor, text) => ({
-    text,
-    ...options,
-  }));
-  getCurrentFilePath.mockImplementation(() => 'foo.css');
+  buildPrettierOptions.mockImplementation(() => prettierOptions);
+  getCurrentFilePath.mockImplementation(() => filePath);
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
   expect(prettierStylelint.format).toHaveBeenCalledWith({
+    filePath,
+    prettierOptions,
     text: sourceFixture,
-    ...options,
   });
 });
 

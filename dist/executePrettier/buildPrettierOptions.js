@@ -7,6 +7,8 @@ var _extends3 = _interopRequireDefault(_extends2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _ = require('lodash/fp');
+var editorconfig = require('editorconfig');
+var editorconfigToPretter = require('editorconfig-to-prettier');
 
 var _require = require('../editorInterface'),
     getCurrentFilePath = _require.getCurrentFilePath,
@@ -22,12 +24,12 @@ var _require2 = require('../atomInterface'),
     getPrettierOptions = _require2.getPrettierOptions,
     getAtomTabLength = _require2.getAtomTabLength;
 
-var buildEditorConfigOptions = require('./buildEditorConfigOptions');
-
 var _require3 = require('../helpers'),
     getPrettierInstance = _require3.getPrettierInstance;
 
 var isDefined = _.negate(_.isNil);
+
+var buildEditorConfigOptions = _.flow(editorconfig.parseSync, editorconfigToPretter);
 
 var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseEditorConfig]);
 
