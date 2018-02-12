@@ -86,9 +86,9 @@ const addWarningNotification = (message: string, options?: Atom$Notifications$Op
 const addErrorNotification = (message: string, options?: Atom$Notifications$Options) =>
   atom.notifications.addError(message, options);
 
-const attemptWithErrorNotification = (func: Function, ...args: Array<any>) => {
+const attemptWithErrorNotification = async (func: Function, ...args: Array<any>) => {
   try {
-    func(...args);
+    await func(...args);
   } catch (e) {
     console.error(e); // eslint-disable-line no-console
     addErrorNotification(e.message, { dismissable: true, stack: e.stack });

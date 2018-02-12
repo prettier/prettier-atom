@@ -44,7 +44,7 @@ const buildPrettierStylelintOptions = (editor: TextEditor, text: string) => ({
   filePath: getCurrentFilePath(editor),
 });
 
-const executePrettierStylelint = (editor: TextEditor, text: string): string =>
+const executePrettierStylelint = (editor: TextEditor, text: string): Promise<string> =>
   prettierStylelint.format(buildPrettierStylelintOptions(editor, text));
 
 const executePrettierOrIntegration = async (
