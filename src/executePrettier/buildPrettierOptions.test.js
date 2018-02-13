@@ -133,7 +133,9 @@ describe('when a prettier config is found', () => {
 
     buildPrettierOptions(editor);
 
-    expect(mockPrettierInstance.resolveConfig.sync.mock.calls[0][1]).toEqual({ editorconfig: true });
+    expect(mockPrettierInstance.resolveConfig.sync).toHaveBeenCalledTimes(2);
+    expect(mockPrettierInstance.resolveConfig.sync.mock.calls[0][1]).toBeUndefined();
+    expect(mockPrettierInstance.resolveConfig.sync.mock.calls[1][1]).toEqual({ editorconfig: true });
   });
 });
 
