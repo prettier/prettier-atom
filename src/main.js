@@ -24,9 +24,9 @@ const lazyFormat = () => {
 };
 
 // HACK: lazy load most of the code we need for performance
-const lazyFormatOnSave = editor => {
+const lazyFormatOnSave = async editor => {
   if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
-  if (editor) formatOnSave(editor);
+  if (editor) await formatOnSave(editor);
 };
 
 // HACK: lazy load most of the code we need for performance
