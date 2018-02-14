@@ -36,9 +36,23 @@ var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseE
 var buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
 
 var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), function (editor) {
-  return isDefined(getPrettierInstance(editor).resolveConfig.sync) ? getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor), {
-    editorconfig: shouldUseEditorConfig()
-  }) : null;
+  var hasResolveConfigSync = isDefined(getPrettierInstance(editor).resolveConfig.sync);
+  if (!hasResolveConfigSync) return null;
+
+  var resolveConfigSync = getPrettierInstance(editor).resolveConfig.sync;
+  var filePath = getCurrentFilePath(editor);
+
+  // TODO: when davidtheclark/cosmiconfig#107 is merged, this logic should
+  //   be modified to treat an empty file as an empty object.
+  var prettierConfig = resolveConfigSync(filePath);
+
+  // We only want to resolve with editorconfig when a prettier configuration
+  //   is found in the first place.
+  if (prettierConfig && shouldUseEditorConfig()) {
+    prettierConfig = resolveConfigSync(filePath, { editorconfig: true });
+  }
+
+  return prettierConfig || null;
 }]]);
 
 var getScopeSpecificSettings = function getScopeSpecificSettings(editor) {
