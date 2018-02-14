@@ -1,3 +1,24 @@
+<a name="0.51.0"></a>
+# [0.51.0](https://github.com/prettier/prettier-atom/compare/v0.50.0...v0.51.0) (2018-02-14)
+
+
+### Bug Fixes
+
+* Fix asynchronous saves ([be1bd05](https://github.com/prettier/prettier-atom/commit/be1bd05))
+* **buildPrettierOptions.js:** Allow EditorConfig with prettier-atom settings ([dedc690](https://github.com/prettier/prettier-atom/commit/dedc690)), closes [#377](https://github.com/prettier/prettier-atom/issues/377)
+
+
+### Code Refactoring
+
+* **buildEditorConfigOptions.js:** Use editorconfig-to-prettier ([e262f50](https://github.com/prettier/prettier-atom/commit/e262f50))
+
+
+### BREAKING CHANGES
+
+* **buildEditorConfigOptions.js:** Derives prettier config options from editorconfig differently
+
+
+
 <a name="0.50.0"></a>
 # [0.50.0](https://github.com/prettier/prettier-atom/compare/v0.49.2...v0.50.0) (2018-02-09)
 
