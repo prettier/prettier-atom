@@ -62,31 +62,31 @@ var shouldRespectEslintignore = function shouldRespectEslintignore() {
 };
 
 var getJavascriptScopes = function getJavascriptScopes() {
-  return getConfigOption('formatOnSaveOptions.javascriptScopes');
+  return getConfigOption('scopes.javascript');
 };
 
 var getTypescriptScopes = function getTypescriptScopes() {
-  return getConfigOption('formatOnSaveOptions.typescriptScopes');
+  return getConfigOption('scopes.typescript');
 };
 
 var getCssScopes = function getCssScopes() {
-  return getConfigOption('formatOnSaveOptions.cssScopes');
+  return getConfigOption('scopes.css');
 };
 
 var getJsonScopes = function getJsonScopes() {
-  return getConfigOption('formatOnSaveOptions.jsonScopes');
+  return getConfigOption('scopes.json');
 };
 
 var getGraphQlScopes = function getGraphQlScopes() {
-  return getConfigOption('formatOnSaveOptions.graphQlScopes');
+  return getConfigOption('scopes.graphQl');
 };
 
 var getMarkdownScopes = function getMarkdownScopes() {
-  return getConfigOption('formatOnSaveOptions.markdownScopes');
+  return getConfigOption('scopes.markdown');
 };
 
 var getVueScopes = function getVueScopes() {
-  return getConfigOption('formatOnSaveOptions.vueScopes');
+  return getConfigOption('scopes.vue');
 };
 
 var getAllScopes = function getAllScopes() {

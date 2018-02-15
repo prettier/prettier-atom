@@ -32,19 +32,19 @@ const isDisabledIfNoConfigFile = () => getConfigOption('formatOnSaveOptions.isDi
 
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
-const getJavascriptScopes = () => getConfigOption('formatOnSaveOptions.javascriptScopes');
+const getJavascriptScopes = () => getConfigOption('scopes.javascript');
 
-const getTypescriptScopes = () => getConfigOption('formatOnSaveOptions.typescriptScopes');
+const getTypescriptScopes = () => getConfigOption('scopes.typescript');
 
-const getCssScopes = () => getConfigOption('formatOnSaveOptions.cssScopes');
+const getCssScopes = () => getConfigOption('scopes.css');
 
-const getJsonScopes = () => getConfigOption('formatOnSaveOptions.jsonScopes');
+const getJsonScopes = () => getConfigOption('scopes.json');
 
-const getGraphQlScopes = () => getConfigOption('formatOnSaveOptions.graphQlScopes');
+const getGraphQlScopes = () => getConfigOption('scopes.graphQl');
 
-const getMarkdownScopes = () => getConfigOption('formatOnSaveOptions.markdownScopes');
+const getMarkdownScopes = () => getConfigOption('scopes.markdown');
 
-const getVueScopes = () => getConfigOption('formatOnSaveOptions.vueScopes');
+const getVueScopes = () => getConfigOption('scopes.vue');
 
 const getAllScopes = () =>
   [
