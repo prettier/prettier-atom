@@ -36,9 +36,11 @@ var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseE
 var buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
 
 var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), function (editor) {
+  // $FlowFixMe
   var hasResolveConfigSync = isDefined(getPrettierInstance(editor).resolveConfig.sync);
   if (!hasResolveConfigSync) return null;
 
+  // $FlowFixMe
   var resolveConfigSync = getPrettierInstance(editor).resolveConfig.sync;
   var filePath = getCurrentFilePath(editor);
 

@@ -15,7 +15,9 @@ var getNearestEslintignorePath = function getNearestEslintignorePath(filePath) {
   return findCachedFromFilePath(filePath, '.eslintignore');
 };
 
-var safeRelativePath = _.curry(function (from, to) {
+var safeRelativePath = _.curry(
+// $FlowFixMe
+function (from, to) {
   return !!from && !!to ? path.relative(from, to) : undefined;
 });
 

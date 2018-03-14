@@ -45,8 +45,12 @@ var isFilePathNotEslintignored = _.flow(getCurrentFilePath, _.negate(isFilePathE
 
 var isFilePathNotPrettierIgnored = _.flow(getCurrentFilePath, _.negate(isFilePathPrettierIgnored));
 
-var isPrettierConfigPresent = function isPrettierConfigPresent(editor) {
-  return !!getPrettierInstance(editor).resolveConfig.sync && _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+var isPrettierConfigPresent = function isPrettierConfigPresent(editor
+// $FlowFixMe
+) {
+  return !!getPrettierInstance(editor).resolveConfig.sync &&
+  // $FlowFixMe
+  _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
 };
 
 var shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), isFilePathNotEslintignored, isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent])]);

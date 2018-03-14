@@ -42,7 +42,9 @@ const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
 );
 
 const isPrettierConfigPresent = (editor: TextEditor): boolean =>
+  // $FlowFixMe
   !!getPrettierInstance(editor).resolveConfig.sync &&
+  // $FlowFixMe
   _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
 
 const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
