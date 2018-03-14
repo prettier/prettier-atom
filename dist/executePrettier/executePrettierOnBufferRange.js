@@ -37,11 +37,15 @@ var _require4 = require('../helpers'),
 var buildPrettierOptions = require('./buildPrettierOptions');
 var handleError = require('./handleError');
 
-var executePrettier = function executePrettier(editor, text) {
+var executePrettier = function executePrettier(editor, text
+// $FlowFixMe
+) {
   return getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
 };
 
-var executePrettierWithCursor = function executePrettierWithCursor(editor, text, cursorOffset) {
+var executePrettierWithCursor = function executePrettierWithCursor(editor, text, cursorOffset
+// $FlowFixMe
+) {
   return getPrettierInstance(editor).formatWithCursor(text, (0, _extends3.default)({}, buildPrettierOptions(editor), {
     cursorOffset: cursorOffset
   }));

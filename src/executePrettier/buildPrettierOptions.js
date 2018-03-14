@@ -41,9 +41,11 @@ const getPrettierConfigOptions: (editor: TextEditor) => ?{} = _.cond([
   [
     _.flow(getCurrentFilePath, isDefined),
     editor => {
+      // $FlowFixMe
       const hasResolveConfigSync = isDefined(getPrettierInstance(editor).resolveConfig.sync);
       if (!hasResolveConfigSync) return null;
 
+      // $FlowFixMe
       const resolveConfigSync = getPrettierInstance(editor).resolveConfig.sync;
       const filePath = getCurrentFilePath(editor);
 

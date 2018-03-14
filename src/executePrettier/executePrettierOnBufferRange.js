@@ -16,6 +16,7 @@ const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 
 const executePrettier = (editor: TextEditor, text: string) =>
+  // $FlowFixMe
   getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
 
 const executePrettierWithCursor = (
@@ -23,6 +24,7 @@ const executePrettierWithCursor = (
   text: string,
   cursorOffset: number,
 ): Prettier$CursorResult =>
+  // $FlowFixMe
   getPrettierInstance(editor).formatWithCursor(text, {
     ...buildPrettierOptions(editor),
     cursorOffset,

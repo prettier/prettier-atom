@@ -15,7 +15,9 @@ var getNearestPrettierIgnorePath = function getNearestPrettierIgnorePath(filePat
   return findCachedFromFilePath(filePath, '.prettierignore');
 };
 
-var safeRelativePath = _.curry(function (from, to) {
+var safeRelativePath = _.curry(
+// $FlowFixMe
+function (from, to) {
   return !!from && !!to ? path.relative(from, to) : undefined;
 });
 
