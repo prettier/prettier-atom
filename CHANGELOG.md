@@ -1,3 +1,13 @@
+<a name="0.52.0"></a>
+# [0.52.0](https://github.com/prettier/prettier-atom/compare/v0.51.0...v0.52.0) (2018-03-14)
+
+
+### Features
+
+* **prettier:** bump prettier to 1.11.1 and prettier-eslint to 8.8.1 ([4e8d85e](https://github.com/prettier/prettier-atom/commit/4e8d85e))
+
+
+
 <a name="0.51.0"></a>
 # [0.51.0](https://github.com/prettier/prettier-atom/compare/v0.50.0...v0.51.0) (2018-02-14)
 
