@@ -42,7 +42,7 @@ const isCurrentScopeMarkdownScope = (editor: TextEditor) =>
 
 const isCurrentScopeVueScope = (editor: TextEditor) => getVueScopes().includes(getCurrentScope(editor));
 
-const getCurrentFilePath = (editor: TextEditor) =>
+const getCurrentFilePath: (editor: TextEditor) => ?FilePath = editor =>
   editor.buffer.file ? editor.buffer.file.getPath() : undefined;
 
 const getCurrentDir: (editor: TextEditor) => ?string = editor =>

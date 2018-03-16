@@ -13,6 +13,7 @@ const {
   getExcludedGlobs,
   getWhitelistedGlobs,
   getAllScopes,
+  shouldRespectEslintignore,
 } = require('../atomInterface');
 const getPrettierInstance = require('../helpers/getPrettierInstance');
 const { getCurrentScope, getCurrentFilePath } = require('../editorInterface');
@@ -89,12 +90,31 @@ it('returns false if the filepath is not in scope', () => {
   expect(actual).toBe(false);
 });
 
-it('returns false if the filepath is eslintignored', () => {
+it('returns false if the filepath is eslintignored and eslintignore should be respected', () => {
+  shouldRespectEslintignore.mockImplementation(() => true);
   isFilePathEslintIgnored.mockImplementation(() => true);
 
   const actual = callShouldFormatOnSave();
 
   expect(actual).toBe(false);
+});
+
+it('returns true if the filepath is eslintignored but eslintignore should _not_ be respected', () => {
+  shouldRespectEslintignore.mockImplementation(() => false);
+  isFilePathEslintIgnored.mockImplementation(() => true);
+
+  const actual = callShouldFormatOnSave();
+
+  expect(actual).toBe(true);
+});
+
+it('returns true if the filepath is not eslintignored', () => {
+  shouldRespectEslintignore.mockImplementation(() => true);
+  isFilePathEslintIgnored.mockImplementation(() => false);
+
+  const actual = callShouldFormatOnSave();
+
+  expect(actual).toBe(true);
 });
 
 it('returns false if the filepath is prettier ignored', () => {

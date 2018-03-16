@@ -9,8 +9,9 @@ const {
   getWhitelistedGlobs,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
+  shouldRespectEslintignore,
 } = require('../atomInterface');
-const isFilePathEslintignored = require('./isFilePathEslintIgnored');
+const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
 const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
@@ -30,11 +31,7 @@ const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
   (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
-
-const isFilePathNotEslintignored: (editor: TextEditor) => boolean = _.flow(
-  getCurrentFilePath,
-  _.negate(isFilePathEslintignored),
-);
+const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
 const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
@@ -55,7 +52,7 @@ const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
     isFilePathWhitelisted,
     _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs]),
   ]),
-  isFilePathNotEslintignored,
+  _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]),
   isFilePathNotPrettierIgnored,
   _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]),
   _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]),
