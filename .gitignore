@@ -4,3 +4,4 @@ npm-debug.log
 coverage
 .opt-in
 .opt-out
+yarn-error.log

@@ -26,7 +26,7 @@ const getIgnoredGlobsFromNearestEslintIgnore: (filePath: FilePath) => Globs = _.
   getLinesFromFilePath,
 );
 
-const isFilePathEslintignored: (filePath: FilePath) => boolean = _.flow(
+const isFilePathEslintignored: (filePath: ?FilePath) => boolean = _.flow(
   _.over([getIgnoredGlobsFromNearestEslintIgnore, getFilePathRelativeToEslintignore]),
   _.spread(someGlobsMatchFilePath),
 );
