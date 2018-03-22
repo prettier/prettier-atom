@@ -84,5 +84,5 @@ scripts:
     script: |
       dirty=`git status -s | grep -v '^??' | wc -l | awk '{print $1}'`
       echo Found $dirty dirty files. These need to be committed to pass CI.
-      [ "$dirty" != "0" ] && exit 1
+      [ "$dirty" != "0" ] && git diff && exit 1
       exit 0
