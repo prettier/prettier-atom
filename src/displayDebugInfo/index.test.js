@@ -1,9 +1,11 @@
 jest.mock('read-pkg-up');
 jest.mock('../atomInterface');
+jest.mock('../helpers/getPrettierPath');
 
 const readPkgUp = require('read-pkg-up');
 const displayDebugInfo = require('./index');
 const { getAtomVersion, getPrettierAtomConfig, addInfoNotification } = require('../atomInterface');
+const { getGlobalPrettierPath } = require('../helpers/getPrettierPath');
 
 test('it displays a notification on Atom with package information', () => {
   let title;
@@ -19,6 +21,7 @@ test('it displays a notification on Atom with package information', () => {
   }));
   getAtomVersion.mockImplementation(() => 'FAKE_ATOM_VERSION');
   getPrettierAtomConfig.mockImplementation(() => 'FAKE_PRETTIER_ATOM_CONFIG');
+  getGlobalPrettierPath.mockImplementation(() => 'FAKE_PRETTIER_PATH');
 
   displayDebugInfo();
 

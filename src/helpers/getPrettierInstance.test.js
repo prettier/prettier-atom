@@ -5,6 +5,8 @@ const path = require('path');
 const atomLinter = require('atom-linter');
 const createMockTextEditor = require('../../tests/mocks/textEditor');
 const getPrettierInstance = require('./getPrettierInstance');
+const globalModules = require('global-modules');
+const yarnGlobalModules = require('yarn-global-modules')();
 
 test("returns user's project's local prettier instance if it exists", () => {
   const filePath = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'sourceFile.js');
@@ -18,6 +20,44 @@ test("returns user's project's local prettier instance if it exists", () => {
   expect(actual).toEqual(require(prettierLib)); // eslint-disable-line
   expect(atomLinter.findCached).toHaveBeenCalledWith(
     path.join(__dirname, '..', '..', 'tests', 'fixtures'),
+    path.join('node_modules', 'prettier', 'index.js'),
+  );
+});
+
+test("returns global prettier (by npm) if user's project has no local prettier package", () => {
+  const filePath = path.join(__dirname, 'sourceFile.js');
+  const file = { getPath: () => filePath };
+  const editor = createMockTextEditor({ buffer: { file } });
+  const fakeGloballyInstalledPrettier = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'prettier.js');
+  atomLinter.findCached.mockImplementation(
+    dir => (dir === globalModules ? fakeGloballyInstalledPrettier : null),
+  );
+
+  const actual = getPrettierInstance(editor);
+
+  expect(actual).toEqual(require(fakeGloballyInstalledPrettier)); // eslint-disable-line
+  expect(atomLinter.findCached).toHaveBeenCalledTimes(2);
+  expect(atomLinter.findCached).toHaveBeenLastCalledWith(
+    globalModules,
+    path.join('node_modules', 'prettier', 'index.js'),
+  );
+});
+
+test("returns global prettier (by yarn) if user's project has no local prettier package", () => {
+  const filePath = path.join(__dirname, 'sourceFile.js');
+  const file = { getPath: () => filePath };
+  const editor = createMockTextEditor({ buffer: { file } });
+  const fakeGloballyInstalledPrettier = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'prettier.js');
+  atomLinter.findCached.mockImplementation(
+    dir => (dir === yarnGlobalModules ? fakeGloballyInstalledPrettier : null),
+  );
+
+  const actual = getPrettierInstance(editor);
+
+  expect(actual).toEqual(require(fakeGloballyInstalledPrettier)); // eslint-disable-line
+  expect(atomLinter.findCached).toHaveBeenCalledTimes(3);
+  expect(atomLinter.findCached).toHaveBeenLastCalledWith(
+    yarnGlobalModules,
     path.join('node_modules', 'prettier', 'index.js'),
   );
 });
