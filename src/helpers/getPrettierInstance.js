@@ -2,13 +2,7 @@
 const _ = require('lodash/fp');
 const bundledPrettier = require('prettier');
 const { getCurrentFilePath } = require('../editorInterface');
-const { findCachedFromFilePath } = require('./general');
-const path = require('path');
-
-const PRETTIER_INDEX_PATH = path.join('node_modules', 'prettier', 'index.js');
-
-const getLocalPrettierPath = (filePath: ?FilePath): ?FilePath =>
-  findCachedFromFilePath(filePath, PRETTIER_INDEX_PATH);
+const { getLocalOrGlobalPrettierPath } = require('./getPrettierPath');
 
 // charypar: This is currently the best way to use local prettier instance.
 // Using the CLI introduces a noticeable delay and there is currently no
@@ -21,7 +15,7 @@ const requireWithFallbackToBundledPrettier = (prettierPackagePath: ?string): typ
 
 const getPrettierInstance: (editor: TextEditor) => typeof bundledPrettier = _.flow(
   getCurrentFilePath,
-  getLocalPrettierPath,
+  getLocalOrGlobalPrettierPath,
   requireWithFallbackToBundledPrettier,
 );
 
