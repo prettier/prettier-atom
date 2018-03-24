@@ -1,3 +1,18 @@
+<a name="0.53.0"></a>
+# [0.53.0](https://github.com/prettier/prettier-atom/compare/v0.52.0...v0.53.0) (2018-03-24)
+
+
+### Bug Fixes
+
+* **eslintignore:** respect eslintignore setting ([59a1828](https://github.com/prettier/prettier-atom/commit/59a1828)), closes [#347](https://github.com/prettier/prettier-atom/issues/347)
+
+
+### Features
+
+* **prettier:** Fallback to globally installed prettier (via npm or yarn) before falling back to a bundled one ([3ed996c](https://github.com/prettier/prettier-atom/commit/3ed996c))
+
+
+
 <a name="0.52.0"></a>
 # [0.52.0](https://github.com/prettier/prettier-atom/compare/v0.51.0...v0.52.0) (2018-03-14)
 
