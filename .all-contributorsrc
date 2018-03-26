@@ -284,6 +284,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dsingleton",
+      "name": "David Singleton",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/63201?v=4",
+      "profile": "http://dsingleton.co.uk",
+      "contributions": [
+        "doc"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }
