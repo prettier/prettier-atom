@@ -41,6 +41,8 @@ Make sure to restart Atom after the package is installed.
 
 ## Detailed Usage
 
+Note: not every `prettier-atom` setting is explained below. You can explore them all in the plugin settings page.
+
 ### How to Format
 
 There are two modes you can use:
