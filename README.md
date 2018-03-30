@@ -12,20 +12,7 @@
 [![All Contributors][all-contributors-badge]](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 
-Atom package to format your JavaScript, Typescript, CSS, Sass, and JSON using [Prettier](https://github.com/prettier/prettier).
-Optionally integrates with [ESLint](http://eslint.org/), [EditorConfig](http://editorconfig.org/), and [stylelint](https://stylelint.io/).
-
-## How to use it
-
-After [installation](#installation):
-- Enable 'format on save' to have prettier format your code upon saving
-- Run the command `Prettier: Format` to format your file manually
-  - Windows/Linux: <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
-  - Mac: <kbd>control</kbd> + <kbd>option</kbd> + <kbd>f</kbd>
-- By default, formatting will use your [prettier configuration](https://prettier.io/docs/en/configuration.html).
-  Otherwise it falls back to the prettier settings you chose in this plugin.
-
-## Demo
+Atom package to format your code using [Prettier](https://github.com/prettier/prettier).
 
 ![prettier demo](prettier-demo.gif)
 
@@ -39,47 +26,59 @@ Or go to _Settings → Install_ and search for `prettier-atom`.
 
 Make sure to restart Atom after the package is installed.
 
-## Detailed Usage
+## How to use
 
-Note: not every `prettier-atom` setting is explained below. You can explore them all in the plugin settings page.
+There are two ways to format your code:
 
-### How to Format
+- Automatically **format on save** (requires enabling in _Packages → Prettier → Toggle Format on Save_)
+- Run the command `Prettier: Format` to invoke Prettier manually
+  - Windows/Linux: <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
+  - Mac: <kbd>control</kbd> + <kbd>option</kbd> + <kbd>f</kbd>
 
-There are two modes you can use:
+Prettier will search up the file tree looking for a [prettier config](https://prettier.io/docs/en/configuration.html) to use. If none is found, Prettier will use its default settings.
 
-* Automatically **format on save** (requires enabling in _Packages → Prettier → Toggle Format on Save_)
-* Invoke manually using the **keyboard shortcut** (if no selection, whole file is formatted): <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd>
+Prettier will also respect your `.prettierignore` file.
 
-### What Version of Prettier Gets used?
+## What version of Prettier gets used?
 
-By default, we use the prettier instance in your project's 'node_modules' directory.  If one isn't found, then
-we fall back to using the version that comes bundled with the prettier-atom package.
+By default, we use the prettier instance in your project's `node_modules` directory. We highly recommend adding Prettier to your dependencies so that your team, CI tooling, and any scripts using Prettier all format code exactly the same way.
 
-### ESLint Integration
+If Prettier can't be found in your project's node modules, then
+we fall back to using the version that comes bundled with the prettier-atom package (version changes are documented in the [CHANGELOG](./CHANGELOG.md)).
 
-If you use ESLint, check the "ESLint Integration" checkbox and \*poof\*, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood).
-We will recursively search up the file tree for your `package.json` and ESLint settings, and use them when formatting.
+## Configuring default rules
+
+Some users may not wish to create a new [Prettier config](https://prettier.io/docs/en/configuration.html) for every project. Because Prettier searches recursively up the filepath, you can place a global prettier config at `~/.prettierrc` to be used as a fallback.
+
+## Using ESLint
 
 ![prettier-eslint demo][prettier-eslint-demo]
 
-### EditorConfig
+There are three ways to use ESLint with Prettier and prettier-atom:
 
-Support is [built into prettier](https://prettier.io/blog/2017/12/05/1.9.0.html#add-editorconfig-support-3255-https-githubcom-prettier-prettier-pull-3255-by-josephfrazier-https-githubcom-josephfrazier).  It derives prettier settings from your `.editorconfig` file and formats accordingly.
+### 1. Use ESLint to run Prettier
 
-### stylelint
+You can opt not to use prettier-atom and instead configure ESLint to run prettier. ([see details](https://prettier.io/docs/en/eslint.html#use-eslint-to-run-prettier))
 
-stylelint is supported via [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint).
-It derives prettier settings from your [stylelint configuration](https://stylelint.io/user-guide/configuration/) and formats accordingly.
+### 2. Turn off ESLint's Formatting Rules
 
-## Questions?
+You can disable ESLint rules for things that Prettier itself fixes. This allows both tools to run alongside each other without conflicting with one another. ([see details](https://prettier.io/docs/en/eslint.html#turn-off-eslint-s-formatting-rules))
 
-More detailed descriptions of each option can be found in the Atom settings for this plugin.
+### 3. Use prettier-eslint
 
-Please open a pull request or file an issue if you notice bugs or something doesn't work as it should!
+The [prettier-eslint][prettier-eslint] package (shipped with prettier-atom) will recursively search up the file tree for your ESLint settings and infer the corresponding Prettier settings to use when formatting. After formatting, prettier-eslint will invoke ESLint to fix remaining issues. Check the "ESLint Integration" checkbox to enable.
 
-## Troubleshooting
+> Note: If you are using the [linter-eslint](https://github.com/AtomLinter/linter-eslint) package alongside prettier-atom, please **ensure you have unchecked its "Fix on save" checkbox**. Leaving it enabled will cause a race condition between prettier-atom and linter-eslint. After it has finished formatting your code, **prettier-atom will automatically invoke the linter package's `lint` command for you**.
 
-If Prettier (or prettier-eslint, if ESLint integration is enabled) is not formatting something properly, please open an issue on the relevant GitHub repository. This package is only integrating those projects to be used in Atom.
+## Using Stylelint
+
+The [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) package (shipped with prettier-atom) derives prettier settings from your [stylelint configuration](https://stylelint.io/user-guide/configuration/) to use when formatting. After formatting, prettier-stylelint will invoke Stylelint to fix remaining issues. Check the "Stylelint Integration" checkbox to enable.
+
+> Note: prettier-atom automatically detects when you are in an Atom scope that stylelint supports and switches to using it instead of normal Prettier when formatting that file.
+
+## Troubleshooting formatting problems
+
+If Prettier is not formatting something properly, please open an issue on the [Prettier repository](https://github.com/prettier/prettier), not this repository.
 
 ## Inspiration
 

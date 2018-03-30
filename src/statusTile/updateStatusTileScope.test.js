@@ -2,7 +2,7 @@ jest.mock('../atomInterface');
 jest.mock('../editorInterface');
 
 const { getCurrentScope } = require('../editorInterface');
-const { getAllScopes } = require('../atomInterface');
+const { getScopes } = require('../atomInterface');
 const updateStatusTileScope = require('./updateStatusTileScope');
 
 const callUpdateStatusTileScope = editor => {
@@ -14,7 +14,7 @@ const callUpdateStatusTileScope = editor => {
 };
 
 beforeEach(() => {
-  getAllScopes.mockImplementation(() => ['source.js']);
+  getScopes.mockImplementation(() => ['source.js']);
 });
 
 it('sets the match-scope data attribute to "true" if the editor is in scope', () => {

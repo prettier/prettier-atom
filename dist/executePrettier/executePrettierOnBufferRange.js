@@ -21,25 +21,24 @@ const {
   shouldUseStylelint,
   runLinter
 } = require('../atomInterface');
-const { getCurrentFilePath, isCurrentScopeCssScope } = require('../editorInterface');
+const { getCurrentFilePath, isCurrentScopeStyleLintScope } = require('../editorInterface');
 const { getPrettierInstance } = require('../helpers');
-const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 
 const executePrettier = (editor, text
 // $FlowFixMe
-) => getPrettierInstance(editor).format(text, buildPrettierOptions(editor));
+) => getPrettierInstance(editor).format(text, { filepath: getCurrentFilePath(editor) });
 
 const executePrettierWithCursor = (editor, text, cursorOffset
 // $FlowFixMe
-) => getPrettierInstance(editor).formatWithCursor(text, (0, _extends3.default)({}, buildPrettierOptions(editor), {
-  cursorOffset
-}));
+) => getPrettierInstance(editor).formatWithCursor(text, {
+  cursorOffset,
+  filepath: getCurrentFilePath(editor)
+});
 
 const buildPrettierEslintOptions = (editor, text) => (0, _extends3.default)({
   text
 }, getPrettierEslintOptions(), {
-  fallbackPrettierOptions: buildPrettierOptions(editor),
   filePath: getCurrentFilePath(editor)
 });
 
@@ -47,7 +46,6 @@ const executePrettierEslint = (editor, text) => allowUnsafeNewFunction(() => pre
 
 const buildPrettierStylelintOptions = (editor, text) => ({
   text,
-  prettierOptions: buildPrettierOptions(editor),
   filePath: getCurrentFilePath(editor)
 });
 
@@ -55,7 +53,7 @@ const executePrettierStylelint = (editor, text) => prettierStylelint.format(buil
 
 const executePrettierOrIntegration = (() => {
   var _ref = (0, _asyncToGenerator3.default)(function* (editor, text, cursorOffset) {
-    if (shouldUseStylelint() && isCurrentScopeCssScope(editor)) {
+    if (shouldUseStylelint() && isCurrentScopeStyleLintScope(editor)) {
       // TODO: add support for cursor position - https://github.com/hugomrdias/prettier-stylelint/issues/13
       const formatted = yield executePrettierStylelint(editor, text);
 

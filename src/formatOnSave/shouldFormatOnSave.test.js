@@ -12,11 +12,10 @@ const {
   isFormatOnSaveEnabled,
   getExcludedGlobs,
   getWhitelistedGlobs,
-  getAllScopes,
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const getPrettierInstance = require('../helpers/getPrettierInstance');
-const { getCurrentScope, getCurrentFilePath } = require('../editorInterface');
+const { getCurrentScope, getCurrentFilePath, isInScope } = require('../editorInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
 const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const shouldFormatOnSave = require('./shouldFormatOnSave');
@@ -27,7 +26,7 @@ const callShouldFormatOnSave = () => shouldFormatOnSave(createMockTextEditor());
 
 beforeEach(() => {
   isFormatOnSaveEnabled.mockImplementation(() => true);
-  getAllScopes.mockImplementation(() => ['js', 'jsx']);
+  isInScope.mockImplementation(() => true);
   getCurrentScope.mockImplementation(() => 'js');
   getCurrentFilePath.mockImplementation(() => fakeCurrentFilePath);
   isFilePathEslintIgnored.mockImplementation(() => false);
@@ -83,7 +82,7 @@ it('returns false if whitelist globs exist but the filepath does not match them'
 });
 
 it('returns false if the filepath is not in scope', () => {
-  getCurrentScope.mockImplementation(() => 'ruby');
+  isInScope.mockImplementation(() => false);
 
   const actual = callShouldFormatOnSave();
 

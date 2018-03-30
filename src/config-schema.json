@@ -15,12 +15,34 @@
     "default": false,
     "order": 2
   },
-  "useEditorConfig": {
-    "title": "EditorConfig Integration",
+  "scopes": {
+    "title": "Only format if a Prettier config is found",
     "description":
-      "Use [EditorConfig](http://editorconfig.org/) configuration to load project-based settings for Prettier formatting.<br>Takes precedence over your settings. The following settings will be overriden if they are found in your `.editorconfig`: **Use tabs**, **Tab width**, **Print width**.",
-    "type": "boolean",
-    "default": true,
+      "Select which files should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
+    "type": "array",
+    "default": [
+      "source.js",
+      "source.jsx",
+      "source.js.jsx",
+      "source.babel",
+      "source.js-semantic",
+      "text.html.basic",
+      "text.html.vue",
+      "source.css",
+      "source.less",
+      "source.css.less",
+      "source.scss",
+      "source.css.scss",
+      "source.css.postcss",
+      "source.json",
+      "source.graphql",
+      "source.md",
+      "source.gfm",
+      "text.md"
+    ],
+    "items": {
+      "type": "string"
+    },
     "order": 3
   },
   "formatOnSaveOptions": {
@@ -83,90 +105,10 @@
       }
     }
   },
-  "prettierOptions": {
-    "type": "object",
-    "order": 5,
-    "properties": {
-      "singleQuote": {
-        "title": "Single Quotes",
-        "description": "Use single quotes instead of double quotes for strings.",
-        "type": "boolean",
-        "default": false,
-        "order": 1
-      },
-      "bracketSpacing": {
-        "title": "Bracket Spacing",
-        "description": "Print spaces inside of object literals.",
-        "type": "boolean",
-        "default": true,
-        "order": 2
-      },
-      "semi": {
-        "title": "Semicolons",
-        "description": "Add semicolons at the end of statements.",
-        "type": "boolean",
-        "default": true,
-        "order": 3
-      },
-      "useTabs": {
-        "title": "Use Tabs",
-        "description": "Indent lines with tabs instead of spaces.",
-        "type": "boolean",
-        "default": false,
-        "order": 4
-      },
-      "jsxBracketSameLine": {
-        "title": "JSX Bracket Same Line",
-        "description": "Put > on the same line in JSX.",
-        "type": "boolean",
-        "default": false,
-        "order": 5
-      },
-      "printWidth": {
-        "title": "Print Width",
-        "description": "Fit lines of code within this length.",
-        "type": "integer",
-        "default": 80,
-        "order": 6
-      },
-      "tabWidth": {
-        "title": "Tab Width",
-        "description": "Number of spaces to use per tab. Put `auto` to use your editor's tab width setting.",
-        "type": ["integer", "string"],
-        "default": "auto",
-        "order": 7
-      },
-      "trailingComma": {
-        "title": "Trailing Comma",
-        "description": "Print trailing commas wherever possible.",
-        "type": "string",
-        "default": "none",
-        "enum": ["none", "es5", "all"],
-        "order": 8
-      },
-      "parser": {
-        "title": "JavaScript Parser",
-        "description":
-          "Choose which [supported parser](https://www.npmjs.com/package/prettier#language-support) to use. (Does not apply to TypeScript, CSS or JSON)",
-        "type": "string",
-        "default": "babylon",
-        "enum": ["babylon", "flow"],
-        "order": 9
-      },
-      "arrowParens": {
-        "title": "Arrow Function Parentheses",
-        "description": "Include parentheses around a sole arrow function parameter.",
-        "type": "string",
-        "default": "avoid",
-        "enum": ["avoid", "always"],
-        "order": 10
-      }
-    }
-  },
   "prettierEslintOptions": {
     "title": "prettier-eslint options",
     "type": "object",
-    "order": 6,
+    "order": 5,
     "properties": {
       "prettierLast": {
         "title": "Run Prettier Last",
@@ -174,104 +116,6 @@
         "type": "boolean",
         "default": false,
         "order": 1
-      }
-    }
-  },
-  "scopes": {
-    "type": "object",
-    "order": 7,
-    "properties": {
-      "javascript": {
-        "title": "JavaScript Scopes",
-        "description":
-          "Select which files containing JavaScript should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": [
-          "source.js",
-          "source.jsx",
-          "source.js.jsx",
-          "source.babel",
-          "source.js-semantic",
-          "text.html.basic",
-          "text.html.vue"
-        ],
-        "items": {
-          "type": "string"
-        },
-        "order": 1
-      },
-      "typescript": {
-        "title": "TypeScript Scopes",
-        "description":
-          "Select which files containing TypeScript should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": ["source.ts", "source.tsx", "source.ts.tsx"],
-        "items": {
-          "type": "string"
-        },
-        "order": 2
-      },
-      "css": {
-        "title": "CSS Scopes",
-        "description":
-          "Select which files containing CSS should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": [
-          "source.css",
-          "source.less",
-          "source.css.less",
-          "source.scss",
-          "source.css.scss",
-          "source.css.postcss"
-        ],
-        "items": {
-          "type": "string"
-        },
-        "order": 3
-      },
-      "json": {
-        "title": "JSON Scopes",
-        "description":
-          "Select which files containing JSON should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": ["source.json"],
-        "items": {
-          "type": "string"
-        },
-        "order": 4
-      },
-      "graphQl": {
-        "title": "GraphQL Scopes",
-        "description":
-          "Select which files containing GraphQL should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": ["source.graphql"],
-        "items": {
-          "type": "string"
-        },
-        "order": 5
-      },
-      "markdown": {
-        "title": "Markdown Scopes",
-        "description":
-          "Select which files containing Markdown should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": ["source.md", "source.gfm", "text.md"],
-        "items": {
-          "type": "string"
-        },
-        "order": 6
-      },
-      "vue": {
-        "title": "Vue Scopes",
-        "description":
-          "Select which files qualify as Vue Single File Components and should be formatted.<br>Use `Editor: Log Cursor Scope` to determine the scopes for a file.",
-        "type": "array",
-        "default": ["text.html.vue"],
-        "items": {
-          "type": "string"
-        },
-        "order": 7
       }
     }
   }

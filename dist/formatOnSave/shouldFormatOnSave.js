@@ -1,13 +1,12 @@
 'use strict';
 
 const _ = require('lodash/fp');
-const { someGlobsMatchFilePath, getPrettierInstance } = require('../helpers');
-const { getCurrentFilePath, getCurrentScope } = require('../editorInterface');
+const { getPrettierInstance, someGlobsMatchFilePath } = require('../helpers');
+const { getCurrentFilePath, isInScope } = require('../editorInterface');
 const {
-  isFormatOnSaveEnabled,
-  getAllScopes,
   getExcludedGlobs,
   getWhitelistedGlobs,
+  isFormatOnSaveEnabled,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
   shouldRespectEslintignore
@@ -18,25 +17,28 @@ const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = editor => !!getCurrentFilePath(editor);
 
-const isInScope = editor => getAllScopes().includes(getCurrentScope(editor));
-
 const filePathDoesNotMatchBlacklistGlobs = _.flow(getCurrentFilePath, filePath => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath));
 
 // $FlowFixMe
 const noWhitelistGlobsPresent = _.flow(getWhitelistedGlobs, _.isEmpty);
 
 const isFilePathWhitelisted = _.flow(getCurrentFilePath, filePath => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath));
+
 const isEslintIgnored = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
 const isFilePathNotPrettierIgnored = _.flow(getCurrentFilePath, _.negate(isFilePathPrettierIgnored));
 
-const isPrettierConfigPresent = (editor
+const isResolveConfigDefined = (editor
 // $FlowFixMe
-) => !!getPrettierInstance(editor).resolveConfig.sync &&
+) => !!getPrettierInstance(editor).resolveConfig.sync;
+
+const isResolveConfigSuccessful = (editor
 // $FlowFixMe
-_.flow(getCurrentFilePath,
+) => _.flow(getCurrentFilePath,
 // $FlowFixMe
 getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+
+const isPrettierConfigPresent = _.overEvery([isResolveConfigDefined, isResolveConfigSuccessful]);
 
 const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent])]);
 
