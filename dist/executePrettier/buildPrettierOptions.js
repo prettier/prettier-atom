@@ -6,47 +6,41 @@ var _extends3 = _interopRequireDefault(_extends2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _ = require('lodash/fp');
-var editorconfig = require('editorconfig');
-var editorconfigToPretter = require('editorconfig-to-prettier');
+const _ = require('lodash/fp');
+const editorconfig = require('editorconfig');
+const editorconfigToPretter = require('editorconfig-to-prettier');
+const {
+  getCurrentFilePath,
+  isCurrentScopeTypescriptScope,
+  isCurrentScopeCssScope,
+  isCurrentScopeJsonScope,
+  isCurrentScopeGraphQlScope,
+  isCurrentScopeMarkdownScope,
+  isCurrentScopeVueScope
+} = require('../editorInterface');
+const { shouldUseEditorConfig, getPrettierOptions, getAtomTabLength } = require('../atomInterface');
+const { getPrettierInstance } = require('../helpers');
 
-var _require = require('../editorInterface'),
-    getCurrentFilePath = _require.getCurrentFilePath,
-    isCurrentScopeTypescriptScope = _require.isCurrentScopeTypescriptScope,
-    isCurrentScopeCssScope = _require.isCurrentScopeCssScope,
-    isCurrentScopeJsonScope = _require.isCurrentScopeJsonScope,
-    isCurrentScopeGraphQlScope = _require.isCurrentScopeGraphQlScope,
-    isCurrentScopeMarkdownScope = _require.isCurrentScopeMarkdownScope,
-    isCurrentScopeVueScope = _require.isCurrentScopeVueScope;
+const isDefined = _.negate(_.isNil);
 
-var _require2 = require('../atomInterface'),
-    shouldUseEditorConfig = _require2.shouldUseEditorConfig,
-    getPrettierOptions = _require2.getPrettierOptions,
-    getAtomTabLength = _require2.getAtomTabLength;
+const buildEditorConfigOptions = _.flow(editorconfig.parseSync, editorconfigToPretter);
 
-var _require3 = require('../helpers'),
-    getPrettierInstance = _require3.getPrettierInstance;
+const isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseEditorConfig]);
 
-var isDefined = _.negate(_.isNil);
+const buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
 
-var buildEditorConfigOptions = _.flow(editorconfig.parseSync, editorconfigToPretter);
-
-var isAppropriateToBuildEditorConfigOptions = _.overEvery([isDefined, shouldUseEditorConfig]);
-
-var buildEditorConfigOptionsIfAppropriate = _.flow(getCurrentFilePath, _.cond([[isAppropriateToBuildEditorConfigOptions, buildEditorConfigOptions]]));
-
-var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), function (editor) {
+const getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), editor => {
   // $FlowFixMe
-  var hasResolveConfigSync = isDefined(getPrettierInstance(editor).resolveConfig.sync);
+  const hasResolveConfigSync = isDefined(getPrettierInstance(editor).resolveConfig.sync);
   if (!hasResolveConfigSync) return null;
 
   // $FlowFixMe
-  var resolveConfigSync = getPrettierInstance(editor).resolveConfig.sync;
-  var filePath = getCurrentFilePath(editor);
+  const resolveConfigSync = getPrettierInstance(editor).resolveConfig.sync;
+  const filePath = getCurrentFilePath(editor);
 
   // TODO: when davidtheclark/cosmiconfig#107 is merged, this logic should
   //   be modified to treat an empty file as an empty object.
-  var prettierConfig = resolveConfigSync(filePath);
+  let prettierConfig = resolveConfigSync(filePath);
 
   // We only want to resolve with editorconfig when a prettier configuration
   //   is found in the first place.
@@ -57,8 +51,8 @@ var getPrettierConfigOptions = _.cond([[_.flow(getCurrentFilePath, isDefined), f
   return prettierConfig || null;
 }]]);
 
-var getScopeSpecificSettings = function getScopeSpecificSettings(editor) {
-  var scopeSpecificSettings = {};
+const getScopeSpecificSettings = editor => {
+  const scopeSpecificSettings = {};
 
   if (isCurrentScopeTypescriptScope(editor)) {
     scopeSpecificSettings.parser = 'typescript';
@@ -88,8 +82,8 @@ var getScopeSpecificSettings = function getScopeSpecificSettings(editor) {
   return scopeSpecificSettings;
 };
 
-var getOptionsFromSettings = function getOptionsFromSettings(editor, scopeSpecificSettings) {
-  var optionsFromSettings = getPrettierOptions();
+const getOptionsFromSettings = (editor, scopeSpecificSettings) => {
+  const optionsFromSettings = getPrettierOptions();
 
   if (optionsFromSettings.tabWidth === 'auto') {
     optionsFromSettings.tabWidth = getAtomTabLength(editor);
@@ -98,9 +92,9 @@ var getOptionsFromSettings = function getOptionsFromSettings(editor, scopeSpecif
   return (0, _extends3.default)({}, optionsFromSettings, scopeSpecificSettings, buildEditorConfigOptionsIfAppropriate(editor));
 };
 
-var buildPrettierOptions = function buildPrettierOptions(editor) {
-  var prettierConfigOptions = getPrettierConfigOptions(editor);
-  var scopeSpecificSettings = getScopeSpecificSettings(editor);
+const buildPrettierOptions = editor => {
+  const prettierConfigOptions = getPrettierConfigOptions(editor);
+  const scopeSpecificSettings = getScopeSpecificSettings(editor);
 
   if (prettierConfigOptions) {
     return (0, _extends3.default)({}, scopeSpecificSettings, prettierConfigOptions);

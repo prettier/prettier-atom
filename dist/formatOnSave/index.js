@@ -1,33 +1,16 @@
 'use strict';
 
-var _ = require('lodash/fp');
+const _ = require('lodash/fp');
+const { clearLinterErrors } = require('../linterInterface');
+const { isCurrentScopeEmbeddedScope, getBufferRange } = require('../editorInterface');
+const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('../executePrettier');
+const { attemptWithErrorNotification } = require('../atomInterface');
+const shouldFormatOnSave = require('./shouldFormatOnSave');
 
-var _require = require('../linterInterface'),
-    clearLinterErrors = _require.clearLinterErrors;
+const callAppropriatePrettierExecutor = editor => isCurrentScopeEmbeddedScope(editor) ? executePrettierOnEmbeddedScripts(editor) : executePrettierOnBufferRange(editor, getBufferRange(editor), { setTextViaDiff: true });
 
-var _require2 = require('../editorInterface'),
-    isCurrentScopeEmbeddedScope = _require2.isCurrentScopeEmbeddedScope,
-    getBufferRange = _require2.getBufferRange;
+const formatOnSaveIfAppropriate = _.flow(_.tap(clearLinterErrors), _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]));
 
-var _require3 = require('../executePrettier'),
-    executePrettierOnBufferRange = _require3.executePrettierOnBufferRange,
-    executePrettierOnEmbeddedScripts = _require3.executePrettierOnEmbeddedScripts;
-
-var _require4 = require('../atomInterface'),
-    attemptWithErrorNotification = _require4.attemptWithErrorNotification;
-
-var shouldFormatOnSave = require('./shouldFormatOnSave');
-
-var callAppropriatePrettierExecutor = function callAppropriatePrettierExecutor(editor) {
-  return isCurrentScopeEmbeddedScope(editor) ? executePrettierOnEmbeddedScripts(editor) : executePrettierOnBufferRange(editor, getBufferRange(editor), { setTextViaDiff: true });
-};
-
-var formatOnSaveIfAppropriate = _.flow(_.tap(clearLinterErrors), _.cond([[shouldFormatOnSave, callAppropriatePrettierExecutor]]));
-
-var safeFormatOnSaveIfAppropriate = function safeFormatOnSaveIfAppropriate(editor) {
-  return attemptWithErrorNotification(function () {
-    return formatOnSaveIfAppropriate(editor);
-  });
-};
+const safeFormatOnSaveIfAppropriate = editor => attemptWithErrorNotification(() => formatOnSaveIfAppropriate(editor));
 
 module.exports = safeFormatOnSaveIfAppropriate;

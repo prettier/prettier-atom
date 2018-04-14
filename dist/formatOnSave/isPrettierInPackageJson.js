@@ -1,32 +1,23 @@
 'use strict';
 
-var _ = require('lodash/fp');
-var readPgkUp = require('read-pkg-up');
+const _ = require('lodash/fp');
+const readPgkUp = require('read-pkg-up');
 
-var _require = require('../editorInterface'),
-    getCurrentDir = _require.getCurrentDir;
+const { getCurrentDir } = require('../editorInterface');
+const { shouldUseEslint } = require('../atomInterface');
 
-var _require2 = require('../atomInterface'),
-    shouldUseEslint = _require2.shouldUseEslint;
+const hasPackageDependency = packageName => _.flow(_.get('pkg.dependencies'), _.has(packageName));
 
-var hasPackageDependency = function hasPackageDependency(packageName) {
-  return _.flow(_.get('pkg.dependencies'), _.has(packageName));
-};
+const hasPackageDevDependency = packageName => _.flow(_.get('pkg.devDependencies'), _.has(packageName));
 
-var hasPackageDevDependency = function hasPackageDevDependency(packageName) {
-  return _.flow(_.get('pkg.devDependencies'), _.has(packageName));
-};
+const hasPackage = packageName => _.overSome([hasPackageDependency(packageName), hasPackageDevDependency(packageName)]);
 
-var hasPackage = function hasPackage(packageName) {
-  return _.overSome([hasPackageDependency(packageName), hasPackageDevDependency(packageName)]);
-};
-
-var readContentsOfNearestPackageJson = _.flow(getCurrentDir,
+const readContentsOfNearestPackageJson = _.flow(getCurrentDir,
 // $FlowIssue: lodashfp placeholders not supported yet
 _.set('cwd', _, {}), readPgkUp.sync);
 
-var isPrettierInPackageJson = _.flow(readContentsOfNearestPackageJson, hasPackage('prettier'));
+const isPrettierInPackageJson = _.flow(readContentsOfNearestPackageJson, hasPackage('prettier'));
 
-var isPrettierEslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli'), hasPackage('eslint-plugin-prettier')]));
+const isPrettierEslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli'), hasPackage('eslint-plugin-prettier')]));
 
 module.exports = _.cond([[shouldUseEslint, isPrettierEslintInPackageJson], [_.stubTrue, isPrettierInPackageJson]]);

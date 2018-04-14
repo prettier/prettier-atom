@@ -1,15 +1,13 @@
 'use strict';
 
-var createStatusTile = require('./createStatusTile');
-var updateStatusTile = require('./updateStatusTile');
-var updateStatusTileScope = require('./updateStatusTileScope');
-
-var _require = require('./tooltip'),
-    disposeTooltip = _require.disposeTooltip;
+const createStatusTile = require('./createStatusTile');
+const updateStatusTile = require('./updateStatusTile');
+const updateStatusTileScope = require('./updateStatusTileScope');
+const { disposeTooltip } = require('./tooltip');
 
 module.exports = {
-  createStatusTile: createStatusTile,
-  updateStatusTile: updateStatusTile,
-  updateStatusTileScope: updateStatusTileScope,
-  disposeTooltip: disposeTooltip
+  createStatusTile,
+  updateStatusTile,
+  updateStatusTileScope,
+  disposeTooltip
 };

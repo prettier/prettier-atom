@@ -1,32 +1,16 @@
 'use strict';
 
-var _ = require('lodash/fp');
+const _ = require('lodash/fp');
+const { executePrettierOnBufferRange, executePrettierOnEmbeddedScripts } = require('../executePrettier');
+const { getBufferRange, isCurrentScopeEmbeddedScope } = require('../editorInterface');
+const { clearLinterErrors } = require('../linterInterface');
 
-var _require = require('../executePrettier'),
-    executePrettierOnBufferRange = _require.executePrettierOnBufferRange,
-    executePrettierOnEmbeddedScripts = _require.executePrettierOnEmbeddedScripts;
+const hasSelectedText = editor => !!editor.getSelectedText();
 
-var _require2 = require('../editorInterface'),
-    getBufferRange = _require2.getBufferRange,
-    isCurrentScopeEmbeddedScope = _require2.isCurrentScopeEmbeddedScope;
+const formatSelectedBufferRanges = editor => editor.getSelectedBufferRanges().forEach(bufferRange => executePrettierOnBufferRange(editor, bufferRange));
 
-var _require3 = require('../linterInterface'),
-    clearLinterErrors = _require3.clearLinterErrors;
+const executePrettierOnCurrentBufferRange = editor => executePrettierOnBufferRange(editor, getBufferRange(editor));
 
-var hasSelectedText = function hasSelectedText(editor) {
-  return !!editor.getSelectedText();
-};
-
-var formatSelectedBufferRanges = function formatSelectedBufferRanges(editor) {
-  return editor.getSelectedBufferRanges().forEach(function (bufferRange) {
-    return executePrettierOnBufferRange(editor, bufferRange);
-  });
-};
-
-var executePrettierOnCurrentBufferRange = function executePrettierOnCurrentBufferRange(editor) {
-  return executePrettierOnBufferRange(editor, getBufferRange(editor));
-};
-
-var format = _.flow(_.tap(clearLinterErrors), _.cond([[hasSelectedText, formatSelectedBufferRanges], [isCurrentScopeEmbeddedScope, executePrettierOnEmbeddedScripts], [_.stubTrue, executePrettierOnCurrentBufferRange]]));
+const format = _.flow(_.tap(clearLinterErrors), _.cond([[hasSelectedText, formatSelectedBufferRanges], [isCurrentScopeEmbeddedScope, executePrettierOnEmbeddedScripts], [_.stubTrue, executePrettierOnCurrentBufferRange]]));
 
 module.exports = format;

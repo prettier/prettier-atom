@@ -1,10 +1,7 @@
 'use strict';
 
-var _require = require('../atomInterface'),
-    isFormatOnSaveEnabled = _require.isFormatOnSaveEnabled;
+const { isFormatOnSaveEnabled } = require('../atomInterface');
 
-var getFormatOnSaveStatus = function getFormatOnSaveStatus() {
-  return isFormatOnSaveEnabled() ? 'enabled' : 'disabled';
-};
+const getFormatOnSaveStatus = () => isFormatOnSaveEnabled() ? 'enabled' : 'disabled';
 
 module.exports = getFormatOnSaveStatus;
