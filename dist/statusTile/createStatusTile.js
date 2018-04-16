@@ -1,13 +1,11 @@
 'use strict';
 
-var getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
+const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
+const { toggleFormatOnSave } = require('../atomInterface');
 
-var _require = require('../atomInterface'),
-    toggleFormatOnSave = _require.toggleFormatOnSave;
-
-var createStatusTile = function createStatusTile() {
-  var element = document.createElement('div');
-  var prettierTextNode = document.createTextNode('Prettier');
+const createStatusTile = () => {
+  const element = document.createElement('div');
+  const prettierTextNode = document.createTextNode('Prettier');
 
   element.appendChild(prettierTextNode);
   element.classList.add('prettier-status-tile');

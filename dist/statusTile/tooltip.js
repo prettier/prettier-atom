@@ -1,16 +1,14 @@
 "use strict";
 
-var tooltip = null;
+let tooltip = null;
 
-var disposeTooltip = function disposeTooltip() {
-  return tooltip && tooltip.dispose;
-};
+const disposeTooltip = () => tooltip && tooltip.dispose;
 
-var setTooltip = function setTooltip(nextTooltip) {
+const setTooltip = nextTooltip => {
   tooltip = nextTooltip;
 };
 
 module.exports = {
-  disposeTooltip: disposeTooltip,
-  setTooltip: setTooltip
+  disposeTooltip,
+  setTooltip
 };

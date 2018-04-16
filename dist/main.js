@@ -1,80 +1,50 @@
 'use strict';
 
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var config = require('./config-schema.json');
+const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
-
-var _require = require('atom'),
-    CompositeDisposable = _require.CompositeDisposable;
-
-var _require2 = require('./statusTile'),
-    createStatusTile = _require2.createStatusTile,
-    updateStatusTile = _require2.updateStatusTile,
-    updateStatusTileScope = _require2.updateStatusTileScope,
-    disposeTooltip = _require2.disposeTooltip;
-
-var linterInterface = require('./linterInterface');
+const { CompositeDisposable } = require('atom');
+const { createStatusTile, updateStatusTile, updateStatusTileScope, disposeTooltip } = require('./statusTile');
+const linterInterface = require('./linterInterface');
 
 // local helpers
-var format = null;
-var formatOnSave = null;
-var warnAboutLinterEslintFixOnSave = null;
-var displayDebugInfo = null;
-var toggleFormatOnSave = null;
-var subscriptions = null;
-var statusBarHandler = null;
-var statusBarTile = null;
-var tileElement = null;
+let format = null;
+let formatOnSave = null;
+let warnAboutLinterEslintFixOnSave = null;
+let displayDebugInfo = null;
+let toggleFormatOnSave = null;
+let subscriptions = null;
+let statusBarHandler = null;
+let statusBarTile = null;
+let tileElement = null;
 
 // HACK: lazy load most of the code we need for performance
-var lazyFormat = function lazyFormat() {
+const lazyFormat = () => {
   if (!format) format = require('./manualFormat'); // eslint-disable-line global-require
 
-  var editor = atom.workspace.getActiveTextEditor();
+  const editor = atom.workspace.getActiveTextEditor();
   if (editor) format(editor);
 };
 
 // HACK: lazy load most of the code we need for performance
-var lazyFormatOnSave = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(editor) {
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
-
-            if (!editor) {
-              _context.next = 4;
-              break;
-            }
-
-            _context.next = 4;
-            return formatOnSave(editor);
-
-          case 4:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, undefined);
-  }));
+const lazyFormatOnSave = (() => {
+  var _ref = (0, _asyncToGenerator3.default)(function* (editor) {
+    if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
+    if (editor) yield formatOnSave(editor);
+  });
 
   return function lazyFormatOnSave(_x) {
     return _ref.apply(this, arguments);
   };
-}();
+})();
 
 // HACK: lazy load most of the code we need for performance
-var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOnSave() {
+const lazyWarnAboutLinterEslintFixOnSave = () => {
   if (!warnAboutLinterEslintFixOnSave) {
     // eslint-disable-next-line global-require
     warnAboutLinterEslintFixOnSave = require('./warnAboutLinterEslintFixOnSave');
@@ -83,7 +53,7 @@ var lazyWarnAboutLinterEslintFixOnSave = function lazyWarnAboutLinterEslintFixOn
 };
 
 // HACK: lazy load most of the code we need for performance
-var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
+const lazyDisplayDebugInfo = () => {
   if (!displayDebugInfo) {
     // eslint-disable-next-line global-require
     displayDebugInfo = require('./displayDebugInfo');
@@ -91,7 +61,7 @@ var lazyDisplayDebugInfo = function lazyDisplayDebugInfo() {
   displayDebugInfo();
 };
 
-var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
+const lazyToggleFormatOnSave = () => {
   if (!toggleFormatOnSave) {
     // eslint-disable-next-line global-require,prefer-destructuring
     toggleFormatOnSave = require('./atomInterface').toggleFormatOnSave;
@@ -99,7 +69,7 @@ var lazyToggleFormatOnSave = function lazyToggleFormatOnSave() {
   toggleFormatOnSave();
 };
 
-var attachStatusTile = function attachStatusTile() {
+const attachStatusTile = () => {
   if (statusBarHandler) {
     tileElement = createStatusTile();
     statusBarTile = statusBarHandler.addLeftTile({
@@ -108,39 +78,28 @@ var attachStatusTile = function attachStatusTile() {
     });
     updateStatusTile(subscriptions, tileElement);
 
-    subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', function () {
-      return updateStatusTile(subscriptions, tileElement);
-    }));
+    subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.enabled', () => updateStatusTile(subscriptions, tileElement)));
     subscriptions.add(
     // onDidChangeActiveTextEditor is only available in Atom 1.18.0+.
-    atom.workspace.onDidChangeActiveTextEditor ? atom.workspace.onDidChangeActiveTextEditor(function (editor) {
-      return updateStatusTileScope(tileElement, editor);
-    }) : atom.workspace.onDidChangeActivePaneItem(function () {
-      return updateStatusTileScope(tileElement, atom.workspace.getActiveTextEditor());
-    }));
+    atom.workspace.onDidChangeActiveTextEditor ? atom.workspace.onDidChangeActiveTextEditor(editor => updateStatusTileScope(tileElement, editor)) : atom.workspace.onDidChangeActivePaneItem(() => updateStatusTileScope(tileElement, atom.workspace.getActiveTextEditor())));
   }
 };
 
-var detachStatusTile = function detachStatusTile() {
+const detachStatusTile = () => {
   disposeTooltip();
   if (statusBarTile) {
     statusBarTile.destroy();
   }
 };
 
-var loadPackageDeps = function loadPackageDeps() {
-  return (
-    // eslint-disable-next-line global-require
-    require('atom-package-deps').install('prettier-atom')
-    // eslint-disable-next-line no-console
-    .then(function () {
-      return console.log('All dependencies installed, good to go');
-    })
-  );
-};
+const loadPackageDeps = () =>
+// eslint-disable-next-line global-require
+require('atom-package-deps').install('prettier-atom')
+// eslint-disable-next-line no-console
+.then(() => console.log('All dependencies installed, good to go'));
 
 // public API
-var activate = function activate() {
+const activate = () => {
   loadPackageDeps();
 
   subscriptions = new CompositeDisposable();
@@ -149,20 +108,10 @@ var activate = function activate() {
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', lazyToggleFormatOnSave));
 
-  subscriptions.add(atom.workspace.observeTextEditors(function (editor) {
-    return subscriptions.add(editor.getBuffer().onWillSave(function () {
-      return lazyFormatOnSave(editor);
-    }));
-  }));
-  subscriptions.add(atom.config.observe('linter-eslint.fixOnSave', function () {
-    return lazyWarnAboutLinterEslintFixOnSave();
-  }));
-  subscriptions.add(atom.config.observe('prettier-atom.useEslint', function () {
-    return lazyWarnAboutLinterEslintFixOnSave();
-  }));
-  subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', function (show) {
-    return show ? attachStatusTile() : detachStatusTile();
-  }));
+  subscriptions.add(atom.workspace.observeTextEditors(editor => subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor)))));
+  subscriptions.add(atom.config.observe('linter-eslint.fixOnSave', () => lazyWarnAboutLinterEslintFixOnSave()));
+  subscriptions.add(atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()));
+  subscriptions.add(atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', show => show ? attachStatusTile() : detachStatusTile()));
 
   // HACK: an Atom bug seems to be causing old configuration settings to linger for some users
   //       https://github.com/prettier/prettier-atom/issues/72
@@ -170,33 +119,33 @@ var activate = function activate() {
   atom.config.unset('prettier-atom.trailingComma');
 };
 
-var deactivate = function deactivate() {
+const deactivate = () => {
   subscriptions.dispose();
   detachStatusTile();
 };
 
-var consumeStatusBar = function consumeStatusBar(statusBar) {
+const consumeStatusBar = statusBar => {
   statusBarHandler = statusBar;
 
-  var showInStatusBar = atom.config.get('prettier-atom.formatOnSaveOptions.showInStatusBar');
+  const showInStatusBar = atom.config.get('prettier-atom.formatOnSaveOptions.showInStatusBar');
   if (showInStatusBar) {
     attachStatusTile();
   }
 };
 
-var consumeIndie = function consumeIndie(registerIndie) {
-  var linter = registerIndie({ name: 'Prettier' });
+const consumeIndie = registerIndie => {
+  const linter = registerIndie({ name: 'Prettier' });
   linterInterface.set(linter);
   subscriptions.add(linter);
 
   // Setting and clearing messages per filePath
-  subscriptions.add(atom.workspace.observeTextEditors(function (textEditor) {
-    var editorPath = textEditor.getPath();
+  subscriptions.add(atom.workspace.observeTextEditors(textEditor => {
+    const editorPath = textEditor.getPath();
     if (!editorPath) {
       return;
     }
 
-    var subscription = textEditor.onDidDestroy(function () {
+    const subscription = textEditor.onDidDestroy(() => {
       subscriptions.remove(subscription);
       linter.setMessages(editorPath, []);
     });
@@ -205,10 +154,10 @@ var consumeIndie = function consumeIndie(registerIndie) {
 };
 
 module.exports = {
-  activate: activate,
-  deactivate: deactivate,
-  config: config,
-  subscriptions: subscriptions,
-  consumeStatusBar: consumeStatusBar,
-  consumeIndie: consumeIndie
+  activate,
+  deactivate,
+  config,
+  subscriptions,
+  consumeStatusBar,
+  consumeIndie
 };

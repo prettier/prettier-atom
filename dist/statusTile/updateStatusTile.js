@@ -1,21 +1,16 @@
 'use strict';
 
-var _require = require('./tooltip'),
-    disposeTooltip = _require.disposeTooltip,
-    setTooltip = _require.setTooltip;
+const { disposeTooltip, setTooltip } = require('./tooltip');
+const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
+const { addTooltip } = require('../atomInterface');
 
-var getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
-
-var _require2 = require('../atomInterface'),
-    addTooltip = _require2.addTooltip;
-
-var updateStatusTile = function updateStatusTile(disposable, element) {
+const updateStatusTile = (disposable, element) => {
   disposeTooltip();
 
   element.dataset.prettierFormatOnSave = getFormatOnSaveStatus(); // eslint-disable-line no-param-reassign
 
-  var newTooltip = addTooltip(element, {
-    title: 'Format on Save: ' + getFormatOnSaveStatus() + '<br>Click to toggle'
+  const newTooltip = addTooltip(element, {
+    title: `Format on Save: ${getFormatOnSaveStatus()}<br>Click to toggle`
   });
 
   setTooltip(newTooltip);

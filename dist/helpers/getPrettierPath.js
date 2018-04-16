@@ -1,32 +1,21 @@
 'use strict';
 
-var _require = require('./general'),
-    findCachedFromFilePath = _require.findCachedFromFilePath;
+const { findCachedFromFilePath } = require('./general');
+const path = require('path');
+const { findCached } = require('atom-linter');
+const globalModules = require('global-modules');
+const yarnGlobalModules = require('yarn-global-modules')();
 
-var path = require('path');
+const PRETTIER_INDEX_PATH = path.join('node_modules', 'prettier', 'index.js');
 
-var _require2 = require('atom-linter'),
-    findCached = _require2.findCached;
+const getGlobalPrettierPath = () => findCached(globalModules, PRETTIER_INDEX_PATH) || findCached(yarnGlobalModules, PRETTIER_INDEX_PATH);
 
-var globalModules = require('global-modules');
-var yarnGlobalModules = require('yarn-global-modules')();
+const getLocalPrettierPath = filePath => findCachedFromFilePath(filePath, PRETTIER_INDEX_PATH);
 
-var PRETTIER_INDEX_PATH = path.join('node_modules', 'prettier', 'index.js');
-
-var getGlobalPrettierPath = function getGlobalPrettierPath() {
-  return findCached(globalModules, PRETTIER_INDEX_PATH) || findCached(yarnGlobalModules, PRETTIER_INDEX_PATH);
-};
-
-var getLocalPrettierPath = function getLocalPrettierPath(filePath) {
-  return findCachedFromFilePath(filePath, PRETTIER_INDEX_PATH);
-};
-
-var getLocalOrGlobalPrettierPath = function getLocalOrGlobalPrettierPath(filePath) {
-  return getLocalPrettierPath(filePath) || getGlobalPrettierPath();
-};
+const getLocalOrGlobalPrettierPath = filePath => getLocalPrettierPath(filePath) || getGlobalPrettierPath();
 
 module.exports = {
-  getGlobalPrettierPath: getGlobalPrettierPath,
-  getLocalPrettierPath: getLocalPrettierPath,
-  getLocalOrGlobalPrettierPath: getLocalOrGlobalPrettierPath
+  getGlobalPrettierPath,
+  getLocalPrettierPath,
+  getLocalOrGlobalPrettierPath
 };
