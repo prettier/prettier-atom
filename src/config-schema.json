@@ -52,7 +52,7 @@
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
         "description":
-          "A list of file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
+          "A list of [.gitignore style](https://git-scm.com/docs/gitignore) file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
         "type": "array",
         "default": [],
         "order": 4
@@ -60,7 +60,7 @@
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
         "description":
-          "A list of file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
+          "A list of [.gitignore style](https://git-scm.com/docs/gitignore) file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
         "type": "array",
         "default": [],
         "order": 5
