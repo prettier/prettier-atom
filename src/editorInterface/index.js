@@ -1,8 +1,5 @@
 // @flow
-
 const path = require('path');
-
-const { getScopes } = require('../atomInterface');
 
 let flow;
 const lazyFlow = () => {
@@ -31,10 +28,10 @@ const isCurrentScopeEmbeddedScope = (editor: TextEditor) => EMBEDDED_SCOPES.incl
 const isCurrentScopeStyleLintScope = (editor: TextEditor) =>
   STYLELINT_SCOPES.includes(getCurrentScope(editor));
 
-const isInScope = (editor: TextEditor) => getScopes().includes(getCurrentScope(editor));
-
-const getCurrentFilePath: (editor: TextEditor) => ?FilePath = editor =>
+const getCurrentFilePath = (editor: TextEditor): ?FilePath =>
   editor.buffer.file ? editor.buffer.file.getPath() : undefined;
+
+const isCurrentFilePathDefined = (editor: ?TextEditor) => editor && !!getCurrentFilePath(editor);
 
 const getCurrentDir: (editor: TextEditor) => ?string = editor =>
   lazyFlow()(
@@ -44,9 +41,9 @@ const getCurrentDir: (editor: TextEditor) => ?string = editor =>
 
 module.exports = {
   getBufferRange,
+  isCurrentFilePathDefined,
   isCurrentScopeEmbeddedScope,
   isCurrentScopeStyleLintScope,
-  isInScope,
   getCurrentScope,
   getCurrentFilePath,
   getCurrentDir,

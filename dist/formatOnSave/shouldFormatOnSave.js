@@ -1,8 +1,13 @@
 'use strict';
 
 const _ = require('lodash/fp');
-const { getPrettierInstance, someGlobsMatchFilePath } = require('../helpers');
-const { getCurrentFilePath, isInScope } = require('../editorInterface');
+const {
+  getPrettierInstance,
+  someGlobsMatchFilePath,
+  isFileFormattable,
+  isPrettierProperVersion
+} = require('../helpers');
+const { getCurrentFilePath } = require('../editorInterface');
 const {
   getExcludedGlobs,
   getWhitelistedGlobs,
@@ -12,7 +17,6 @@ const {
   shouldRespectEslintignore
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
-const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = editor => !!getCurrentFilePath(editor);
@@ -26,20 +30,12 @@ const isFilePathWhitelisted = _.flow(getCurrentFilePath, filePath => someGlobsMa
 
 const isEslintIgnored = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
-const isFilePathNotPrettierIgnored = _.flow(getCurrentFilePath, _.negate(isFilePathPrettierIgnored));
-
-const isResolveConfigDefined = (editor
-// $FlowFixMe
-) => !!getPrettierInstance(editor).resolveConfig.sync;
-
-const isResolveConfigSuccessful = (editor
+const isPrettierConfigPresent = (editor
 // $FlowFixMe
 ) => _.flow(getCurrentFilePath,
 // $FlowFixMe
 getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
 
-const isPrettierConfigPresent = _.overEvery([isResolveConfigDefined, isResolveConfigSuccessful]);
-
-const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent])]);
+const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), isPrettierProperVersion, _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]), isFileFormattable]);
 
 module.exports = shouldFormatOnSave;

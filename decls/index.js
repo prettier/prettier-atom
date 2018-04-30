@@ -52,7 +52,12 @@ declare type Atom$Disposable = any;
 declare type Atom$View = any;
 declare type Atom$Workspace = any;
 declare type Atom$Command = { name: string, displayName: string };
-declare type Atom$Notifications$Options = { detail?: ?string, dismissable?: ?boolean };
+declare type Atom$Notifications$Options = {|
+  detail?: ?string,
+  dismissable?: ?boolean,
+  description?: ?string,
+  stack?: ?string,
+|};
 declare type Atom$Tooltips$Options = { title?: string };
 declare type Atom$ScopeDescriptor = Object;
 declare var atom: {
@@ -111,6 +116,7 @@ declare type Prettier$CursorResult = {
   formatted: any,
   cursorOffset: number,
 };
+declare type Prettier$FileInfo = { exists: boolean, ignored: boolean, inferredParser: string };
 declare type Linter$Message = {
   // NOTE: These are given by providers
   location: {

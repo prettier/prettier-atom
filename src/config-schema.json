@@ -15,36 +15,6 @@
     "default": false,
     "order": 2
   },
-  "scopes": {
-    "title": "Only format if a Prettier config is found",
-    "description":
-      "Select which files should be formatted.<br>Use the command `Editor: Log Cursor Scope` to determine the scopes for a file.",
-    "type": "array",
-    "default": [
-      "source.js",
-      "source.jsx",
-      "source.js.jsx",
-      "source.babel",
-      "source.js-semantic",
-      "text.html.basic",
-      "text.html.vue",
-      "source.css",
-      "source.less",
-      "source.css.less",
-      "source.scss",
-      "source.css.scss",
-      "source.css.postcss",
-      "source.json",
-      "source.graphql",
-      "source.md",
-      "source.gfm",
-      "text.md"
-    ],
-    "items": {
-      "type": "string"
-    },
-    "order": 3
-  },
   "formatOnSaveOptions": {
     "title": "Format on Save",
     "order": 4,

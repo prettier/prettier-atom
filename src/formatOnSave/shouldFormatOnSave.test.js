@@ -1,8 +1,9 @@
 jest.mock('../editorInterface');
 jest.mock('../atomInterface');
 jest.mock('../helpers/getPrettierInstance');
+jest.mock('../helpers/isPrettierProperVersion');
+jest.mock('../helpers/isFileFormattable');
 jest.mock('./isFilePathEslintIgnored');
-jest.mock('./isFilePathPrettierIgnored');
 jest.mock('./isPrettierInPackageJson');
 
 const createMockTextEditor = require('../../tests/mocks/textEditor');
@@ -15,9 +16,11 @@ const {
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const getPrettierInstance = require('../helpers/getPrettierInstance');
-const { getCurrentScope, getCurrentFilePath, isInScope } = require('../editorInterface');
+const isPrettierProperVersion = require('../helpers/isPrettierProperVersion');
+const isFileFormattable = require('../helpers/isFileFormattable');
+
+const { getCurrentFilePath } = require('../editorInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
-const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const shouldFormatOnSave = require('./shouldFormatOnSave');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
@@ -26,10 +29,10 @@ const callShouldFormatOnSave = () => shouldFormatOnSave(createMockTextEditor());
 
 beforeEach(() => {
   isFormatOnSaveEnabled.mockImplementation(() => true);
-  isInScope.mockImplementation(() => true);
-  getCurrentScope.mockImplementation(() => 'js');
+  isFileFormattable.mockImplementation(() => true);
   getCurrentFilePath.mockImplementation(() => fakeCurrentFilePath);
   isFilePathEslintIgnored.mockImplementation(() => false);
+  isPrettierProperVersion.mockImplementation(() => true);
   isDisabledIfNotInPackageJson.mockImplementation(() => false);
   isDisabledIfNoConfigFile.mockImplementation(() => false);
 });
@@ -81,14 +84,6 @@ it('returns false if whitelist globs exist but the filepath does not match them'
   expect(actual).toBe(false);
 });
 
-it('returns false if the filepath is not in scope', () => {
-  isInScope.mockImplementation(() => false);
-
-  const actual = callShouldFormatOnSave();
-
-  expect(actual).toBe(false);
-});
-
 it('returns false if the filepath is eslintignored and eslintignore should be respected', () => {
   shouldRespectEslintignore.mockImplementation(() => true);
   isFilePathEslintIgnored.mockImplementation(() => true);
@@ -114,14 +109,6 @@ it('returns true if the filepath is not eslintignored', () => {
   const actual = callShouldFormatOnSave();
 
   expect(actual).toBe(true);
-});
-
-it('returns false if the filepath is prettier ignored', () => {
-  isFilePathPrettierIgnored.mockImplementation(() => true);
-
-  const actual = callShouldFormatOnSave();
-
-  expect(actual).toBe(false);
 });
 
 it('returns true if prettier needs to be in package json and is found in package json', () => {
@@ -162,4 +149,20 @@ it("returns false if prettier config file needs to be present and it isn't", () 
 
   expect(actual).toBe(false);
   expect(fakeSync).toHaveBeenCalledWith(fakeCurrentFilePath);
+});
+
+it('returns false if the file is not formattable by Prettier', () => {
+  isFileFormattable.mockImplementation(() => false);
+
+  const actual = callShouldFormatOnSave();
+
+  expect(actual).toBe(false);
+});
+
+it('returns false if the prettier is not the proper version', () => {
+  isPrettierProperVersion.mockImplementation(() => false);
+
+  const actual = callShouldFormatOnSave();
+
+  expect(actual).toBe(false);
 });

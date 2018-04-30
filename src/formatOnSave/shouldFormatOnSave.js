@@ -1,7 +1,12 @@
 // @flow
 const _ = require('lodash/fp');
-const { getPrettierInstance, someGlobsMatchFilePath } = require('../helpers');
-const { getCurrentFilePath, isInScope } = require('../editorInterface');
+const {
+  getPrettierInstance,
+  someGlobsMatchFilePath,
+  isFileFormattable,
+  isPrettierProperVersion,
+} = require('../helpers');
+const { getCurrentFilePath } = require('../editorInterface');
 const {
   getExcludedGlobs,
   getWhitelistedGlobs,
@@ -11,7 +16,6 @@ const {
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
-const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = (editor: TextEditor) => !!getCurrentFilePath(editor);
@@ -37,16 +41,7 @@ const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(
   isFilePathEslintIgnored,
 );
 
-const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
-  getCurrentFilePath,
-  _.negate(isFilePathPrettierIgnored),
-);
-
-const isResolveConfigDefined = (editor: TextEditor): boolean =>
-  // $FlowFixMe
-  !!getPrettierInstance(editor).resolveConfig.sync;
-
-const isResolveConfigSuccessful = (editor: TextEditor): boolean =>
+const isPrettierConfigPresent = (editor: TextEditor): boolean =>
   // $FlowFixMe
   _.flow(
     getCurrentFilePath,
@@ -55,23 +50,18 @@ const isResolveConfigSuccessful = (editor: TextEditor): boolean =>
     _.negate(_.isNil),
   )(editor);
 
-const isPrettierConfigPresent: TextEditor => boolean = _.overEvery([
-  isResolveConfigDefined,
-  isResolveConfigSuccessful,
-]);
-
 const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
   isFormatOnSaveEnabled,
   hasFilePath,
-  isInScope,
   _.overSome([
     isFilePathWhitelisted,
     _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs]),
   ]),
   _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]),
-  isFilePathNotPrettierIgnored,
   _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]),
+  isPrettierProperVersion,
   _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]),
+  isFileFormattable,
 ]);
 
 module.exports = shouldFormatOnSave;

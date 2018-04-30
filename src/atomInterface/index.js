@@ -38,8 +38,6 @@ const getAtomVersion = () => atom.getVersion();
 
 const getPrettierAtomConfig = () => atom.config.get('prettier-atom');
 
-const getScopes = () => getConfigOption('scopes');
-
 const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
 const getExcludedGlobs = () => getConfigOption('formatOnSaveOptions.excludedGlobs');
@@ -77,7 +75,6 @@ module.exports = {
   getAtomVersion,
   getPrettierAtomConfig,
   getPrettierEslintOptions,
-  getScopes,
   getWhitelistedGlobs,
   getExcludedGlobs,
   isDisabledIfNotInPackageJson,

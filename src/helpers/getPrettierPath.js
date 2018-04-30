@@ -1,5 +1,4 @@
 // @flow
-
 const { findCachedFromFilePath } = require('./general');
 const path = require('path');
 const { findCached } = require('atom-linter');
