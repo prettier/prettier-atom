@@ -42,8 +42,14 @@ const setErrorMessageInLinter = ({ editor, bufferRange, error }: HandleErrorArgs
   ]);
 
 const isSyntaxError: HandleErrorArgs => boolean = _.overSome([
-  _.flow(_.get('error.loc.start.line'), _.isInteger),
-  _.flow(_.get('error.loc.line'), _.isInteger),
+  _.flow(
+    _.get('error.loc.start.line'),
+    _.isInteger,
+  ),
+  _.flow(
+    _.get('error.loc.line'),
+    _.isInteger,
+  ),
 ]);
 
 const isFilePathPresent: HandleErrorArgs => boolean = _.flow(

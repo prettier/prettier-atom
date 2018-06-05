@@ -25,13 +25,19 @@ const filePathDoesNotMatchBlacklistGlobs: (editor: TextEditor) => boolean = _.fl
 );
 
 // $FlowFixMe
-const noWhitelistGlobsPresent: () => boolean = _.flow(getWhitelistedGlobs, _.isEmpty);
+const noWhitelistGlobsPresent: () => boolean = _.flow(
+  getWhitelistedGlobs,
+  _.isEmpty,
+);
 
 const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
   (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
-const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
+const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(
+  getCurrentFilePath,
+  isFilePathEslintIgnored,
+);
 
 const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
@@ -42,7 +48,12 @@ const isPrettierConfigPresent = (editor: TextEditor): boolean =>
   // $FlowFixMe
   !!getPrettierInstance(editor).resolveConfig.sync &&
   // $FlowFixMe
-  _.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+  _.flow(
+    getCurrentFilePath,
+    // $FlowFixMe
+    getPrettierInstance(editor).resolveConfig.sync,
+    _.negate(_.isNil),
+  )(editor);
 
 const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
   isFormatOnSaveEnabled,

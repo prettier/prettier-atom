@@ -16,7 +16,12 @@ const safeRelativePath = _.curry(
 
 const getFilePathRelativeToEslintignore = (filePath: FilePath): ?FilePath =>
   // $FlowIssue: lodashfp placeholders not supported yet
-  _.flow(getNearestEslintignorePath, getDirFromFilePath, safeRelativePath(_, filePath))(filePath);
+  _.flow(
+    getNearestEslintignorePath,
+    getDirFromFilePath,
+    // $FlowFixMe
+    safeRelativePath(_, filePath),
+  )(filePath);
 
 const getLinesFromFilePath = (filePath: ?FilePath) =>
   !!filePath && filePath.length > 0 ? fs.readFileSync(filePath, 'utf8').split(LINE_SEPERATOR_REGEX) : [];

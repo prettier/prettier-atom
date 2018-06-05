@@ -29,7 +29,7 @@
     "ignore": "^3.3.8",
     "lodash": "^4.17.10",
     "loophole": "^1.1.0",
-    "prettier": "1.12.1",
+    "prettier": "1.13.4",
     "prettier-eslint": "^8.8.1",
     "prettier-stylelint": "^0.4.2",
     "read-pkg-up": "^3.0.0",
