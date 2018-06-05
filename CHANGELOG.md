@@ -1,3 +1,20 @@
+<a name="0.54.0"></a>
+# [0.54.0](https://github.com/prettier/prettier-atom/compare/v0.53.0...v0.54.0) (2018-06-05)
+
+
+### Bug Fixes
+
+* **.babelrc:** Fix usage of babel-preset-env. ([78c10e3](https://github.com/prettier/prettier-atom/commit/78c10e3))
+* **dist/:** Rebuild dist to properly target electron[@1](https://github.com/1).4.0 ([831f086](https://github.com/prettier/prettier-atom/commit/831f086))
+
+
+### Features
+
+* **prettier:** bump to 1.13.4 ([1c7c30d](https://github.com/prettier/prettier-atom/commit/1c7c30d))
+* **prettier:** bump to version 1.12.1 ([b6638d2](https://github.com/prettier/prettier-atom/commit/b6638d2))
+
+
+
 <a name="0.53.0"></a>
 # [0.53.0](https://github.com/prettier/prettier-atom/compare/v0.52.0...v0.53.0) (2018-03-24)
 
