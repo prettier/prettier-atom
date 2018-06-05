@@ -17,7 +17,10 @@ const safePathParse = (filePath: FilePath) =>
   typeof filePath === 'string' && filePath.length > 0 ? path.parse(filePath) : undefined;
 
 // $FlowFixMe: calling `_.get` on possibly undefined value
-const getDirFromFilePath: (filePath: ?FilePath) => ?FilePath = _.flow(safePathParse, _.get('dir'));
+const getDirFromFilePath: (filePath: ?FilePath) => ?FilePath = _.flow(
+  safePathParse,
+  _.get('dir'),
+);
 
 const findCachedFromFilePath = (filePath: ?FilePath, name: string | Array<string>): ?FilePath =>
   _.flow(

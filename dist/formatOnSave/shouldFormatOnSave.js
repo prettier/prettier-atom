@@ -34,7 +34,9 @@ const isPrettierConfigPresent = (editor
 // $FlowFixMe
 ) => !!getPrettierInstance(editor).resolveConfig.sync &&
 // $FlowFixMe
-_.flow(getCurrentFilePath, getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
+_.flow(getCurrentFilePath,
+// $FlowFixMe
+getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
 
 const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, isInScope, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), isFilePathNotPrettierIgnored, _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent])]);
 
