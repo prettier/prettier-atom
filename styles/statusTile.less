@@ -12,7 +12,7 @@ div {
 
   // If Format on Save is enabled, make the label more visible.
   &[data-prettier-format-on-save='enabled'] {
-    color: @text-color-success;
+    // color is handled by adding or removing the text-success class when updating the status tile
     &::after {
       content: ' ✓';
     }

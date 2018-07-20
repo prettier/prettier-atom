@@ -293,6 +293,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "chrisdrackett",
+      "name": "Chris Drackett",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4378?v=4",
+      "profile": "https://github.com/chrisdrackett",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "repoType": "github"

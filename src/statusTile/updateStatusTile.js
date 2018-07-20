@@ -6,7 +6,15 @@ const { addTooltip } = require('../atomInterface');
 const updateStatusTile = (disposable: Atom$Disposable, element: HTMLElement) => {
   disposeTooltip();
 
-  element.dataset.prettierFormatOnSave = getFormatOnSaveStatus(); // eslint-disable-line no-param-reassign
+  const formatStatus = getFormatOnSaveStatus();
+
+  if (formatStatus === 'enabled') {
+    element.classList.add('text-success');
+  } else {
+    element.classList.remove('text-success');
+  }
+
+  element.dataset.prettierFormatOnSave = formatStatus; // eslint-disable-line no-param-reassign
 
   const newTooltip = addTooltip(element, {
     title: `Format on Save: ${getFormatOnSaveStatus()}<br>Click to toggle`,
