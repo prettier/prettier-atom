@@ -6,7 +6,13 @@ const updateStatusTile = require('./updateStatusTile');
 const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
 
 const callUpdateStatusTile = () => {
-  const div = { dataset: {} };
+  const div = {
+    dataset: {},
+    classList: {
+      add: jest.fn(),
+      remove: jest.fn(),
+    },
+  };
   const disposable = { add: jest.fn() };
 
   updateStatusTile(disposable, div);
