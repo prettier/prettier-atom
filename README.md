@@ -12,22 +12,19 @@
 [![All Contributors][all-contributors-badge]](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 
-Atom package to format your JavaScript, Typescript, CSS, Sass, and JSON using [Prettier](https://github.com/prettier/prettier).
-Optionally integrates with [ESLint](http://eslint.org/), [EditorConfig](http://editorconfig.org/), and [stylelint](https://stylelint.io/).
-
-## How to use it
-
-After [installation](#installation):
-- Enable 'format on save' to have prettier format your code upon saving
-- Run the command `Prettier: Format` to format your file manually
-  - Windows/Linux: <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
-  - Mac: <kbd>control</kbd> + <kbd>option</kbd> + <kbd>f</kbd>
-- By default, formatting will use your [prettier configuration](https://prettier.io/docs/en/configuration.html).
-  Otherwise it falls back to the prettier settings you chose in this plugin.
-
-## Demo
+Atom package to format your code using [Prettier](https://github.com/prettier/prettier).
 
 ![prettier demo](prettier-demo.gif)
+
+## Problems with Latest Release (v0.55.0)?
+
+We have recently switched to deferring most options to Prettier via a .prettierrc (or similar) file instead of specifying your options via the Atom package. This is to accommodate Prettier "plugins" which introduce all sorts of new functionality but can't work with the old paradigm.
+
+However, this requires Prettier **v1.13.4** or greater. If you are not ready to migrate, you can revert prettier-atom like this:
+
+```shell
+apm install prettier-atom@v0.54.0
+```
 
 ## Installation
 
@@ -39,47 +36,59 @@ Or go to _Settings → Install_ and search for `prettier-atom`.
 
 Make sure to restart Atom after the package is installed.
 
-## Detailed Usage
+## How to use
 
-Note: not every `prettier-atom` setting is explained below. You can explore them all in the plugin settings page.
+There are two ways to format your code:
 
-### How to Format
+- Automatically **format on save** (requires enabling in _Packages → Prettier → Toggle Format on Save_)
+- Run the command `Prettier: Format` to invoke Prettier manually
+  - Windows/Linux: <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>f</kbd>
+  - Mac: <kbd>control</kbd> + <kbd>option</kbd> + <kbd>f</kbd>
 
-There are two modes you can use:
+Prettier will search up the file tree looking for a [prettier config](https://prettier.io/docs/en/configuration.html) to use. If none is found, Prettier will use its default settings.
 
-* Automatically **format on save** (requires enabling in _Packages → Prettier → Toggle Format on Save_)
-* Invoke manually using the **keyboard shortcut** (if no selection, whole file is formatted): <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>F</kbd>
+Prettier will also respect your `.prettierignore` file.
 
-### What Version of Prettier Gets used?
+## What version of Prettier gets used?
 
-By default, we use the prettier instance in your project's 'node_modules' directory.  If one isn't found, then
-we fall back to using the version that comes bundled with the prettier-atom package.
+By default, we use the prettier instance in your project's `node_modules` directory. We highly recommend adding Prettier to your dependencies so that your team, CI tooling, and any scripts using Prettier all format code exactly the same way.
 
-### ESLint Integration
+If Prettier can't be found in your project's node modules, then
+we fall back to using the version that comes bundled with the prettier-atom package (version changes are documented in the [CHANGELOG](./CHANGELOG.md)).
 
-If you use ESLint, check the "ESLint Integration" checkbox and \*poof\*, everything should work (we use Kent Dodds's [`prettier-eslint`][prettier-eslint] plugin under the hood).
-We will recursively search up the file tree for your `package.json` and ESLint settings, and use them when formatting.
+## Configuring default rules
+
+Some users may not wish to create a new [Prettier config](https://prettier.io/docs/en/configuration.html) for every project. Because Prettier searches recursively up the filepath, you can place a global prettier config at `~/.prettierrc` to be used as a fallback.
+
+## Using ESLint
 
 ![prettier-eslint demo][prettier-eslint-demo]
 
-### EditorConfig
+There are three ways to use ESLint with Prettier and prettier-atom:
 
-Support is [built into prettier](https://prettier.io/blog/2017/12/05/1.9.0.html#add-editorconfig-support-3255-https-githubcom-prettier-prettier-pull-3255-by-josephfrazier-https-githubcom-josephfrazier).  It derives prettier settings from your `.editorconfig` file and formats accordingly.
+### 1. Use ESLint to run Prettier
 
-### stylelint
+You can opt not to use prettier-atom and instead configure ESLint to run prettier. ([see details](https://prettier.io/docs/en/eslint.html#use-eslint-to-run-prettier))
 
-stylelint is supported via [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint).
-It derives prettier settings from your [stylelint configuration](https://stylelint.io/user-guide/configuration/) and formats accordingly.
+### 2. Turn off ESLint's Formatting Rules
 
-## Questions?
+You can disable ESLint rules for things that Prettier itself fixes. This allows both tools to run alongside each other without conflicting with one another. ([see details](https://prettier.io/docs/en/eslint.html#turn-off-eslint-s-formatting-rules))
 
-More detailed descriptions of each option can be found in the Atom settings for this plugin.
+### 3. Use prettier-eslint
 
-Please open a pull request or file an issue if you notice bugs or something doesn't work as it should!
+The [prettier-eslint][prettier-eslint] package (shipped with prettier-atom) will recursively search up the file tree for your ESLint settings and infer the corresponding Prettier settings to use when formatting. After formatting, prettier-eslint will invoke ESLint to fix remaining issues. Check the "ESLint Integration" checkbox to enable.
 
-## Troubleshooting
+> Note: If you are using the [linter-eslint](https://github.com/AtomLinter/linter-eslint) package alongside prettier-atom, please **ensure you have unchecked its "Fix on save" checkbox**. Leaving it enabled will cause a race condition between prettier-atom and linter-eslint. After it has finished formatting your code, **prettier-atom will automatically invoke the linter package's `lint` command for you**.
 
-If Prettier (or prettier-eslint, if ESLint integration is enabled) is not formatting something properly, please open an issue on the relevant GitHub repository. This package is only integrating those projects to be used in Atom.
+## Using Stylelint
+
+The [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) package (shipped with prettier-atom) derives prettier settings from your [stylelint configuration](https://stylelint.io/user-guide/configuration/) to use when formatting. After formatting, prettier-stylelint will invoke Stylelint to fix remaining issues. Check the "Stylelint Integration" checkbox to enable.
+
+> Note: prettier-atom automatically detects when you are in an Atom scope that stylelint supports and switches to using it instead of normal Prettier when formatting that file.
+
+## Troubleshooting formatting problems
+
+If Prettier is not formatting something properly, please open an issue on the [Prettier repository](https://github.com/prettier/prettier), not this repository.
 
 ## Inspiration
 
@@ -101,6 +110,7 @@ Thanks goes to these people ([emoji key][emojis]):
 | [<img src="https://avatars3.githubusercontent.com/u/487068?v=3" width="100px;"/><br /><sub><b>Stephen John Sorensen</b></sub>](http://www.stephenjohnsorensen.com/)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=spudly "Code") | [<img src="https://avatars2.githubusercontent.com/u/13285808?v=3" width="100px;"/><br /><sub><b>Lukas Geiger</b></sub>](https://github.com/lgeiger)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=lgeiger "Code") [⚠️](https://github.com/prettier/prettier-atom/commits?author=lgeiger "Tests") | [<img src="https://avatars2.githubusercontent.com/u/1517854?v=3" width="100px;"/><br /><sub><b>Viktor Charypar</b></sub>](https://github.com/charypar)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=charypar "Code") [⚠️](https://github.com/prettier/prettier-atom/commits?author=charypar "Tests") | [<img src="https://avatars0.githubusercontent.com/u/1007436?v=3" width="100px;"/><br /><sub><b>Mats Högberg</b></sub>](http://mats.hgbrg.se)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=mhgbrg "Code") | [<img src="https://avatars0.githubusercontent.com/u/2602767?v=3" width="100px;"/><br /><sub><b>Roman</b></sub>](https://github.com/RoM4iK)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=RoM4iK "Code") | [<img src="https://avatars2.githubusercontent.com/u/1468518?v=3" width="100px;"/><br /><sub><b>vaibhav</b></sub>](https://vaibhavchatarkar.com)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=da-vaibhav "Code") | [<img src="https://avatars1.githubusercontent.com/u/1935696?v=3" width="100px;"/><br /><sub><b>Karl Horky</b></sub>](https://work.karlhorky.com)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=karlhorky "Code") |
 | [<img src="https://avatars3.githubusercontent.com/u/810438?v=3" width="100px;"/><br /><sub><b>Dan Abramov</b></sub>](http://twitter.com/dan_abramov)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=gaearon "Code") | [<img src="https://avatars3.githubusercontent.com/u/1227109?v=3" width="100px;"/><br /><sub><b>Murphy Randle</b></sub>](https://sploding.rocks)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=splodingsocks "Code") [🐛](https://github.com/prettier/prettier-atom/issues?q=author%3Asplodingsocks "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/8517072?v=3" width="100px;"/><br /><sub><b>Matthieu Lemoine</b></sub>](https://matthieulemoine.com)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=MatthieuLemoine "Code") | [<img src="https://avatars1.githubusercontent.com/u/37242?v=4" width="100px;"/><br /><sub><b>Ron Green</b></sub>](https://github.com/rgreenjr)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=rgreenjr "Code") | [<img src="https://avatars2.githubusercontent.com/u/1745854?v=4" width="100px;"/><br /><sub><b>Harold Treen</b></sub>](https://haroldtreen.com)<br />[🐛](https://github.com/prettier/prettier-atom/issues?q=author%3Aharoldtreen "Bug reports") [💻](https://github.com/prettier/prettier-atom/commits?author=haroldtreen "Code") | [<img src="https://avatars1.githubusercontent.com/u/3447641?v=4" width="100px;"/><br /><sub><b>Nikita Mashukov</b></sub>](https://github.com/ferdibiflator)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=ferdibiflator "Code") | [<img src="https://avatars0.githubusercontent.com/u/8203211?v=4" width="100px;"/><br /><sub><b>Sam Horton</b></sub>](https://github.com/SavePointSam)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=SavePointSam "Code") [⚠️](https://github.com/prettier/prettier-atom/commits?author=SavePointSam "Tests") |
 | [<img src="https://avatars2.githubusercontent.com/u/5957709?v=4" width="100px;"/><br /><sub><b>olsonpm</b></sub>](https://github.com/olsonpm)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=olsonpm "Code") | [<img src="https://avatars2.githubusercontent.com/u/63201?v=4" width="100px;"/><br /><sub><b>David Singleton</b></sub>](http://dsingleton.co.uk)<br />[📖](https://github.com/prettier/prettier-atom/commits?author=dsingleton "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4378?v=4" width="100px;"/><br /><sub><b>Chris Drackett</b></sub>](https://github.com/chrisdrackett)<br />[💻](https://github.com/prettier/prettier-atom/commits?author=chrisdrackett "Code") [🎨](#design-chrisdrackett "Design") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification. Contributions of any kind are welcome!

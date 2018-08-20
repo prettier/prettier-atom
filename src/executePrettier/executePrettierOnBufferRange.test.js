@@ -4,7 +4,6 @@ jest.mock('prettier');
 jest.mock('../atomInterface');
 jest.mock('../editorInterface');
 jest.mock('../helpers');
-jest.mock('./buildPrettierOptions');
 jest.mock('./handleError');
 
 const prettier = require('prettier');
@@ -16,9 +15,8 @@ const {
   shouldUseStylelint,
   runLinter,
 } = require('../atomInterface');
-const { getCurrentFilePath, isCurrentScopeCssScope } = require('../editorInterface');
+const { getCurrentFilePath, isCurrentScopeStyleLintScope } = require('../editorInterface');
 const { getPrettierInstance } = require('../helpers');
-const buildPrettierOptions = require('./buildPrettierOptions');
 const handleError = require('./handleError');
 const buildMockTextEditor = require('../../tests/mocks/textEditor');
 const executePrettierOnBufferRange = require('./executePrettierOnBufferRange');
@@ -34,7 +32,6 @@ beforeEach(() => {
   editor.getCursorBufferPosition.mockImplementation(() => ({ column: 0, row: 0 }));
   prettier.format.mockImplementation(() => formattedFixture);
   prettier.formatWithCursor.mockImplementation(() => formattedFixture);
-  buildPrettierOptions.mockImplementation(() => ({ useTabs: false }));
   getPrettierInstance.mockImplementation(() => prettier);
 });
 
@@ -58,7 +55,7 @@ it('uses Prettier#formatWithCursor', async () => {
   }));
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { useTabs: false, cursorOffset });
+  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { cursorOffset });
 });
 
 it('sets the transformed text via diff when the option is passed', async () => {
@@ -72,7 +69,7 @@ it('sets the transformed text via diff when the option is passed', async () => {
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture, { setTextViaDiff: true });
 
-  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { useTabs: false, cursorOffset: 0 });
+  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { cursorOffset: 0 });
   expect(setTextViaDiffMock).toHaveBeenCalled();
 
   // NOTE: there is currently a bug in prettier that causes formatWithCursor to
@@ -90,40 +87,27 @@ it('runs linter:lint if available to refresh linter highlighting', async () => {
 it('transforms the given buffer range using prettier-eslint if config enables it', async () => {
   shouldUseEslint.mockImplementation(() => true);
 
-  const fallbackPrettierOptions = { useTabs: false };
   const prettierLast = true;
 
   getPrettierEslintOptions.mockImplementation(() => ({ prettierLast }));
-  buildPrettierOptions.mockImplementation(() => fallbackPrettierOptions);
   getCurrentFilePath.mockImplementation(() => 'foo.js');
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-  expect(prettierEslint).toHaveBeenCalledWith({
-    fallbackPrettierOptions,
-    filePath: 'foo.js',
-    prettierLast,
-    text: sourceFixture,
-  });
+  expect(prettierEslint).toHaveBeenCalledWith({ filePath: 'foo.js', prettierLast, text: sourceFixture });
 });
 
 it('transforms the given buffer range using prettier-stylelint if scope is CSS and config enables it', async () => {
-  isCurrentScopeCssScope.mockImplementation(() => true);
+  isCurrentScopeStyleLintScope.mockImplementation(() => true);
   shouldUseStylelint.mockImplementation(() => true);
 
-  const prettierOptions = { tabWidth: false };
   const filePath = 'foo.js';
 
-  buildPrettierOptions.mockImplementation(() => prettierOptions);
   getCurrentFilePath.mockImplementation(() => filePath);
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-  expect(prettierStylelint.format).toHaveBeenCalledWith({
-    filePath,
-    prettierOptions,
-    text: sourceFixture,
-  });
+  expect(prettierStylelint.format).toHaveBeenCalledWith({ filePath, text: sourceFixture });
 });
 
 describe('when text in buffer range is already pretty', () => {

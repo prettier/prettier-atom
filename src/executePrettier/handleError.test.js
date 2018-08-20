@@ -122,3 +122,14 @@ it('displays errors in a popup if there is no filepath (linter requires a filepa
   expect(addErrorNotification).toHaveBeenCalled();
   expect(console.error).toHaveBeenCalledWith(error); // eslint-disable-line no-console
 });
+
+it('only logs, but does not display "Undefined" errors', () => {
+  // plugins cause lots of these and they're too spammy
+  getCurrentFilePath.mockImplementation(() => null);
+  const error = new Error('undefined');
+
+  handleError({ error });
+
+  expect(addErrorNotification).not.toHaveBeenCalled();
+  expect(console.error).toHaveBeenCalledWith('Prettier encountered an error:', error); // eslint-disable-line no-console
+});

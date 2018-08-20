@@ -1,23 +1,24 @@
 // @flow
 const _ = require('lodash/fp');
-const { someGlobsMatchFilePath, getPrettierInstance } = require('../helpers');
-const { getCurrentFilePath, getCurrentScope } = require('../editorInterface');
 const {
-  isFormatOnSaveEnabled,
-  getAllScopes,
+  getPrettierInstance,
+  someGlobsMatchFilePath,
+  isFileFormattable,
+  isPrettierProperVersion,
+} = require('../helpers');
+const { getCurrentFilePath } = require('../editorInterface');
+const {
   getExcludedGlobs,
   getWhitelistedGlobs,
+  isFormatOnSaveEnabled,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
-const isFilePathPrettierIgnored = require('./isFilePathPrettierIgnored');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = (editor: TextEditor) => !!getCurrentFilePath(editor);
-
-const isInScope = (editor: TextEditor) => getAllScopes().includes(getCurrentScope(editor));
 
 const filePathDoesNotMatchBlacklistGlobs: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
@@ -34,19 +35,13 @@ const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
   (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
+
 const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
   isFilePathEslintIgnored,
 );
 
-const isFilePathNotPrettierIgnored: (editor: TextEditor) => boolean = _.flow(
-  getCurrentFilePath,
-  _.negate(isFilePathPrettierIgnored),
-);
-
 const isPrettierConfigPresent = (editor: TextEditor): boolean =>
-  // $FlowFixMe
-  !!getPrettierInstance(editor).resolveConfig.sync &&
   // $FlowFixMe
   _.flow(
     getCurrentFilePath,
@@ -58,15 +53,15 @@ const isPrettierConfigPresent = (editor: TextEditor): boolean =>
 const shouldFormatOnSave: (editor: TextEditor) => boolean = _.overEvery([
   isFormatOnSaveEnabled,
   hasFilePath,
-  isInScope,
   _.overSome([
     isFilePathWhitelisted,
     _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs]),
   ]),
   _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]),
-  isFilePathNotPrettierIgnored,
   _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]),
+  isPrettierProperVersion,
   _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]),
+  isFileFormattable,
 ]);
 
 module.exports = shouldFormatOnSave;

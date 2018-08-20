@@ -27,6 +27,10 @@ const setErrorMessageInLinter = ({ editor, bufferRange, error }) => linter.setMe
 
 const isSyntaxError = _.overSome([_.flow(_.get('error.loc.start.line'), _.isInteger), _.flow(_.get('error.loc.line'), _.isInteger)]);
 
+const isUndefinedError = _.flow(_.get('error.message'),
+// $FlowIssue
+_.matches('undefined'));
+
 const isFilePathPresent = _.flow(_.get('editor'), getCurrentFilePath, _.negate(_.isNil));
 
 const displayErrorInPopup = args => console.error(args.error) || // eslint-disable-line no-console
@@ -35,6 +39,7 @@ addErrorNotification(`prettier-atom failed: ${args.error.message}`, {
   dismissable: true
 });
 
-const handleError = _.flow(_.cond([[_.overEvery([isSyntaxError, isFilePathPresent]), setErrorMessageInLinter], [_.stubTrue, displayErrorInPopup]]));
+const handleError = _.flow(_.cond([[_.overEvery([isSyntaxError, isFilePathPresent]), setErrorMessageInLinter], [isUndefinedError, args => console.error('Prettier encountered an error:', args.error)], // eslint-disable-line no-console
+[_.stubTrue, displayErrorInPopup]]));
 
 module.exports = handleError;

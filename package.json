@@ -23,8 +23,6 @@
     "atom-text-buffer-point": "^1.0.0",
     "atom-text-buffer-range": "^1.0.0",
     "babel-runtime": "^6.26.0",
-    "editorconfig": "^0.15.0",
-    "editorconfig-to-prettier": "^0.0.6",
     "global-modules": "^1.0.0",
     "ignore": "^3.3.8",
     "lodash": "^4.17.10",

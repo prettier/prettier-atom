@@ -2,7 +2,6 @@ const {
   runLinter,
   shouldUseEslint,
   shouldUseStylelint,
-  getPrettierOptions,
   getPrettierEslintOptions,
   isLinterEslintAutofixEnabled,
   toggleFormatOnSave,
@@ -120,31 +119,6 @@ describe('isLinterEslintAutofixEnabled()', () => {
     const actual = isLinterEslintAutofixEnabled();
 
     expect(actual).toBe(false);
-  });
-});
-
-describe('getPrettierOptions()', () => {
-  it('returns all prettier options', () => {
-    const mockGet = option =>
-      ({
-        'prettier-atom.prettierOptions': {
-          printWidth: 80,
-          tabWidth: 2,
-          parser: 'flow',
-          singleQuote: true,
-          trailingComma: true,
-          bracketSpacing: true,
-          semi: true,
-          useTabs: true,
-          jsxBracketSameLine: true,
-          arrowParens: 'avoid',
-        },
-      }[option]);
-    atom = { config: { get: mockGet } };
-
-    const actual = getPrettierOptions();
-
-    expect(actual).toMatchSnapshot();
   });
 });
 

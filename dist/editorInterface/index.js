@@ -2,15 +2,6 @@
 
 const path = require('path');
 
-const {
-  getCssScopes,
-  getTypescriptScopes,
-  getJsonScopes,
-  getGraphQlScopes,
-  getMarkdownScopes,
-  getVueScopes
-} = require('../atomInterface');
-
 let flow;
 const lazyFlow = () => {
   if (!flow) {
@@ -20,6 +11,7 @@ const lazyFlow = () => {
 };
 
 const EMBEDDED_SCOPES = ['text.html.basic'];
+const STYLELINT_SCOPES = ['source.css', 'source.less', 'source.css.less', 'source.scss', 'source.css.scss', 'source.css.postcss'];
 
 const getBufferRange = editor => editor.getBuffer().getRange();
 
@@ -27,31 +19,19 @@ const getCurrentScope = editor => editor.getGrammar().scopeName;
 
 const isCurrentScopeEmbeddedScope = editor => EMBEDDED_SCOPES.includes(getCurrentScope(editor));
 
-const isCurrentScopeCssScope = editor => getCssScopes().includes(getCurrentScope(editor));
-
-const isCurrentScopeTypescriptScope = editor => getTypescriptScopes().includes(getCurrentScope(editor));
-
-const isCurrentScopeJsonScope = editor => getJsonScopes().includes(getCurrentScope(editor));
-
-const isCurrentScopeGraphQlScope = editor => getGraphQlScopes().includes(getCurrentScope(editor));
-
-const isCurrentScopeMarkdownScope = editor => getMarkdownScopes().includes(getCurrentScope(editor));
-
-const isCurrentScopeVueScope = editor => getVueScopes().includes(getCurrentScope(editor));
+const isCurrentScopeStyleLintScope = editor => STYLELINT_SCOPES.includes(getCurrentScope(editor));
 
 const getCurrentFilePath = editor => editor.buffer.file ? editor.buffer.file.getPath() : undefined;
+
+const isCurrentFilePathDefined = editor => editor && !!getCurrentFilePath(editor);
 
 const getCurrentDir = editor => lazyFlow()(getCurrentFilePath, maybeFilePath => typeof maybeFilePath === 'string' ? path.dirname(maybeFilePath) : undefined)(editor);
 
 module.exports = {
   getBufferRange,
+  isCurrentFilePathDefined,
   isCurrentScopeEmbeddedScope,
-  isCurrentScopeCssScope,
-  isCurrentScopeTypescriptScope,
-  isCurrentScopeJsonScope,
-  isCurrentScopeGraphQlScope,
-  isCurrentScopeMarkdownScope,
-  isCurrentScopeVueScope,
+  isCurrentScopeStyleLintScope,
   getCurrentScope,
   getCurrentFilePath,
   getCurrentDir
