@@ -23,7 +23,7 @@ We have recently switched to deferring most options to Prettier via a .prettierr
 However, this requires Prettier **v1.13.4** or greater. If you are not ready to migrate, you can revert prettier-atom like this:
 
 ```shell
-apm install prettier-atom@v0.54.0
+apm install prettier-atom@0.54.0
 ```
 
 ## Installation
