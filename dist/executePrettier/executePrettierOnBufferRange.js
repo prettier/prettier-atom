@@ -25,16 +25,22 @@ const { getCurrentFilePath, isCurrentScopeStyleLintScope } = require('../editorI
 const { getPrettierInstance } = require('../helpers');
 const handleError = require('./handleError');
 
+const getPrettierOptions = (editor
+// $FlowFixMe
+) => getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor));
+
 const executePrettier = (editor, text
 // $FlowFixMe
-) => getPrettierInstance(editor).format(text, { filepath: getCurrentFilePath(editor) });
+) => getPrettierInstance(editor).format(text, (0, _extends3.default)({
+  filepath: getCurrentFilePath(editor)
+}, getPrettierOptions(editor)));
 
 const executePrettierWithCursor = (editor, text, cursorOffset
 // $FlowFixMe
-) => getPrettierInstance(editor).formatWithCursor(text, {
+) => getPrettierInstance(editor).formatWithCursor(text, (0, _extends3.default)({
   cursorOffset,
   filepath: getCurrentFilePath(editor)
-});
+}, getPrettierOptions(editor)));
 
 const buildPrettierEslintOptions = (editor, text) => (0, _extends3.default)({
   text

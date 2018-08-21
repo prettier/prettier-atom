@@ -25,6 +25,7 @@ let editor;
 const bufferRangeFixture = { start: { column: 0, row: 0 }, end: { column: 20, row: 0 } };
 const sourceFixture = 'const foo = (2);';
 const formattedFixture = 'const foo = 2;';
+const optionsFixture = { tabWidth: 2, filepath: 'foo.js' };
 
 beforeEach(() => {
   editor = buildMockTextEditor();
@@ -33,6 +34,7 @@ beforeEach(() => {
   prettier.format.mockImplementation(() => formattedFixture);
   prettier.formatWithCursor.mockImplementation(() => formattedFixture);
   getPrettierInstance.mockImplementation(() => prettier);
+  prettier.resolveConfig.sync.mockImplementation(() => optionsFixture);
 });
 
 it('sets the transformed text in the buffer range', async () => {
@@ -55,7 +57,7 @@ it('uses Prettier#formatWithCursor', async () => {
   }));
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
-  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { cursorOffset });
+  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { cursorOffset, ...optionsFixture });
 });
 
 it('sets the transformed text via diff when the option is passed', async () => {
@@ -69,7 +71,10 @@ it('sets the transformed text via diff when the option is passed', async () => {
 
   await executePrettierOnBufferRange(editor, bufferRangeFixture, { setTextViaDiff: true });
 
-  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, { cursorOffset: 0 });
+  expect(prettier.formatWithCursor).toHaveBeenCalledWith(sourceFixture, {
+    cursorOffset: 0,
+    ...optionsFixture,
+  });
   expect(setTextViaDiffMock).toHaveBeenCalled();
 
   // NOTE: there is currently a bug in prettier that causes formatWithCursor to
