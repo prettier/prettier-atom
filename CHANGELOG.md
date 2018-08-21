@@ -1,3 +1,13 @@
+<a name="0.55.1"></a>
+## [0.55.1](https://github.com/prettier/prettier-atom/compare/v0.55.0...v0.55.1) (2018-08-21)
+
+
+### Bug Fixes
+
+* properly use prettier config when formatting ([fef2441](https://github.com/prettier/prettier-atom/commit/fef2441)), closes [#441](https://github.com/prettier/prettier-atom/issues/441)
+
+
+
 <a name="0.55.0"></a>
 # [0.55.0](https://github.com/prettier/prettier-atom/compare/v0.54.0...v0.55.0) (2018-08-20)
 
