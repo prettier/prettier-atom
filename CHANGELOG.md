@@ -1,3 +1,13 @@
+<a name="0.55.2"></a>
+## [0.55.2](https://github.com/prettier/prettier-atom/compare/v0.55.1...v0.55.2) (2018-08-23)
+
+
+### Bug Fixes
+
+* **prettierignore:** properly ignore files again ([dd4c849](https://github.com/prettier/prettier-atom/commit/dd4c849)), closes [#446](https://github.com/prettier/prettier-atom/issues/446)
+
+
+
 <a name="0.55.1"></a>
 ## [0.55.1](https://github.com/prettier/prettier-atom/compare/v0.55.0...v0.55.1) (2018-08-21)
 
