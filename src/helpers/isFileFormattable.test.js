@@ -1,16 +1,19 @@
 jest.mock('./getPrettierInstance');
 jest.mock('../editorInterface');
+jest.mock('./general');
 
 const isFileFormattable = require('./isFileFormattable');
 const buildMockEditor = require('../../tests/mocks/textEditor');
 const getPrettierInstance = require('./getPrettierInstance');
 const { getCurrentFilePath, isCurrentFilePathDefined } = require('../editorInterface');
+const { findCachedFromFilePath } = require('./general');
 
 const mockEditor = buildMockEditor();
 
 beforeEach(() => {
   isCurrentFilePathDefined.mockImplementation(() => true);
   getCurrentFilePath.mockImplementation(() => 'xyz.js');
+  findCachedFromFilePath.mockImplementation(() => '.prettierignore');
 });
 
 const mockGetFileInfoSyncFunc = syncFunc =>
@@ -23,7 +26,7 @@ it('calls prettier.getFileInfo.sync with the proper arguments', () => {
 
   isFileFormattable(mockEditor);
 
-  expect(sync).toHaveBeenCalledWith('xyz.js', {}, '.prettierignore');
+  expect(sync).toHaveBeenCalledWith('xyz.js', { ignorePath: '.prettierignore' });
 });
 
 it('returns true if the file is formattable', () => {
