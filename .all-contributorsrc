@@ -303,6 +303,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "jeffrafter",
+      "name": "Jeff Rafter",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4064?v=4",
+      "profile": "https://twitter.com/jeffrafter",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github"

@@ -4,7 +4,7 @@ const _ = require('lodash/fp');
 const readPgkUp = require('read-pkg-up');
 
 const { getCurrentDir } = require('../editorInterface');
-const { shouldUseEslint } = require('../atomInterface');
+const { shouldUseEslint, shouldUseTslint } = require('../atomInterface');
 
 const hasPackageDependency = packageName => _.flow(_.get('pkg.dependencies'), _.has(packageName));
 
@@ -20,4 +20,6 @@ const isPrettierInPackageJson = _.flow(readContentsOfNearestPackageJson, hasPack
 
 const isPrettierEslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-eslint'), hasPackage('prettier-eslint-cli'), hasPackage('eslint-plugin-prettier')]));
 
-module.exports = _.cond([[shouldUseEslint, isPrettierEslintInPackageJson], [_.stubTrue, isPrettierInPackageJson]]);
+const isPrettierTslintInPackageJson = _.flow(readContentsOfNearestPackageJson, _.overSome([hasPackage('prettier-tslint')]));
+
+module.exports = _.cond([[shouldUseEslint, isPrettierEslintInPackageJson], [shouldUseTslint, isPrettierTslintInPackageJson], [_.stubTrue, isPrettierInPackageJson]]);

@@ -19,6 +19,8 @@ const isLinterEslintAutofixEnabled = () =>
 
 const shouldUseEslint = () => getConfigOption('useEslint');
 
+const shouldUseTslint = () => getConfigOption('useTslint');
+
 const shouldUseStylelint = () => getConfigOption('useStylelint');
 
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
@@ -30,9 +32,13 @@ const isDisabledIfNoConfigFile = () => getConfigOption('formatOnSaveOptions.isDi
 
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
+const shouldRespectTslintignore = () => getConfigOption('formatOnSaveOptions.respectTslintignore');
+
 const toggleFormatOnSave = () => setConfigOption('formatOnSaveOptions.enabled', !isFormatOnSaveEnabled());
 
 const getPrettierEslintOptions = () => getConfigOption('prettierEslintOptions');
+
+const getPrettierTslintOptions = () => getConfigOption('prettierTslintOptions');
 
 const getAtomVersion = () => atom.getVersion();
 
@@ -75,6 +81,7 @@ module.exports = {
   getAtomVersion,
   getPrettierAtomConfig,
   getPrettierEslintOptions,
+  getPrettierTslintOptions,
   getWhitelistedGlobs,
   getExcludedGlobs,
   isDisabledIfNotInPackageJson,
@@ -83,7 +90,9 @@ module.exports = {
   isLinterEslintAutofixEnabled,
   runLinter,
   shouldRespectEslintignore,
+  shouldRespectTslintignore,
   shouldUseEslint,
+  shouldUseTslint,
   shouldUseStylelint,
   toggleFormatOnSave,
   attemptWithErrorNotification,

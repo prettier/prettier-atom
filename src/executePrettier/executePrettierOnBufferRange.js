@@ -1,12 +1,15 @@
 // @flow
 const _ = require('lodash/fp');
 const prettierEslint = require('prettier-eslint');
+const prettierTslint = require('prettier-tslint').format;
 const prettierStylelint = require('prettier-stylelint');
 const { allowUnsafeNewFunction } = require('loophole');
 
 const {
   getPrettierEslintOptions,
+  getPrettierTslintOptions,
   shouldUseEslint,
+  shouldUseTslint,
   shouldUseStylelint,
   runLinter,
 } = require('../atomInterface');
@@ -43,8 +46,17 @@ const buildPrettierEslintOptions = (editor: TextEditor, text: string) => ({
   filePath: getCurrentFilePath(editor),
 });
 
+const buildPrettierTslintOptions = (editor: TextEditor, text: string) => ({
+  text,
+  ...getPrettierTslintOptions(),
+  filePath: getCurrentFilePath(editor),
+});
+
 const executePrettierEslint = (editor: TextEditor, text: string): string =>
   allowUnsafeNewFunction(() => prettierEslint(buildPrettierEslintOptions(editor, text)));
+
+const executePrettierTslint = (editor: TextEditor, text: string): string =>
+  allowUnsafeNewFunction(() => prettierTslint(buildPrettierTslintOptions(editor, text)));
 
 const buildPrettierStylelintOptions = (editor: TextEditor, text: string) => ({
   text,
@@ -69,6 +81,12 @@ const executePrettierOrIntegration = async (
   if (shouldUseEslint()) {
     // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
     const formatted = executePrettierEslint(editor, text);
+
+    return { formatted, cursorOffset };
+  }
+
+  if (shouldUseTslint()) {
+    const formatted = executePrettierTslint(editor, text);
 
     return { formatted, cursorOffset };
   }

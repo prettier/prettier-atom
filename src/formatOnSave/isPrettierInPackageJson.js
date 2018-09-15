@@ -3,7 +3,7 @@ const _ = require('lodash/fp');
 const readPgkUp = require('read-pkg-up');
 
 const { getCurrentDir } = require('../editorInterface');
-const { shouldUseEslint } = require('../atomInterface');
+const { shouldUseEslint, shouldUseTslint } = require('../atomInterface');
 
 const hasPackageDependency = (packageName: string): ((packageJson: {}) => boolean) =>
   _.flow(
@@ -41,7 +41,13 @@ const isPrettierEslintInPackageJson: (editor: TextEditor) => boolean = _.flow(
   ]),
 );
 
+const isPrettierTslintInPackageJson: (editor: TextEditor) => boolean = _.flow(
+  readContentsOfNearestPackageJson,
+  _.overSome([hasPackage('prettier-tslint')]),
+);
+
 module.exports = _.cond([
   [shouldUseEslint, isPrettierEslintInPackageJson],
+  [shouldUseTslint, isPrettierTslintInPackageJson],
   [_.stubTrue, isPrettierInPackageJson],
 ]);

@@ -6,5 +6,6 @@ prettier-atom version: FAKE_PACKAGE_VERSION
 prettier: FAKE_PRETTIER_PATH
 prettier version: FAKE_PACKAGE_VERSION
 prettier-eslint version: FAKE_PACKAGE_VERSION
+prettier-tslint version: FAKE_PACKAGE_VERSION
 prettier-atom configuration: \\"FAKE_PRETTIER_ATOM_CONFIG\\""
 `;

@@ -1,4 +1,5 @@
 jest.mock('prettier-eslint');
+jest.mock('prettier-tslint');
 jest.mock('prettier-stylelint');
 jest.mock('prettier');
 jest.mock('../atomInterface');
@@ -8,10 +9,13 @@ jest.mock('./handleError');
 
 const prettier = require('prettier');
 const prettierEslint = require('prettier-eslint');
+const prettierTslint = require('prettier-tslint').format;
 const prettierStylelint = require('prettier-stylelint');
 const {
   getPrettierEslintOptions,
+  getPrettierTslintOptions,
   shouldUseEslint,
+  shouldUseTslint,
   shouldUseStylelint,
   runLinter,
 } = require('../atomInterface');
@@ -100,6 +104,19 @@ it('transforms the given buffer range using prettier-eslint if config enables it
   await executePrettierOnBufferRange(editor, bufferRangeFixture);
 
   expect(prettierEslint).toHaveBeenCalledWith({ filePath: 'foo.js', prettierLast, text: sourceFixture });
+});
+
+it('transforms the given buffer range using prettier-tslint if config enables it', async () => {
+  shouldUseTslint.mockImplementation(() => true);
+
+  const prettierLast = true;
+
+  getPrettierTslintOptions.mockImplementation(() => ({ prettierLast }));
+  getCurrentFilePath.mockImplementation(() => 'foo.js');
+
+  await executePrettierOnBufferRange(editor, bufferRangeFixture);
+
+  expect(prettierTslint).toHaveBeenCalledWith({ filePath: 'foo.js', prettierLast, text: sourceFixture });
 });
 
 it('transforms the given buffer range using prettier-stylelint if scope is CSS and config enables it', async () => {

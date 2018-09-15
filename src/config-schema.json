@@ -7,13 +7,21 @@
     "default": false,
     "order": 1
   },
+  "useTslint": {
+    "title": "TSLint Integration",
+    "description":
+      "Use [prettier-tslint](https://github.com/azz/prettier-tslint) to infer your Prettier settings based on your TSLint config and run tslint --fix after prettier formats the document. If we cannot infer a Prettier setting from your TSLint config (or if there is none in the current project), we will fallback to using your settings in the *Prettier Options* section.<br><br>**Note:** If you enable *Format on Save*, we recommend disabling TSlint's auto-fix to prevent fixing your code twice.",
+    "type": "boolean",
+    "default": false,
+    "order": 2
+  },
   "useStylelint": {
     "title": "Stylelint Integration",
     "description":
       "Use [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) to infer your Prettier settings based on your Stylelint config. If we cannot infer a Prettier setting from your Stylelint config (or if there is none in the current project), we will fallback to using your settings in the *Prettier Options* section.",
     "type": "boolean",
     "default": false,
-    "order": 2
+    "order": 3
   },
   "formatOnSaveOptions": {
     "title": "Format on Save",
@@ -34,12 +42,19 @@
         "default": true,
         "order": 2
       },
+      "respectTslintignore": {
+        "title": "Ignore Files in `.tslintignore`",
+        "description": "Works regardless of whether *TSLint Integration* is enabled or not.",
+        "type": "boolean",
+        "default": true,
+        "order": 3
+      },
       "showInStatusBar": {
         "title": "Show in Status Bar",
         "description": "Show in status bar if *Format on Save* is enabled or not.",
         "type": "boolean",
         "default": false,
-        "order": 3
+        "order": 4
       },
       "excludedGlobs": {
         "title": "Exclude (list of globs)",
@@ -47,7 +62,7 @@
           "A list of [.gitignore style](https://git-scm.com/docs/gitignore) file globs to exclude from formatting on save (takes precedence over scopes). Use commas to separate each glob.",
         "type": "array",
         "default": [],
-        "order": 4
+        "order": 5
       },
       "whitelistedGlobs": {
         "title": "Include (list of globs)",
@@ -55,7 +70,7 @@
           "A list of [.gitignore style](https://git-scm.com/docs/gitignore) file globs to always format on save (takes precedence over scopes and excluded globs). Use commas to separate each glob.<br><br>**Note:** If there are globs in this list, files not matching the globs will not be formatted on save, regardless of other options.",
         "type": "array",
         "default": [],
-        "order": 5
+        "order": 6
       },
       "isDisabledIfNotInPackageJson": {
         "title": "Only format if Prettier is found in your project's dependencies",
@@ -63,7 +78,7 @@
           "Only format on save when `prettier` (or `prettier-eslint`/`prettier-eslint-cli` if using *ESLint integration*) is in your project's `package.json` (dependencies or devDependencies)",
         "type": "boolean",
         "default": false,
-        "order": 6
+        "order": 7
       },
       "isDisabledIfNoConfigFile": {
         "title": "Only format if a Prettier config is found",
@@ -71,7 +86,7 @@
           "Only format on save if we find a `.prettierrc` file (written in YAML or JSON), a `prettier.config.js` file that exports an object, or a 'prettier' key in your `package.json` file.",
         "type": "boolean",
         "default": false,
-        "order": 7
+        "order": 8
       }
     }
   },

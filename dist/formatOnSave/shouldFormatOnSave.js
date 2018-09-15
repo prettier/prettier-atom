@@ -14,9 +14,11 @@ const {
   isFormatOnSaveEnabled,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
-  shouldRespectEslintignore
+  shouldRespectEslintignore,
+  shouldRespectTslintignore
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
+const isFilePathTslintIgnored = require('./isFilePathTslintIgnored');
 const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = editor => !!getCurrentFilePath(editor);
@@ -30,12 +32,14 @@ const isFilePathWhitelisted = _.flow(getCurrentFilePath, filePath => someGlobsMa
 
 const isEslintIgnored = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
+const isTslintIgnored = _.flow(getCurrentFilePath, isFilePathTslintIgnored);
+
 const isPrettierConfigPresent = (editor
 // $FlowFixMe
 ) => _.flow(getCurrentFilePath,
 // $FlowFixMe
 getPrettierInstance(editor).resolveConfig.sync, _.negate(_.isNil))(editor);
 
-const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), isPrettierProperVersion, _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]), isFileFormattable]);
+const shouldFormatOnSave = _.overEvery([isFormatOnSaveEnabled, hasFilePath, _.overSome([isFilePathWhitelisted, _.overEvery([noWhitelistGlobsPresent, filePathDoesNotMatchBlacklistGlobs])]), _.overSome([_.negate(shouldRespectEslintignore), _.negate(isEslintIgnored)]), _.overSome([_.negate(shouldRespectTslintignore), _.negate(isTslintIgnored)]), _.overSome([_.negate(isDisabledIfNotInPackageJson), isPrettierInPackageJson]), isPrettierProperVersion, _.overSome([_.negate(isDisabledIfNoConfigFile), isPrettierConfigPresent]), isFileFormattable]);
 
 module.exports = shouldFormatOnSave;

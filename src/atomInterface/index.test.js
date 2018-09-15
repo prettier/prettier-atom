@@ -1,8 +1,10 @@
 const {
   runLinter,
   shouldUseEslint,
+  shouldUseTslint,
   shouldUseStylelint,
   getPrettierEslintOptions,
+  getPrettierTslintOptions,
   isLinterEslintAutofixEnabled,
   toggleFormatOnSave,
 } = require('./index');
@@ -62,6 +64,28 @@ describe('shouldUseEslint()', () => {
   });
 });
 
+describe('shouldUseTslint()', () => {
+  it('is true if the config option is enabled', () => {
+    const mockGet = jest.fn(() => true);
+    atom = { config: { get: mockGet } };
+
+    const actual = shouldUseTslint();
+
+    expect(mockGet).toHaveBeenCalledWith('prettier-atom.useTslint');
+    expect(actual).toBe(true);
+  });
+
+  it('is false if the config option is not enabled', () => {
+    const mockGet = jest.fn(() => false);
+    atom = { config: { get: mockGet } };
+
+    const actual = shouldUseTslint();
+
+    expect(mockGet).toHaveBeenCalledWith('prettier-atom.useTslint');
+    expect(actual).toBe(false);
+  });
+});
+
 describe('shouldUseStylelint()', () => {
   it('is true if the config option is enabled', () => {
     const mockGet = jest.fn(() => true);
@@ -92,6 +116,18 @@ describe('getPrettierEslintOptions()', () => {
     const actual = getPrettierEslintOptions();
 
     expect(mockGet).lastCalledWith('prettier-atom.prettierEslintOptions');
+    expect(actual).toBe(true);
+  });
+});
+
+describe('getPrettierTslintOptions()', () => {
+  it('retrieves the given prettier-tslint options from the prettier-atom config', () => {
+    const mockGet = jest.fn(() => true);
+    atom = { config: { get: mockGet } };
+
+    const actual = getPrettierTslintOptions();
+
+    expect(mockGet).lastCalledWith('prettier-atom.prettierTslintOptions');
     expect(actual).toBe(true);
   });
 });
