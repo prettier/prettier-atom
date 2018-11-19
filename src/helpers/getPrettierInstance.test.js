@@ -3,10 +3,10 @@ jest.mock('atom-linter');
 const prettier = require('prettier');
 const path = require('path');
 const atomLinter = require('atom-linter');
-const createMockTextEditor = require('../../tests/mocks/textEditor');
-const getPrettierInstance = require('./getPrettierInstance');
 const globalModules = require('global-modules');
 const yarnGlobalModules = require('yarn-global-modules')();
+const createMockTextEditor = require('../../tests/mocks/textEditor');
+const getPrettierInstance = require('./getPrettierInstance');
 
 test("returns user's project's local prettier instance if it exists", () => {
   const filePath = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'sourceFile.js');

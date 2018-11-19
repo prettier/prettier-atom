@@ -1,6 +1,6 @@
-const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
+const config = require('./config-schema.json');
 const { createStatusTile, updateStatusTile, updateStatusTileScope, disposeTooltip } = require('./statusTile');
 const linterInterface = require('./linterInterface');
 

@@ -91,7 +91,7 @@ describe('getPrettierEslintOptions()', () => {
 
     const actual = getPrettierEslintOptions();
 
-    expect(mockGet).lastCalledWith('prettier-atom.prettierEslintOptions');
+    expect(mockGet).toHaveBeenLastCalledWith('prettier-atom.prettierEslintOptions');
     expect(actual).toBe(true);
   });
 });

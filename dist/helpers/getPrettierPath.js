@@ -1,10 +1,10 @@
 'use strict';
 
-const { findCachedFromFilePath } = require('./general');
 const path = require('path');
 const { findCached } = require('atom-linter');
 const globalModules = require('global-modules');
 const yarnGlobalModules = require('yarn-global-modules')();
+const { findCachedFromFilePath } = require('./general');
 
 const PRETTIER_INDEX_PATH = path.join('node_modules', 'prettier', 'index.js');
 
