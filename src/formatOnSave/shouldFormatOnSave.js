@@ -13,6 +13,7 @@ const {
   isFormatOnSaveEnabled,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
+  relativizePathFromAtomProject,
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
@@ -22,6 +23,7 @@ const hasFilePath = (editor: TextEditor) => !!getCurrentFilePath(editor);
 
 const filePathDoesNotMatchBlacklistGlobs: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
+  relativizePathFromAtomProject,
   (filePath: ?FilePath) => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath),
 );
 
@@ -33,6 +35,7 @@ const noWhitelistGlobsPresent: () => boolean = _.flow(
 
 const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
+  relativizePathFromAtomProject,
   (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
 

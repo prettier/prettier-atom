@@ -14,6 +14,7 @@ const {
   isFormatOnSaveEnabled,
   isDisabledIfNotInPackageJson,
   isDisabledIfNoConfigFile,
+  relativizePathFromAtomProject,
   shouldRespectEslintignore
 } = require('../atomInterface');
 const isFilePathEslintIgnored = require('./isFilePathEslintIgnored');
@@ -21,12 +22,12 @@ const isPrettierInPackageJson = require('./isPrettierInPackageJson');
 
 const hasFilePath = editor => !!getCurrentFilePath(editor);
 
-const filePathDoesNotMatchBlacklistGlobs = _.flow(getCurrentFilePath, filePath => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath));
+const filePathDoesNotMatchBlacklistGlobs = _.flow(getCurrentFilePath, relativizePathFromAtomProject, filePath => _.negate(someGlobsMatchFilePath)(getExcludedGlobs(), filePath));
 
 // $FlowFixMe
 const noWhitelistGlobsPresent = _.flow(getWhitelistedGlobs, _.isEmpty);
 
-const isFilePathWhitelisted = _.flow(getCurrentFilePath, filePath => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath));
+const isFilePathWhitelisted = _.flow(getCurrentFilePath, relativizePathFromAtomProject, filePath => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath));
 
 const isEslintIgnored = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
