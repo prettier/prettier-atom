@@ -118,9 +118,8 @@ const activate = () => {
     atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
   subscriptions.add(
-    atom.config.observe(
-      'prettier-atom.formatOnSaveOptions.showInStatusBar',
-      show => (show ? attachStatusTile() : detachStatusTile()),
+    atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', show =>
+      show ? attachStatusTile() : detachStatusTile(),
     ),
   );
 
