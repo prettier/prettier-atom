@@ -13,6 +13,7 @@ const {
   isFormatOnSaveEnabled,
   getExcludedGlobs,
   getWhitelistedGlobs,
+  relativizePathFromAtomProject,
   shouldRespectEslintignore,
 } = require('../atomInterface');
 const getPrettierInstance = require('../helpers/getPrettierInstance');
@@ -31,6 +32,7 @@ beforeEach(() => {
   isFormatOnSaveEnabled.mockImplementation(() => true);
   isFileFormattable.mockImplementation(() => true);
   getCurrentFilePath.mockImplementation(() => fakeCurrentFilePath);
+  relativizePathFromAtomProject.mockImplementation(() => fakeCurrentFilePath);
   isFilePathEslintIgnored.mockImplementation(() => false);
   isPrettierProperVersion.mockImplementation(() => true);
   isDisabledIfNotInPackageJson.mockImplementation(() => false);

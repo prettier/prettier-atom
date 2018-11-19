@@ -84,6 +84,9 @@ declare var atom: {
   packages: {
     isPackageActive: (name: string) => boolean,
   },
+  project: {
+    relativizePath: (path: string) => [string | null, string],
+  },
   tooltips: {
     add: (target: HTMLElement, options?: Atom$Tooltips$Options) => Atom$Disposable,
   },

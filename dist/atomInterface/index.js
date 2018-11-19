@@ -6,6 +6,8 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const _ = require('lodash/fp');
+
 // constants
 const LINTER_LINT_COMMAND = 'linter:lint';
 
@@ -68,6 +70,8 @@ const attemptWithErrorNotification = (() => {
 
 const runLinter = editor => isLinterLintCommandDefined(editor) && atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
 
+const relativizePathFromAtomProject = path => path ? _.get('[1]', atom.project.relativizePath(path)) : null;
+
 module.exports = {
   addErrorNotification,
   addInfoNotification,
@@ -82,6 +86,7 @@ module.exports = {
   isDisabledIfNoConfigFile,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
+  relativizePathFromAtomProject,
   runLinter,
   shouldRespectEslintignore,
   shouldUseEslint,

@@ -11,7 +11,8 @@ const getNearestEslintignorePath = (filePath: FilePath): ?FilePath =>
 
 const safeRelativePath = _.curry(
   // $FlowFixMe
-  (from: ?FilePath, to: ?FilePath): ?FilePath => (!!from && !!to ? path.relative(from, to) : undefined),
+  (from: ?FilePath, to: ?FilePath): ?FilePath =>
+    !!from && !!to ? path.join(path.relative(from, to)) : undefined,
 );
 
 const getFilePathRelativeToEslintignore = (filePath: FilePath): ?FilePath =>

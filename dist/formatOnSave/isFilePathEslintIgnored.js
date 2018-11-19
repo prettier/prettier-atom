@@ -11,7 +11,7 @@ const getNearestEslintignorePath = filePath => findCachedFromFilePath(filePath, 
 
 const safeRelativePath = _.curry(
 // $FlowFixMe
-(from, to) => !!from && !!to ? path.relative(from, to) : undefined);
+(from, to) => !!from && !!to ? path.join(path.relative(from, to)) : undefined);
 
 const getFilePathRelativeToEslintignore = (filePath
 // $FlowIssue: lodashfp placeholders not supported yet

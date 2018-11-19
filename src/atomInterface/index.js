@@ -1,4 +1,5 @@
 // @flow
+const _ = require('lodash/fp');
 
 // constants
 const LINTER_LINT_COMMAND = 'linter:lint';
@@ -67,6 +68,9 @@ const runLinter = (editor: TextEditor) =>
   isLinterLintCommandDefined(editor) &&
   atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
 
+const relativizePathFromAtomProject = (path: ?string) =>
+  path ? _.get('[1]', atom.project.relativizePath(path)) : null;
+
 module.exports = {
   addErrorNotification,
   addInfoNotification,
@@ -81,6 +85,7 @@ module.exports = {
   isDisabledIfNoConfigFile,
   isFormatOnSaveEnabled,
   isLinterEslintAutofixEnabled,
+  relativizePathFromAtomProject,
   runLinter,
   shouldRespectEslintignore,
   shouldUseEslint,
