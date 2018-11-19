@@ -23,7 +23,7 @@ const buildPointArrayFromPrettierErrorAndRange = (error: Prettier$SyntaxError, b
     errorLine(error) === 0 ? errorColumn(error) + bufferRange.start.column - 1 : errorColumn(error) - 1,
   );
 
-const buildExcerpt = (error: Prettier$SyntaxError) => /(.*)\s\(\d+:\d+\).*/.exec(error.message)[1];
+const buildExcerpt = (error: Prettier$SyntaxError) => _.get('[1]', /(.*)\s\(\d+:\d+\).*/.exec(error.message));
 
 const setErrorMessageInLinter = ({ editor, bufferRange, error }: HandleErrorArgs): void =>
   linter.setMessages(editor, [

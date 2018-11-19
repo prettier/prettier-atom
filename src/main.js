@@ -1,6 +1,6 @@
-const config = require('./config-schema.json');
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 const { CompositeDisposable } = require('atom');
+const config = require('./config-schema.json');
 const { createStatusTile, updateStatusTile, updateStatusTileScope, disposeTooltip } = require('./statusTile');
 const linterInterface = require('./linterInterface');
 
@@ -118,9 +118,8 @@ const activate = () => {
     atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
   );
   subscriptions.add(
-    atom.config.observe(
-      'prettier-atom.formatOnSaveOptions.showInStatusBar',
-      show => (show ? attachStatusTile() : detachStatusTile()),
+    atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', show =>
+      show ? attachStatusTile() : detachStatusTile(),
     ),
   );
 

@@ -13,7 +13,7 @@ const errorColumn = error => error.loc.start ? error.loc.start.column : error.lo
 // NOTE: Prettier error locations are not zero-based (i.e., they start at 1)
 const buildPointArrayFromPrettierErrorAndRange = (error, bufferRange) => createPoint(errorLine(error) + bufferRange.start.row - 1, errorLine(error) === 0 ? errorColumn(error) + bufferRange.start.column - 1 : errorColumn(error) - 1);
 
-const buildExcerpt = error => /(.*)\s\(\d+:\d+\).*/.exec(error.message)[1];
+const buildExcerpt = error => _.get('[1]', /(.*)\s\(\d+:\d+\).*/.exec(error.message));
 
 const setErrorMessageInLinter = ({ editor, bufferRange, error }) => linter.setMessages(editor, [{
   location: {
