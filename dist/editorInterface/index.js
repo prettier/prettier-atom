@@ -10,14 +10,11 @@ const lazyFlow = () => {
   return flow;
 };
 
-const EMBEDDED_SCOPES = ['text.html.basic'];
 const STYLELINT_SCOPES = ['source.css', 'source.less', 'source.css.less', 'source.scss', 'source.css.scss', 'source.css.postcss'];
 
 const getBufferRange = editor => editor.getBuffer().getRange();
 
 const getCurrentScope = editor => editor.getGrammar().scopeName;
-
-const isCurrentScopeEmbeddedScope = editor => EMBEDDED_SCOPES.includes(getCurrentScope(editor));
 
 const isCurrentScopeStyleLintScope = editor => STYLELINT_SCOPES.includes(getCurrentScope(editor));
 
@@ -30,7 +27,6 @@ const getCurrentDir = editor => lazyFlow()(getCurrentFilePath, maybeFilePath => 
 module.exports = {
   getBufferRange,
   isCurrentFilePathDefined,
-  isCurrentScopeEmbeddedScope,
   isCurrentScopeStyleLintScope,
   getCurrentScope,
   getCurrentFilePath,

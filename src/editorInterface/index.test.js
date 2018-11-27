@@ -2,7 +2,6 @@ const buildMockTextEditor = require('../../tests/mocks/textEditor');
 const {
   getBufferRange,
   getCurrentScope,
-  isCurrentScopeEmbeddedScope,
   isCurrentScopeStyleLintScope,
   getCurrentFilePath,
 } = require('./index');
@@ -30,26 +29,6 @@ describe('getCurrentScope()', () => {
     const actual = getCurrentScope(editor);
 
     expect(actual).toEqual('FAKE SCOPE NAME');
-  });
-});
-
-describe('isCurrentScopeEmbeddedScope()', () => {
-  it('returns true if the current scope is an embedded scope type', () => {
-    const scopeName = 'text.html.basic';
-    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
-
-    const actual = isCurrentScopeEmbeddedScope(editor);
-
-    expect(actual).toBe(true);
-  });
-
-  it('returns false if the current scope is not an embedded scope type', () => {
-    const scopeName = 'source.js.jsx';
-    const editor = buildMockTextEditor({ getGrammar: () => ({ scopeName }) });
-
-    const actual = isCurrentScopeEmbeddedScope(editor);
-
-    expect(actual).toBe(false);
   });
 });
 
