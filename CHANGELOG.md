@@ -1,3 +1,13 @@
+<a name="0.56.1"></a>
+## [0.56.1](https://github.com/prettier/prettier-atom/compare/v0.56.0...v0.56.1) (2018-12-03)
+
+
+### Bug Fixes
+
+* properly format HTML and VUE files ([b91ea02](https://github.com/prettier/prettier-atom/commit/b91ea02)), closes [#467](https://github.com/prettier/prettier-atom/issues/467)
+
+
+
 <a name="0.56.0"></a>
 # [0.56.0](https://github.com/prettier/prettier-atom/compare/v0.55.2...v0.56.0) (2018-11-19)
 
