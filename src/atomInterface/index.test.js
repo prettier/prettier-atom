@@ -4,9 +4,42 @@ const {
   shouldUseStylelint,
   getPrettierEslintOptions,
   isLinterEslintAutofixEnabled,
+  relativizePathFromAtomProject,
   toggleFormatOnSave,
 } = require('./index');
 const textEditor = require('../../tests/mocks/textEditor');
+
+describe('relativizePathFromAtomProject()', () => {
+  it('runs `atom.project.relativizePath` if the filepath and project are present', () => {
+    const absoluteFilePath = '/Users/johndoe/src/main.js';
+    const relativeFilePath = 'main.js';
+    atom = { project: { relativizePath: jest.fn(() => [null, relativeFilePath]) } };
+
+    const actual = relativizePathFromAtomProject(absoluteFilePath);
+
+    expect(actual).toEqual(relativeFilePath);
+    expect(atom.project.relativizePath).toHaveBeenCalledWith(absoluteFilePath);
+  });
+
+  it('relativizes the path to the parent dir if the filepath is present but project is missing', () => {
+    const absoluteFilePath = '/Users/johndoe/src/main.js';
+    const relativeFilePath = 'main.js';
+    atom = { project: { relativizePath: jest.fn(() => [null, absoluteFilePath]) } };
+
+    const actual = relativizePathFromAtomProject(absoluteFilePath);
+
+    expect(actual).toEqual(relativeFilePath);
+    expect(atom.project.relativizePath).toHaveBeenCalledWith(absoluteFilePath);
+  });
+
+  it('returns null if no filepath is present', () => {
+    const filePath = null;
+
+    const actual = relativizePathFromAtomProject(filePath);
+
+    expect(actual).toEqual(null);
+  });
+});
 
 describe('runLinter()', () => {
   it('runs `linter:lint` command', () => {
