@@ -1,3 +1,13 @@
+<a name="0.56.2"></a>
+## [0.56.2](https://github.com/prettier/prettier-atom/compare/v0.56.1...v0.56.2) (2018-12-06)
+
+
+### Bug Fixes
+
+* ensure we always pass a relative path to `ignore` pkg ([477d6aa](https://github.com/prettier/prettier-atom/commit/477d6aa)), closes [#473](https://github.com/prettier/prettier-atom/issues/473)
+
+
+
 <a name="0.56.1"></a>
 ## [0.56.1](https://github.com/prettier/prettier-atom/compare/v0.56.0...v0.56.1) (2018-12-03)
 
