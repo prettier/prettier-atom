@@ -1,4 +1,12 @@
-<a name="0.56.2"></a>
+## [0.56.3](https://github.com/prettier/prettier-atom/compare/v0.56.2...v0.56.3) (2019-02-15)
+
+
+### Performance Improvements
+
+* **startup:** defer activating the package until the window is loaded ([fd658ef](https://github.com/prettier/prettier-atom/commit/fd658ef))
+
+
+
 ## [0.56.2](https://github.com/prettier/prettier-atom/compare/v0.56.1...v0.56.2) (2018-12-06)
 
 
@@ -8,7 +16,6 @@
 
 
 
-<a name="0.56.1"></a>
 ## [0.56.1](https://github.com/prettier/prettier-atom/compare/v0.56.0...v0.56.1) (2018-12-03)
 
 
@@ -18,7 +25,6 @@
 
 
 
-<a name="0.56.0"></a>
 # [0.56.0](https://github.com/prettier/prettier-atom/compare/v0.55.2...v0.56.0) (2018-11-19)
 
 
@@ -34,17 +40,15 @@
 
 
 
-<a name="0.55.2"></a>
 ## [0.55.2](https://github.com/prettier/prettier-atom/compare/v0.55.1...v0.55.2) (2018-08-23)
 
 
 ### Bug Fixes
 
-* **prettierignore:** properly ignore files again ([dd4c849](https://github.com/prettier/prettier-atom/commit/dd4c849)), closes [#446](https://github.com/prettier/prettier-atom/issues/446)
+* **prettierignore:** properly ignore files again ([dd4c849](https://github.com/prettier/prettier-atom/commit/dd4c849)), closes [#404](https://github.com/prettier/prettier-atom/issues/404) [#446](https://github.com/prettier/prettier-atom/issues/446)
 
 
 
-<a name="0.55.1"></a>
 ## [0.55.1](https://github.com/prettier/prettier-atom/compare/v0.55.0...v0.55.1) (2018-08-21)
 
 
@@ -54,7 +58,6 @@
 
 
 
-<a name="0.55.0"></a>
 # [0.55.0](https://github.com/prettier/prettier-atom/compare/v0.54.0...v0.55.0) (2018-08-20)
 
 
@@ -79,14 +82,13 @@ version.
 
 
 
-<a name="0.54.0"></a>
 # [0.54.0](https://github.com/prettier/prettier-atom/compare/v0.53.0...v0.54.0) (2018-06-05)
 
 
 ### Bug Fixes
 
 * **.babelrc:** Fix usage of babel-preset-env. ([78c10e3](https://github.com/prettier/prettier-atom/commit/78c10e3))
-* **dist/:** Rebuild dist to properly target electron[@1](https://github.com/1).4.0 ([831f086](https://github.com/prettier/prettier-atom/commit/831f086))
+* **dist/:** Rebuild dist to properly target electron@1.4.0 ([831f086](https://github.com/prettier/prettier-atom/commit/831f086))
 
 
 ### Features
@@ -96,7 +98,6 @@ version.
 
 
 
-<a name="0.53.0"></a>
 # [0.53.0](https://github.com/prettier/prettier-atom/compare/v0.52.0...v0.53.0) (2018-03-24)
 
 
@@ -111,7 +112,6 @@ version.
 
 
 
-<a name="0.52.0"></a>
 # [0.52.0](https://github.com/prettier/prettier-atom/compare/v0.51.0...v0.52.0) (2018-03-14)
 
 
@@ -121,7 +121,6 @@ version.
 
 
 
-<a name="0.51.0"></a>
 # [0.51.0](https://github.com/prettier/prettier-atom/compare/v0.50.0...v0.51.0) (2018-02-14)
 
 
@@ -142,7 +141,6 @@ version.
 
 
 
-<a name="0.50.0"></a>
 # [0.50.0](https://github.com/prettier/prettier-atom/compare/v0.49.2...v0.50.0) (2018-02-09)
 
 
@@ -157,7 +155,6 @@ version.
 
 
 
-<a name="0.49.2"></a>
 ## [0.49.2](https://github.com/prettier/prettier-atom/compare/v0.49.1...v0.49.2) (2018-02-03)
 
 
@@ -167,7 +164,6 @@ version.
 
 
 
-<a name="0.49.1"></a>
 ## [0.49.1](https://github.com/prettier/prettier-atom/compare/v0.49.0...v0.49.1) (2018-02-02)
 
 
@@ -177,7 +173,6 @@ version.
 
 
 
-<a name="0.49.0"></a>
 # [0.49.0](https://github.com/prettier/prettier-atom/compare/v0.48.1...v0.49.0) (2018-01-30)
 
 
@@ -187,7 +182,6 @@ version.
 
 
 
-<a name="0.48.1"></a>
 ## [0.48.1](https://github.com/prettier/prettier-atom/compare/v0.48.0...v0.48.1) (2018-01-25)
 
 
@@ -197,7 +191,6 @@ version.
 
 
 
-<a name="0.48.0"></a>
 # [0.48.0](https://github.com/prettier/prettier-atom/compare/v0.47.2...v0.48.0) (2018-01-17)
 
 
@@ -207,7 +200,6 @@ version.
 
 
 
-<a name="0.47.2"></a>
 ## [0.47.2](https://github.com/prettier/prettier-atom/compare/v0.47.1...v0.47.2) (2018-01-17)
 
 
@@ -217,7 +209,6 @@ version.
 
 
 
-<a name="0.47.1"></a>
 ## [0.47.1](https://github.com/prettier/prettier-atom/compare/v0.47.0...v0.47.1) (2018-01-17)
 
 
@@ -227,7 +218,6 @@ version.
 
 
 
-<a name="0.47.0"></a>
 # [0.47.0](https://github.com/prettier/prettier-atom/compare/v0.46.0...v0.47.0) (2018-01-15)
 
 
@@ -237,7 +227,6 @@ version.
 
 
 
-<a name="0.46.0"></a>
 # [0.46.0](https://github.com/prettier/prettier-atom/compare/v0.45.0...v0.46.0) (2018-01-05)
 
 
@@ -247,7 +236,6 @@ version.
 
 
 
-<a name="0.45.0"></a>
 # [0.45.0](https://github.com/prettier/prettier-atom/compare/v0.44.0...v0.45.0) (2017-12-31)
 
 
@@ -258,11 +246,10 @@ version.
 
 ### Performance Improvements
 
-* **statusTile:** faster array creation and lodash lazy loading ([5f90f45](https://github.com/prettier/prettier-atom/commit/5f90f45))
+* **statusTile:** faster array creation and lodash lazy loading ([5f90f45](https://github.com/prettier/prettier-atom/commit/5f90f45)), closes [#330](https://github.com/prettier/prettier-atom/issues/330)
 
 
 
-<a name="0.44.0"></a>
 # [0.44.0](https://github.com/prettier/prettier-atom/compare/v0.43.1...v0.44.0) (2017-12-31)
 
 
@@ -278,7 +265,6 @@ version.
 
 
 
-<a name="0.43.1"></a>
 ## [0.43.1](https://github.com/prettier/prettier-atom/compare/v0.43.0...v0.43.1) (2017-12-10)
 
 
@@ -289,7 +275,6 @@ version.
 
 
 
-<a name="0.43.0"></a>
 # [0.43.0](https://github.com/prettier/prettier-atom/compare/v0.41.0...v0.43.0) (2017-12-05)
 
 
@@ -309,7 +294,6 @@ version.
 
 
 
-<a name="0.41.0"></a>
 # [0.41.0](https://github.com/prettier/prettier-atom/compare/v0.40.0...v0.41.0) (2017-11-13)
 
 
@@ -324,7 +308,6 @@ version.
 
 
 
-<a name="0.40.0"></a>
 # [0.40.0](https://github.com/prettier/prettier-atom/compare/v0.39.0...v0.40.0) (2017-09-20)
 
 
@@ -340,7 +323,6 @@ version.
 
 
 
-<a name="0.39.0"></a>
 # [0.39.0](https://github.com/prettier/prettier-atom/compare/v0.38.0...v0.39.0) (2017-09-15)
 
 
@@ -353,7 +335,6 @@ version.
 
 
 
-<a name="0.38.0"></a>
 # [0.38.0](https://github.com/prettier/prettier-atom/compare/v0.37.0...v0.38.0) (2017-08-27)
 
 
@@ -365,12 +346,11 @@ version.
 
 ### Features
 
-* **formatOnSave:** Added 'eslint-plugin-prettier' to list of packages to look for (#247) ([b3a6838](https://github.com/prettier/prettier-atom/commit/b3a6838))
+* **formatOnSave:** Added 'eslint-plugin-prettier' to list of packages to look for ([#247](https://github.com/prettier/prettier-atom/issues/247)) ([b3a6838](https://github.com/prettier/prettier-atom/commit/b3a6838))
 * **prettier-eslint:** bump to 4.2.1 ([89bed30](https://github.com/prettier/prettier-atom/commit/89bed30))
 
 
 
-<a name="0.37.0"></a>
 # [0.37.0](https://github.com/prettier/prettier-atom/compare/v0.36.1...v0.37.0) (2017-07-22)
 
 
@@ -386,7 +366,6 @@ version.
 
 
 
-<a name="0.36.1"></a>
 ## [0.36.1](https://github.com/prettier/prettier-atom/compare/v0.36.0...v0.36.1) (2017-07-07)
 
 
@@ -396,7 +375,6 @@ version.
 
 
 
-<a name="0.36.0"></a>
 # [0.36.0](https://github.com/prettier/prettier-atom/compare/v0.35.0...v0.36.0) (2017-07-06)
 
 
@@ -414,7 +392,6 @@ version.
 
 
 
-<a name="0.35.0"></a>
 # [0.35.0](https://github.com/prettier/prettier-atom/compare/v0.34.0...v0.35.0) (2017-06-29)
 
 
@@ -425,7 +402,6 @@ version.
 
 
 
-<a name="0.34.0"></a>
 # [0.34.0](https://github.com/prettier/prettier-atom/compare/v0.33.0...v0.34.0) (2017-06-22)
 
 
@@ -441,7 +417,6 @@ version.
 
 
 
-<a name="0.33.0"></a>
 # [0.33.0](https://github.com/prettier/prettier-atom/compare/v0.32.0...v0.33.0) (2017-06-08)
 
 
@@ -459,7 +434,6 @@ version.
 
 
 
-<a name="0.32.0"></a>
 # [0.32.0](https://github.com/prettier/prettier-atom/compare/v0.31.1...v0.32.0) (2017-06-02)
 
 
@@ -474,7 +448,6 @@ version.
 
 
 
-<a name="0.31.1"></a>
 ## [0.31.1](https://github.com/prettier/prettier-atom/compare/v0.31.0...v0.31.1) (2017-05-17)
 
 
@@ -484,7 +457,6 @@ version.
 
 
 
-<a name="0.31.0"></a>
 # [0.31.0](https://github.com/prettier/prettier-atom/compare/v0.30.0...v0.31.0) (2017-05-14)
 
 
@@ -501,7 +473,6 @@ version.
 
 
 
-<a name="0.30.0"></a>
 # [0.30.0](https://github.com/prettier/prettier-atom/compare/v0.29.0...v0.30.0) (2017-05-03)
 
 
@@ -514,7 +485,6 @@ version.
 
 
 
-<a name="0.29.0"></a>
 # [0.29.0](https://github.com/prettier/prettier-atom/compare/v0.28.0...v0.29.0) (2017-04-22)
 
 
@@ -544,7 +514,6 @@ versa.
 
 
 
-<a name="0.28.0"></a>
 # [0.28.0](https://github.com/prettier/prettier-atom/compare/v0.27.0...v0.28.0) (2017-04-15)
 
 
@@ -555,7 +524,6 @@ versa.
 
 
 
-<a name="0.27.0"></a>
 # [0.27.0](https://github.com/prettier/prettier-atom/compare/v0.26.0...v0.27.0) (2017-04-13)
 
 
@@ -566,7 +534,6 @@ versa.
 
 
 
-<a name="0.26.0"></a>
 # [0.26.0](https://github.com/prettier/prettier-atom/compare/v0.25.0...v0.26.0) (2017-04-02)
 
 
@@ -576,7 +543,6 @@ versa.
 
 
 
-<a name="0.25.0"></a>
 # [0.25.0](https://github.com/prettier/prettier-atom/compare/v0.24.0...v0.25.0) (2017-04-02)
 
 
@@ -592,7 +558,6 @@ versa.
 
 
 
-<a name="0.24.0"></a>
 # [0.24.0](https://github.com/prettier/prettier-atom/compare/v0.23.1...v0.24.0) (2017-03-25)
 
 
@@ -602,7 +567,6 @@ versa.
 
 
 
-<a name="0.23.1"></a>
 ## [0.23.1](https://github.com/prettier/prettier-atom/compare/v0.23.0...v0.23.1) (2017-03-15)
 
 
@@ -613,7 +577,6 @@ versa.
 
 
 
-<a name="0.23.0"></a>
 # [0.23.0](https://github.com/prettier/prettier-atom/compare/v0.22.0...v0.23.0) (2017-03-09)
 
 
@@ -623,7 +586,6 @@ versa.
 
 
 
-<a name="0.22.0"></a>
 # [0.22.0](https://github.com/prettier/prettier-atom/compare/v0.21.3...v0.22.0) (2017-03-07)
 
 
@@ -638,7 +600,6 @@ versa.
 
 
 
-<a name="0.21.3"></a>
 ## [0.21.3](https://github.com/prettier/prettier-atom/compare/v0.21.2...v0.21.3) (2017-03-06)
 
 
@@ -649,7 +610,6 @@ versa.
 
 
 
-<a name="0.21.2"></a>
 ## [0.21.2](https://github.com/prettier/prettier-atom/compare/v0.21.1...v0.21.2) (2017-03-06)
 
 
@@ -659,7 +619,6 @@ versa.
 
 
 
-<a name="0.21.1"></a>
 ## [0.21.1](https://github.com/prettier/prettier-atom/compare/v0.21.0...v0.21.1) (2017-03-05)
 
 
@@ -669,22 +628,19 @@ versa.
 
 
 
-<a name="0.21.0"></a>
 # [0.21.0](https://github.com/prettier/prettier-atom/compare/v0.20.0...v0.21.0) (2017-03-05)
 
 
 ### Features
 
-* **$linter-eslint:** Warn about linter-eslint "Format on Save" ([ac9b1d0](https://github.com/prettier/prettier-atom/commit/ac9b1d0))
+* **$linter-eslint:** Warn about linter-eslint "Format on Save" ([ac9b1d0](https://github.com/prettier/prettier-atom/commit/ac9b1d0)), closes [#63](https://github.com/prettier/prettier-atom/issues/63)
 
 
 
-<a name="0.20.0"></a>
 # [0.20.0](https://github.com/prettier/prettier-atom/compare/v0.19.1...v0.20.0) (2017-03-05)
 
 
 
-<a name="0.19.1"></a>
 ## [0.19.1](https://github.com/prettier/prettier-atom/compare/v0.19.0...v0.19.1) (2017-03-05)
 
 
@@ -694,77 +650,62 @@ versa.
 
 
 
-<a name="0.19.0"></a>
 # [0.19.0](https://github.com/prettier/prettier-atom/compare/v0.18.1...v0.19.0) (2017-02-24)
 
 
 
-<a name="0.18.1"></a>
 ## [0.18.1](https://github.com/prettier/prettier-atom/compare/v0.18.0...v0.18.1) (2017-02-21)
 
 
 
-<a name="0.18.0"></a>
 # [0.18.0](https://github.com/prettier/prettier-atom/compare/v0.17.0...v0.18.0) (2017-02-17)
 
 
 
-<a name="0.17.0"></a>
 # [0.17.0](https://github.com/prettier/prettier-atom/compare/v0.16.0...v0.17.0) (2017-02-14)
 
 
 
-<a name="0.16.0"></a>
 # [0.16.0](https://github.com/prettier/prettier-atom/compare/v0.15.0...v0.16.0) (2017-02-06)
 
 
 
-<a name="0.15.0"></a>
 # [0.15.0](https://github.com/prettier/prettier-atom/compare/v0.11.0...v0.15.0) (2017-02-03)
 
 
 
-<a name="0.11.0"></a>
 # [0.11.0](https://github.com/prettier/prettier-atom/compare/v0.0.10...v0.11.0) (2017-01-24)
 
 
 
-<a name="0.0.10"></a>
 ## [0.0.10](https://github.com/prettier/prettier-atom/compare/v0.0.9...v0.0.10) (2017-01-20)
 
 
 
-<a name="0.0.9"></a>
 ## [0.0.9](https://github.com/prettier/prettier-atom/compare/v0.0.8...v0.0.9) (2017-01-19)
 
 
 
-<a name="0.0.8"></a>
 ## [0.0.8](https://github.com/prettier/prettier-atom/compare/v0.0.7...v0.0.8) (2017-01-17)
 
 
 
-<a name="0.0.7"></a>
 ## [0.0.7](https://github.com/prettier/prettier-atom/compare/v0.0.6...v0.0.7) (2017-01-15)
 
 
 
-<a name="0.0.6"></a>
 ## [0.0.6](https://github.com/prettier/prettier-atom/compare/v0.0.5...v0.0.6) (2017-01-13)
 
 
 
-<a name="0.0.5"></a>
 ## [0.0.5](https://github.com/prettier/prettier-atom/compare/v0.0.4...v0.0.5) (2017-01-11)
 
 
 
-<a name="0.0.4"></a>
 ## [0.0.4](https://github.com/prettier/prettier-atom/compare/v0.0.3...v0.0.4) (2017-01-11)
 
 
 
-<a name="0.0.3"></a>
 ## 0.0.3 (2017-01-10)
 
 
