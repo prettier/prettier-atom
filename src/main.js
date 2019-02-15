@@ -3,57 +3,20 @@ const { CompositeDisposable } = require('atom');
 const config = require('./config-schema.json');
 const { createStatusTile, updateStatusTile, updateStatusTileScope, disposeTooltip } = require('./statusTile');
 const linterInterface = require('./linterInterface');
+const format = require('./manualFormat'); // eslint-disable-line global-require
+const formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
+// eslint-disable-next-line global-require
+const warnAboutLinterEslintFixOnSave = require('./warnAboutLinterEslintFixOnSave');
+// eslint-disable-next-line global-require
+const displayDebugInfo = require('./displayDebugInfo');
+// eslint-disable-next-line global-require,prefer-destructuring
+const toggleFormatOnSave = require('./atomInterface').toggleFormatOnSave;
 
 // local helpers
-let format = null;
-let formatOnSave = null;
-let warnAboutLinterEslintFixOnSave = null;
-let displayDebugInfo = null;
-let toggleFormatOnSave = null;
 let subscriptions = null;
 let statusBarHandler = null;
 let statusBarTile = null;
 let tileElement = null;
-
-// HACK: lazy load most of the code we need for performance
-const lazyFormat = () => {
-  if (!format) format = require('./manualFormat'); // eslint-disable-line global-require
-
-  const editor = atom.workspace.getActiveTextEditor();
-  if (editor) format(editor);
-};
-
-// HACK: lazy load most of the code we need for performance
-const lazyFormatOnSave = async editor => {
-  if (!formatOnSave) formatOnSave = require('./formatOnSave'); // eslint-disable-line global-require
-  if (editor) await formatOnSave(editor);
-};
-
-// HACK: lazy load most of the code we need for performance
-const lazyWarnAboutLinterEslintFixOnSave = () => {
-  if (!warnAboutLinterEslintFixOnSave) {
-    // eslint-disable-next-line global-require
-    warnAboutLinterEslintFixOnSave = require('./warnAboutLinterEslintFixOnSave');
-  }
-  warnAboutLinterEslintFixOnSave();
-};
-
-// HACK: lazy load most of the code we need for performance
-const lazyDisplayDebugInfo = () => {
-  if (!displayDebugInfo) {
-    // eslint-disable-next-line global-require
-    displayDebugInfo = require('./displayDebugInfo');
-  }
-  displayDebugInfo();
-};
-
-const lazyToggleFormatOnSave = () => {
-  if (!toggleFormatOnSave) {
-    // eslint-disable-next-line global-require,prefer-destructuring
-    toggleFormatOnSave = require('./atomInterface').toggleFormatOnSave;
-  }
-  toggleFormatOnSave();
-};
 
 const attachStatusTile = () => {
   if (statusBarHandler) {
@@ -100,24 +63,18 @@ const activate = () => {
 
   subscriptions = new CompositeDisposable();
 
-  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:format', lazyFormat));
-  subscriptions.add(atom.commands.add('atom-workspace', 'prettier:debug', lazyDisplayDebugInfo));
   subscriptions.add(
-    atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', lazyToggleFormatOnSave),
-  );
-
-  subscriptions.add(
+    atom.commands.add('atom-workspace', 'prettier:format', () => {
+      const editor = atom.workspace.getActiveTextEditor();
+      if (editor) format(editor);
+    }),
+    atom.commands.add('atom-workspace', 'prettier:debug', displayDebugInfo),
+    atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', toggleFormatOnSave),
     atom.workspace.observeTextEditors(editor =>
-      subscriptions.add(editor.getBuffer().onWillSave(() => lazyFormatOnSave(editor))),
+      subscriptions.add(editor.getBuffer().onWillSave(() => editor && formatOnSave(editor))),
     ),
-  );
-  subscriptions.add(
-    atom.config.observe('linter-eslint.fixOnSave', () => lazyWarnAboutLinterEslintFixOnSave()),
-  );
-  subscriptions.add(
-    atom.config.observe('prettier-atom.useEslint', () => lazyWarnAboutLinterEslintFixOnSave()),
-  );
-  subscriptions.add(
+    atom.config.observe('linter-eslint.fixOnSave', warnAboutLinterEslintFixOnSave),
+    atom.config.observe('prettier-atom.useEslint', warnAboutLinterEslintFixOnSave),
     atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', show =>
       show ? attachStatusTile() : detachStatusTile(),
     ),
