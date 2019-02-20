@@ -1,3 +1,12 @@
+## [0.56.4](https://github.com/prettier/prettier-atom/compare/v0.56.3...v0.56.4) (2019-02-20)
+
+
+### Performance Improvements
+
+* **startup:** Remove lazy loading code. ([fab3baf](https://github.com/prettier/prettier-atom/commit/fab3baf))
+
+
+
 ## [0.56.3](https://github.com/prettier/prettier-atom/compare/v0.56.2...v0.56.3) (2019-02-15)
 
 
