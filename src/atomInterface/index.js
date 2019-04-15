@@ -32,6 +32,8 @@ const isDisabledIfNoConfigFile = () => getConfigOption('formatOnSaveOptions.isDi
 
 const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
+const shouldIgnoreNodeModules = () => getConfigOption('formatOnSaveOptions.ignoreNodeModules');
+
 const toggleFormatOnSave = () => setConfigOption('formatOnSaveOptions.enabled', !isFormatOnSaveEnabled());
 
 const getPrettierEslintOptions = () => getConfigOption('prettierEslintOptions');
@@ -104,6 +106,7 @@ module.exports = {
   isLinterEslintAutofixEnabled,
   relativizePathFromAtomProject,
   runLinter,
+  shouldIgnoreNodeModules,
   shouldRespectEslintignore,
   shouldUseEslint,
   shouldUseStylelint,

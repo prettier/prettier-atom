@@ -72,6 +72,13 @@
         "type": "boolean",
         "default": false,
         "order": 7
+      },
+      "ignoreNodeModules": {
+        "title": "Ignore Files in `node_modules`",
+        "description": "Ignores Files in `node_modules` from format on save.",
+        "type": "boolean",
+        "default": true,
+        "order": 8
       }
     }
   },
