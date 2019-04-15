@@ -1,6 +1,7 @@
 // @flow
 const _ = require('lodash/fp');
 const getPrettierInstance = require('./getPrettierInstance');
+const { shouldIgnoreNodeModules } = require('../atomInterface');
 const { getCurrentFilePath, isCurrentFilePathDefined } = require('../editorInterface');
 const { findCachedFromFilePath } = require('./general');
 
@@ -10,6 +11,7 @@ const getNearestPrettierignorePath = (filePath: FilePath): ?FilePath =>
 const getPrettierFileInfoForCurrentFilePath = (editor: TextEditor): Prettier$FileInfo =>
   // $FlowFixMe: getFileInfo.sync needs to be addded to flow-typed
   getPrettierInstance(editor).getFileInfo.sync(getCurrentFilePath(editor), {
+    withNodeModules: !shouldIgnoreNodeModules(),
     // $FlowIssue: we know filepath is defined at this point
     ignorePath: getNearestPrettierignorePath(getCurrentFilePath(editor)),
   });

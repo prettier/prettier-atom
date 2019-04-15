@@ -1,16 +1,19 @@
 jest.mock('./getPrettierInstance');
+jest.mock('../atomInterface');
 jest.mock('../editorInterface');
 jest.mock('./general');
 
 const isFileFormattable = require('./isFileFormattable');
 const buildMockEditor = require('../../tests/mocks/textEditor');
 const getPrettierInstance = require('./getPrettierInstance');
+const { shouldIgnoreNodeModules } = require('../atomInterface');
 const { getCurrentFilePath, isCurrentFilePathDefined } = require('../editorInterface');
 const { findCachedFromFilePath } = require('./general');
 
 const mockEditor = buildMockEditor();
 
 beforeEach(() => {
+  shouldIgnoreNodeModules.mockImplementation(() => true);
   isCurrentFilePathDefined.mockImplementation(() => true);
   getCurrentFilePath.mockImplementation(() => 'xyz.js');
   findCachedFromFilePath.mockImplementation(() => '.prettierignore');
@@ -22,11 +25,12 @@ const mockGetFileInfoSyncFunc = syncFunc =>
 it('calls prettier.getFileInfo.sync with the proper arguments', () => {
   const sync = jest.fn();
   mockGetFileInfoSyncFunc(sync);
+  shouldIgnoreNodeModules.mockImplementation(() => false);
   getPrettierInstance.mockImplementation(() => ({ getFileInfo: { sync } }));
 
   isFileFormattable(mockEditor);
 
-  expect(sync).toHaveBeenCalledWith('xyz.js', { ignorePath: '.prettierignore' });
+  expect(sync).toHaveBeenCalledWith('xyz.js', { withNodeModules: true, ignorePath: '.prettierignore' });
 });
 
 it('returns true if the file is formattable', () => {
