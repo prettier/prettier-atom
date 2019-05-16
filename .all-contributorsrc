@@ -313,6 +313,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "chancedickson",
+      "name": "Chance Dickson",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5004326?v=4",
+      "profile": "http://chancedickson.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "repoType": "github"
