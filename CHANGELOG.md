@@ -1,3 +1,17 @@
+## [0.56.5](https://github.com/prettier/prettier-atom/compare/v0.56.4...v0.56.5) (2019-05-16)
+
+
+### Bug Fixes
+
+* **prettierignore:** Pass relative instead of absolute path to prettier.getFileInfo ([f045749](https://github.com/prettier/prettier-atom/commit/f045749))
+
+
+### Features
+
+* Add option to enable format-on-save for files in node_modules ([6e8a506](https://github.com/prettier/prettier-atom/commit/6e8a506))
+
+
+
 ## [0.56.4](https://github.com/prettier/prettier-atom/compare/v0.56.3...v0.56.4) (2019-02-20)
 
 
