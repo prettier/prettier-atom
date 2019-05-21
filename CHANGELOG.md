@@ -1,3 +1,12 @@
+## [0.56.6](https://github.com/prettier/prettier-atom/compare/v0.56.5...v0.56.6) (2019-05-21)
+
+
+### Bug Fixes
+
+* **prettierignore:** Revert mistake with path passed to prettier.getFileInfo ([850d639](https://github.com/prettier/prettier-atom/commit/850d639))
+
+
+
 ## [0.56.5](https://github.com/prettier/prettier-atom/compare/v0.56.4...v0.56.5) (2019-05-16)
 
 
