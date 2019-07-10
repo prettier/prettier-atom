@@ -1,10 +1,22 @@
-'use strict';
+"use strict";
 
 const _ = require('lodash/fp');
-const { executePrettierOnBufferRange } = require('../executePrettier');
-const { getBufferRange } = require('../editorInterface');
-const { clearLinterErrors } = require('../linterInterface');
-const { isPrettierProperVersion } = require('../helpers');
+
+const {
+  executePrettierOnBufferRange
+} = require('../executePrettier');
+
+const {
+  getBufferRange
+} = require('../editorInterface');
+
+const {
+  clearLinterErrors
+} = require('../linterInterface');
+
+const {
+  isPrettierProperVersion
+} = require('../helpers');
 
 const hasSelectedText = editor => !!editor.getSelectedText();
 

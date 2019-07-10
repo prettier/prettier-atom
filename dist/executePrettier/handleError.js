@@ -1,21 +1,36 @@
-'use strict';
+"use strict";
 
 const _ = require('lodash/fp');
-const { getCurrentFilePath } = require('../editorInterface');
+
+const {
+  getCurrentFilePath
+} = require('../editorInterface');
+
 const linter = require('../linterInterface');
-const { addErrorNotification } = require('../atomInterface');
-const { createPoint, createRange } = require('../helpers');
+
+const {
+  addErrorNotification
+} = require('../atomInterface');
+
+const {
+  createPoint,
+  createRange
+} = require('../helpers');
 
 const errorLine = error => error.loc.start ? error.loc.start.line : error.loc.line;
 
-const errorColumn = error => error.loc.start ? error.loc.start.column : error.loc.column;
+const errorColumn = error => error.loc.start ? error.loc.start.column : error.loc.column; // NOTE: Prettier error locations are not zero-based (i.e., they start at 1)
 
-// NOTE: Prettier error locations are not zero-based (i.e., they start at 1)
+
 const buildPointArrayFromPrettierErrorAndRange = (error, bufferRange) => createPoint(errorLine(error) + bufferRange.start.row - 1, errorLine(error) === 0 ? errorColumn(error) + bufferRange.start.column - 1 : errorColumn(error) - 1);
 
 const buildExcerpt = error => _.get('[1]', /(.*)\s\(\d+:\d+\).*/.exec(error.message));
 
-const setErrorMessageInLinter = ({ editor, bufferRange, error }) => linter.setMessages(editor, [{
+const setErrorMessageInLinter = ({
+  editor,
+  bufferRange,
+  error
+}) => linter.setMessages(editor, [{
   location: {
     // $$FlowFixMe
     file: getCurrentFilePath(editor),
@@ -27,8 +42,7 @@ const setErrorMessageInLinter = ({ editor, bufferRange, error }) => linter.setMe
 
 const isSyntaxError = _.overSome([_.flow(_.get('error.loc.start.line'), _.isInteger), _.flow(_.get('error.loc.line'), _.isInteger)]);
 
-const isUndefinedError = _.flow(_.get('error.message'),
-// $FlowIssue
+const isUndefinedError = _.flow(_.get('error.message'), // $FlowIssue
 _.matches('undefined'));
 
 const isFilePathPresent = _.flow(_.get('editor'), getCurrentFilePath, _.negate(_.isNil));

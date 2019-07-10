@@ -10,6 +10,7 @@ const isPrettierProperVersion = require('./isPrettierProperVersion');
 const editor = buildMockEditor();
 
 beforeEach(() => {
+  // $$FlowFixMe
   getPrettierInstance.mockImplementation(() => ({ getFileInfo: { sync: jest.fn() } }));
 });
 
@@ -20,6 +21,7 @@ it('returns true if prettier has getFileInfo.sync defined', () => {
 });
 
 it('displays an error once and returns false if prettier does not have getFileInfo.sync defined', () => {
+  // $$FlowFixMe
   getPrettierInstance.mockImplementation(() => ({}));
 
   const actual = isPrettierProperVersion(editor);
