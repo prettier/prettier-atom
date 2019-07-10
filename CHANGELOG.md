@@ -1,3 +1,13 @@
+# [0.57.0](https://github.com/prettier/prettier-atom/compare/v0.56.6...v0.57.0) (2019-07-10)
+
+
+### Features
+
+* **prettier:** bump to version 1.18.2 ([16ecb0d](https://github.com/prettier/prettier-atom/commit/16ecb0d))
+* **prettier-eslint:** bump to version 9.0.0 ([3019316](https://github.com/prettier/prettier-atom/commit/3019316))
+
+
+
 ## [0.56.6](https://github.com/prettier/prettier-atom/compare/v0.56.5...v0.56.6) (2019-05-21)
 
 
