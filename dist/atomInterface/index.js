@@ -1,25 +1,25 @@
-'use strict';
+"use strict";
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 const path = require('path');
-const _ = require('lodash/fp');
 
-// constants
-const LINTER_LINT_COMMAND = 'linter:lint';
+const _ = require('lodash/fp'); // constants
 
-// local helpers
+
+const LINTER_LINT_COMMAND = 'linter:lint'; // local helpers
+
 const getConfigOption = key => atom.config.get(`prettier-atom.${key}`);
 
 const setConfigOption = (key, value) => atom.config.set(`prettier-atom.${key}`, value);
 
-const isLinterLintCommandDefined = editor => atom.commands.findCommands({ target: atom.views.getView(editor) }).some(command => command.name === LINTER_LINT_COMMAND);
+const isLinterLintCommandDefined = editor => atom.commands.findCommands({
+  target: atom.views.getView(editor)
+}).some(command => command.name === LINTER_LINT_COMMAND); // public
 
-// public
+
 const isLinterEslintAutofixEnabled = () => atom.packages.isPackageActive('linter-eslint') && atom.config.get('linter-eslint.fixOnSave');
 
 const shouldUseEslint = () => getConfigOption('useEslint');
@@ -56,20 +56,26 @@ const addWarningNotification = (message, options) => atom.notifications.addWarni
 
 const addErrorNotification = (message, options) => atom.notifications.addError(message, options);
 
-const attemptWithErrorNotification = (() => {
-  var _ref = (0, _asyncToGenerator3.default)(function* (func, ...args) {
+const attemptWithErrorNotification =
+/*#__PURE__*/
+function () {
+  var _ref = (0, _asyncToGenerator2["default"])(function* (func, ...args) {
     try {
       yield func(...args);
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
-      addErrorNotification(e.message, { dismissable: true, stack: e.stack });
+
+      addErrorNotification(e.message, {
+        dismissable: true,
+        stack: e.stack
+      });
     }
   });
 
   return function attemptWithErrorNotification(_x) {
     return _ref.apply(this, arguments);
   };
-})();
+}();
 
 const runLinter = editor => isLinterLintCommandDefined(editor) && atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
 

@@ -1,22 +1,26 @@
-'use strict';
+"use strict";
 
 const _ = require('lodash/fp');
+
 const path = require('path');
+
 const fs = require('fs');
-const { findCachedFromFilePath, getDirFromFilePath, someGlobsMatchFilePath } = require('../helpers');
+
+const {
+  findCachedFromFilePath,
+  getDirFromFilePath,
+  someGlobsMatchFilePath
+} = require('../helpers');
 
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
 
 const getNearestEslintignorePath = filePath => findCachedFromFilePath(filePath, '.eslintignore');
 
-const safeRelativePath = _.curry(
-// $FlowFixMe
+const safeRelativePath = _.curry( // $FlowFixMe
 (from, to) => !!from && !!to ? path.join(path.relative(from, to)) : undefined);
 
-const getFilePathRelativeToEslintignore = (filePath
-// $FlowIssue: lodashfp placeholders not supported yet
-) => _.flow(getNearestEslintignorePath, getDirFromFilePath,
-// $FlowFixMe
+const getFilePathRelativeToEslintignore = filePath => // $FlowIssue: lodashfp placeholders not supported yet
+_.flow(getNearestEslintignorePath, getDirFromFilePath, // $FlowFixMe
 safeRelativePath(_, filePath))(filePath);
 
 const getLinesFromFilePath = filePath => !!filePath && filePath.length > 0 ? fs.readFileSync(filePath, 'utf8').split(LINE_SEPERATOR_REGEX) : [];

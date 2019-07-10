@@ -1,19 +1,24 @@
-'use strict';
+"use strict";
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _extends3 = _interopRequireDefault(_extends2);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 const _ = require('lodash/fp');
+
 const prettierEslint = require('prettier-eslint');
+
 const prettierStylelint = require('prettier-stylelint');
-const { allowUnsafeNewFunction } = require('loophole');
+
+const {
+  allowUnsafeNewFunction
+} = require('loophole');
 
 const {
   getPrettierEslintOptions,
@@ -21,28 +26,33 @@ const {
   shouldUseStylelint,
   runLinter
 } = require('../atomInterface');
-const { getCurrentFilePath, isCurrentScopeStyleLintScope } = require('../editorInterface');
-const { getPrettierInstance } = require('../helpers');
+
+const {
+  getCurrentFilePath,
+  isCurrentScopeStyleLintScope
+} = require('../editorInterface');
+
+const {
+  getPrettierInstance
+} = require('../helpers');
+
 const handleError = require('./handleError');
 
-const getPrettierOptions = (editor
-// $FlowFixMe
-) => getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor));
+const getPrettierOptions = editor => // $FlowFixMe
+getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor));
 
-const executePrettier = (editor, text
-// $FlowFixMe
-) => getPrettierInstance(editor).format(text, (0, _extends3.default)({
+const executePrettier = (editor, text) => // $FlowFixMe
+getPrettierInstance(editor).format(text, _objectSpread({
   filepath: getCurrentFilePath(editor)
 }, getPrettierOptions(editor)));
 
-const executePrettierWithCursor = (editor, text, cursorOffset
-// $FlowFixMe
-) => getPrettierInstance(editor).formatWithCursor(text, (0, _extends3.default)({
+const executePrettierWithCursor = (editor, text, cursorOffset) => // $FlowFixMe
+getPrettierInstance(editor).formatWithCursor(text, _objectSpread({
   cursorOffset,
   filepath: getCurrentFilePath(editor)
 }, getPrettierOptions(editor)));
 
-const buildPrettierEslintOptions = (editor, text) => (0, _extends3.default)({
+const buildPrettierEslintOptions = (editor, text) => _objectSpread({
   text
 }, getPrettierEslintOptions(), {
   filePath: getCurrentFilePath(editor)
@@ -57,41 +67,51 @@ const buildPrettierStylelintOptions = (editor, text) => ({
 
 const executePrettierStylelint = (editor, text) => prettierStylelint.format(buildPrettierStylelintOptions(editor, text));
 
-const executePrettierOrIntegration = (() => {
-  var _ref = (0, _asyncToGenerator3.default)(function* (editor, text, cursorOffset) {
+const executePrettierOrIntegration =
+/*#__PURE__*/
+function () {
+  var _ref = (0, _asyncToGenerator2["default"])(function* (editor, text, cursorOffset) {
     if (shouldUseStylelint() && isCurrentScopeStyleLintScope(editor)) {
       // TODO: add support for cursor position - https://github.com/hugomrdias/prettier-stylelint/issues/13
       const formatted = yield executePrettierStylelint(editor, text);
-
-      return { formatted, cursorOffset };
+      return {
+        formatted,
+        cursorOffset
+      };
     }
 
     if (shouldUseEslint()) {
       // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
       const formatted = executePrettierEslint(editor, text);
-
-      return { formatted, cursorOffset };
+      return {
+        formatted,
+        cursorOffset
+      };
     }
 
-    let formatted;
+    let formatted; // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
 
-    // TODO: remove this try/catch once Prettier.formatWithCursor stabilizes
     try {
       formatted = executePrettierWithCursor(editor, text, cursorOffset).formatted;
     } catch (error) {
       formatted = executePrettier(editor, text);
     }
 
-    return { formatted, cursorOffset };
+    return {
+      formatted,
+      cursorOffset
+    };
   });
 
   return function executePrettierOrIntegration(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
-})();
+}();
 
-const executePrettierOnBufferRange = (() => {
-  var _ref2 = (0, _asyncToGenerator3.default)(function* (editor, bufferRange, options) {
+const executePrettierOnBufferRange =
+/*#__PURE__*/
+function () {
+  var _ref2 = (0, _asyncToGenerator2["default"])(function* (editor, bufferRange, options) {
     // grab cursor position and file contents
     const currentBuffer = editor.getBuffer();
     const cursorPosition = editor.getCursorBufferPosition();
@@ -101,13 +121,16 @@ const executePrettierOnBufferRange = (() => {
       cursorOffset,
       formatted: textToTransform
     };
-
     if (_.isEmpty(textToTransform)) return;
 
     try {
       results = yield executePrettierOrIntegration(editor, textToTransform, cursorOffset);
     } catch (error) {
-      handleError({ editor, bufferRange, error });
+      handleError({
+        editor,
+        bufferRange,
+        error
+      });
       return;
     }
 
@@ -122,11 +145,10 @@ const executePrettierOnBufferRange = (() => {
       currentBuffer.setTextViaDiff(results.formatted);
     } else {
       editor.setTextInBufferRange(bufferRange, results.formatted);
-    }
+    } // calculate next cursor position after buffer has been updated with new text
 
-    // calculate next cursor position after buffer has been updated with new text
+
     const nextCursorPosition = currentBuffer.positionForCharacterIndex(results.cursorOffset);
-
     editor.setCursorBufferPosition(nextCursorPosition);
     runLinter(editor);
   });
@@ -134,6 +156,6 @@ const executePrettierOnBufferRange = (() => {
   return function executePrettierOnBufferRange(_x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
   };
-})();
+}();
 
 module.exports = executePrettierOnBufferRange;

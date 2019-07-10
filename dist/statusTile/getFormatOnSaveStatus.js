@@ -1,6 +1,8 @@
-'use strict';
+"use strict";
 
-const { isFormatOnSaveEnabled } = require('../atomInterface');
+const {
+  isFormatOnSaveEnabled
+} = require('../atomInterface');
 
 const getFormatOnSaveStatus = () => isFormatOnSaveEnabled() ? 'enabled' : 'disabled';
 

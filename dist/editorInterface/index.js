@@ -1,12 +1,14 @@
-'use strict';
+"use strict";
 
 const path = require('path');
 
 let flow;
+
 const lazyFlow = () => {
   if (!flow) {
     flow = require('lodash/fp/flow'); // eslint-disable-line global-require
   }
+
   return flow;
 };
 

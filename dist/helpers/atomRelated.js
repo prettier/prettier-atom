@@ -1,6 +1,7 @@
-'use strict';
+"use strict";
 
 const Point = require('atom-text-buffer-point');
+
 const Range = require('atom-text-buffer-range');
 
 const createPoint = (row, column) => new Point(row, column);

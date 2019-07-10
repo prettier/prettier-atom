@@ -1,12 +1,18 @@
-'use strict';
+"use strict";
 
-const { disposeTooltip, setTooltip } = require('./tooltip');
+const {
+  disposeTooltip,
+  setTooltip
+} = require('./tooltip');
+
 const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
-const { addTooltip } = require('../atomInterface');
+
+const {
+  addTooltip
+} = require('../atomInterface');
 
 const updateStatusTile = (disposable, element) => {
   disposeTooltip();
-
   const formatStatus = getFormatOnSaveStatus();
 
   if (formatStatus === 'enabled') {
@@ -20,10 +26,8 @@ const updateStatusTile = (disposable, element) => {
   const newTooltip = addTooltip(element, {
     title: `Format on Save: ${getFormatOnSaveStatus()}<br>Click to toggle`
   });
-
   setTooltip(newTooltip);
   disposable.add(newTooltip);
-
   return newTooltip;
 };
 

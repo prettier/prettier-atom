@@ -1,4 +1,8 @@
 {
-  "presets": [["env", { "targets": { "electron": "1.4" } }]],
-  "plugins": ["transform-flow-strip-types", "transform-runtime", "transform-object-rest-spread"]
+  "presets": [["@babel/env", { "targets": { "electron": "1.4" } }]],
+  "plugins": [
+    "@babel/transform-flow-strip-types",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
 }

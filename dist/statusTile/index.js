@@ -1,9 +1,14 @@
-'use strict';
+"use strict";
 
 const createStatusTile = require('./createStatusTile');
+
 const updateStatusTile = require('./updateStatusTile');
+
 const updateStatusTileScope = require('./updateStatusTileScope');
-const { disposeTooltip } = require('./tooltip');
+
+const {
+  disposeTooltip
+} = require('./tooltip');
 
 module.exports = {
   createStatusTile,
