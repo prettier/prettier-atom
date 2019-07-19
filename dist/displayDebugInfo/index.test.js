@@ -26,7 +26,7 @@ test('it displays a notification on Atom with package information', () => {
     options = _options;
   });
   readPkgUp.sync.mockImplementation(() => ({
-    pkg: {
+    "package": {
       version: 'FAKE_PACKAGE_VERSION'
     }
   }));

@@ -18,7 +18,7 @@ const getDepPath = dep => path.join(__dirname, '..', '..', 'node_modules', dep);
 
 const getPackageInfo = dir => readPkgUp.sync({
   cwd: dir
-}).pkg;
+})["package"];
 
 const getDebugInfo = () => {
   const globalPrettierPath = getGlobalPrettierPath();
