@@ -1,3 +1,12 @@
+## [0.57.1](https://github.com/prettier/prettier-atom/compare/v0.57.0...v0.57.1) (2019-07-19)
+
+
+### Bug Fixes
+
+* **debug:** read-pkg-up@6 BC break, renamed pkg to package ([114cfb1](https://github.com/prettier/prettier-atom/commit/114cfb1))
+
+
+
 # [0.57.0](https://github.com/prettier/prettier-atom/compare/v0.56.6...v0.57.0) (2019-07-10)
 
 
