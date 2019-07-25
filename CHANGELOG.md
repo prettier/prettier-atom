@@ -1,3 +1,12 @@
+## [0.57.2](https://github.com/prettier/prettier-atom/compare/v0.57.1...v0.57.2) (2019-07-25)
+
+
+### Bug Fixes
+
+* **deps:** correctly use new pkg-up, fixup f5a0b18, [#507](https://github.com/prettier/prettier-atom/issues/507) ([88285be](https://github.com/prettier/prettier-atom/commit/88285be)), closes [#510](https://github.com/prettier/prettier-atom/issues/510)
+
+
+
 ## [0.57.1](https://github.com/prettier/prettier-atom/compare/v0.57.0...v0.57.1) (2019-07-19)
 
 
