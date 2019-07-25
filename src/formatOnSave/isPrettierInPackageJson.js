@@ -7,13 +7,13 @@ const { shouldUseEslint } = require('../atomInterface');
 
 const hasPackageDependency = (packageName: string): ((packageJson: {}) => boolean) =>
   _.flow(
-    _.get('pkg.dependencies'),
+    _.get('package.dependencies'),
     _.has(packageName),
   );
 
 const hasPackageDevDependency = (packageName: string) =>
   _.flow(
-    _.get('pkg.devDependencies'),
+    _.get('package.devDependencies'),
     _.has(packageName),
   );
 
