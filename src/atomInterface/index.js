@@ -23,6 +23,8 @@ const shouldUseEslint = () => getConfigOption('useEslint');
 
 const shouldUseStylelint = () => getConfigOption('useStylelint');
 
+const shouldUseEditorConfig = () => getConfigOption('useEditorConfig');
+
 const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
 
 const isDisabledIfNotInPackageJson = () =>
@@ -110,6 +112,7 @@ module.exports = {
   shouldRespectEslintignore,
   shouldUseEslint,
   shouldUseStylelint,
+  shouldUseEditorConfig,
   toggleFormatOnSave,
   attemptWithErrorNotification,
 };

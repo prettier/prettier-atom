@@ -24,6 +24,7 @@ const {
   getPrettierEslintOptions,
   shouldUseEslint,
   shouldUseStylelint,
+  shouldUseEditorConfig,
   runLinter
 } = require('../atomInterface');
 
@@ -39,7 +40,9 @@ const {
 const handleError = require('./handleError');
 
 const getPrettierOptions = editor => // $FlowFixMe
-getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor));
+getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor), {
+  editorconfig: shouldUseEditorConfig()
+});
 
 const executePrettier = (editor, text) => // $FlowFixMe
 getPrettierInstance(editor).format(text, _objectSpread({
