@@ -8,6 +8,7 @@ const {
   getPrettierEslintOptions,
   shouldUseEslint,
   shouldUseStylelint,
+  shouldUseEditorConfig,
   runLinter,
 } = require('../atomInterface');
 const { getCurrentFilePath, isCurrentScopeStyleLintScope } = require('../editorInterface');
@@ -16,7 +17,9 @@ const handleError = require('./handleError');
 
 const getPrettierOptions = (editor: TextEditor) =>
   // $FlowFixMe
-  getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor));
+  getPrettierInstance(editor).resolveConfig.sync(getCurrentFilePath(editor), {
+    editorconfig: shouldUseEditorConfig(),
+  });
 
 const executePrettier = (editor: TextEditor, text: string) =>
   // $FlowFixMe

@@ -28,6 +28,7 @@ const {
   getPrettierEslintOptions,
   shouldUseEslint,
   shouldUseStylelint,
+  shouldUseEditorConfig,
   runLinter
 } = require('../atomInterface');
 
@@ -75,6 +76,26 @@ beforeEach(() => {
   getPrettierInstance.mockImplementation(() => prettier);
   prettier.resolveConfig.sync.mockImplementation(() => optionsFixture);
 });
+it('uses editor config',
+/*#__PURE__*/
+(0, _asyncToGenerator2["default"])(function* () {
+  getCurrentFilePath.mockImplementation(() => 'foo.js');
+  shouldUseEditorConfig.mockImplementation(() => true);
+  yield executePrettierOnBufferRange(editor, bufferRangeFixture);
+  expect(prettier.resolveConfig.sync).toHaveBeenCalledWith('foo.js', {
+    editorconfig: true
+  });
+}));
+it('does not use editor config',
+/*#__PURE__*/
+(0, _asyncToGenerator2["default"])(function* () {
+  getCurrentFilePath.mockImplementation(() => 'foo.js');
+  shouldUseEditorConfig.mockImplementation(() => false);
+  yield executePrettierOnBufferRange(editor, bufferRangeFixture);
+  expect(prettier.resolveConfig.sync).toHaveBeenCalledWith('foo.js', {
+    editorconfig: false
+  });
+}));
 it('sets the transformed text in the buffer range',
 /*#__PURE__*/
 (0, _asyncToGenerator2["default"])(function* () {
