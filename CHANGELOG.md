@@ -1,3 +1,19 @@
+# [0.58.0](https://github.com/prettier/prettier-atom/compare/v0.57.3...v0.58.0) (2019-10-18)
+
+
+### Features
+
+* Add option to use configuration from `.editorconfig`, enabled by default ([2ab8011](https://github.com/prettier/prettier-atom/commit/2ab8011)), closes [#514](https://github.com/prettier/prettier-atom/issues/514)
+
+
+### BREAKING CHANGES
+
+* If the user has a `.editorconfig` file, with `max_line_length` then that value will
+be used instead of Prettier's `printWidth`. This is the default behaviour of prettier when run on
+the command line, but was not the default behaviour of prettier-atom (but it should be, and now is)
+
+
+
 ## [0.57.3](https://github.com/prettier/prettier-atom/compare/v0.57.2...v0.57.3) (2019-10-04)
 
 
