@@ -3889,19 +3889,21 @@ flow-bin@^0.109.0:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.109.0.tgz#dcdcb7402dd85b58200392d8716ccf14e5a8c24c"
   integrity sha512-tpcMTpAGIRivYhFV3KJq+zHI2HzcXo8MoGe9pXS4G/UZuey2Faq/e8/gdph2WF0erRlML5hmwfwiq7v9c25c7w==
 
-flow-typed@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-2.5.2.tgz#967e83c762a1cbfcd52eebaece1ade77944f1714"
-  integrity sha512-RrHRmp/Bof1vDG1AqBcwuyxMMoezkl7TxvimA5c6GKZOOb1fkkRZ81S+1qAuvb4rUka5fLlFomKCnpMnCsgP+g==
+flow-typed@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-2.6.1.tgz#e991f53840ad121d9e1f61bd8f8b844cfae57ab1"
+  integrity sha512-UXhkAHcv4t+sSsuGud35zkV5CVXkEfIbGee545/1WnajM0+na1IKhmccuawg/PVu1Jtc3i127JcuKV/CLhF0oQ==
   dependencies:
     "@babel/polyfill" "^7.0.0"
     "@octokit/rest" "^15.12.1"
     colors "^1.3.2"
+    flowgen "^1.9.0"
     fs-extra "^7.0.0"
     glob "^7.1.3"
     got "^8.3.2"
     md5 "^2.2.1"
     mkdirp "^0.5.1"
+    prettier "^1.18.2"
     rimraf "^2.6.2"
     semver "^5.5.1"
     table "^5.0.2"
@@ -3909,6 +3911,21 @@ flow-typed@^2.5.2:
     unzipper "^0.9.3"
     which "^1.3.1"
     yargs "^12.0.2"
+
+flowgen@^1.9.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/flowgen/-/flowgen-1.10.0.tgz#a041ae31d543d22166e7ba7c296b8445deb3c2e4"
+  integrity sha512-3lsoaa1vxGXhnkHuoE4mLPJi/klvpR3ID8R9CFJ/GBNi+cxJXecWQaUPrWMdNI5tGs8Y+7wrIZaCVFKFLQiGOg==
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/highlight" "^7.0.0"
+    commander "^2.11.0"
+    lodash "^4.17.4"
+    paralleljs "^0.2.1"
+    prettier "^1.16.4"
+    shelljs "^0.8.3"
+    typescript "^3.4"
+    typescript-compiler "^1.4.1-2"
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -6857,6 +6874,11 @@ parallel-transform@^1.1.0:
     inherits "^2.0.3"
     readable-stream "^2.1.5"
 
+paralleljs@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/paralleljs/-/paralleljs-0.2.1.tgz#ebca745d3e09c01e2bebcc14858891ff4510e926"
+  integrity sha1-68p0XT4JwB4r68wUhYiR/0UQ6SY=
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -7266,14 +7288,10 @@ prettier-stylelint@^0.4.2:
     tempy "^0.2.1"
     update-notifier "^2.2.0"
 
-prettier@1.18.2:
+prettier@1.18.2, prettier@^1.16.4, prettier@^1.18.2, prettier@^1.7.0:
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
   integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
-
-prettier@^1.7.0:
-  version "1.13.4"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.4.tgz#31bbae6990f13b1093187c731766a14036fa72e6"
 
 pretty-format@^23.0.1:
   version "23.6.0"
@@ -8091,6 +8109,15 @@ shelljs@0.7.6:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
+shelljs@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.8.3.tgz#a7f3319520ebf09ee81275b2368adb286659b097"
+  integrity sha512-fc0BKlAWiLpwZljmOvAOTE/gXawtCoNrP5oaY7KIaQbbyHeQVg01pSEuEGvGh3HEdBU4baCD7wQBwADmM/7f7A==
+  dependencies:
+    glob "^7.0.0"
+    interpret "^1.0.0"
+    rechoir "^0.6.2"
+
 shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
@@ -8872,10 +8899,20 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typescript-compiler@^1.4.1-2:
+  version "1.4.1-2"
+  resolved "https://registry.yarnpkg.com/typescript-compiler/-/typescript-compiler-1.4.1-2.tgz#ba4f7db22d91534a1929d90009dce161eb72fd3f"
+  integrity sha1-uk99si2RU0oZKdkACdzhYety/T8=
+
 typescript@^3.2.1:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
   integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
+
+typescript@^3.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
+  integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
 
 uglify-js@^3.1.4:
   version "3.4.9"
