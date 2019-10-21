@@ -50,7 +50,7 @@
     "commitizen": "^3.1.1",
     "conventional-changelog-cli": "^2.0.25",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^6.0.1",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-flowtype": "^3.11.1",
