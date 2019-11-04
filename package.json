@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "@lewisl9029/prettier-eslint": "^9.0.1",
     "atom-linter": "^10.0.0",
     "atom-package-deps": "^5.1.0",
     "atom-text-buffer-point": "^1.0.0",
@@ -32,7 +33,7 @@
     "lodash": "^4.17.13",
     "loophole": "^1.1.0",
     "prettier": "1.18.2",
-    "prettier-eslint": "^9.0.0",
+    "prettier-eslint": "npm:@lewisl9029/prettier-eslint",
     "prettier-stylelint": "^0.4.2",
     "read-pkg-up": "^6.0.0",
     "yarn-global-modules": "^1.0.1"
