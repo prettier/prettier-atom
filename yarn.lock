@@ -897,7 +897,7 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@lewisl9029/prettier-eslint@^9.0.1", "prettier-eslint@npm:@lewisl9029/prettier-eslint":
+"@lewisl9029/prettier-eslint@^9.0.1":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@lewisl9029/prettier-eslint/-/prettier-eslint-9.0.1.tgz#9be07525c3d917b8ff37477a94f2b4bdfca051d8"
   integrity sha512-k4vh8RmH2VEvrBSBQ/jw8bvyh77LxnQi6GkGlU6P3X0fyVlqKoTcmA0WfUKPgAzoM3DO8f9iA+Fgr7laofz/dg==

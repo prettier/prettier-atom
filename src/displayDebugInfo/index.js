@@ -15,7 +15,7 @@ Atom version: ${getAtomVersion()}
 prettier-atom version: ${getPackageInfo(__dirname).version}
 prettier: ${globalPrettierPath || 'bundled'}
 prettier version: ${getPackageInfo(globalPrettierPath || getDepPath('prettier')).version}
-prettier-eslint version: ${getPackageInfo(getDepPath('prettier-eslint')).version}
+prettier-eslint version: ${getPackageInfo(getDepPath('@lewisl9029/prettier-eslint')).version}
 prettier-atom configuration: ${JSON.stringify(getPrettierAtomConfig(), null, 2)}
 `.trim();
 };
