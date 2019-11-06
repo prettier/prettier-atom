@@ -1,3 +1,12 @@
+## [0.58.2](https://github.com/prettier/prettier-atom/compare/v0.58.1...v0.58.2) (2019-11-06)
+
+
+### Bug Fixes
+
+* search and replace 'prettier-eslint' to custom fork ([801d39a](https://github.com/prettier/prettier-atom/commit/801d39a1195667d31816e319eef228621bc8a771)), closes [#565](https://github.com/prettier/prettier-atom/issues/565)
+
+
+
 ## [0.58.1](https://github.com/prettier/prettier-atom/compare/v0.58.0...v0.58.1) (2019-11-04)
 
 
