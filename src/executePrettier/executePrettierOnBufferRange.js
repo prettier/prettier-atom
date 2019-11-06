@@ -1,6 +1,6 @@
 // @flow
 const _ = require('lodash/fp');
-const prettierEslint = require('prettier-eslint');
+const prettierEslint = require('@lewisl9029/prettier-eslint');
 const prettierStylelint = require('prettier-stylelint');
 const { allowUnsafeNewFunction } = require('loophole');
 

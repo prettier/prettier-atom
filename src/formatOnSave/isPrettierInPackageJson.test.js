@@ -57,7 +57,9 @@ describe('when shouldUseEslint is true', () => {
   });
 
   it('is true if prettier-eslint is a dependency', () => {
-    readPkgUp.sync.mockImplementation(() => ({ package: { dependencies: { 'prettier-eslint': '^0.0.1' } } }));
+    readPkgUp.sync.mockImplementation(() => ({
+      package: { dependencies: { 'prettier-eslint': '^0.0.1' } },
+    }));
 
     const actual = isPrettierInPackageJson();
 
