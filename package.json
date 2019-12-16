@@ -48,7 +48,7 @@
     "babel-eslint": "^10.0.3",
     "codecov": "^3.6.1",
     "commitizen": "^4.0.3",
-    "conventional-changelog-cli": "^2.0.28",
+    "conventional-changelog-cli": "^2.0.31",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^13.2.0",
