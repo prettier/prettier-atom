@@ -65,7 +65,7 @@
     "opt-cli": "^1.6.0",
     "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "start": "nps",
