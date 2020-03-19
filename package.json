@@ -58,7 +58,7 @@
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-prettier": "^3.1.2",
     "flow-bin": "^0.121.0",
-    "flow-typed": "^3.0.0",
+    "flow-typed": "^3.1.0",
     "husky": "^4.2.3",
     "jest": "^24.9.0",
     "nps": "^5.9.12",
