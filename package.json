@@ -59,7 +59,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "flow-bin": "^0.122.0",
     "flow-typed": "^3.1.0",
-    "husky": "^4.2.3",
+    "husky": "^4.2.5",
     "jest": "^25.3.0",
     "nps": "^5.9.12",
     "opt-cli": "^1.6.0",
