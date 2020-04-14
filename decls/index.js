@@ -92,7 +92,7 @@ declare var atom: {
     add: (target: HTMLElement, options?: Atom$Tooltips$Options) => Atom$Disposable,
   },
   views: {
-    getView: Atom$Workspace => Atom$View,
+    getView: (Atom$Workspace) => Atom$View,
   },
   workspace: Atom$Workspace,
   getVersion: () => string,

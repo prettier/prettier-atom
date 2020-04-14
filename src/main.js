@@ -35,7 +35,7 @@ const attachStatusTile = () => {
     subscriptions.add(
       // onDidChangeActiveTextEditor is only available in Atom 1.18.0+.
       atom.workspace.onDidChangeActiveTextEditor
-        ? atom.workspace.onDidChangeActiveTextEditor(editor => updateStatusTileScope(tileElement, editor))
+        ? atom.workspace.onDidChangeActiveTextEditor((editor) => updateStatusTileScope(tileElement, editor))
         : atom.workspace.onDidChangeActivePaneItem(() =>
             updateStatusTileScope(tileElement, atom.workspace.getActiveTextEditor()),
           ),
@@ -70,12 +70,12 @@ const activate = () => {
     }),
     atom.commands.add('atom-workspace', 'prettier:debug', displayDebugInfo),
     atom.commands.add('atom-workspace', 'prettier:toggle-format-on-save', toggleFormatOnSave),
-    atom.workspace.observeTextEditors(editor =>
+    atom.workspace.observeTextEditors((editor) =>
       subscriptions.add(editor.getBuffer().onWillSave(() => editor && formatOnSave(editor))),
     ),
     atom.config.observe('linter-eslint.fixOnSave', warnAboutLinterEslintFixOnSave),
     atom.config.observe('prettier-atom.useEslint', warnAboutLinterEslintFixOnSave),
-    atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', show =>
+    atom.config.observe('prettier-atom.formatOnSaveOptions.showInStatusBar', (show) =>
       show ? attachStatusTile() : detachStatusTile(),
     ),
   );
@@ -91,7 +91,7 @@ const deactivate = () => {
   detachStatusTile();
 };
 
-const consumeStatusBar = statusBar => {
+const consumeStatusBar = (statusBar) => {
   statusBarHandler = statusBar;
 
   const showInStatusBar = atom.config.get('prettier-atom.formatOnSaveOptions.showInStatusBar');
@@ -100,14 +100,14 @@ const consumeStatusBar = statusBar => {
   }
 };
 
-const consumeIndie = registerIndie => {
+const consumeIndie = (registerIndie) => {
   const linter = registerIndie({ name: 'Prettier' });
   linterInterface.set(linter);
   subscriptions.add(linter);
 
   // Setting and clearing messages per filePath
   subscriptions.add(
-    atom.workspace.observeTextEditors(textEditor => {
+    atom.workspace.observeTextEditors((textEditor) => {
       const editorPath = textEditor.getPath();
       if (!editorPath) {
         return;

@@ -29,7 +29,7 @@ test("returns global prettier (by npm) if user's project has no local prettier p
   const file = { getPath: () => filePath };
   const editor = createMockTextEditor({ buffer: { file } });
   const fakeGloballyInstalledPrettier = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'prettier.js');
-  atomLinter.findCached.mockImplementation(dir =>
+  atomLinter.findCached.mockImplementation((dir) =>
     dir === globalModules ? fakeGloballyInstalledPrettier : null,
   );
 
@@ -48,7 +48,7 @@ test("returns global prettier (by yarn) if user's project has no local prettier 
   const file = { getPath: () => filePath };
   const editor = createMockTextEditor({ buffer: { file } });
   const fakeGloballyInstalledPrettier = path.join(__dirname, '..', '..', 'tests', 'fixtures', 'prettier.js');
-  atomLinter.findCached.mockImplementation(dir =>
+  atomLinter.findCached.mockImplementation((dir) =>
     dir === yarnGlobalModules ? fakeGloballyInstalledPrettier : null,
   );
 

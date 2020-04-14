@@ -8,7 +8,9 @@ const { isPrettierProperVersion } = require('../helpers');
 const hasSelectedText = (editor: TextEditor) => !!editor.getSelectedText();
 
 const formatSelectedBufferRanges = (editor: TextEditor) =>
-  editor.getSelectedBufferRanges().forEach(bufferRange => executePrettierOnBufferRange(editor, bufferRange));
+  editor
+    .getSelectedBufferRanges()
+    .forEach((bufferRange) => executePrettierOnBufferRange(editor, bufferRange));
 
 const executePrettierOnCurrentBufferRange = (editor: TextEditor) =>
   executePrettierOnBufferRange(editor, getBufferRange(editor));
