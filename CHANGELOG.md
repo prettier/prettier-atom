@@ -1,3 +1,12 @@
+# [0.59.0](https://github.com/prettier/prettier-atom/compare/v0.58.2...v0.59.0) (2020-04-14)
+
+
+### Features
+
+* **prettier:** bump to version 2.0.2 ([1cab45e](https://github.com/prettier/prettier-atom/commit/1cab45e3b9d29239ae2a45a8bf5954af531df829))
+
+
+
 ## [0.58.2](https://github.com/prettier/prettier-atom/compare/v0.58.1...v0.58.2) (2019-11-06)
 
 
@@ -565,6 +574,7 @@ version.
 
 ### Features
 
+* **config:** add .editorconfig support ([e2aff36](https://github.com/prettier/prettier-atom/commit/e2aff360436cb6a24fecabd03a834cca0ebdd863))
 * **options:** add editorconfig option to package settings ([ad47fae](https://github.com/prettier/prettier-atom/commit/ad47faea64c70547429a452f89c89b38453f6e45))
 * **statusBar:** Add an option to show/hide formatOnSave's state in the status bar ([1abded3](https://github.com/prettier/prettier-atom/commit/1abded3d07b46d5bea07f2910cda9904427cf5dd)), closes [#153](https://github.com/prettier/prettier-atom/issues/153)
 * **statusBar:** Added click handler to toggle formatOnSave ([2710924](https://github.com/prettier/prettier-atom/commit/2710924d3a587e1b638c8fb43699b4136364717a))
@@ -577,7 +587,6 @@ version.
 ### Features
 
 * **command:** Add a command to toggle "Format on Save" ([bc112c6](https://github.com/prettier/prettier-atom/commit/bc112c60d7ad7aa35853287bfc16efabc8f28eed)), closes [#117](https://github.com/prettier/prettier-atom/issues/117)
-* **config:** add .editorconfig support ([e2aff36](https://github.com/prettier/prettier-atom/commit/e2aff360436cb6a24fecabd03a834cca0ebdd863))
 * **eslint-fallbacks:** fallback to user's prettier settings if cannot be inferred from eslint confi ([f4520ac](https://github.com/prettier/prettier-atom/commit/f4520ac1a4ae98223f42813e41d475bf7142e421))
 * **statusBar:** Add status bar tile to show enabled/disabled state ([f36478b](https://github.com/prettier/prettier-atom/commit/f36478ba8b81adc31d6c80bdcfda8d08b963ec3f))
 
