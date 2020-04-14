@@ -19,7 +19,7 @@ beforeEach(() => {
   findCachedFromFilePath.mockImplementation(() => '.prettierignore');
 });
 
-const mockGetFileInfoSyncFunc = syncFunc =>
+const mockGetFileInfoSyncFunc = (syncFunc) =>
   getPrettierInstance.mockImplementation(() => ({ getFileInfo: { sync: syncFunc } }));
 
 it('calls prettier.getFileInfo.sync with the proper arguments', () => {

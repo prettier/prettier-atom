@@ -22,10 +22,7 @@ const doesFileInfoIndicateFormattable = (fileInfo: Prettier$FileInfo): boolean =
 const isFileFormattable: (editor: ?TextEditor) => boolean = _.overEvery([
   _.negate(_.isNil), // make sure editor is defined just in case there are weird edge cases
   isCurrentFilePathDefined, // make sure filepath is defined for same reason
-  _.flow(
-    getPrettierFileInfoForCurrentFilePath,
-    doesFileInfoIndicateFormattable,
-  ),
+  _.flow(getPrettierFileInfoForCurrentFilePath, doesFileInfoIndicateFormattable),
 ]);
 
 module.exports = isFileFormattable;

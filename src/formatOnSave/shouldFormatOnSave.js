@@ -28,10 +28,7 @@ const filePathDoesNotMatchBlacklistGlobs: (editor: TextEditor) => boolean = _.fl
 );
 
 // $FlowFixMe
-const noWhitelistGlobsPresent: () => boolean = _.flow(
-  getWhitelistedGlobs,
-  _.isEmpty,
-);
+const noWhitelistGlobsPresent: () => boolean = _.flow(getWhitelistedGlobs, _.isEmpty);
 
 const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   getCurrentFilePath,
@@ -39,10 +36,7 @@ const isFilePathWhitelisted: (editor: TextEditor) => boolean = _.flow(
   (filePath: ?FilePath) => someGlobsMatchFilePath(getWhitelistedGlobs(), filePath),
 );
 
-const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(
-  getCurrentFilePath,
-  isFilePathEslintIgnored,
-);
+const isEslintIgnored: (editor: TextEditor) => boolean = _.flow(getCurrentFilePath, isFilePathEslintIgnored);
 
 const isPrettierConfigPresent = (editor: TextEditor): boolean =>
   // $FlowFixMe

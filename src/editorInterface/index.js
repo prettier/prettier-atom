@@ -30,7 +30,7 @@ const getCurrentFilePath = (editor: TextEditor): ?FilePath =>
 
 const isCurrentFilePathDefined = (editor: ?TextEditor) => editor && !!getCurrentFilePath(editor);
 
-const getCurrentDir: (editor: TextEditor) => ?string = editor =>
+const getCurrentDir: (editor: TextEditor) => ?string = (editor) =>
   lazyFlow()(getCurrentFilePath, (maybeFilePath: ?string) =>
     typeof maybeFilePath === 'string' ? path.dirname(maybeFilePath) : undefined,
   )(editor);

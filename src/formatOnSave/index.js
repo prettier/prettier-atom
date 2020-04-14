@@ -9,7 +9,7 @@ const shouldFormatOnSave = require('./shouldFormatOnSave');
 const executePrettier = (editor: TextEditor) =>
   executePrettierOnBufferRange(editor, getBufferRange(editor), { setTextViaDiff: true });
 
-const formatOnSaveIfAppropriate: TextEditor => void = _.flow(
+const formatOnSaveIfAppropriate: (TextEditor) => void = _.flow(
   _.tap(clearLinterErrors),
   _.cond([[shouldFormatOnSave, executePrettier]]),
 );

@@ -16,7 +16,7 @@ beforeEach(() => {
       appendChild: jest.fn(),
       addEventListener: jest.fn(),
     })),
-    createTextNode: jest.fn(arg => arg),
+    createTextNode: jest.fn((arg) => arg),
   };
 });
 

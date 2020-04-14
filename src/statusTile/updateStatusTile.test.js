@@ -21,7 +21,7 @@ const callUpdateStatusTile = () => {
 };
 
 beforeEach(() => {
-  atom = { tooltips: { add: jest.fn(x => x) } };
+  atom = { tooltips: { add: jest.fn((x) => x) } };
 });
 
 it('disposes existing tooltip', () => {
