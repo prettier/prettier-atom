@@ -69,8 +69,12 @@
   },
   "scripts": {
     "start": "nps",
-    "test": "nps test",
-    "precommit": "opt --in pre-commit --exec \"npm start validate\""
+    "test": "nps test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "opt --in pre-commit --exec \"npm start validate\""
+    }
   },
   "config": {
     "commitizen": {
