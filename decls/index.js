@@ -41,6 +41,7 @@ declare type TextEditor = {
     },
   },
   backwardsScanInBufferRange: (regex: RegExp, Range: Range, iterator: Atom$Iterator) => void,
+  ...
 };
 declare type TextBuffer = {
   characterIndexForPosition: (cursorPosition: Point) => number,

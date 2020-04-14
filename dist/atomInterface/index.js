@@ -58,9 +58,7 @@ const addWarningNotification = (message, options) => atom.notifications.addWarni
 
 const addErrorNotification = (message, options) => atom.notifications.addError(message, options);
 
-const attemptWithErrorNotification =
-/*#__PURE__*/
-function () {
+const attemptWithErrorNotification = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])(function* (func, ...args) {
     try {
       yield func(...args);
