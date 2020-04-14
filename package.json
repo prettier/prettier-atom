@@ -27,7 +27,7 @@
     "atom-package-deps": "^5.1.0",
     "atom-text-buffer-point": "^1.0.0",
     "atom-text-buffer-range": "^1.0.0",
-    "execa": "^1.0.0",
+    "execa": "^4.0.0",
     "global-modules": "^2.0.0",
     "ignore": "^5.1.4",
     "lodash": "^4.17.13",
