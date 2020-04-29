@@ -1,3 +1,7 @@
+# [0.60.0](https://github.com/prettier/prettier-atom/compare/v0.59.0...v0.60.0) (2020-04-29)
+
+
+
 # [0.59.0](https://github.com/prettier/prettier-atom/compare/v0.58.2...v0.59.0) (2020-04-14)
 
 
