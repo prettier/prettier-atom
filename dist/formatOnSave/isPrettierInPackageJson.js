@@ -12,9 +12,9 @@ const {
   shouldUseEslint
 } = require('../atomInterface');
 
-const hasPackageDependency = packageName => _.flow(_.get('package.dependencies'), _.has(packageName));
+const hasPackageDependency = packageName => _.flow(_.get('packageJson.dependencies'), _.has(packageName));
 
-const hasPackageDevDependency = packageName => _.flow(_.get('package.devDependencies'), _.has(packageName));
+const hasPackageDevDependency = packageName => _.flow(_.get('packageJson.devDependencies'), _.has(packageName));
 
 const hasPackage = packageName => _.overSome([hasPackageDependency(packageName), hasPackageDevDependency(packageName)]);
 

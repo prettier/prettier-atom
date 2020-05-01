@@ -6,10 +6,10 @@ const { getCurrentDir } = require('../editorInterface');
 const { shouldUseEslint } = require('../atomInterface');
 
 const hasPackageDependency = (packageName: string): ((packageJson: {}) => boolean) =>
-  _.flow(_.get('package.dependencies'), _.has(packageName));
+  _.flow(_.get('packageJson.dependencies'), _.has(packageName));
 
 const hasPackageDevDependency = (packageName: string) =>
-  _.flow(_.get('package.devDependencies'), _.has(packageName));
+  _.flow(_.get('packageJson.devDependencies'), _.has(packageName));
 
 const hasPackage = (packageName: string): ((packageJson: {}) => boolean) =>
   _.overSome([hasPackageDependency(packageName), hasPackageDevDependency(packageName)]);
