@@ -2413,10 +2413,10 @@ commander@^4.0.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.0.1.tgz#b67622721785993182e807f4883633e6401ba53c"
   integrity sha512-IPF4ouhCP+qdlcmCedhxX4xiGBPyigb8v5NeUp+0LyhwLgxMqyp3S0vl7TAPfS/hiP7FC3caI/PB9lTmP8r1NA==
 
-commitizen@^4.0.3, commitizen@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.0.4.tgz#60e9666e293269f459f1038ca452b39acecb8999"
-  integrity sha512-gfEt1rDE9VqKif+LE3cAThpqiW/1K3c2Nx83jSU6ohZjQd2CAmz1rMIlgmbPrPagOkKZw7USzSVubS758ZTWdA==
+commitizen@^4.0.3, commitizen@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.0.5.tgz#23db652acb24c541b73394eedb5344dc9673cb61"
+  integrity sha512-+aMqiHJSpUSHsVlxI1Jm3UUlbsx6GsxuKSkeVavG/Y3XkUxsZZczV79JPSFs3DYvZXgrRVXIFkh+Iafxs6hclQ==
   dependencies:
     cachedir "2.2.0"
     cz-conventional-changelog "3.0.1"
@@ -2429,7 +2429,7 @@ commitizen@^4.0.3, commitizen@^4.0.4:
     inquirer "6.5.0"
     is-utf8 "^0.2.1"
     lodash "4.17.15"
-    minimist "1.2.3"
+    minimist "1.2.5"
     shelljs "0.7.6"
     strip-bom "4.0.0"
     strip-json-comments "3.0.1"
@@ -6152,12 +6152,7 @@ minimist@1.1.x:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.1.3.tgz#3bedfd91a92d39016fcfaa1c681e8faa1a1efda8"
 
-minimist@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.3.tgz#3db5c0765545ab8637be71f333a104a965a9ca3f"
-  integrity sha512-+bMdgqjMN/Z77a6NlY/I3U5LlRDbnmaAk6lDveAPKwSpcPM4tKAuYsvYF8xjhOPXhOYGe/73vVLVez5PW+jqhw==
-
-minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5:
+minimist@1.2.5, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
