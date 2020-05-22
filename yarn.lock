@@ -3374,6 +3374,49 @@ eslint@^6.8.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
+eslint@~6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.6.0.tgz#4a01a2fb48d32aacef5530ee9c5a78f11a8afd04"
+  integrity sha512-PpEBq7b6qY/qrOmpYQ/jTMDYfuQMELR4g4WI1M/NaSDDD/bdcMb+dj4Hgks7p41kW2caXsPsEZAEAyAgjVVC0g==
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    ajv "^6.10.0"
+    chalk "^2.1.0"
+    cross-spawn "^6.0.5"
+    debug "^4.0.1"
+    doctrine "^3.0.0"
+    eslint-scope "^5.0.0"
+    eslint-utils "^1.4.3"
+    eslint-visitor-keys "^1.1.0"
+    espree "^6.1.2"
+    esquery "^1.0.1"
+    esutils "^2.0.2"
+    file-entry-cache "^5.0.1"
+    functional-red-black-tree "^1.0.1"
+    glob-parent "^5.0.0"
+    globals "^11.7.0"
+    ignore "^4.0.6"
+    import-fresh "^3.0.0"
+    imurmurhash "^0.1.4"
+    inquirer "^7.0.0"
+    is-glob "^4.0.0"
+    js-yaml "^3.13.1"
+    json-stable-stringify-without-jsonify "^1.0.1"
+    levn "^0.3.0"
+    lodash "^4.17.14"
+    minimatch "^3.0.4"
+    mkdirp "^0.5.1"
+    natural-compare "^1.4.0"
+    optionator "^0.8.2"
+    progress "^2.0.0"
+    regexpp "^2.0.1"
+    semver "^6.1.2"
+    strip-ansi "^5.2.0"
+    strip-json-comments "^3.0.1"
+    table "^5.2.3"
+    text-table "^0.2.0"
+    v8-compile-cache "^2.0.3"
+
 espree@^3.5.2:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/espree/-/espree-3.5.4.tgz#b0f447187c8a8bed944b815a660bddf5deb5d1a7"
@@ -6948,7 +6991,26 @@ prettier-eslint-cli@^5.0.0:
     rxjs "^6.5.2"
     yargs "^13.2.4"
 
-prettier-eslint@^9.0.0, prettier-eslint@^9.0.1:
+prettier-eslint@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-10.1.0.tgz#1be6d382400baccb5c8d4da986ca4c9274125114"
+  integrity sha512-4Hb7MIIbnLXaLopiOdPkGgthMJF9Z0+dzs9+3tEp/E9lONgVD7+FtiVt+/8mUZXqYWKoURAB1e7JkgyqY/KvhA==
+  dependencies:
+    "@typescript-eslint/parser" "^1.10.2"
+    common-tags "^1.4.0"
+    core-js "^3.1.4"
+    dlv "^1.1.0"
+    eslint "~6.6.0"
+    indent-string "^4.0.0"
+    lodash.merge "^4.6.0"
+    loglevel-colored-level-prefix "^1.0.0"
+    prettier "^1.7.0"
+    pretty-format "^23.0.1"
+    require-relative "^0.8.7"
+    typescript "^3.2.1"
+    vue-eslint-parser "^2.0.2"
+
+prettier-eslint@^9.0.0:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-9.0.1.tgz#fbf507cde7329141cd368c6aeb54a70715d02cf4"
   integrity sha512-KZT65QTosSAqBBqmrC+RpXbsMRe7Os2YSR9cAfFbDlyPAopzA/S5bioiZ3rpziNQNSJaOxmtXSx07EQ+o2Dlug==
