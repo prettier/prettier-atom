@@ -29,7 +29,7 @@
     "atom-text-buffer-range": "^1.0.0",
     "execa": "^4.0.1",
     "global-modules": "^2.0.0",
-    "ignore": "^5.1.4",
+    "ignore": "^5.1.6",
     "lodash": "^4.17.13",
     "loophole": "^1.1.0",
     "prettier": "2.0.5",
