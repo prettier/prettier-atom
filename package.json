@@ -44,7 +44,7 @@
     "@babel/plugin-transform-flow-strip-types": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
-    "all-contributors-cli": "^6.15.0",
+    "all-contributors-cli": "^6.16.0",
     "babel-eslint": "^10.1.0",
     "codecov": "^3.7.0",
     "commitizen": "^4.1.2",
