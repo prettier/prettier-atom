@@ -17,7 +17,7 @@ const {
 // See https://github.com/prettier/prettier/issues/918
 
 
-const requireWithFallbackToBundledPrettier = prettierPackagePath => // $$FlowFixMe
+const requireWithFallbackToBundledPrettier = prettierPackagePath => // $FlowFixMe
 prettierPackagePath ? require(prettierPackagePath) : bundledPrettier; // eslint-disable-line
 
 

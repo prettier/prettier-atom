@@ -10,7 +10,7 @@ const { getLocalOrGlobalPrettierPath } = require('./getPrettierPath');
 //
 // See https://github.com/prettier/prettier/issues/918
 const requireWithFallbackToBundledPrettier = (prettierPackagePath: ?string): typeof bundledPrettier =>
-  // $$FlowFixMe
+  // $FlowFixMe
   prettierPackagePath ? require(prettierPackagePath) : bundledPrettier; // eslint-disable-line
 
 const getPrettierInstance: (editor: TextEditor) => typeof bundledPrettier = _.flow(

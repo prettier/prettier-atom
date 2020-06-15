@@ -8,7 +8,7 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 jest.mock('@lewisl9029/prettier-eslint');
 jest.mock('prettier-stylelint');
@@ -76,7 +76,7 @@ beforeEach(() => {
   getPrettierInstance.mockImplementation(() => prettier);
   prettier.resolveConfig.sync.mockImplementation(() => optionsFixture);
 });
-it('uses editor config', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('uses editor config', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   getCurrentFilePath.mockImplementation(() => 'foo.js');
   shouldUseEditorConfig.mockImplementation(() => true);
   yield executePrettierOnBufferRange(editor, bufferRangeFixture);
@@ -84,7 +84,7 @@ it('uses editor config', /*#__PURE__*/(0, _asyncToGenerator2["default"])(functio
     editorconfig: true
   });
 }));
-it('does not use editor config', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('does not use editor config', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   getCurrentFilePath.mockImplementation(() => 'foo.js');
   shouldUseEditorConfig.mockImplementation(() => false);
   yield executePrettierOnBufferRange(editor, bufferRangeFixture);
@@ -92,14 +92,14 @@ it('does not use editor config', /*#__PURE__*/(0, _asyncToGenerator2["default"])
     editorconfig: false
   });
 }));
-it('sets the transformed text in the buffer range', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('sets the transformed text in the buffer range', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   yield executePrettierOnBufferRange(editor, bufferRangeFixture);
   expect(editor.setTextInBufferRange).toHaveBeenCalled(); // NOTE: there is currently a bug in prettier that causes formatWithCursor to
   // only return the formatted text when running in test environment, but works
   // as expected when in production.
   // expect(editor.setTextInBufferRange).toHaveBeenCalledWith(bufferRangeFixture, formattedFixture);
 }));
-it('uses Prettier#formatWithCursor', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('uses Prettier#formatWithCursor', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const cursorOffset = 10;
   editor.getBuffer.mockImplementation(() => ({
     getRange: () => ({
@@ -116,7 +116,7 @@ it('uses Prettier#formatWithCursor', /*#__PURE__*/(0, _asyncToGenerator2["defaul
     cursorOffset
   }, optionsFixture));
 }));
-it('sets the transformed text via diff when the option is passed', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('sets the transformed text via diff when the option is passed', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const setTextViaDiffMock = jest.fn();
   editor.getBuffer.mockImplementation(() => ({
     getRange: () => ({
@@ -140,11 +140,11 @@ it('sets the transformed text via diff when the option is passed', /*#__PURE__*/
   // as expected when in production.
   // expect(setTextViaDiffMock).toHaveBeenCalledWith(formattedFixture);
 }));
-it('runs linter:lint if available to refresh linter highlighting', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('runs linter:lint if available to refresh linter highlighting', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   yield executePrettierOnBufferRange(editor, bufferRangeFixture);
   expect(runLinter).toHaveBeenCalledWith(editor);
 }));
-it('transforms the given buffer range using prettier-eslint if config enables it', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('transforms the given buffer range using prettier-eslint if config enables it', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   shouldUseEslint.mockImplementation(() => true);
   const prettierLast = true;
   getPrettierEslintOptions.mockImplementation(() => ({
@@ -158,7 +158,7 @@ it('transforms the given buffer range using prettier-eslint if config enables it
     text: sourceFixture
   });
 }));
-it('transforms the given buffer range using prettier-stylelint if scope is CSS and config enables it', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('transforms the given buffer range using prettier-stylelint if scope is CSS and config enables it', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   isCurrentScopeStyleLintScope.mockImplementation(() => true);
   shouldUseStylelint.mockImplementation(() => true);
   const filePath = 'foo.js';
@@ -173,7 +173,7 @@ describe('when text in buffer range is already pretty', () => {
   beforeEach(() => {
     editor.getTextInBufferRange.mockImplementation(() => formattedFixture);
   });
-  it("does not change the text in the editor's buffer range", /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+  it("does not change the text in the editor's buffer range", /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
     const before = editor.getTextInBufferRange(bufferRangeFixture);
     yield executePrettierOnBufferRange(editor, bufferRangeFixture);
     const after = editor.getTextInBufferRange(bufferRangeFixture);
@@ -183,7 +183,7 @@ describe('when text in buffer range is already pretty', () => {
     // this test.
     // expect(editor.setTextInBufferRange).not.toHaveBeenCalled();
   }));
-  it("does not change the editor's cursor position", /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+  it("does not change the editor's cursor position", /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
     yield executePrettierOnBufferRange(editor, bufferRangeFixture);
     expect(editor.setCursorScreenPosition).not.toHaveBeenCalled();
   }));
@@ -200,7 +200,7 @@ describe('when prettier throws an error', () => {
       throw error;
     });
   });
-  it('handles the error', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+  it('handles the error', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
     yield executePrettierOnBufferRange(editor, bufferRangeFixture);
     expect(handleError).toHaveBeenCalledWith({
       editor,
@@ -208,11 +208,11 @@ describe('when prettier throws an error', () => {
       bufferRange: bufferRangeFixture
     });
   }));
-  it("does not change the text in the editor's buffer range", /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+  it("does not change the text in the editor's buffer range", /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
     yield executePrettierOnBufferRange(editor, bufferRangeFixture);
     expect(editor.setTextInBufferRange).not.toHaveBeenCalled();
   }));
-  it("does not change the editor's cursor position", /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+  it("does not change the editor's cursor position", /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
     yield executePrettierOnBufferRange(editor, bufferRangeFixture);
     expect(editor.setCursorScreenPosition).not.toHaveBeenCalled();
   }));
