@@ -1809,13 +1809,13 @@ atom-linter@^10.0.0:
     sb-promisify "^2.0.1"
     tmp "~0.0.28"
 
-atom-package-deps@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/atom-package-deps/-/atom-package-deps-5.1.0.tgz#be493f783d9c0a8b5b7f2c4ab0ddcc778035f878"
-  integrity sha512-RGktH8NSFBJ5rdwuta3M7DbFdDr1EgrXo7uW7DQR/+lWJZcrfH2yxobnSdb/g1JM1tTvLyRYmZYOeRJGqQ9UGw==
+atom-package-deps@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/atom-package-deps/-/atom-package-deps-6.0.0.tgz#9233ba39ecacfcc80d2611975d21236a384fa777"
+  integrity sha512-9UQx2sTvBiaIHcZ3le/B0djM+jsZXBQRPXatrmtNfjkbAOV5bGrcXzcV4U0EBfGdzB7QmWeOnwMIJwa3HvW7Kg==
   dependencies:
     sb-fs "^4.0.0"
-    semver "^6.0.0"
+    semver "^7.3.2"
 
 atom-text-buffer-point@^1.0.0:
   version "1.0.0"
