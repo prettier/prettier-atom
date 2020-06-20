@@ -27,17 +27,17 @@ const shouldFormatOnSave = require('./shouldFormatOnSave');
 
 const formatOnSave = require('./index');
 
-it('returns a Promise', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('returns a Promise', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const editor = createMockTextEditor();
   const result = formatOnSave(editor);
   expect(result).toBeInstanceOf(Promise);
 }));
-it('clears linter errors before running', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('clears linter errors before running', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const editor = createMockTextEditor();
   yield formatOnSave(editor);
   expect(clearLinterErrors).toHaveBeenCalledWith(editor);
 }));
-it('executes prettier on the buffer range if appropriate and scope is not embedded', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('executes prettier on the buffer range if appropriate and scope is not embedded', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const editor = createMockTextEditor();
   const mockRange = {
     start: [0, 0],
@@ -50,14 +50,14 @@ it('executes prettier on the buffer range if appropriate and scope is not embedd
     setTextViaDiff: true
   });
 }));
-it('does nothing if it should not format on save', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('does nothing if it should not format on save', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const editor = createMockTextEditor();
   shouldFormatOnSave.mockImplementation(() => false);
   yield formatOnSave(editor);
   expect(shouldFormatOnSave).toHaveBeenCalledWith(editor);
   expect(executePrettierOnBufferRange).not.toHaveBeenCalled();
 }));
-it('catches uncaught errors so that the user is not prevented from saving', /*#__PURE__*/(0, _asyncToGenerator2["default"])(function* () {
+it('catches uncaught errors so that the user is not prevented from saving', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
   const originalConsoleError = console.error; // eslint-disable-line no-console
 
   console.error = jest.fn(); // eslint-disable-line no-console

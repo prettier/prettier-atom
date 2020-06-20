@@ -32,7 +32,7 @@ const setErrorMessageInLinter = ({
   error
 }) => linter.setMessages(editor, [{
   location: {
-    // $$FlowFixMe
+    // $FlowFixMe
     file: getCurrentFilePath(editor),
     position: createRange(buildPointArrayFromPrettierErrorAndRange(error, bufferRange), buildPointArrayFromPrettierErrorAndRange(error, bufferRange))
   },
