@@ -1,3 +1,13 @@
+## [0.60.1](https://github.com/prettier/prettier-atom/compare/v0.60.0...v0.60.1) (2020-06-20)
+
+
+### Bug Fixes
+
+* **debug:** fix error with debug due to change in readPgkUp API ([0a1675a](https://github.com/prettier/prettier-atom/commit/0a1675a0cd20b9df022b530fa5f70a6fcd21884d)), closes [#734](https://github.com/prettier/prettier-atom/issues/734) [#739](https://github.com/prettier/prettier-atom/issues/739)
+* **deps:** correctly use new pkg-up, fixup 898ea715, [#734](https://github.com/prettier/prettier-atom/issues/734) ([f7de2cc](https://github.com/prettier/prettier-atom/commit/f7de2cc82ebf063be5c0c05fdaeb546471a462f5))
+
+
+
 # [0.60.0](https://github.com/prettier/prettier-atom/compare/v0.59.0...v0.60.0) (2020-04-29)
 
 
