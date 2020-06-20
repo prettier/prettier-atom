@@ -29,7 +29,7 @@ describe('when shouldUseEslint is false', () => {
   });
   it('is true if prettier is a dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         dependencies: {
           prettier: '^0.0.1'
         }
@@ -40,7 +40,7 @@ describe('when shouldUseEslint is false', () => {
   });
   it('is true if prettier is a dev dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         devDependencies: {
           prettier: '^0.0.1'
         }
@@ -67,7 +67,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if prettier-eslint is a dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         dependencies: {
           'prettier-eslint': '^0.0.1'
         }
@@ -78,7 +78,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if prettier-eslint is a dev dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         devDependencies: {
           'prettier-eslint': '^0.0.1'
         }
@@ -89,7 +89,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if prettier-eslint-cli is a dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         dependencies: {
           'prettier-eslint-cli': '^0.0.1'
         }
@@ -100,7 +100,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if prettier-eslint-cli is a dev dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         devDependencies: {
           'prettier-eslint-cli': '^0.0.1'
         }
@@ -111,7 +111,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if eslint-plugin-prettier is a dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         dependencies: {
           'eslint-plugin-prettier': '^0.0.1'
         }
@@ -122,7 +122,7 @@ describe('when shouldUseEslint is true', () => {
   });
   it('is true if eslint-plugin-prettier is a dev dependency', () => {
     readPkgUp.sync.mockImplementation(() => ({
-      "packageJson": {
+      packageJson: {
         devDependencies: {
           'eslint-plugin-prettier': '^0.0.1'
         }

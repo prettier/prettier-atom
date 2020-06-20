@@ -6,7 +6,7 @@ const { getGlobalPrettierPath } = require('../helpers/getPrettierPath');
 
 const getDepPath = (dep: string) => path.join(__dirname, '..', '..', 'node_modules', dep);
 
-const getPackageInfo = (dir: string) => readPkgUp.sync({ cwd: dir }).package;
+const getPackageInfo = (dir: string) => readPkgUp.sync({ cwd: dir }).packageJson;
 
 const getDebugInfo = () => {
   const globalPrettierPath = getGlobalPrettierPath();
