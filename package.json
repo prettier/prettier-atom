@@ -30,7 +30,7 @@
     "execa": "^4.0.3",
     "global-modules": "^2.0.0",
     "ignore": "^5.1.8",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "loophole": "^1.1.0",
     "prettier": "2.0.5",
     "prettier-stylelint": "^0.4.2",
