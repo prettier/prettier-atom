@@ -3854,10 +3854,10 @@ flow-bin@^0.129.0:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.129.0.tgz#50294d6e335dd97d095c27b096ea0b94c2415d55"
   integrity sha512-WLXOj09oCK6nODVKM5uxvAzBpxXeI304E60tELMeQd/TJsyfbykNCZ+e4xml9eUOyoac9nDL3YrJpPZMzq0tMA==
 
-flow-typed@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-3.1.0.tgz#706992dd71f7481e39aadb5db163d339d16b500c"
-  integrity sha512-y9AbG5/ZQDyCs2ROmJqYKUCornCPOLJQL06TE1TwNCGTzKYDqLgkYeINCthd9EL8FyzWkTLI0mOSL82dU20hJA==
+flow-typed@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-3.2.0.tgz#0386680df96e22579329cd4dc033810a403250e4"
+  integrity sha512-9muD21+VLTswG258BcQsFzMOLerL3vxP/I8CouzowBCbOlxBOAuLSTMffBlrKheUEh/+IKLwvTWWX/W9j04DBg==
   dependencies:
     "@octokit/rest" "^16.43.1"
     colors "^1.4.0"
