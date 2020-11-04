@@ -46,7 +46,7 @@
     "@babel/preset-env": "^7.12.1",
     "all-contributors-cli": "^6.19.0",
     "babel-eslint": "^10.1.0",
-    "codecov": "^3.8.0",
+    "codecov": "^3.8.1",
     "commitizen": "^4.2.2",
     "conventional-changelog-cli": "^2.1.0",
     "cz-conventional-changelog": "^3.3.0",
