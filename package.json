@@ -38,7 +38,7 @@
     "yarn-global-modules": "^1.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.16",
+    "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
     "@babel/plugin-transform-flow-strip-types": "^7.12.13",
