@@ -41,7 +41,7 @@
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/plugin-transform-flow-strip-types": "^7.12.13",
+    "@babel/plugin-transform-flow-strip-types": "^7.13.0",
     "@babel/plugin-transform-runtime": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "all-contributors-cli": "^6.20.0",
