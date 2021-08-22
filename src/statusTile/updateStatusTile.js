@@ -3,7 +3,7 @@ const { disposeTooltip, setTooltip } = require('./tooltip');
 const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
 const { addTooltip } = require('../atomInterface');
 
-const updateStatusTile = (disposable: Atom$Disposable, element: HTMLElement) => {
+const updateStatusTile = (disposable: Atom$Disposable, element: HTMLElement): Atom$Disposable => {
   disposeTooltip();
 
   const formatStatus = getFormatOnSaveStatus();

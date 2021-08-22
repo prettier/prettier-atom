@@ -20,7 +20,7 @@ prettier-atom configuration: ${JSON.stringify(getPrettierAtomConfig(), null, 2)}
 `.trim();
 };
 
-const displayDebugInfo = () =>
+const displayDebugInfo = (): void =>
   addInfoNotification('prettier-atom: details on current install', {
     detail: getDebugInfo(),
     dismissable: true,

@@ -18,17 +18,17 @@ const STYLELINT_SCOPES = [
   'source.css.postcss',
 ];
 
-const getBufferRange = (editor: TextEditor) => editor.getBuffer().getRange();
+const getBufferRange = (editor: TextEditor): Range => editor.getBuffer().getRange();
 
-const getCurrentScope = (editor: TextEditor) => editor.getGrammar().scopeName;
+const getCurrentScope = (editor: TextEditor): string => editor.getGrammar().scopeName;
 
-const isCurrentScopeStyleLintScope = (editor: TextEditor) =>
+const isCurrentScopeStyleLintScope = (editor: TextEditor): boolean =>
   STYLELINT_SCOPES.includes(getCurrentScope(editor));
 
 const getCurrentFilePath = (editor: TextEditor): ?FilePath =>
   editor.buffer.file ? editor.buffer.file.getPath() : undefined;
 
-const isCurrentFilePathDefined = (editor: ?TextEditor) => editor && !!getCurrentFilePath(editor);
+const isCurrentFilePathDefined = (editor: ?TextEditor): ?boolean => editor && !!getCurrentFilePath(editor);
 
 const getCurrentDir: (editor: TextEditor) => ?string = (editor) =>
   lazyFlow()(getCurrentFilePath, (maybeFilePath: ?string) =>

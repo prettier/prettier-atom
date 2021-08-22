@@ -9,7 +9,7 @@ const set = (newIndieDelegate: ?Linter$IndieDelegate) => {
   indieDelegate = newIndieDelegate;
 };
 
-const get = () => indieDelegate;
+const get = (): ?Linter$IndieDelegate => indieDelegate;
 
 const setMessages = (editor: TextEditor, messages: Array<Linter$Message>) => {
   const filePath = getCurrentFilePath(editor);
@@ -27,7 +27,7 @@ const setMessages = (editor: TextEditor, messages: Array<Linter$Message>) => {
   indieDelegate.setMessages(filePath, messages);
 };
 
-const clearLinterErrors = (editor: TextEditor) => setMessages(editor, []);
+const clearLinterErrors = (editor: TextEditor): void => setMessages(editor, []);
 
 module.exports = {
   set,

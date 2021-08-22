@@ -14,7 +14,7 @@ const formatOnSaveIfAppropriate: (TextEditor) => void = _.flow(
   _.cond([[shouldFormatOnSave, executePrettier]]),
 );
 
-const safeFormatOnSaveIfAppropriate = (editor: TextEditor) =>
+const safeFormatOnSaveIfAppropriate = (editor: TextEditor): Promise<void> =>
   attemptWithErrorNotification(() => formatOnSaveIfAppropriate(editor));
 
 module.exports = safeFormatOnSaveIfAppropriate;
