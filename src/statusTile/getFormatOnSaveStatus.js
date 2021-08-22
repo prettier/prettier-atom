@@ -1,6 +1,6 @@
 // @flow
 const { isFormatOnSaveEnabled } = require('../atomInterface');
 
-const getFormatOnSaveStatus = () => (isFormatOnSaveEnabled() ? 'enabled' : 'disabled');
+const getFormatOnSaveStatus = (): string => (isFormatOnSaveEnabled() ? 'enabled' : 'disabled');
 
 module.exports = getFormatOnSaveStatus;

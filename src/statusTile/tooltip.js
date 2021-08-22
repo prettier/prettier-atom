@@ -1,7 +1,7 @@
 // @flow
 let tooltip: ?Atom$Disposable = null;
 
-const disposeTooltip = () => tooltip && tooltip.dispose;
+const disposeTooltip = (): ?any => tooltip && tooltip.dispose;
 
 const setTooltip = (nextTooltip: Atom$Disposable) => {
   tooltip = nextTooltip;

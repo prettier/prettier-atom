@@ -16,48 +16,49 @@ const isLinterLintCommandDefined = (editor: TextEditor) =>
     .some((command) => command.name === LINTER_LINT_COMMAND);
 
 // public
-const isLinterEslintAutofixEnabled = () =>
+const isLinterEslintAutofixEnabled = (): any | boolean =>
   atom.packages.isPackageActive('linter-eslint') && atom.config.get('linter-eslint.fixOnSave');
 
-const shouldUseEslint = () => getConfigOption('useEslint');
+const shouldUseEslint = (): any => getConfigOption('useEslint');
 
-const shouldUseStylelint = () => getConfigOption('useStylelint');
+const shouldUseStylelint = (): any => getConfigOption('useStylelint');
 
-const shouldUseEditorConfig = () => getConfigOption('useEditorConfig');
+const shouldUseEditorConfig = (): any => getConfigOption('useEditorConfig');
 
-const isFormatOnSaveEnabled = () => getConfigOption('formatOnSaveOptions.enabled');
+const isFormatOnSaveEnabled = (): any => getConfigOption('formatOnSaveOptions.enabled');
 
-const isDisabledIfNotInPackageJson = () =>
+const isDisabledIfNotInPackageJson = (): any =>
   getConfigOption('formatOnSaveOptions.isDisabledIfNotInPackageJson');
 
-const isDisabledIfNoConfigFile = () => getConfigOption('formatOnSaveOptions.isDisabledIfNoConfigFile');
+const isDisabledIfNoConfigFile = (): any => getConfigOption('formatOnSaveOptions.isDisabledIfNoConfigFile');
 
-const shouldRespectEslintignore = () => getConfigOption('formatOnSaveOptions.respectEslintignore');
+const shouldRespectEslintignore = (): any => getConfigOption('formatOnSaveOptions.respectEslintignore');
 
-const shouldIgnoreNodeModules = () => getConfigOption('formatOnSaveOptions.ignoreNodeModules');
+const shouldIgnoreNodeModules = (): any => getConfigOption('formatOnSaveOptions.ignoreNodeModules');
 
-const toggleFormatOnSave = () => setConfigOption('formatOnSaveOptions.enabled', !isFormatOnSaveEnabled());
+const toggleFormatOnSave = (): any =>
+  setConfigOption('formatOnSaveOptions.enabled', !isFormatOnSaveEnabled());
 
-const getPrettierEslintOptions = () => getConfigOption('prettierEslintOptions');
+const getPrettierEslintOptions = (): any => getConfigOption('prettierEslintOptions');
 
-const getAtomVersion = () => atom.getVersion();
+const getAtomVersion = (): string => atom.getVersion();
 
-const getPrettierAtomConfig = () => atom.config.get('prettier-atom');
+const getPrettierAtomConfig = (): any => atom.config.get('prettier-atom');
 
-const getWhitelistedGlobs = () => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
+const getWhitelistedGlobs = (): any => getConfigOption('formatOnSaveOptions.whitelistedGlobs');
 
-const getExcludedGlobs = () => getConfigOption('formatOnSaveOptions.excludedGlobs');
+const getExcludedGlobs = (): any => getConfigOption('formatOnSaveOptions.excludedGlobs');
 
-const addTooltip = (element: HTMLElement, options: Atom$Tooltips$Options) =>
+const addTooltip = (element: HTMLElement, options: Atom$Tooltips$Options): Atom$Disposable =>
   atom.tooltips.add(element, options);
 
-const addInfoNotification = (message: string, options?: Atom$Notifications$Options) =>
+const addInfoNotification = (message: string, options?: Atom$Notifications$Options): void =>
   atom.notifications.addInfo(message, options);
 
-const addWarningNotification = (message: string, options?: Atom$Notifications$Options) =>
+const addWarningNotification = (message: string, options?: Atom$Notifications$Options): void =>
   atom.notifications.addWarning(message, options);
 
-const addErrorNotification = (message: string, options?: Atom$Notifications$Options) =>
+const addErrorNotification = (message: string, options?: Atom$Notifications$Options): void =>
   atom.notifications.addError(message, options);
 
 const attemptWithErrorNotification = async (func: Function, ...args: Array<any>) => {
@@ -69,7 +70,7 @@ const attemptWithErrorNotification = async (func: Function, ...args: Array<any>)
   }
 };
 
-const runLinter = (editor: TextEditor) =>
+const runLinter = (editor: TextEditor): void | boolean =>
   isLinterLintCommandDefined(editor) &&
   atom.commands.dispatch(atom.views.getView(editor), LINTER_LINT_COMMAND);
 

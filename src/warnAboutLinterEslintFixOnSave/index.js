@@ -8,7 +8,7 @@ const OPTIONS = { dismissable: true };
 
 const displayWarning = () => addWarningNotification(MESSAGE, OPTIONS);
 
-const warnAboutLinterEslintFixOnSave = () =>
+const warnAboutLinterEslintFixOnSave = (): void | boolean =>
   shouldUseEslint() && isLinterEslintAutofixEnabled() && displayWarning();
 
 module.exports = warnAboutLinterEslintFixOnSave;

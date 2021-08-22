@@ -35,7 +35,7 @@ const isPrettierEslintInPackageJson: (editor: TextEditor) => boolean = _.flow(
   ]),
 );
 
-module.exports = _.cond([
+module.exports = (_.cond([
   [shouldUseEslint, isPrettierEslintInPackageJson],
   [_.stubTrue, isPrettierInPackageJson],
-]);
+]): any);

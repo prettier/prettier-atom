@@ -2,7 +2,7 @@
 const getFormatOnSaveStatus = require('./getFormatOnSaveStatus');
 const { toggleFormatOnSave } = require('../atomInterface');
 
-const createStatusTile = () => {
+const createStatusTile = (): HTMLDivElement => {
   const element = document.createElement('div');
   const prettierTextNode = document.createTextNode('Prettier');
 
