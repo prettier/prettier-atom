@@ -1,4 +1,4 @@
-jest.mock('@lewisl9029/prettier-eslint');
+jest.mock('prettier-eslint');
 jest.mock('prettier-stylelint');
 jest.mock('prettier');
 jest.mock('../atomInterface');
@@ -7,7 +7,7 @@ jest.mock('../helpers');
 jest.mock('./handleError');
 
 const prettier = require('prettier');
-const prettierEslint = require('@lewisl9029/prettier-eslint');
+const prettierEslint = require('prettier-eslint');
 const prettierStylelint = require('prettier-stylelint');
 const {
   getPrettierEslintOptions,
