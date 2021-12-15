@@ -25,7 +25,7 @@ beforeEach(() => {
 });
 
 it('disposes existing tooltip', () => {
-  disposeTooltip.mockImplementation(require.requireActual('./tooltip').disposeTooltip);
+  disposeTooltip.mockImplementation(jest.requireActual('./tooltip').disposeTooltip);
 
   callUpdateStatusTile();
 
@@ -44,7 +44,7 @@ it('adds the new tooltip with the updated formatOnSave status to atom', () => {
 });
 
 it('updates our reference to the new tooltip so that we may dispose it manually', () => {
-  setTooltip.mockImplementation(require.requireActual('./tooltip').setTooltip);
+  setTooltip.mockImplementation(jest.requireActual('./tooltip').setTooltip);
 
   const { div } = callUpdateStatusTile();
 
