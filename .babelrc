@@ -1,5 +1,15 @@
 {
-  "presets": [["@babel/env", { "targets": { "electron": "1.4" } }]],
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "electron": "1.4"
+        }
+      }
+    ],
+    "@babel/preset-flow"
+  ],
   "plugins": [
     "@babel/transform-flow-strip-types",
     "@babel/plugin-transform-runtime",
