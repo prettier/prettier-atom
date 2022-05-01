@@ -143,7 +143,6 @@ const executePrettierOnBufferRange = /*#__PURE__*/function () {
       // we're only editing a sub-selection of the text in a file
       currentBuffer.setTextViaDiff(results.formatted);
     } else {
-      console.log(`tp1: ${JSON.stringify({ bufferRange, results }, null, '  ')}`);
       editor.setTextInBufferRange(bufferRange, results.formatted);
     } // calculate next cursor position after buffer has been updated with new text
 
