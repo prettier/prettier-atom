@@ -12,7 +12,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 const _ = require('lodash/fp');
 
-const prettierEslint = require('@lewisl9029/prettier-eslint');
+const prettierEslint = require('prettier-eslint');
 
 const prettierStylelint = require('prettier-stylelint');
 
