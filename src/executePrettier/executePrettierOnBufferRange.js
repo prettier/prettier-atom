@@ -1,6 +1,6 @@
 // @flow
 const _ = require('lodash/fp');
-const prettierEslint = require('@lewisl9029/prettier-eslint');
+const prettierEslint = require('prettier-eslint');
 const prettierStylelint = require('prettier-stylelint');
 const { allowUnsafeNewFunction } = require('loophole');
 
@@ -46,7 +46,7 @@ const buildPrettierEslintOptions = (editor: TextEditor, text: string) => ({
   filePath: getCurrentFilePath(editor),
 });
 
-const executePrettierEslint = (editor: TextEditor, text: string): string =>
+const executePrettierEslint = (editor: TextEditor, text: string): Promise<string> =>
   allowUnsafeNewFunction(() => prettierEslint(buildPrettierEslintOptions(editor, text)));
 
 const buildPrettierStylelintOptions = (editor: TextEditor, text: string) => ({
@@ -71,7 +71,7 @@ const executePrettierOrIntegration = async (
 
   if (shouldUseEslint()) {
     // TODO: add support for cursor position - https://github.com/prettier/prettier-eslint/issues/164
-    const formatted = executePrettierEslint(editor, text);
+    const formatted = await executePrettierEslint(editor, text);
 
     return { formatted, cursorOffset };
   }
