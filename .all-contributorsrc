@@ -322,7 +322,25 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pbardov",
+      "name": "pbardov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6674508?v=4",
+      "profile": "https://github.com/pbardov",
+      "contributions": [
+        "bug",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "review",
+        "security",
+        "talk",
+        "test"
+      ]
     }
   ],
-  "repoType": "github"
+  "repoType": "github",
+  "commitConvention": "none"
 }

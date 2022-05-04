@@ -4,7 +4,7 @@ extends:
   - plugin:jest/recommended
   - prettier
 
-parser: babel-eslint
+parser: "@babel/eslint-parser"
 
 plugins:
   - flowtype
